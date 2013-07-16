@@ -67,25 +67,25 @@ public class Health : MonoBehaviour
 	[RPC]
 	public float SetHealthToValue(float healthValue)
 	{
-		_healthPoints = healthValue;
-		return _healthPoints;
+		_healthPoints = healthValue;		
 		if (networkView.isMine)
 			networkView.RPC("SetMaxHealth", RPCMode.Others);
+		return _healthPoints;
 	}
 	[RPC]
 	public float IncHealth(float healthValue)
 	{
-		_healthPoints += healthValue;
-		return _healthPoints;
+		_healthPoints += healthValue;	
 		if (networkView.isMine)
 			networkView.RPC("SetMaxHealth", RPCMode.Others);
+		return _healthPoints;
 	}
 	[RPC]
 	public float DecHealth(float healthValue)
 	{
-		_healthPoints -= healthValue;
-		return _healthPoints;
+		_healthPoints -= healthValue;	
 		if (networkView.isMine)
 			networkView.RPC("SetMaxHealth", RPCMode.Others);
+		return _healthPoints;
 	}
 }
