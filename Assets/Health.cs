@@ -36,7 +36,8 @@ public class Health : MonoBehaviour
 	[RPC]
 	public void SetMaxHealth(float maxHealth, bool incHealth)
 	{
-		_maxHealth = maxHealth;
+		if (maxHealth > _minHealth)
+			_maxHealth = maxHealth;
 		if (incHealth)
 			_healthPoints = _maxHealth;
 		if (networkView.isMine)
