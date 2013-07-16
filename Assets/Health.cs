@@ -33,44 +33,59 @@ public class Health : MonoBehaviour
 		return alive;
 	}
 
+	[RPC]
 	public void SetMaxHealth(float maxHealth, bool incHealth)
 	{
 		_maxHealth = maxHealth;
 		if (incHealth)
 			_healthPoints = _maxHealth;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public void SetMinHealth(float minHealth)
 	{
 		if (minHealth >= 0)
 			_minHealth = minHealth;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public void SetToMinHealth()
 	{
 		_healthPoints = _minHealth;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public void SetToMaxHealth()
 	{
 		_healthPoints = _maxHealth;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public float SetHealthToValue(float healthValue)
 	{
 		_healthPoints = healthValue;
 		return _healthPoints;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public float IncHealth(float healthValue)
 	{
 		_healthPoints += healthValue;
 		return _healthPoints;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
-
+	[RPC]
 	public float DecHealth(float healthValue)
 	{
 		_healthPoints -= healthValue;
 		return _healthPoints;
+		if (networkView.isMine)
+			networkView.RPC("SetMaxHealth", RPCMode.Others);
 	}
 }
