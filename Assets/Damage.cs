@@ -5,10 +5,10 @@ public class Damage : MonoBehaviour
 {
     private float _defaultDamage;
     private float _incDamage;
-    private float _hitRate;
-    private float _incHitRate;
+    private float _hitSpeed;
+    private float _incHitSpeed;
     private float _damageMultiplier;
-    private float _hitRateMultiplier;
+    private float _hitSpeedMultiplier;
 
     // properties are read-only
     public float DefaultDamage
@@ -19,21 +19,21 @@ public class Damage : MonoBehaviour
     {
         get { return _incDamage; }
     }
-    public float HitRate
+    public float HitSpeed
     {
-        get { return _hitRate; }
+        get { return _hitSpeed; }
     }
-    public float IncHitRate
+    public float IncHitSpeed
     {
-        get { return _incHitRate; }
+        get { return _incHitSpeed; }
     }
     public float DamageMultiplier
     {
         get { return _damageMultiplier; }
     }
-    public float HitRateMultiplierHitRate
+    public float HitSpeedMultiplierHitRate
     {
-        get { return _hitRateMultiplier; }
+        get { return _hitSpeedMultiplier; }
     }
 
     // setter methods must be executed on all clients from oject-owner
@@ -59,25 +59,25 @@ public class Damage : MonoBehaviour
             networkView.RPC("SetIncDamageByMultiplier", RPCMode.Others);
     }
     [RPC]
-    public void SetHitRate(float hitRate)
+    public void SetHitSpeed(float hitSpeed)
     {
-        _hitRate = hitRate;
+        _hitSpeed = hitSpeed;
         if (networkView.isMine)
-            networkView.RPC("SetHitRate", RPCMode.Others);
+            networkView.RPC("SetHitSpeed", RPCMode.Others);
     }
     [RPC]
-    public void SetIncHitRate(float incHitRate)
+    public void SetIncHitSpeed(float incHitSpeed)
     {
-        _incHitRate = incHitRate;
+        _incHitSpeed = incHitSpeed;
         if (networkView.isMine)
-            networkView.RPC("SetIncHitRate", RPCMode.Others);
+            networkView.RPC("SetIncHitSpeed", RPCMode.Others);
     }
     [RPC]
-    public void SetIncHitRateByMultiplier()
+    public void SetIncHitSpeedByMultiplier()
     {
-        _incHitRate *= _hitRateMultiplier;
+        _incHitSpeed *= _hitSpeedMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetIncHitRateByMultiplier", RPCMode.Others);
+            networkView.RPC("SetIncHitSpeedByMultiplier", RPCMode.Others);
     }
     [RPC]
     public void SetDamageMultiplier(float damageMultiplier)
@@ -87,10 +87,10 @@ public class Damage : MonoBehaviour
             networkView.RPC("SetDamageMultiplier", RPCMode.Others);
     }
     [RPC]
-    public void SetHitRateMultiplier(float hitRateMultiplier)
+    public void SetHitSpeedMultiplier(float hitSpeedMultiplier)
     {
-        _hitRateMultiplier = hitRateMultiplier;
+        _hitSpeedMultiplier = hitSpeedMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetHitRateMultiplier", RPCMode.Others);
+            networkView.RPC("SetHitSpeedMultiplier", RPCMode.Others);
     }
 }

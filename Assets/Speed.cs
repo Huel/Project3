@@ -108,7 +108,7 @@ public class Speed : MonoBehaviour
 
     void Update()
     {    
-        if (_stamina < _maxStamina)
+        if (_stamina < _maxStamina && !isSprinting)
             _stamina += Time.deltaTime * _staminaRegenaration;        
         else if (_stamina > _maxStamina)
             _stamina = _maxStamina;

@@ -29,7 +29,6 @@ public class Health : MonoBehaviour
 	{
 		get { return _minHealth; }
 	}
-
 	public bool isAlive()
 	{
 		return alive;
