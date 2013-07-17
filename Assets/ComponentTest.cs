@@ -25,6 +25,8 @@ public class ComponentTest : MonoBehaviour
 	public float testHitSpeedMultiplier;
 
 	public bool attack;
+	public bool buffDamage; // Whooohooo
+	public bool buffHitSpeed;
 
 	// Use this for initialization
 	void Start () 
@@ -50,6 +52,8 @@ public class ComponentTest : MonoBehaviour
 		damage.SetHitSpeedMultiplier(testHitSpeedMultiplier);
 
 		attack = false;
+		buffDamage = false;
+		buffHitSpeed = false;
 	}
 	
 	// Update is called once per frame
@@ -61,6 +65,11 @@ public class ComponentTest : MonoBehaviour
 
 		if (attack)
 		{
+			if (buffDamage)
+				testDefaultDamage = damage.IncDamage;
+			if (buffHitSpeed)
+				testHitSpeed = damage.IncHitSpeed;
+
 			hitRateCounter += Time.deltaTime;
 			if (hitRateCounter >= 1 / testHitSpeed)
 			{
