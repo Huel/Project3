@@ -45,13 +45,13 @@ public class Health : MonoBehaviour
 	[RPC]
 	public void SetMaxHealth(float maxHealth, bool incHealth)
 	{
-		if (maxHealth > _minHealth)
+		if ( (maxHealth * _maxHealthMultiplier) > _minHealth)
 			_maxHealth = maxHealth;
-		else if (maxHealth < _minHealth)
+		else if ( (maxHealth * _maxHealthMultiplier) < _minHealth)
 			_maxHealth = _minHealth;
 		
 		if (incHealth)
-			_healthPoints = _maxHealth;
+			_healthPoints = _maxHealth * _maxHealthMultiplier;
 
 		if (networkView.isMine)
 			networkView.RPC("SetMaxHealth", RPCMode.Others);
@@ -146,7 +146,7 @@ public class Health : MonoBehaviour
 			alive = true;
 		else if (_healthPoints <= 0)
 			alive = false;
-		if (!alive)
+		if (!alive && !immortal)
 			_deadCounter += Time.deltaTime;
 		else
 			_deadCounter = 0;
@@ -154,7 +154,6 @@ public class Health : MonoBehaviour
 		if (_deadCounter >= keepDeadUnitTime)
 		{
 			NetworkView.DestroyObject(gameObject);
-		}
-			
+		}	
 	}
 }

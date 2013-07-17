@@ -36,9 +36,9 @@ public class ComponentTest : MonoBehaviour
 		damage = gameObject.GetComponent<Damage>();
 
 		health.alive = true;
+		health.SetMaxHealthMultiplier(testMaxHealthMultiplier);
 		health.SetMinHealth(testMinHealth);	
 		health.SetMaxHealth(testMaxHealth, true);	
-		health.SetMaxHealthMultiplier(testMaxHealthMultiplier);
 
 		speed.SetDefaultSpeed(testDefaultSpeed);
 		speed.SetMaxStamina(testMaxStamina);
