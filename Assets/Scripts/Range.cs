@@ -104,7 +104,8 @@ public class Range : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    { 
+    {
+        if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
         objectsInRange.Add(other.gameObject.GetComponent<Target>());
         if(relevantTargetTypes.Contains(target.type))
@@ -114,6 +115,7 @@ public class Range : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
         if (relevantTargetTypes.Contains(target.type))
             foreach (OnRangeEvent listener in exitRangeListener)
@@ -138,8 +140,8 @@ public class Range : MonoBehaviour
                     position = i;
                     distance = (objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude;
                 }
-            sortedList.Add(objectsInRange[i]);
-            objectsInRange.RemoveAt(i);
+            sortedList.Add(objectsInRange[position]);
+            objectsInRange.RemoveAt(position);
         }
         objectsInRange = sortedList;
     }

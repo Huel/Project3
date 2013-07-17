@@ -59,6 +59,7 @@ public class ContactTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.GetComponent<Target>() == null) return;
         contacts.Add(other.gameObject.GetComponent<Target>());
 
         foreach (Target target in targetListener.Keys)
@@ -72,11 +73,13 @@ public class ContactTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (other.GetComponent<Target>() == null) return;
         contacts.Remove(other.gameObject.GetComponent<Target>());
     }
 
     void OnTriggerStay(Collider other)
     {
+        if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
 
         foreach (OnContact listener in defaultListener)
