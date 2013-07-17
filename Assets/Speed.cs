@@ -11,13 +11,23 @@ public class Speed : MonoBehaviour
     private float _minStamina;
     private float _staminaRegenaration;     //staminaPoints per second
     private float _staminaDecay;
-    public bool isSprinting;
+    private bool _isSprinting;
 
+    public bool IsSprinting
+    {
+        get { return _isSprinting; }
+        set {
+            if (Stamina < MinStamina && !_isSprinting && value)
+                return;
+            else
+                _isSprinting = value;
+             }
+    }
     public float CurrentSpeed
     {
         get 
         {
-            if (isSprinting)
+            if (IsSprinting)
                 return _sprintSpeed;
             return _defaultSpeed;
         }
@@ -153,13 +163,16 @@ public class Speed : MonoBehaviour
 
     void Update()
     {
-        if (_stamina < _maxStamina && !isSprinting)
-            _stamina += Time.deltaTime * _staminaRegenaration;
-        else if (_stamina > MinStamina && isSprinting)
-            _stamina -= Time.deltaTime * _staminaDecay;
+        if (_stamina < _maxStamina && !IsSprinting)
+            _stamina += Mathf.Clamp(Time.deltaTime * _staminaRegenaration, 0, _maxStamina);
+        else if (_stamina > 0 && IsSprinting)
+            _stamina -= Mathf.Clamp(Time.deltaTime * _staminaDecay, 0, _maxStamina);
         else if (_stamina > _maxStamina)
             _stamina = _maxStamina;
-        else if (_stamina <= 0)
-            isSprinting = false;
+        else if (_stamina < 0)
+            _stamina = 0;
+
+        if (_stamina <= 0)
+            IsSprinting = false;
     }
 }

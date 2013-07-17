@@ -15,6 +15,7 @@ public class ComponentTest : MonoBehaviour
 	public float testMaxHealthMultiplier;
 
 	public float testDefaultSpeed;
+	public float testMinStamina;
 	public float testMaxStamina;
 	public float testStamina;
 	public float testStaminaRegenaration;
@@ -28,6 +29,7 @@ public class ComponentTest : MonoBehaviour
 	public float testHitSpeedMultiplier;
 
 	public bool attack;
+	public bool sprinting;
 
 	// Use this for initialization
 	void Start () 
@@ -43,6 +45,7 @@ public class ComponentTest : MonoBehaviour
 
 		speed.SetDefaultSpeed(testDefaultSpeed);
 		speed.SetMaxStamina(testMaxStamina);
+		speed.SetMinStamina(testMinStamina);
 		speed.SetStamina(testStamina);
 		speed.SetStaminaRegenaration(testStaminaRegenaration);
 		speed.SetStaminaDecay(testStaminaDecay);
@@ -67,6 +70,9 @@ public class ComponentTest : MonoBehaviour
 
 		testDefaultDamage = damage.CurrentDamage;
 		testHitSpeed = damage.HitSpeed;
+
+		speed.IsSprinting = sprinting;
+		sprinting = speed.IsSprinting;
 
 		if (attack)
 		{
