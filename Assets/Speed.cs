@@ -50,7 +50,7 @@ public class Speed : MonoBehaviour
     {
         _sprintSpeed = _defaultSpeed * _speedMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetSprintSpeed", RPCMode.Others);
+            networkView.RPC("SetSprintSpeedByMultiplier", RPCMode.Others);
     }
     [RPC]
     public void SetSpeedMultiplier(float speedMultiplier)
