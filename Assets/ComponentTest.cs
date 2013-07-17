@@ -38,7 +38,7 @@ public class ComponentTest : MonoBehaviour
 		health.alive = true;
 		health.SetMaxHealthMultiplier(testMaxHealthMultiplier);
 		health.SetMinHealth(testMinHealth);	
-		health.SetMaxHealth(testMaxHealth, true);	
+		health.SetMaxHealth(testMaxHealth, true);
 
 		speed.SetDefaultSpeed(testDefaultSpeed);
 		speed.SetMaxStamina(testMaxStamina);
