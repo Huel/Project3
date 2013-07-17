@@ -5,12 +5,24 @@ public class Damage : MonoBehaviour
 {
     private float _defaultDamage;
     private float _incDamage;
-    private float _hitSpeed;
-    private float _incHitSpeed;
+    private float _hitSpeed;        // Hits per second
+    private float _incHitSpeed;     
     private float _damageMultiplier;
     private float _hitSpeedMultiplier;
 
+    public bool buffDamage;
+    public bool buffHitSpeed;
+
     // properties are read-only
+    public float CurrentDamage
+    {
+        get
+        {
+            if (buffDamage)
+                return _incDamage;
+            return _defaultDamage;
+        }
+    }
     public float DefaultDamage
     {
         get { return _defaultDamage; }
@@ -20,6 +32,15 @@ public class Damage : MonoBehaviour
         get { return _incDamage; }
     }
     public float HitSpeed
+    {
+        get
+        {
+            if (buffHitSpeed)
+                return _incHitSpeed;
+            return _hitSpeed;
+        }
+    }
+    public float DeafultHitSpeed
     {
         get { return _hitSpeed; }
     }

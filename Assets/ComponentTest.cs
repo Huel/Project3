@@ -10,7 +10,9 @@ public class ComponentTest : MonoBehaviour
 	private float hitRateCounter;
 
 	public float testMaxHealth;
+	public float testMinHealth;
 	public float testHealth;
+	public float testMaxHealthMultiplier;
 
 	public float testDefaultSpeed;
 	public float testMaxStamina;
@@ -25,8 +27,6 @@ public class ComponentTest : MonoBehaviour
 	public float testHitSpeedMultiplier;
 
 	public bool attack;
-	public bool buffDamage; // Whooohooo
-	public bool buffHitSpeed;
 
 	// Use this for initialization
 	void Start () 
@@ -37,7 +37,9 @@ public class ComponentTest : MonoBehaviour
 
 		health.alive = true;
 		health.SetMaxHealth(testMaxHealth, true);
+		health.SetMinHealth(testMinHealth);
 		health.SetHealthToValue(testHealth);
+		health.SetMaxHealthMultiplier(testMaxHealthMultiplier);
 
 		speed.SetDefaultSpeed(testDefaultSpeed);
 		speed.SetMaxStamina(testMaxStamina);
@@ -52,24 +54,20 @@ public class ComponentTest : MonoBehaviour
 		damage.SetHitSpeedMultiplier(testHitSpeedMultiplier);
 
 		attack = false;
-		buffDamage = false;
-		buffHitSpeed = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
-	{
-		
-		testHealth = health.HealthPoints;	
+	{		
+		testHealth = health.HealthPoints;
+		testMaxHealth = health.MaxHealth;
 		testStamina = speed.Stamina;
+
+		testDefaultDamage = damage.CurrentDamage;
+		testHitSpeed = damage.HitSpeed;
 
 		if (attack)
 		{
-			if (buffDamage)
-				testDefaultDamage = damage.IncDamage;
-			if (buffHitSpeed)
-				testHitSpeed = damage.IncHitSpeed;
-
 			hitRateCounter += Time.deltaTime;
 			if (hitRateCounter >= 1 / testHitSpeed)
 			{

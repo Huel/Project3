@@ -11,6 +11,16 @@ public class Speed : MonoBehaviour
     private float _staminaRegenaration;     //staminaPoints per second
     public bool isSprinting;
 
+    public float CurrentSpeed
+    {
+        get 
+        {
+            if (isSprinting)
+                return _sprintSpeed;
+            return _defaultSpeed;
+        }
+    }
+    
     public float DefaultSpeed
     {
         get { return _defaultSpeed; }
@@ -67,8 +77,13 @@ public class Speed : MonoBehaviour
     [RPC]
     public void SetStamina(float stamina)
     {
-        if (stamina >= 0)
+        if (stamina > _maxStamina)
+            _stamina = _maxStamina;
+        else if (stamina >= 0)
             _stamina = stamina;
+        else
+            _stamina = 0;
+
         if (networkView.isMine)
             networkView.RPC("SetStamina", RPCMode.Others);
     }
