@@ -8,6 +8,7 @@ public class Speed : MonoBehaviour
     private float _speedMultiplier;
     private float _stamina;
     private float _maxStamina;
+    private float _staminaRegenaration;     //staminaPoints per second
     public bool isSprinting;
 
     public float DefaultSpeed
@@ -29,6 +30,10 @@ public class Speed : MonoBehaviour
     public float MaxStamina
     {
         get { return _maxStamina; }
+    }
+    public float StaminaRegenaration
+    {
+        get { return _staminaRegenaration; }
     }
 
     [RPC]
@@ -76,6 +81,13 @@ public class Speed : MonoBehaviour
             networkView.RPC("SetMaxStamina", RPCMode.Others);
     }
     [RPC]
+    public void SetStaminaRegenaration(float staminaRegenaration)
+    {
+        _staminaRegenaration = staminaRegenaration;
+        if (networkView.isMine)
+            networkView.RPC("SetStaminaRegenaration", RPCMode.Others);
+    }
+    [RPC]
     public void IncStamina(float staminaValue)
     {   
         _stamina += staminaValue;
@@ -92,5 +104,13 @@ public class Speed : MonoBehaviour
             _stamina = 0;
         if (networkView.isMine)
             networkView.RPC("DecStamina", RPCMode.Others);
+    }
+
+    void Update()
+    {    
+        if (_stamina < _maxStamina)
+            _stamina += Time.deltaTime * _staminaRegenaration;        
+        else if (_stamina > _maxStamina)
+            _stamina = _maxStamina;
     }
 }
