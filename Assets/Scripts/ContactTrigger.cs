@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class ContactTrigger : MonoBehaviour 
 {
-    private delegate void OnContact(Target contact);
+    public delegate void OnContact(Target contact);
 
-    private List<Target> contacts;
+    private List<Target> contacts = new List<Target>();
 
     private List<OnContact> defaultListener = new List<OnContact>();
     private Dictionary<TargetType, List<OnContact>> typeListener = new Dictionary<TargetType, List<OnContact>>();
@@ -60,6 +60,14 @@ public class ContactTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         contacts.Add(other.gameObject.GetComponent<Target>());
+
+        foreach (Target target in targetListener.Keys)
+            if (target.gameObject == null)
+                targetListener.Remove(target);
+
+        foreach (Target target in contacts)
+            if (target.gameObject == null)
+                contacts.Remove(target);
     }
 
     void OnTriggerExit(Collider other)
@@ -72,14 +80,14 @@ public class ContactTrigger : MonoBehaviour
         Target target = other.gameObject.GetComponent<Target>();
 
         foreach (OnContact listener in defaultListener)
-            listener(target);
+            if(listener != null) listener(target);
 
         if(typeListener.ContainsKey(target.type))
             foreach (OnContact listener in typeListener[target.type])
-                listener(target);
+                if (listener != null) listener(target);
 
         if (targetListener.ContainsKey(target))
             foreach (OnContact listener in targetListener[target])
-                listener(target);
+                if (listener != null) listener(target);
     }
 }
