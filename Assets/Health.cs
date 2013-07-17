@@ -144,9 +144,9 @@ public class Health : MonoBehaviour
 	{
 		if (_healthPoints > 0 && !alive)
 			alive = true;
-		else if (_healthPoints <= 0)
+		else if (_healthPoints <= 0 && !immortal)
 			alive = false;
-		if (!alive && !immortal)
+		if (!alive)
 			_deadCounter += Time.deltaTime;
 		else
 			_deadCounter = 0;
