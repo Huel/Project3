@@ -18,6 +18,7 @@ public class ComponentTest : MonoBehaviour
 	public float testMaxStamina;
 	public float testStamina;
 	public float testStaminaRegenaration;
+	public float testStaminaDecay;
 
 	public float testDefaultDamage;
 	public float testIncDamage;
@@ -44,6 +45,7 @@ public class ComponentTest : MonoBehaviour
 		speed.SetMaxStamina(testMaxStamina);
 		speed.SetStamina(testStamina);
 		speed.SetStaminaRegenaration(testStaminaRegenaration);
+		speed.SetStaminaDecay(testStaminaDecay);
 
 		damage.SetDefaultDamage(testDefaultDamage);
 		damage.SetIncDamage(testIncDamage);
