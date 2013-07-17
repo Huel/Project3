@@ -29,10 +29,10 @@ public class PlayerController : MonoBehaviour
         forward.Normalize();
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
 
-        float v = Input.GetAxisRaw("Vertical");
-        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("leftanalogY");
+        float h = Input.GetAxisRaw("leftanalogX");
 
-        Vector3 targetDirection = h * right + v * forward;
+        Vector3 targetDirection = v * forward;//h * right + 
         targetDirection = targetDirection.normalized * normalSpeed;
         targetDirection.y = -1;
         controller.Move(targetDirection);

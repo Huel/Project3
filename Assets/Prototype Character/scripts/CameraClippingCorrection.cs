@@ -18,7 +18,8 @@ public class CameraClippingCorrection : MonoBehaviour
     //---------------->CAMERA COLLIDES ONLY WITH LAYER 8 RIGHT NOW!!!!! <--------------------
     //---------------->CAMERA COLLIDES ONLY WITH LAYER 8 RIGHT NOW!!!!! <--------------------if you want to change it, search for all instances of gameObject.layer here and in IsBackZoomAllowed.
 
-    public float ZoomStep = 0.01f;
+    private float ZoomStep = 0.03f;
+    private float preserveZoomStep;
     public float ZoomStepForward = 0.3f;
     private bool isColliding = false;
     public bool LeavingZoomAllowed = true;
@@ -27,9 +28,12 @@ public class CameraClippingCorrection : MonoBehaviour
     private float DestinationY;
     private float DestinationZ;
     private float DestinationRotationX;
+    public int collisionObjectsCounter = 0;
+    private bool collisionLastFrame = false;
 
     void Start()
     {
+        preserveZoomStep = ZoomStep;
         DestinationY = transform.localPosition.y;
         DestinationZ = transform.localPosition.z;
         DestinationRotationX = transform.localEulerAngles.x;
@@ -73,15 +77,21 @@ public class CameraClippingCorrection : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().size = new Vector3(gameObject.GetComponent<BoxCollider>().size.x,
                                                                   gameObject.GetComponent<BoxCollider>().size.y,
                                                                   Mathf.Sqrt(Mathf.Pow(transform.localPosition.y, 2f) + (Mathf.Pow(transform.localPosition.z, 2f))) / 2);
-        //gameObject.GetComponent<BoxCollider>().center = new Vector3(0, 0, gameObject.GetComponent<BoxCollider>().size.z * 0.66f - 0.5f);
+        gameObject.GetComponent<BoxCollider>().center = new Vector3(0, 0, gameObject.GetComponent<BoxCollider>().size.z * 0.66f - 0.5f);
         transform.Rotate(-transform.localEulerAngles.x, 0, 0, Space.Self);
         transform.Rotate(DestinationRotationX + Mathf.Acos(MakePositive(transform.localPosition.z) / Mathf.Sqrt(Mathf.Pow(transform.localPosition.y, 2f) + (Mathf.Pow(transform.localPosition.z, 2f)))), 0, 0, Space.Self);
 
         //transform.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0.17f);
+        collisionLastFrame = false;
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 8)
+        {
+            collisionObjectsCounter++;
+            collisionLastFrame = true;
+        }
         if (!isColliding)
         {
             isColliding = other.gameObject.layer == 8;
@@ -98,9 +108,13 @@ public class CameraClippingCorrection : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.layer == 8)
+        {
+            collisionObjectsCounter--;
+        }
         if (isColliding)
         {
-            isColliding = !(other.gameObject.layer == 8);
+            isColliding = !(other.gameObject.layer == 8 && collisionObjectsCounter == 0);
             if (transform.parent.eulerAngles.x < 180 && !isColliding)
             {
                 transform.parent.parent.GetComponent<CameraController>().FreezeYUp(isColliding);
