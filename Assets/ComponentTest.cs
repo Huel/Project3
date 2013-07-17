@@ -36,9 +36,8 @@ public class ComponentTest : MonoBehaviour
 		damage = gameObject.GetComponent<Damage>();
 
 		health.alive = true;
-		health.SetMaxHealth(testMaxHealth, true);
-		health.SetMinHealth(testMinHealth);
-		health.SetHealthToValue(testHealth);
+		health.SetMinHealth(testMinHealth);	
+		health.SetMaxHealth(testMaxHealth, true);	
 		health.SetMaxHealthMultiplier(testMaxHealthMultiplier);
 
 		speed.SetDefaultSpeed(testDefaultSpeed);
@@ -61,6 +60,7 @@ public class ComponentTest : MonoBehaviour
 	{		
 		testHealth = health.HealthPoints;
 		testMaxHealth = health.MaxHealth;
+		testMinHealth = health.MinHealth;
 		testStamina = speed.Stamina;
 
 		testDefaultDamage = damage.CurrentDamage;

@@ -5,8 +5,8 @@ public class Health : MonoBehaviour
 {
 	private float _healthPoints;
 	private float _maxHealth;
+	private float _incMaxHealth;
 	private float _minHealth;
-
 	private float _maxHealthMultiplier;
 
 	private float _deadCounter;
@@ -16,9 +16,6 @@ public class Health : MonoBehaviour
 	public bool immortal;
 	public bool invulnerable;
 	public bool alive;
-	public bool buff;
-
-	public float destroyTimer;
  
 	public float HealthPoints
 	{
@@ -26,12 +23,11 @@ public class Health : MonoBehaviour
 	}
 	public float MaxHealth
 	{
-		get 
-		{
-			if (buff)
-				return _maxHealth * _maxHealthMultiplier;
-			return _maxHealth; 
-		}
+		get { return _maxHealth * _maxHealthMultiplier; }
+	}
+	public float IncMaxHealth
+	{
+		get { return _incMaxHealth; }
 	}
 	public float MinHealth
 	{
@@ -51,8 +47,9 @@ public class Health : MonoBehaviour
 	{
 		if (maxHealth > _minHealth)
 			_maxHealth = maxHealth;
-		else
+		else if (maxHealth < _minHealth)
 			_maxHealth = _minHealth + 1;
+		
 		if (incHealth)
 			_healthPoints = _maxHealth;
 
@@ -71,6 +68,17 @@ public class Health : MonoBehaviour
 			networkView.RPC("SetMinHealth", RPCMode.Others);
 	}
 	[RPC]
+	public void SetIncMaxHealth(float incMaxHealth)
+	{
+		if (_incMaxHealth > _minHealth)
+			_incMaxHealth = incMaxHealth;
+		else
+			_incMaxHealth = _minHealth + 1;
+
+		if (networkView.isMine)
+			networkView.RPC("SetIncMaxHealth", RPCMode.Others);
+	}
+	[RPC]
 	public void SetToMinHealth()
 	{
 		_healthPoints = _minHealth;
@@ -87,11 +95,10 @@ public class Health : MonoBehaviour
 	[RPC]
 	public float SetHealthToValue(float healthValue)
 	{
-		if (healthValue > _maxHealth)
-			_healthPoints = _maxHealth;
+		if (healthValue > _maxHealth * _maxHealthMultiplier)
+			_healthPoints = _maxHealth * _maxHealthMultiplier;
 		else if (healthValue < _minHealth)
 			_healthPoints = _minHealth;
-
 		else
 			_healthPoints = healthValue;
 
