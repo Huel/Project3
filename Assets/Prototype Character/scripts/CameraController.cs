@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public float rotationSpeed = 10;
+    public float rotationSpeed = 4;
     private Quaternion xCorrection;
     private float lastRotationCheck;
     public float rotationCheck = 0.0f;
