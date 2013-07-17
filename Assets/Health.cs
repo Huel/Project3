@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
 		if (maxHealth > _minHealth)
 			_maxHealth = maxHealth;
 		else if (maxHealth < _minHealth)
-			_maxHealth = _minHealth + 1;
+			_maxHealth = _minHealth;
 		
 		if (incHealth)
 			_healthPoints = _maxHealth;
@@ -73,7 +73,7 @@ public class Health : MonoBehaviour
 		if (_incMaxHealth > _minHealth)
 			_incMaxHealth = incMaxHealth;
 		else
-			_incMaxHealth = _minHealth + 1;
+			_incMaxHealth = _minHealth;
 
 		if (networkView.isMine)
 			networkView.RPC("SetIncMaxHealth", RPCMode.Others);
