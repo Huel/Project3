@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -15,10 +16,12 @@ public class NetworkManager : MonoBehaviour
 
 	private bool gameStartet = false;
 
+	//public NetworkConnectionError networkErrors;
+
 	// Use this for initialization
 	void Awake()
 	{
-		NetworkView.DontDestroyOnLoad(GameObject.FindGameObjectWithTag("GameController"));
+		NetworkView.DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.networkPlayer));
 	}
 
 	// Update is called once per frame
@@ -83,7 +86,7 @@ public class NetworkManager : MonoBehaviour
 	void OnServerInitialized()
 	{
 		Debug.Log("Server initialized");
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+		GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
 	}
 
 	void OnConnectedToServer()
@@ -91,11 +94,11 @@ public class NetworkManager : MonoBehaviour
 		Debug.Log("Connected!");
 		if (Network.connections.Length%2 == 0)
 		{
-			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+			GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
 		}
 		else
 		{
-			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
+			GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
 		}
 	}
 
