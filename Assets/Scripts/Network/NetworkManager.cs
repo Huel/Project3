@@ -15,13 +15,19 @@ public class NetworkManager : MonoBehaviour
 	private string levelName = "Scene2";
 
 	private bool gameStartet = false;
+	private GameObject gameController;
+	private GameObject networkPlayerControler;
 
 	//public NetworkConnectionError networkErrors;
 
 	// Use this for initialization
 	void Awake()
 	{
-		NetworkView.DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.networkPlayer));
+		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
+		networkPlayerControler = GameObject.FindGameObjectWithTag(Tags.networkPlayerController);
+
+		NetworkView.DontDestroyOnLoad(networkPlayerControler);
+		NetworkView.DontDestroyOnLoad(gameController);
 	}
 
 	// Update is called once per frame
@@ -81,12 +87,13 @@ public class NetworkManager : MonoBehaviour
 	private void StartServer()
 	{
 		Network.InitializeServer(oneVSOne ? 1 : 3, listeningPort, !Network.HavePublicAddress());
+		Debug.Log(networkPlayerControler);
 	}
 
 	void OnServerInitialized()
 	{
 		Debug.Log("Server initialized");
-		GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+		networkPlayerControler.GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
 	}
 
 	void OnConnectedToServer()
@@ -94,11 +101,11 @@ public class NetworkManager : MonoBehaviour
 		Debug.Log("Connected!");
 		if (Network.connections.Length%2 == 0)
 		{
-			GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+			networkPlayerControler.GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
 		}
 		else
 		{
-			GameObject.FindGameObjectWithTag(Tags.networkPlayer).GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
+			networkPlayerControler.GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
 		}
 	}
 
