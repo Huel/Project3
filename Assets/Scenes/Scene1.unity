@@ -168,10 +168,8 @@ GameObject:
   - 33: {fileID: 712891683}
   - 136: {fileID: 712891682}
   - 23: {fileID: 712891681}
-  - 114: {fileID: 712891685}
-  - 114: {fileID: 712891686}
-  - 143: {fileID: 712891687}
   - 54: {fileID: 712891688}
+  - 114: {fileID: 712891685}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -237,39 +235,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 712891680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092d63aaca72ed046a86d33b0bb10139, type: 3}
+  m_Script: {fileID: 11500000, guid: 491e50f09ce2bb144b79c12c3324f8a1, type: 3}
   m_Name: 
-  speed: .300000012
---- !u!114 &712891686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 712891680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1746781be71f9b441a48192ee9c2a247, type: 3}
-  m_Name: 
-  rotationSpeed: 4
-  rotationCheck: 0
-  obereKameraGrenze: 50
-  untereKameraGrenze: -50
-  frozenYDown: 0
-  frozenYUp: 0
---- !u!143 &712891687
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 712891680}
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: .500000119
-  m_SlopeLimit: 45
-  m_StepOffset: .300000012
-  m_SkinWidth: .0799999982
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &712891688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -466,7 +433,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd2d2ad359f5f0042a18ab6201258ec0, type: 3}
   m_Name: 
-  collisionCounter: 0
 --- !u!1 &1312537856
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,9 +728,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f4dd4d03f27ccd43be662b781fe6228, type: 3}
   m_Name: 
-  ZoomStepForward: .200000003
-  LeavingZoomAllowed: 1
-  collisionObjectsCounter: 0
 --- !u!1 &1862866555
 GameObject:
   m_ObjectHideFlags: 0
