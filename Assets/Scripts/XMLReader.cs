@@ -13,8 +13,11 @@ public class XMLReader
     {
         xmlDoc = new XmlDocument();
         xmlDoc.LoadXml(File.ReadAllText(path));
+        ArrayList content = new ArrayList();
 
-        XmlNodeList skills = xmlDoc.GetElementsByTagName("skill");//skills in an array
+        foreach (XmlNode node in xmlDoc.ChildNodes)
+            content.Add(new ArrayList{node});
+        //XmlNodeList skills = xmlDoc.GetElementsByTagName("skill");//skills in an array
 
         //foreach (XmlNode skill in skills)
         //{
