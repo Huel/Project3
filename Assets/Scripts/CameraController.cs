@@ -122,6 +122,6 @@ public class CameraController : MonoBehaviour
             }
             lastRotationCheck = rotationCheck;
         }
-        transform.FindChild("cameraPivot").FindChild("cameraCorrection").GetComponent<CameraClippingCorrection>().correctCameraClipping();
+        transform.FindChild("cameraPivot").FindChild("cameraCorrection").GetComponent<CameraClippingCorrection>().CorrectCameraClipping();
     }
 }

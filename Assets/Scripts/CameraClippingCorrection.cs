@@ -19,7 +19,6 @@ public class CameraClippingCorrection : MonoBehaviour
     //---------------->CAMERA COLLIDES ONLY WITH LAYER 8 RIGHT NOW!!!!! <--------------------if you want to change it, search for all instances of gameObject.layer here and in IsBackZoomAllowed.
 
     public float ZoomStep = 0.03f;
-    private float preserveZoomStep;
     private float ZoomStepForward = 0.3f;
     private bool isColliding = false;
     private bool _leavingZoomAllowed = true;
@@ -29,7 +28,6 @@ public class CameraClippingCorrection : MonoBehaviour
     private float DestinationZ;
     private float DestinationRotationX;
     private int collisionObjectsCounter = 0;
-    private bool collisionLastFrame = false;
 
     public bool LeavingZoomAllowed
     {
@@ -46,7 +44,6 @@ public class CameraClippingCorrection : MonoBehaviour
 
     void Start()
     {
-        preserveZoomStep = ZoomStep;
         DestinationY = transform.localPosition.y;
         DestinationZ = transform.localPosition.z;
         DestinationRotationX = transform.localEulerAngles.x;
@@ -58,7 +55,7 @@ public class CameraClippingCorrection : MonoBehaviour
 
     }
 
-    public void correctCameraClipping()
+    public void CorrectCameraClipping()
     {
         if (transform.parent.localEulerAngles.x < 180)
         {
@@ -99,8 +96,6 @@ public class CameraClippingCorrection : MonoBehaviour
         transform.Rotate(-transform.localEulerAngles.x, 0, 0, Space.Self);
         transform.Rotate(DestinationRotationX + Mathf.Acos(MakePositive(transform.localPosition.z) / Mathf.Sqrt(Mathf.Pow(transform.localPosition.y, 2f) + (Mathf.Pow(transform.localPosition.z, 2f)))), 0, 0, Space.Self);
 
-        //transform.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0.17f);
-        collisionLastFrame = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -108,7 +103,6 @@ public class CameraClippingCorrection : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             collisionObjectsCounter++;
-            collisionLastFrame = true;
         }
         if (!isColliding)
         {
