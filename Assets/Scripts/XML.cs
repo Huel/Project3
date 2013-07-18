@@ -6,9 +6,9 @@ public class XML : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        XMLReader test = new XMLReader(Path.GetFullPath("Assets/Scripts/XML/SkillsTemplate.xml"));
-        Debug.Log(test.text());
-        Debug.Log(Path.GetFullPath("Assets/Scripts/XML/SkillsTemplate.xml"));
+        gameObject.AddComponent("Skill");
+        gameObject.GetComponent<Skill>().Init("Basic Attack", gameObject);
+        //new Skill("Basic Attack", gameObject);
 	}
 	
 	// Update is called once per frame

@@ -5,52 +5,59 @@ using System.IO;
 
 public class XMLReader
 {
-    private ArrayList _skillArray;
-    private ArrayList _skillParameters;
-    private XmlDocument xmlDoc;
+    private XmlDocument document = new XmlDocument();
+	private ArrayList content = new ArrayList();
 
     public XMLReader(string path)
     {
-        xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(File.ReadAllText(path));
-        ArrayList content = new ArrayList();
-
-        foreach (XmlNode node in xmlDoc.ChildNodes)
-            content.Add(new ArrayList{node});
-        //XmlNodeList skills = xmlDoc.GetElementsByTagName("skill");//skills in an array
-
-        //foreach (XmlNode skill in skills)
-        //{
-         //   XmlNodeList skillComponent = skill.ChildNodes;//all components of the current skill
-         //   _skillParameters = new ArrayList();
-         //   foreach (XmlNode skillParameters in skillComponent)//each component has two relevant values we want: Name and InnerText
-         //   {
-         //       _skillParameters.Add(skillParameters.Name);
-        //        _skillParameters.Add(skillParameters.InnerText);
-        //    }
-        //    _skillArray.Add(_skillParameters);//each _skillParameters is one entire skill
-        //}
-
-
-        //foreach(ArrayList a in _skillArray)
-        //{
-        //    for (int i = 0; i < a.Count; i+=2 )
-        //    {
-        //        Debug.Log(a[i]+": "+a[i+1]);
-        //    }
-        //}
+		try
+		{
+			document.LoadXml(File.ReadAllText(Path.GetFullPath("Assets/XML/" + path)));
+			/*foreach (XmlNode node in document.ChildNodes)
+			switch(node.GetType().ToString())
+			{
+				case "System.Xml.XmlElement":
+						content.Add(new ArrayList{node.Name, GetInnerChilds((XmlElement)node)});
+						break;
+				case "System.Xml.XmlText":
+						content.Add(GetInnerChilds((XmlText)node));
+						break;
+			}
+			*/
+		}
+		catch(IOException error)
+		{
+			throw(error);
+		}    
     }
-
-    public string text()
-    {
-        return xmlDoc.InnerText;
-    }
-
-    public ArrayList skillArray //getter
-    {
-        get
-        {
-            return _skillArray;
-        }
-    }
+	
+	/*
+	ArrayList GetInnerChilds(XmlElement innerNode)
+	{
+		ArrayList list = new ArrayList();
+		foreach (XmlNode node in innerNode.ChildNodes)
+			switch(node.GetType().ToString())
+			{
+				case "System.Xml.XmlElement":
+				{
+					list.Add(new ArrayList{node.Name, GetInnerChilds((XmlElement)node)});
+					break;
+				}
+				case "System.Xml.XmlText":
+					list.Add(GetInnerChilds((XmlText)node));
+					break;
+			}
+		return list;
+	}
+	
+	string GetInnerChilds(XmlText innerText)
+	{
+		return innerText.Value;
+	}
+	*/
+	
+	public XmlDocument GetXML()
+	{
+		return document;
+	}
 }
