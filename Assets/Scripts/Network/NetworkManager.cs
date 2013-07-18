@@ -83,12 +83,20 @@ public class NetworkManager : MonoBehaviour
 	void OnServerInitialized()
 	{
 		Debug.Log("Server initialized");
-		//GameObject.FindGameObjectWithTag("GameController")
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
 	}
 
 	void OnConnectedToServer()
 	{
 		Debug.Log("Connected!");
+		if (Network.connections.Length%2 == 0)
+		{
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+		}
+		else
+		{
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
+		}
 	}
 
 	[RPC]
