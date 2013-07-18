@@ -18,18 +18,31 @@ public class CameraClippingCorrection : MonoBehaviour
     //---------------->CAMERA COLLIDES ONLY WITH LAYER 8 RIGHT NOW!!!!! <--------------------
     //---------------->CAMERA COLLIDES ONLY WITH LAYER 8 RIGHT NOW!!!!! <--------------------if you want to change it, search for all instances of gameObject.layer here and in IsBackZoomAllowed.
 
-    private float ZoomStep = 0.03f;
+    public float ZoomStep = 0.03f;
     private float preserveZoomStep;
-    public float ZoomStepForward = 0.3f;
+    private float ZoomStepForward = 0.3f;
     private bool isColliding = false;
-    public bool LeavingZoomAllowed = true;
+    private bool _leavingZoomAllowed = true;
     private Vector3 newPos;
     private float RotationCheck;
     private float DestinationY;
     private float DestinationZ;
     private float DestinationRotationX;
-    public int collisionObjectsCounter = 0;
+    private int collisionObjectsCounter = 0;
     private bool collisionLastFrame = false;
+
+    public bool LeavingZoomAllowed
+    {
+        get
+        {
+            return _leavingZoomAllowed;
+        }
+
+        set
+        {
+            _leavingZoomAllowed = value;
+        }
+    }
 
     void Start()
     {
@@ -42,20 +55,25 @@ public class CameraClippingCorrection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void correctCameraClipping()
+    {
         if (transform.parent.localEulerAngles.x < 180)
         {
-            transform.parent.parent.GetComponent<CameraController>().FreezeYDown(false);
+            transform.parent.parent.GetComponent<CameraController>().FreezeYDown = false;
         }
         if (transform.parent.localEulerAngles.x > 180)
         {
-            transform.parent.parent.GetComponent<CameraController>().FreezeYUp(false);
+            transform.parent.parent.GetComponent<CameraController>().FreezeYUp = false;
         }
-        if (transform.localPosition.y - ZoomStep >= 0f && (isColliding || transform.parent.parent.GetComponent<CameraController>().frozenYDown || transform.parent.parent.GetComponent<CameraController>().frozenYUp))
+        if (transform.localPosition.y - ZoomStep >= 0f && (isColliding || transform.parent.parent.GetComponent<CameraController>().FreezeYDown || transform.parent.parent.GetComponent<CameraController>().FreezeYUp))
         {
             transform.Translate(0f, -ZoomStep, 0f, Space.Self);//falls du kollidierst, zoom an kamera pivot heran
         }
 
-        if (transform.localPosition.z + ZoomStep * (MakePositive(DestinationZ) / DestinationY) <= 0f && (isColliding || transform.parent.parent.GetComponent<CameraController>().frozenYDown || transform.parent.parent.GetComponent<CameraController>().frozenYUp))
+        if (transform.localPosition.z + ZoomStep * (MakePositive(DestinationZ) / DestinationY) <= 0f && (isColliding || transform.parent.parent.GetComponent<CameraController>().FreezeYDown || transform.parent.parent.GetComponent<CameraController>().FreezeYUp))
         {
             transform.Translate(0f, 0f, ZoomStep * (MakePositive(DestinationZ) / DestinationY), Space.Self);//falls du kollidierst, zoom an kamera pivot heran
         }
@@ -97,11 +115,11 @@ public class CameraClippingCorrection : MonoBehaviour
             isColliding = other.gameObject.layer == 8;
             if (transform.parent.eulerAngles.x < 180 && isColliding)
             {
-                transform.parent.parent.GetComponent<CameraController>().FreezeYUp(isColliding);
+                transform.parent.parent.GetComponent<CameraController>().FreezeYUp = isColliding;
             }
             else
             {
-                transform.parent.parent.GetComponent<CameraController>().FreezeYDown(isColliding);
+                transform.parent.parent.GetComponent<CameraController>().FreezeYDown = isColliding;
             }
         }
     }
@@ -117,11 +135,11 @@ public class CameraClippingCorrection : MonoBehaviour
             isColliding = !(other.gameObject.layer == 8 && collisionObjectsCounter == 0);
             if (transform.parent.eulerAngles.x < 180 && !isColliding)
             {
-                transform.parent.parent.GetComponent<CameraController>().FreezeYUp(isColliding);
+                transform.parent.parent.GetComponent<CameraController>().FreezeYUp = isColliding;
             }
             else
             {
-                transform.parent.parent.GetComponent<CameraController>().FreezeYDown(isColliding);
+                transform.parent.parent.GetComponent<CameraController>().FreezeYDown = isColliding;
             }
         }
     }

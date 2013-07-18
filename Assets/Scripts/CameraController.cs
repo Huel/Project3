@@ -3,23 +3,24 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public float speed = 1;
-    public float zeldaSpeed = 1;
     public float rotationSpeed = 4;
     private Quaternion xCorrection;
     private float lastRotationCheck;
     private float rotationCheck = 0.0f;
     public int obereKameraGrenze = 50;
     public int untereKameraGrenze = -50;
-    private bool frozenYDown = false;
-    private bool frozenYUp = false;
+    private bool _frozenYDown = false;
+    private bool _frozenYUp = false;
     public int selectedCameraBehaviour = 0;
-    // Use this for initialization
+    public float zeldaSpeed = 1;
+    public float zeldaCameraMaxDistance = 10;
+    private GameObject Player;
+
     void Start()
     {
         xCorrection = Quaternion.identity;
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (selectedCameraBehaviour)
@@ -31,23 +32,57 @@ public class CameraController : MonoBehaviour
                 ZeldaCameraLogic();
                 break;
             default:
+                DefaultCameraLogic();
                 break;
         }
     }
 
-    public void FreezeYDown(bool value)
+    public bool FreezeYDown
     {
-        frozenYDown = value;
+        set
+        {
+            _frozenYDown = value;
+        }
+
+        get
+        {
+            return _frozenYDown;
+        }
     }
 
-    public void FreezeYUp(bool value)
+    public bool FreezeYUp
     {
-        frozenYUp = value;
+        set
+        {
+            _frozenYUp = value;
+        }
+
+        get
+        {
+            return _frozenYUp;
+        }
     }
 
     private void ZeldaCameraLogic()
     {
+        Player = GameObject.Find("Player");
+        if (Input.GetAxis("leftanalogX") > 0)
+        {
+            Vector3 right = transform.FindChild("cameraPivot").FindChild("cameraCorrection").FindChild("Camera").TransformDirection(Vector3.right);
+            right.y = 0;
+            right.Normalize();
+            right = new Vector3(right.z, 0, -right.x);
+            float v = Input.GetAxis("leftanalogY");
+            Vector3 targetDirection = v * right;
+            targetDirection = targetDirection.normalized * speed;
+            Player.GetComponent<CharacterController>().Move(targetDirection);
 
+
+            var relativePos = Player.transform.position - transform.position;
+            var rotation = Quaternion.LookRotation(relativePos);
+            rotation.y = transform.localEulerAngles.y;
+            transform.rotation = rotation;
+        }
     }
 
     private void DefaultCameraLogic()
@@ -68,7 +103,7 @@ public class CameraController : MonoBehaviour
 
         transform.Rotate(0, Input.GetAxis("rightanalogX") * rotationSpeed, 0);
         transform.Rotate(0, Input.GetAxis("leftanalogX") * rotationSpeed, 0);
-        if ((Input.GetAxis("rightanalogY") <= 0f && !frozenYDown) || (Input.GetAxis("rightanalogY") >= 0f && !frozenYUp) || transform.FindChild("cameraPivot").localEulerAngles.x < untereKameraGrenze || transform.FindChild("cameraPivot").localEulerAngles.x > obereKameraGrenze)
+        if ((Input.GetAxis("rightanalogY") <= 0f && !_frozenYDown) || (Input.GetAxis("rightanalogY") >= 0f && !_frozenYUp) || transform.FindChild("cameraPivot").localEulerAngles.x < untereKameraGrenze || transform.FindChild("cameraPivot").localEulerAngles.x > obereKameraGrenze)
         {
             rotationCheck += Input.GetAxis("rightanalogY") * rotationSpeed;
             if (rotationCheck > untereKameraGrenze && rotationCheck < obereKameraGrenze)
@@ -87,5 +122,6 @@ public class CameraController : MonoBehaviour
             }
             lastRotationCheck = rotationCheck;
         }
+        transform.FindChild("cameraPivot").FindChild("cameraCorrection").GetComponent<CameraClippingCorrection>().correctCameraClipping();
     }
 }

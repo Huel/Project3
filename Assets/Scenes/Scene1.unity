@@ -168,12 +168,11 @@ GameObject:
   - 33: {fileID: 712891683}
   - 136: {fileID: 712891682}
   - 23: {fileID: 712891681}
-  - 114: {fileID: 712891685}
   - 114: {fileID: 712891686}
   - 143: {fileID: 712891687}
   - 54: {fileID: 712891688}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,17 +228,6 @@ Transform:
   m_Children:
   - {fileID: 907285443}
   m_Father: {fileID: 0}
---- !u!114 &712891685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 712891680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092d63aaca72ed046a86d33b0bb10139, type: 3}
-  m_Name: 
-  speed: .300000012
 --- !u!114 &712891686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,12 +238,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1746781be71f9b441a48192ee9c2a247, type: 3}
   m_Name: 
+  speed: 1
   rotationSpeed: 4
-  rotationCheck: 0
   obereKameraGrenze: 50
   untereKameraGrenze: -50
-  frozenYDown: 0
-  frozenYUp: 0
+  selectedCameraBehaviour: 0
+  zeldaSpeed: 1
+  zeldaCameraMaxDistance: 10
 --- !u!143 &712891687
 CharacterController:
   m_ObjectHideFlags: 0
@@ -294,31 +283,39 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: .0763228014
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .632734299
+      value: 3.72099113
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.03967571
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalRotation.x
-      value: .13917312
+      value: .0745132193
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 5.78141535e-10
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -2.20137658e-10
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .990268111
+      value: .997220099
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
@@ -346,8 +343,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400004, guid: db18bff8a481b5442b824dcd9294cdfe, type: 2}
   m_PrefabInternal: {fileID: 814313430}
   m_GameObject: {fileID: 907285442}
-  m_LocalRotation: {x: .13917312, y: 0, z: 0, w: .990268111}
-  m_LocalPosition: {x: 0, y: .632734299, z: 0}
+  m_LocalRotation: {x: .0745132193, y: 5.78141535e-10, z: -2.20137658e-10, w: .997220099}
+  m_LocalPosition: {x: .0763228014, y: 3.72099113, z: -5.03967571}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1748741019}
@@ -719,7 +716,7 @@ Transform:
   m_PrefabInternal: {fileID: 814313430}
   m_GameObject: {fileID: 1748741018}
   m_LocalRotation: {x: .116684273, y: 0, z: 0, w: .993169129}
-  m_LocalPosition: {x: 0, y: 1.8803941, z: -5.92736673}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7652843, y: 1.7652843, z: 1.7652843}
   m_Children:
   - {fileID: 155745608}
@@ -762,9 +759,51 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f4dd4d03f27ccd43be662b781fe6228, type: 3}
   m_Name: 
-  ZoomStepForward: .200000003
-  LeavingZoomAllowed: 1
-  collisionObjectsCounter: 0
+  ZoomStep: .0299999993
+--- !u!1 &1758159614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1758159615}
+  - 114: {fileID: 1758159616}
+  m_Layer: 0
+  m_Name: FullCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1758159615
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1758159614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 118.677376, y: 5.44010162, z: 96.2776337}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &1758159616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1758159614}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1746781be71f9b441a48192ee9c2a247, type: 3}
+  m_Name: 
+  speed: 1
+  rotationSpeed: 4
+  obereKameraGrenze: 50
+  untereKameraGrenze: -50
+  selectedCameraBehaviour: 0
+  zeldaSpeed: 1
+  zeldaCameraMaxDistance: 10
 --- !u!1 &1862866555
 GameObject:
   m_ObjectHideFlags: 0
