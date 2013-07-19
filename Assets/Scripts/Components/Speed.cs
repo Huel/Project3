@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Speed : MonoBehaviour
 {
-    private float _defaultSpeed;
-    private float _sprintSpeed;
+    private float _defaultSpeed = 3f;
+    private float _sprintSpeed = 3.3f;
     private float _speedMultiplier;
-    private float _stamina;
-    private float _maxStamina;
-    private float _minStamina;
-    private float _staminaRegenaration;     //staminaPoints per second
-    private float _staminaDecay;
+    private float _stamina = 10f;
+    private float _maxStamina = 10f;
+    private float _minStamina = 1f;
+    private float _staminaRegenaration =0.2f;     //staminaPoints per second
+    private float _staminaDecay = 0.3f;
     private bool _isSprinting;
 
     /// <summary>

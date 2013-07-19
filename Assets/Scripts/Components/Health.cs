@@ -3,19 +3,19 @@ using System.Collections;
 
 public class Health : MonoBehaviour 
 {
-	private float _healthPoints;
-	private float _maxHealth;
+	private float _healthPoints = 10f;
+	private float _maxHealth = 10f;
 	private float _incMaxHealth;
-	private float _minHealth;
-	private float _maxHealthMultiplier;
+	private float _minHealth = 0f;
+	private float _maxHealthMultiplier = 1f;
 
 	private float _deadCounter;
 
-	public float keepDeadUnitTime;
+	public float keepDeadUnitTime = 5f;
 
 	public bool immortal;
 	public bool invulnerable;
-	public bool alive;
+	public bool alive = true;
 
 	public float HealthPoints
 	{
