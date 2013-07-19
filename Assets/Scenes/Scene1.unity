@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 643629102}
   - 114: {fileID: 643629103}
+  - 148: {fileID: 643629104}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: NetworkManager
@@ -112,10 +113,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cee0101b3e884e4fa1bbe88ead50a6a, type: 3}
   m_Name: 
   listeningPort: 50005
-  ip: 172.21.66.8
+  ip: 172.21.66.4
   oneVSOne: 0
   twoVSTwo: 0
   startServer: 0
+--- !u!148 &643629104
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643629101}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 643629102}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
 --- !u!1 &1705538043
 GameObject:
   m_ObjectHideFlags: 0
