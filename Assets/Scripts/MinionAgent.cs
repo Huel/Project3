@@ -25,16 +25,16 @@ public class MinionAgent : MonoBehaviour
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
 
-        //if (networkView.isMine) 
-        //    agent.enabled = true;
-        //else
-        //    return;
+        if (networkView.isMine)
+            agent.enabled = true;
+        else
+            return;
     }
 
     void Update()
     {
-        //if (!networkView.isMine)
-        //    return;
+        if (!networkView.isMine)
+            return;
         if (_target == null)
         {
             agent.enabled = true;
