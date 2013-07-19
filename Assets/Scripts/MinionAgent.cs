@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MinionAgent : MonoBehaviour
 {
-    public enum LaneIdentifier {Lane1, Lane2, Lane3}
+    public enum LaneIdentifier{ Lane1, Lane2, Lane3 };
     public LaneIdentifier laneID;
 
     private NavMeshAgent agent;
@@ -23,8 +23,6 @@ public class MinionAgent : MonoBehaviour
 
     void Start()
     {
-        attentionRange = gameObject.GetComponent<Range>();
-        contact = gameObject.GetComponent<ContactTrigger>();
         agent = gameObject.GetComponent<NavMeshAgent>();
 
         //if (networkView.isMine) 
@@ -38,13 +36,14 @@ public class MinionAgent : MonoBehaviour
         //if (!networkView.isMine)
         //    return;
         if (_target == null)
-        { 
+        {
+            agent.enabled = true;
             if (_destination != null)
-                agent.destination = _destination.transform.position;
+                agent.destination = _destination.gameObject.transform.position;
             if (attentionRange != null)
                SelectTarget();
         }
-        else
+        else if (agent.enabled)
             agent.destination = _target.gameObject.transform.position;
     }
 
@@ -54,7 +53,7 @@ public class MinionAgent : MonoBehaviour
         var target = attentionRange.GetNearestTargetByType(TargetType.Minion);
         if (target != null)
         {
-            team = target.GetComponent<Team>();
+            team = target.gameObject.GetComponent<Team>();
             if (team != null && team.isEnemy(GetComponent<Team>()))
             {
                 _target = target;
@@ -92,7 +91,7 @@ public class MinionAgent : MonoBehaviour
 
     private void OnEnemyContact(Target target)
     {
-        //agent.enabled = false;
+        agent.enabled = false;
         //basicSkill.Execute();
     }
 }
