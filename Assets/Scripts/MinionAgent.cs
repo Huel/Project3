@@ -41,10 +41,14 @@ public class MinionAgent : MonoBehaviour
             if (_destination != null)
                 agent.destination = _destination.gameObject.transform.position;
             if (attentionRange != null)
-               SelectTarget();
+                SelectTarget();
         }
         else if (agent.enabled)
             agent.destination = _target.gameObject.transform.position;
+        if (looseAttentionRange != null && _target != null)
+            if (!looseAttentionRange.isInRange(_target))
+                _target = null;
+            
     }
 
     void SelectTarget()

@@ -21,8 +21,8 @@ public class IsBackZoomAllowed : MonoBehaviour
         {
             collisionCounter++;
             transform.parent.GetComponent<CameraClippingCorrection>().LeavingZoomAllowed = false;
-            Debug.Log("CameraCorrection2 kollidiert jetzt mit layer 8");
-            Debug.Log(Random.Range(0, 10000));
+            //Debug.Log("CameraCorrection2 kollidiert jetzt mit layer 8");
+            //Debug.Log(Random.Range(0, 10000));
         }
     }
 

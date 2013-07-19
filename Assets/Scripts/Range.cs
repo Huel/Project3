@@ -149,4 +149,9 @@ public class Range : MonoBehaviour
         }
         objectsInRange = sortedList;
     }
+
+    public bool isInRange(Target target)
+    {
+        return objectsInRange.IndexOf(target) != -1;
+    }
 }
