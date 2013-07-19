@@ -14,7 +14,11 @@ public class Range : MonoBehaviour
     private List<OnRangeEvent> enterRangeListener = new List<OnRangeEvent>();
     private List<OnRangeEvent> exitRangeListener = new List<OnRangeEvent>();
 
-    float Radius { set { gameObject.GetComponent<SphereCollider>().radius = value; } get { return gameObject.GetComponent<SphereCollider>().radius; } }
+    float Radius
+    {
+        set { gameObject.GetComponent<SphereCollider>().radius = value; } 
+        get { return gameObject.GetComponent<SphereCollider>().radius; }
+    }
 
     public int Count()
     {

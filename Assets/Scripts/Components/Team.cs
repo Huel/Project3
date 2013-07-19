@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class Team : MonoBehaviour {
+public class Team : MonoBehaviour 
+{
 
 	public enum TeamIdentifier {Team1, Team2}
 	public TeamIdentifier ID;
