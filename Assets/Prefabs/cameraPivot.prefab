@@ -215,12 +215,17 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1746781be71f9b441a48192ee9c2a247, type: 3}
   m_Name: 
-  speed: .150000006
-  rotationSpeed: 4
-  obereKameraGrenze: 50
-  untereKameraGrenze: -50
+  defaultSpeed: 1
+  defaultRotationSpeed: 4
+  defaultObereKameraGrenze: 50
+  defaultUntereKameraGrenze: -50
   selectedCameraBehaviour: 1
-  zeldaSpeed: 1
+  _zeldaDistanceAway: 5
+  _zeldaDistanceUp: 2
+  _zeldaSmooth: 3
+  _zeldaFollow: {fileID: 0}
+  _zeldaCameraSpeed: 0
+  directionSpeed: 3
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
