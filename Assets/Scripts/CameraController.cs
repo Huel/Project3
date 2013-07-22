@@ -4,11 +4,11 @@ public class CameraController : MonoBehaviour
 {
     private bool moveTowardsZelda = false;
     [SerializeField]
-    private float _zeldaDistanceAway;
+    private float _zeldaDistanceAway = 10.0f;
     [SerializeField]
-    private float _zeldaDistanceUp;
+    private float _zeldaDistanceUp = 5.0f;
     [SerializeField]
-    private float _cameraLerpSpeed;
+    private float _cameraLerpSpeed = 2.0f;
     [SerializeField]
     private Transform _player;
     [SerializeField]

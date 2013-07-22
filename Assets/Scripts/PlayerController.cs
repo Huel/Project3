@@ -3,45 +3,34 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float _movementSpeed = 0.15f;
+    private float _movementSpeed = 9.0f;
     [SerializeField]
     private Transform _camera;
 
-    private float speed = 0.0f;
-    private float horizontal = 0.0f;
-    private float vertical = 0.0f;
-    private string lookDirection = "";
     private Vector3 forward;
     private bool runningBack = false;
     private Vector3 targetDirection;
 
-    // Use this for initialization
     void Start()
     {
         forward = new Vector3(0f, 0f, 0f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        RotatePlayer();
         MovePlayer();
-    }
-
-    void LateUpdate()
-    {
-        //MovePlayer();
+        RotatePlayer();
     }
 
     private void MovePlayer()
     {
 
-        if (Input.GetAxisRaw("leftanalogY") > 0.0f)
+        if (Input.GetAxisRaw("leftanalogY") > 0.0f) //bugifx, if you are running back and push the stick forwards, the player will rotate 180° on each frame while under camera otherwise
         {
             runningBack = false;
         }
 
-        if (_camera.localEulerAngles.x == 90)
+        if (_camera.localEulerAngles.x == 90) //if camera looking down
         {
             runningBack = true;
         }
@@ -76,8 +65,7 @@ public class PlayerController : MonoBehaviour
         targetDirection = h * right + v * forward;
         targetDirection = targetDirection.normalized * _movementSpeed;
         targetDirection.y = -1;
-        transform.GetComponent<CharacterController>().Move(targetDirection);
-        RotatePlayer();
+        transform.GetComponent<CharacterController>().Move(targetDirection * Time.deltaTime);
     }
 
     private void RotatePlayer()
