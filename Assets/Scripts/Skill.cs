@@ -89,6 +89,8 @@ public class Skill : MonoBehaviour
 			XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
 			XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
 			XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
+			cooldown = float.Parse(cooldownList[0].InnerText);
+			castingTime = float.Parse(castingTimeList[0].InnerText);
 		}
 		Debug.Log("test");
     }
