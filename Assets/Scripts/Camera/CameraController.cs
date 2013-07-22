@@ -16,11 +16,12 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        _cameraDestination.position = _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway;
+        _cameraDestination.position = _player.position + Vector3.up * _zeldaDistanceUp - _player.forward * _zeldaDistanceAway;
     }
 
     private void LateUpdate()
     {
+
         if (Input.GetAxis("leftanalogY") != 0.0f || Input.GetAxis("leftanalogX") != 0.0f)
         {
             moveTowardsZelda = false;
@@ -33,7 +34,7 @@ public class CameraController : MonoBehaviour
         if (!moveTowardsZelda)
         {
             if (Value((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
-                transform.position = Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway, Time.deltaTime * _cameraLerpSpeed);
+                transform.position = Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.forward * _zeldaDistanceAway, Time.deltaTime * _cameraLerpSpeed);
         }
         else
         {
