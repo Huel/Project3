@@ -28,6 +28,11 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+    }
+
+    private void FixedUpdate()
+    {
+
         if (Input.GetAxis("leftanalogY") != 0.0f || Input.GetAxis("leftanalogX") != 0.0f)
         {
             moveTowardsZelda = false;
@@ -40,11 +45,11 @@ public class CameraController : MonoBehaviour
         if (!moveTowardsZelda)
         {
             if (Mathf.Abs((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
-                transform.position = Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway, Time.deltaTime * _cameraMovementSpeed);
+                transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway, Time.deltaTime * _cameraMovementSpeed) - transform.position);
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, _cameraDestination.position, Time.deltaTime * _cameraMovementSpeed);
+            transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _cameraDestination.position, Time.deltaTime * _cameraMovementSpeed) - transform.position);
         }
 
         limitRotation.transform.position = transform.position;
