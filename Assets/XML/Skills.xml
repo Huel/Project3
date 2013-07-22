@@ -1,9 +1,14 @@
 <Skills>
 	<skill name="Basic Attack">
-	    <type>Modify
+	    <type>modify
 			<field>Damage</field>
 			<value>1.0</value>
-			<target></target>
+			<target>Target</target>
+		</type>
+		<type>modify
+			<field>Damage</field>
+			<value>-0.1</value>
+			<target>Self</target>
 		</type>
 		
 	    <trigger>onContact

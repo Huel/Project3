@@ -91,31 +91,54 @@ public class Skill : MonoBehaviour
 			XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
 			XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
 			XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
+			
 			cooldown = float.Parse(cooldownList[0].InnerText);
 			castingTime = float.Parse(castingTimeList[0].InnerText);
+			
+			List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
+			List<TargetType> targetTypes;
+			string innerText;
+			Vector3 position;
+			float radius;
+			
 			string triggerType = triggerList[0].FirstChild.Value;
 			triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
 			switch(triggerType)
 			{
 				case "inRange":
-					float radius = float.Parse(triggerList[0].ChildNodes[1].InnerText);
-					Debug.Log("range: " + radius);
+					radius = float.Parse(triggerList[0].ChildNodes[1].InnerText);
 					break;
+				
 				case "onContact":
-                    string[] types = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", "}, System.StringSplitOptions.None); 
-					List<TargetType> targetTypes = new List<TargetType>();
-					foreach (string type in types)
-						targetTypes.Add();
-					Debug.Log("contact");
+                    innerText = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", "}, System.StringSplitOptions.None); 
+					targetTypes = new List<TargetType>();
+					foreach (string type in innerText)
+						foreach (TargetType compareType in listOfTypes)
+							if(compareType.ToString() == type)
+								targetTypes.Add(compareType);
 					break;
+				
 				case "atPosition":
-					Debug.Log("position");
+					innerText = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", "}, System.StringSplitOptions.None); 
+					position = new Vector3(float.Parse(innerText[0]), float.Parse(innerText[1]), float.Parse(innerText[2]));
+					radius = float.Parse(triggerList[0].ChildNodes[2].InnerText);
 					break;
+				
 				case "instant":
-					Debug.Log("instant");
 					break;
 			}
+			
+			string skillType;
+			foreach (XmlNode skill in typeList.ChildNodes)
+			{
+				skillType = skill.FirstChild.Value;
+				skillType = skillType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
+				switch(triggerType)
+				{
+					case "modify":
+						break;
+				}
+			}
 		}
-		Debug.Log("test");
     }
 }
