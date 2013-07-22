@@ -2,54 +2,52 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private bool moveTowardsZelda = false;
+    [SerializeField]
+    private float _zeldaDistanceAway = 10.0f;
+    [SerializeField]
+    private float _zeldaDistanceUp = 5.0f;
+    [SerializeField]
+    private float _cameraLerpSpeed = 2.0f;
+    [SerializeField]
+    private Transform _player;
+    [SerializeField]
+    private Transform _cameraDestination;
 
-    public float rotationSpeed = 4;
-    private Quaternion xCorrection;
-    private float lastRotationCheck;
-    public float rotationCheck = 0.0f;
-    public int obereKameraGrenze = 50;
-    public int untereKameraGrenze = -50;
-    public bool frozenYDown = false;
-    public bool frozenYUp = false;
-    // Use this for initialization
     void Start()
     {
-        xCorrection = Quaternion.identity;
+        _cameraDestination.position = _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        transform.Rotate(0, Input.GetAxis("rightanalogX") * rotationSpeed, 0);
-        transform.Rotate(0, Input.GetAxis("leftanalogX") * rotationSpeed, 0);
-        if ((Input.GetAxis("rightanalogY") <= 0f && !frozenYDown) || (Input.GetAxis("rightanalogY") >= 0f && !frozenYUp) || transform.FindChild("cameraPivot").localEulerAngles.x < untereKameraGrenze || transform.FindChild("cameraPivot").localEulerAngles.x > obereKameraGrenze)
+        if (Input.GetAxis("leftanalogY") != 0.0f || Input.GetAxis("leftanalogX") != 0.0f)
         {
-            rotationCheck += Input.GetAxis("rightanalogY") * rotationSpeed;
-            if (rotationCheck > untereKameraGrenze && rotationCheck < obereKameraGrenze)
-            {
-                transform.FindChild("cameraPivot").transform.Rotate(Input.GetAxis("rightanalogY") * rotationSpeed, 0, 0);
-            }
-            else
-            {
-                rotationCheck -= Input.GetAxis("rightanalogY") * rotationSpeed;
-            }
-
-            if (rotationCheck == 0 || (lastRotationCheck < 0 && rotationCheck > 0) || (lastRotationCheck > 0 && rotationCheck < 0))
-            {
-                transform.FindChild("cameraPivot").transform.localRotation = xCorrection;
-                rotationCheck = 0;
-            }
-            lastRotationCheck = rotationCheck;
+            moveTowardsZelda = false;
         }
+        if (Input.GetButtonDown("AButton"))
+        {
+            moveTowardsZelda = true;
+        }
+
+        if (!moveTowardsZelda)
+        {
+            if (Value((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
+                transform.position = Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.FindChild("Player").forward * _zeldaDistanceAway, Time.deltaTime * _cameraLerpSpeed);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, _cameraDestination.position, Time.deltaTime * _cameraLerpSpeed);
+        }
+
+        transform.LookAt(_player);
     }
 
-    public void FreezeYDown(bool value)
-    {
-        frozenYDown = value;
-    }
 
-    public void FreezeYUp(bool value)
+    float Value(float Input)
     {
-        frozenYUp = value;
+        if (Input < 0)
+            return -Input;
+        return Input;
     }
 }
