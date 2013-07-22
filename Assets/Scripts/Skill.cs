@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Xml;
+using System.Text;
+using System.Collections.Generic;
 
 class Modifier
 {
@@ -91,6 +93,28 @@ public class Skill : MonoBehaviour
 			XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
 			cooldown = float.Parse(cooldownList[0].InnerText);
 			castingTime = float.Parse(castingTimeList[0].InnerText);
+			string triggerType = triggerList[0].FirstChild.Value;
+			triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
+			switch(triggerType)
+			{
+				case "inRange":
+					float radius = float.Parse(triggerList[0].ChildNodes[1].InnerText);
+					Debug.Log("range: " + radius);
+					break;
+				case "onContact":
+                    string[] types = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", "}, System.StringSplitOptions.None); 
+					List<TargetType> targetTypes = new List<TargetType>();
+					foreach (string type in types)
+						targetTypes.Add();
+					Debug.Log("contact");
+					break;
+				case "atPosition":
+					Debug.Log("position");
+					break;
+				case "instant":
+					Debug.Log("instant");
+					break;
+			}
 		}
 		Debug.Log("test");
     }
