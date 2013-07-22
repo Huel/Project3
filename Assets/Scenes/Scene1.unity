@@ -170,6 +170,9 @@ GameObject:
   - 23: {fileID: 712891681}
   - 54: {fileID: 712891688}
   - 114: {fileID: 712891685}
+  - 114: {fileID: 712891686}
+  - 114: {fileID: 712891687}
+  - 114: {fileID: 712891689}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -237,6 +240,30 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491e50f09ce2bb144b79c12c3324f8a1, type: 3}
   m_Name: 
+--- !u!114 &712891686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 712891680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73df02d7692ea044aac0f2f263eff4ea, type: 3}
+  m_Name: 
+--- !u!114 &712891687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 712891680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7e8ab85283676419eab8500a82feb5, type: 3}
+  m_Name: 
+  keepDeadUnitTime: 5
+  immortal: 0
+  invulnerable: 0
+  alive: 1
 --- !u!54 &712891688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -252,6 +279,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &712891689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 712891680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba595b1b3d3966e40ae90f5fc73ac810, type: 3}
+  m_Name: 
 --- !u!1001 &814313430
 Prefab:
   m_ObjectHideFlags: 0

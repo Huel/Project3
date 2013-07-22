@@ -7,7 +7,7 @@ public class XML : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameObject.AddComponent("Skill");
-        gameObject.GetComponent<Skill>().Init("Basic Attack", gameObject);
+        gameObject.GetComponent<Skill>().Init("Basic Attack");
         //new Skill("Basic Attack", gameObject);
 	}
 	
