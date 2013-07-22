@@ -1,0 +1,32 @@
+<Skills>
+	<skill name="Basic Attack">
+	    <type>Modify
+			<field>Damage</field>
+			<value>1.0f</value>
+			<target></target>
+		</type>
+		
+	    <trigger>onContact
+			<allowedTypes>Hero, Minion</allowedTypes>
+		</trigger>
+			
+	    <castingTime>0.5f</castingTime>
+	
+	    <cooldown>2.0f</cooldown>
+	</skill>
+	<skill name="Monster Slash">
+	    <type>Modify
+			<field>Damage</field>
+			<value>1.5f</value>
+			<target></target>
+		</type>
+		
+	    <trigger>onContact
+			<allowedTypes>Hero, Minion</allowedTypes>
+		</trigger>
+			
+	    <castingTime>1.5f</castingTime>
+	
+	    <cooldown>5.0f</cooldown>
+	</skill>
+</Skills>
