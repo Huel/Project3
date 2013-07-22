@@ -87,13 +87,13 @@ public class NetworkManager : MonoBehaviour
 	private void StartServer()
 	{
 		Network.InitializeServer(oneVSOne ? 1 : 3, listeningPort, !Network.HavePublicAddress());
-		Debug.Log(networkPlayerControler);
 	}
 
 	void OnServerInitialized()
 	{
 		Debug.Log("Server initialized");
 		networkPlayerControler.GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+		gameController.GetComponent<GameController>().networkPlayerController.Add(networkPlayerControler.GetComponent<NetworkPlayerController>());
 	}
 
 	void OnConnectedToServer()
@@ -107,6 +107,8 @@ public class NetworkManager : MonoBehaviour
 		{
 			networkPlayerControler.GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
 		}
+		NetworkPlayerController[] npc = NetworkView.FindObjectsOfType(typeof (NetworkPlayerController));
+
 	}
 
 	[RPC]
