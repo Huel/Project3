@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -14,11 +15,17 @@ public class NetworkManager : MonoBehaviour
 	private string levelName = "Scene2";
 
 	private bool gameStartet = false;
+	private bool nameDefied = false;
 
-	// Use this for initialization
+	public string playerName = "Enter Your Name";
+	private GameObject gameController;
+
+
 	void Awake()
 	{
-		NetworkView.DontDestroyOnLoad(GameObject.FindGameObjectWithTag("GameController"));
+		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
+
+		NetworkView.DontDestroyOnLoad(gameController);
 	}
 
 	// Update is called once per frame
@@ -27,27 +34,31 @@ public class NetworkManager : MonoBehaviour
 		if (oneVSOne && Network.connections.Length == 1 && !gameStartet)
 		{
 			networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
+			gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
 			gameStartet = true;
 		}
 		else if (twoVSTwo && Network.connections.Length == 3 && !gameStartet)
 		{
 			networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
+			gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, GameController.GameState.Running);
 			gameStartet = true;
 		}
 	}
 
 	private void OnGUI()
 	{
-		if (!oneVSOne && !twoVSTwo)
+		if (nameDefied && !oneVSOne && !twoVSTwo)
 		{
 			if (!Network.isClient && !Network.isServer && !startServer)
 			{
-				if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.01f, Screen.width * 0.1f, Screen.height * 0.1f), "Start Server"))
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+				               "Start Server"))
 				{
 					startServer = true;
 				}
 
-				if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f), "Join Server"))
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
+				               "Join Server"))
 				{
 					Debug.Log("Joining Server");
 					Network.Connect(ip, listeningPort);
@@ -56,7 +67,8 @@ public class NetworkManager : MonoBehaviour
 
 			if (startServer)
 			{
-				if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.01f, Screen.width * 0.1f, Screen.height * 0.1f), "One VS One"))
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+				               "One VS One"))
 				{
 					Debug.Log("One VS One");
 					oneVSOne = true;
@@ -64,7 +76,8 @@ public class NetworkManager : MonoBehaviour
 					StartServer();
 				}
 
-				if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f), "Two VS Two"))
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
+				               "Two VS Two"))
 				{
 					Debug.Log("Two VS Two");
 					twoVSTwo = true;
@@ -72,6 +85,18 @@ public class NetworkManager : MonoBehaviour
 					StartServer();
 				}
 			}
+		}
+		else if(!nameDefied)
+		{
+			playerName = GUI.TextField(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+			              playerName);
+
+			if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f),
+						   "Set Name"))
+			{
+				nameDefied = true;
+			}
+			
 		}
 	}
 
@@ -83,19 +108,34 @@ public class NetworkManager : MonoBehaviour
 	void OnServerInitialized()
 	{
 		Debug.Log("Server initialized");
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
+		gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Starting);
+		gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player1,
+			playerName, (int)Team.TeamIdentifier.Team1, Network.player);
 	}
 
 	void OnConnectedToServer()
 	{
 		Debug.Log("Connected!");
-		if (Network.connections.Length%2 == 0)
+		switch (Network.connections.Length)
 		{
-			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team1;
-		}
-		else
-		{
-			GameObject.FindGameObjectWithTag("GameController").GetComponent<Team>().ID = Team.TeamIdentifier.Team2;
+			case 1:
+				{
+					gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player2,
+						playerName, (int)Team.TeamIdentifier.Team2, Network.player);
+					break;
+				}
+			case 2:
+				{
+					gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player3,
+						playerName, (int)Team.TeamIdentifier.Team1, Network.player);
+					break;
+				}
+			case 3:
+				{
+					gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player4,
+						playerName, (int)Team.TeamIdentifier.Team2, Network.player);
+					break;
+				}
 		}
 	}
 
