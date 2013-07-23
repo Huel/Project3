@@ -67,7 +67,9 @@ public class Range : MonoBehaviour
     public Target GetNearestTarget()
     {
         order();
-        return objectsInRange[0];
+        if (objectsInRange.Count > 0)
+            return objectsInRange[0];
+        return null;
     }
 
     public Target GetNearestTargetByType(TargetType type)
@@ -75,6 +77,15 @@ public class Range : MonoBehaviour
         order();
         for (int i = 0; i < objectsInRange.Count; i++)
             if (objectsInRange[i].type == type)
+                return objectsInRange[i];
+        return null;
+    }
+
+    public Target GetNearestTargetByTypes(List<TargetType> types)
+    {
+        order();
+        for (int i = 0; i < objectsInRange.Count; i++)
+            if (types.Contains(objectsInRange[i].type))
                 return objectsInRange[i];
         return null;
     }
@@ -129,6 +140,10 @@ public class Range : MonoBehaviour
 
     void order()
     {
+        for (int j = objectsInRange.Count - 1; j >= 0; j--)
+            if (j < objectsInRange.Count)
+                if (objectsInRange[j] == null)
+                    objectsInRange.RemoveAt(j);
         float distance;
         int position;
         int amount = objectsInRange.Count;

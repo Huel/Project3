@@ -11,14 +11,19 @@ public class PlayerController : MonoBehaviour
     private bool runningBack = false;
     private Vector3 targetDirection;
 
+    private Skill basicAttack;
+
     void Start()
     {
         forward = new Vector3(0f, 0f, 0f);
+        basicAttack = gameObject.AddComponent<Skill>();
+        basicAttack.Init("Basic Attack");
     }
 
     void Update()
     {
         MovePlayer();
+        AttackPlayer();
         RotatePlayer();
     }
 
@@ -67,6 +72,14 @@ public class PlayerController : MonoBehaviour
         targetDirection = targetDirection.normalized * _movementSpeed;
         targetDirection.y = -1;
         transform.GetComponent<CharacterController>().Move(targetDirection * Time.deltaTime);
+    }
+
+    private void AttackPlayer()
+    {
+        if (Input.GetButtonDown("BButton"))
+        {
+            basicAttack.Execute();
+        } 
     }
 
     private void RotatePlayer()

@@ -38,12 +38,12 @@ public class CameraController : MonoBehaviour
             _towardsInitialPosition = true;
         }
 
-        if (!_towardsInitialPosition)
+        if (!_towardsInitialPosition && _player != null)
         {
             if (Mathf.Abs((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
                 transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.forward * _zeldaDistanceAway, Time.deltaTime * _cameraMovementSpeed) - transform.position);
         }
-        else
+        else if (_initialCameraPosition != null)
         {
             transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _initialCameraPosition.position, Time.deltaTime * _cameraMovementSpeed) - transform.position);
         }

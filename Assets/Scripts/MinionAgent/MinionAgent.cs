@@ -8,6 +8,7 @@ public class MinionAgent : MonoBehaviour
     public LaneIdentifier laneID;
 
     private NavMeshAgent agent;
+    private Skill basicAttack;
 
     public Target _destination;    // default target
     public Target _origin;         // came from here
@@ -24,6 +25,8 @@ public class MinionAgent : MonoBehaviour
     void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+        basicAttack = gameObject.AddComponent<Skill>();
+        basicAttack.Init("Basic Attack");
 
         //if (networkView.isMine)
         //    agent.enabled = true;
@@ -58,8 +61,8 @@ public class MinionAgent : MonoBehaviour
                 _target = null;
                 
             }
-                
-            
+        if (_target != null)
+            basicAttack.Execute();            
     }
 
     void SelectTarget()

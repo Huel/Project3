@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Damage : MonoBehaviour 
 {
-    private float _defaultDamage;
+    private float _defaultDamage = 3f;
     private float _incDamage;
     private float _hitSpeed;        // Hits per second
     private float _incHitSpeed;     
-    private float _damageMultiplier;
+    private float _damageMultiplier = 1f;
     private float _hitSpeedMultiplier;
 
     // properties are read-only

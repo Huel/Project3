@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
 			_healthPoints = _maxHealth * _maxHealthMultiplier;
 
 		if (networkView.isMine)
-			networkView.RPC("SetMaxHealth", RPCMode.Others);
+			networkView.RPC("SetMaxHealth", RPCMode.Others, maxHealth, incHealth);
 	}
 	/// <summary>
 	///     set the minimum health
@@ -76,7 +76,7 @@ public class Health : MonoBehaviour
 			_minHealth = 0;
 
 		if (networkView.isMine)
-			networkView.RPC("SetMinHealth", RPCMode.Others);
+            networkView.RPC("SetMinHealth", RPCMode.Others, minHealth);
 	}
 	/// <summary>
 	///     set the increased maximum health, no maxHealthMultiplier needed
@@ -91,7 +91,7 @@ public class Health : MonoBehaviour
 			_incMaxHealth = _minHealth;
 
 		if (networkView.isMine)
-			networkView.RPC("SetIncMaxHealth", RPCMode.Others);
+            networkView.RPC("SetIncMaxHealth", RPCMode.Others, incMaxHealth);
 	}
 	/// <summary>
 	///     set the health to the minimum
@@ -129,7 +129,7 @@ public class Health : MonoBehaviour
 			_healthPoints = healthValue;
 
 		if (networkView.isMine)
-			networkView.RPC("SetHealthToValue", RPCMode.Others);
+            networkView.RPC("SetHealthToValue", RPCMode.Others, healthValue);
 		return _healthPoints;
 	}
 	/// <summary>
@@ -141,7 +141,7 @@ public class Health : MonoBehaviour
 	{
 		_maxHealthMultiplier = maxHealthMultiplier;
 		if (networkView.isMine)
-			networkView.RPC("SetMaxHealthMultiplier", RPCMode.Others);
+            networkView.RPC("SetMaxHealthMultiplier", RPCMode.Others, maxHealthMultiplier);
 	}
 	/// <summary>
 	///     increases the current health
@@ -155,7 +155,7 @@ public class Health : MonoBehaviour
 		if (_healthPoints > _maxHealth)
 			_healthPoints = _maxHealth;
 		if (networkView.isMine)
-			networkView.RPC("IncHealth", RPCMode.Others);
+            networkView.RPC("IncHealth", RPCMode.Others, healthValue);
 		return _healthPoints;
 	}
 	/// <summary>
@@ -176,7 +176,7 @@ public class Health : MonoBehaviour
 			else
 				alive = false;
 		if (networkView.isMine)
-			networkView.RPC("DecHealth", RPCMode.Others);
+            networkView.RPC("DecHealth", RPCMode.Others, healthValue);
 		return _healthPoints;
 	}
 

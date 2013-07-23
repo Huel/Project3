@@ -17,6 +17,13 @@ public class ContactTrigger : MonoBehaviour
         return contacts.Contains(target);
     }
 
+    public Target GetContact()
+    {
+        if (contacts.Count != 0)
+            return contacts[0];
+        return null;
+    }
+
     public void AddListener(OnContact listenerFunction)
     {
         defaultListener.Add(listenerFunction);
