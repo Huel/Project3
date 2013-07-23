@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Speed : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class Speed : MonoBehaviour
     private float _stamina = 10f;
     private float _maxStamina = 10f;
     private float _minStamina = 1f;
-    private float _staminaRegenaration =0.2f;     //staminaPoints per second
+    private float _staminaRegenaration = 0.2f;     //staminaPoints per second
     private float _staminaDecay = 0.3f;
     private bool _isSprinting;
 
@@ -19,25 +18,26 @@ public class Speed : MonoBehaviour
     public bool IsSprinting
     {
         get { return _isSprinting; }
-        set {
+        set
+        {
             if (Stamina < MinStamina && !_isSprinting && value)
                 return;
             else
                 _isSprinting = value;
-             }
+        }
     }
     /// <summary>
     ///     returns the current Speed (default or sprint)
     /// </summary>
     public float CurrentSpeed
     {
-        get 
+        get
         {
             if (IsSprinting)
                 return _sprintSpeed;
             return _defaultSpeed;
         }
-    }   
+    }
     public float DefaultSpeed
     {
         get { return _defaultSpeed; }
@@ -188,7 +188,7 @@ public class Speed : MonoBehaviour
     /// <param name="staminaValue"></param>
     [RPC]
     public void IncStamina(float staminaValue)
-    {   
+    {
         _stamina += staminaValue;
         if (_stamina > _maxStamina)
             _stamina = _maxStamina;
