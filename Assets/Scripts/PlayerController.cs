@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float _movementSpeed = 9.0f;
+    private float _movementSpeed = 9.0f; //speed of player, will be multiplied by deltatime
     [SerializeField]
     private Transform _camera;
 
@@ -44,14 +44,15 @@ public class PlayerController : MonoBehaviour
         {
             forward = -_camera.forward;
         }
-        //else Debug.Log("RUNNINGBACK TRUE");
+
         if (runningBack && Input.GetAxisRaw("leftanalogY") == 0.0f)
         {
             runningBack = false;
         }
-        forward.y = 0;
 
+        forward.y = 0;
         forward.Normalize();
+
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
 
         float v = Input.GetAxisRaw("leftanalogY");
