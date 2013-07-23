@@ -38,20 +38,4 @@ public class GameController : MonoBehaviour
 			_startTime = Time.time;
 		}
 	}
-
-	void Update()
-	{
-		
-		if (state == GameState.Running)
-		{
-			Debug.Log(GameTime);
-		}
-		//if (_allNetworkPlayerController != null)
-		//{
-		//	foreach (NetworkPlayerController networkPlayerController in _allNetworkPlayerController)
-		//	{
-		//		Debug.Log(networkPlayerController.playerName);
-		//	}
-		//}
-	}
 }
