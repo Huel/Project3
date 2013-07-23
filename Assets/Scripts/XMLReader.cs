@@ -6,7 +6,7 @@ using System.IO;
 public class XMLReader
 {
     private XmlDocument document = new XmlDocument();
-	private ArrayList content = new ArrayList();
+	//private ArrayList content = new ArrayList();
 
     public XMLReader(string path)
     {

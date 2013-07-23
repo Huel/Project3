@@ -7,8 +7,10 @@ public class XML : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameObject.AddComponent("Skill");
+		gameObject.GetComponent<Damage>().SetHitSpeedMultiplier(1);
+		gameObject.GetComponent<Damage>().SetHitSpeed(5);
         gameObject.GetComponent<Skill>().Init("Basic Attack");
-        //new Skill("Basic Attack", gameObject);
+		//new Skill("Basic Attack", gameObject);
 	}
 	
 	// Update is called once per frame

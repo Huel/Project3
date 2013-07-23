@@ -12,14 +12,16 @@ class Modifier
 
     private string field;
     private float value;
+    private string valueType;
     private string target;
 
-	public Modifier(Skill skill, string field, float value, string target)
+	public Modifier(Skill skill, string field, float value, string valueType, string target)
 	{
         this.skill = skill;
         type = modifierType.modify;
         this.field = field;
         this.value = value;
+        this.valueType = valueType;
         this.target = target;
 	}
 
@@ -28,12 +30,20 @@ class Modifier
         switch(type)
         {
             case modifierType.modify:
-                Debug.Log(field + "   " + value + "   " + target);
-                if (field == "Health" && target == "Target" && skill.gameObject.GetComponent<Range>().GetNearestTarget() != null)
-                    skill.gameObject.GetComponent<Range>().GetNearestTarget().gameObject.GetComponent<Health>().DecHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
-                if (field == "Health" && target == "Self" && skill.gameObject.GetComponent<Range>().GetNearestTarget() != null)
-                    skill.gameObject.GetComponent<Health>().DecHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
-                break;
+				switch(field)
+				{
+					case "Health":
+						Health comp = null;
+						if(target == "Self") comp = skill.gameObject.GetComponent<Health>();
+						if(target == "Target" && skill.gameObject.GetComponent<Range>().GetNearestTarget() != null) skill.gameObject.GetComponent<Range>().GetNearestTarget().GetComponent<Health>();
+						if(comp != null)
+						{
+							//if(valueType=="increase") comp.IncHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
+							//if(valueType=="decrease") comp.DecHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
+						}
+						break;
+				}
+				break;
         }
     }
 }
@@ -84,12 +94,6 @@ class Trigger
 		{
 			case triggerType.onContact:
 				return (skill.gameObject.GetComponent<Range>().GetNearestTargetByTypes(targetTypes) != null);
-			case triggerType.atPosition:
-				// @TODO: Anpassen...
-				return true;
-			case triggerType.onRange:
-				// @TODO: Anpassen...
-				return true;
 		}
 		return true;
 	}
@@ -99,7 +103,7 @@ public enum SkillState { Ready, InExecution, Active, OnCooldown };
 
 public class Skill : MonoBehaviour
 {
-    private string name;
+    private string skillName;
 
     private List<Modifier> modifiers = new List<Modifier>();
     private Trigger trigger = null;
@@ -116,7 +120,7 @@ public class Skill : MonoBehaviour
 
     public void Init(string name)
     {
-        this.name = name;
+        this.skillName = name;
 
         ConvertXML();
 
@@ -126,7 +130,7 @@ public class Skill : MonoBehaviour
         _state = SkillState.Ready;
 		
         //@TODO: Test only
-		Execute();
+		//Execute();
     }
 
     public bool Execute()
@@ -134,6 +138,8 @@ public class Skill : MonoBehaviour
         if (!_enabled) return false;
         if (_state != SkillState.Ready) return false;
 		if (trigger != null && !trigger.check()) return false;
+		actualCooldown = cooldown;
+		actualCastingTime = castingTime;
         _state = SkillState.InExecution;
         return true;
     }
@@ -141,15 +147,12 @@ public class Skill : MonoBehaviour
     void Update()
     {
         if (_state == SkillState.Ready) return;
-
+		
         if (_state == SkillState.InExecution)
         {
             actualCastingTime -= Time.deltaTime;
-            if (actualCastingTime < castingTime)
-            {
-                actualCastingTime = castingTime;
+            if (actualCastingTime <= 0)
                 _state = SkillState.Active;
-            }
         }
 
         if (_state == SkillState.Active)
@@ -162,11 +165,8 @@ public class Skill : MonoBehaviour
         if (_state == SkillState.OnCooldown)
         {
             actualCooldown -= Time.deltaTime;
-            if (actualCooldown < cooldown)
-            {
-                actualCooldown = cooldown;
+            if (actualCooldown <= 0)
                 _state = SkillState.Ready;
-            }
         }
     }
 
@@ -175,7 +175,7 @@ public class Skill : MonoBehaviour
         XmlDocument document = new XMLReader("Skills.xml").GetXML();
 		XmlElement skillNode = null;
 		foreach(XmlElement node in document.GetElementsByTagName("skill"))
-			if(node.GetAttribute("name") == name)
+			if(node.GetAttribute("name") == skillName)
 				skillNode = node;
 		if(skillNode != null)
 		{
@@ -183,14 +183,13 @@ public class Skill : MonoBehaviour
 			XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
 			XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
 			XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
-			
-			cooldown = float.Parse(cooldownList[0].InnerText);
-			castingTime = float.Parse(castingTimeList[0].InnerText);
+            cooldown = ((cooldownList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(cooldownList[0].InnerText) : float.Parse(cooldownList[0].InnerText);
+            castingTime = ((castingTimeList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(castingTimeList[0].InnerText) : float.Parse(castingTimeList[0].InnerText);
 			
 			List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
 			List<TargetType> targetTypes;
 			string[] fieldStrings;
-            string field, target;
+            string field, target, valueType;
 			Vector3 position;
 			float parsedValue;
 			
@@ -235,8 +234,9 @@ public class Skill : MonoBehaviour
 					case "modify":
 						field = skill.ChildNodes[1].InnerText;
 						parsedValue = float.Parse(skill.ChildNodes[2].InnerText);
+                        valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
                         target = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, parsedValue, target));
+                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target));
 						break;
 				}
 			}

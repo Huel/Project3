@@ -1,12 +1,11 @@
 <Skills>
 	<skill name="Name of the skill">
 	    <!--Each skill requires atleast one type!-->
-		<type>
-			modify
-			<field>Damage</field>
-			<value>0.0</value>
-			<target>Self</target>
-		</type>
+		  <type>modify
+			  <field>Health</field>
+        <value type="decrease">0.0</value>
+			  <target>Self</target>
+		  </type>
 	    <!--<type>buff<component>Name of the Component</component><target>Self or Target (...)</target></type>-->
 	    <!--<type>debuff<component>Name of the Component</component><target>Self or Target (...)</target></type>-->
 	    <!--<type>aura<prefab>Name of the Prefab</prefab><target>Self or Target (...)</target></type>-->
@@ -16,18 +15,19 @@
 	    <!--<type>minion<field>Target or TargetType or Direction (...)<field><value>Self or Valve (...)</value></type>-->
 	
 	    <!--Each skill requires exactly one trigger-->
-	    <trigger>
-			inRange
-			<value>0.0</value>
-		</trigger>
+	    <trigger>inRange
+			  <value>0.0</value>
+		  </trigger>
 	    <!--<trigger>onContact<allowedTypes>Minion</allowedTypes></trigger>-->
 	    <!--<trigger>atPosition<location>0.0, 0.0, 0.0</location><radius>0.0</radius></trigger>-->
 	    <!--<trigger>instant</trigger>-->
 	
 	    <!--Each skill requires exactly one casting Time, even if it is zero, which means an instant action!-->
 	    <castingTime>0.0</castingTime>
+      <castingTime type="related">0.0</castingTime>
 	
 	    <!--Each skill requires exactly one cooldown, even if it is zero, which means no waiting time!-->
-	    <cooldown>0.0</cooldown>
+      <!--<cooldown>0.0</cooldown>-->
+      <!--<cooldown type="related">0.0</cooldown>-->
 	</skill>
 </Skills>
