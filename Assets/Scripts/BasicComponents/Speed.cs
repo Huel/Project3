@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Speed : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class Speed : MonoBehaviour
     private float _stamina = 10f;
     private float _maxStamina = 10f;
     private float _minStamina = 1f;
-    private float _staminaRegenaration =0.2f;     //staminaPoints per second
+    private float _staminaRegenaration = 0.2f;     //staminaPoints per second
     private float _staminaDecay = 0.3f;
     private bool _isSprinting;
 
@@ -19,25 +18,26 @@ public class Speed : MonoBehaviour
     public bool IsSprinting
     {
         get { return _isSprinting; }
-        set {
+        set
+        {
             if (Stamina < MinStamina && !_isSprinting && value)
                 return;
             else
                 _isSprinting = value;
-             }
+        }
     }
     /// <summary>
     ///     returns the current Speed (default or sprint)
     /// </summary>
     public float CurrentSpeed
     {
-        get 
+        get
         {
             if (IsSprinting)
                 return _sprintSpeed;
             return _defaultSpeed;
         }
-    }   
+    }
     public float DefaultSpeed
     {
         get { return _defaultSpeed; }
@@ -79,7 +79,7 @@ public class Speed : MonoBehaviour
     {
         _defaultSpeed = defaultSpeed;
         if (networkView.isMine)
-            networkView.RPC("SetDefaultSpeed", RPCMode.Others);
+            networkView.RPC("SetDefaultSpeed", RPCMode.Others, defaultSpeed);
     }
     /// <summary>
     ///     set the sprint speed
@@ -90,7 +90,7 @@ public class Speed : MonoBehaviour
     {
         _sprintSpeed = sprintSpeed;
         if (networkView.isMine)
-            networkView.RPC("SetSprintSpeed", RPCMode.Others);
+            networkView.RPC("SetSprintSpeed", RPCMode.Others, sprintSpeed);
     }
     /// <summary>
     ///     set the sprint speed by multiply default speed with speed multiplier
@@ -111,7 +111,7 @@ public class Speed : MonoBehaviour
     {
         _speedMultiplier = speedMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetSpeedMultiplier", RPCMode.Others);
+            networkView.RPC("SetSpeedMultiplier", RPCMode.Others, speedMultiplier);
     }
     /// <summary>
     ///     set the current stamina value, which is between maximum stamina and 0
@@ -128,7 +128,7 @@ public class Speed : MonoBehaviour
             _stamina = 0;
 
         if (networkView.isMine)
-            networkView.RPC("SetStamina", RPCMode.Others);
+            networkView.RPC("SetStamina", RPCMode.Others, stamina);
     }
     /// <summary>
     ///     set the maximum stamina, minimum value 0
@@ -143,7 +143,7 @@ public class Speed : MonoBehaviour
             _maxStamina = 0;
 
         if (networkView.isMine)
-            networkView.RPC("SetMaxStamina", RPCMode.Others);
+            networkView.RPC("SetMaxStamina", RPCMode.Others, maxStamina);
     }
     /// <summary>
     ///     set the minimum stamina, the minimum value which is needed for sprint activation
@@ -158,7 +158,7 @@ public class Speed : MonoBehaviour
             _minStamina = 0;
 
         if (networkView.isMine)
-            networkView.RPC("SetMinStamina", RPCMode.Others);
+            networkView.RPC("SetMinStamina", RPCMode.Others, minStamina);
     }
     /// <summary>
     ///     set the stamina regenaration speed
@@ -169,7 +169,7 @@ public class Speed : MonoBehaviour
     {
         _staminaRegenaration = staminaRegenaration;
         if (networkView.isMine)
-            networkView.RPC("SetStaminaRegenaration", RPCMode.Others);
+            networkView.RPC("SetStaminaRegenaration", RPCMode.Others, staminaRegenaration);
     }
     /// <summary>
     ///     set the stamina decay speed
@@ -180,7 +180,7 @@ public class Speed : MonoBehaviour
     {
         _staminaDecay = staminaDecay;
         if (networkView.isMine)
-            networkView.RPC("SetStaminaDecay", RPCMode.Others);
+            networkView.RPC("SetStaminaDecay", RPCMode.Others, staminaDecay);
     }
     /// <summary>
     ///     increases the current stamina by adding the value
@@ -188,12 +188,12 @@ public class Speed : MonoBehaviour
     /// <param name="staminaValue"></param>
     [RPC]
     public void IncStamina(float staminaValue)
-    {   
+    {
         _stamina += staminaValue;
         if (_stamina > _maxStamina)
             _stamina = _maxStamina;
         if (networkView.isMine)
-            networkView.RPC("IncStamina", RPCMode.Others);
+            networkView.RPC("IncStamina", RPCMode.Others, staminaValue);
     }
     /// <summary>
     ///     decreases the current stamina by adding the value
@@ -206,7 +206,7 @@ public class Speed : MonoBehaviour
         if (_stamina < 0)
             _stamina = 0;
         if (networkView.isMine)
-            networkView.RPC("DecStamina", RPCMode.Others);
+            networkView.RPC("DecStamina", RPCMode.Others, staminaValue);
     }
 
     void Update()
