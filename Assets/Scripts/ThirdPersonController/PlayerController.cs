@@ -29,60 +29,49 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (_camera == null)
+
+        if (Input.GetAxisRaw("leftanalogY") > 0.0f) //bugifx, if you are running back and push the stick forwards, the player will rotate 180° on each frame while under camera otherwise
         {
-            _camera = GameObject.FindGameObjectWithTag(Tags.camera).transform;
+            runningBack = false;
         }
-        if (_camera == null)
+
+        if (_camera.localEulerAngles.x == 90) //if camera looking down
         {
-            Debug.Log("Camera in PlayerController is null, although it mustn't be. Functionality of MovePlayer() disabled.");
+            runningBack = true;
         }
-        else
+
+        if (!runningBack)
         {
-
-            if (Input.GetAxisRaw("leftanalogY") > 0.0f) //bugifx, if you are running back and push the stick forwards, the player will rotate 180° on each frame while under camera otherwise
-            {
-                runningBack = false;
-            }
-
-            if (_camera.localEulerAngles.x == 90) //if camera looking down
-            {
-                runningBack = true;
-            }
-
-            if (!runningBack)
-            {
-                forward = _camera.forward;
-            }
-
-            if (runningBack && _camera.localEulerAngles.x != 90)
-            {
-                forward = -_camera.forward;
-            }
-
-            if (runningBack && Input.GetAxisRaw("leftanalogY") == 0.0f)
-            {
-                runningBack = false;
-            }
-
-            forward.y = 0;
-            forward.Normalize();
-
-            Vector3 right = new Vector3(forward.z, 0, -forward.x);
-
-            float v = Input.GetAxisRaw("leftanalogY");
-            float h = Input.GetAxisRaw("leftanalogX");
-
-            if (runningBack)
-            {
-                h *= -1;
-            }
-
-            targetDirection = h * right + v * forward;
-            targetDirection = targetDirection.normalized * _movementSpeed;
-            targetDirection.y = -1;
-            transform.GetComponent<CharacterController>().Move(targetDirection * Time.deltaTime);
+            forward = _camera.forward;
         }
+
+        if (runningBack && _camera.localEulerAngles.x != 90)
+        {
+            forward = -_camera.forward;
+        }
+
+        if (runningBack && Input.GetAxisRaw("leftanalogY") == 0.0f)
+        {
+            runningBack = false;
+        }
+
+        forward.y = 0;
+        forward.Normalize();
+
+        Vector3 right = new Vector3(forward.z, 0, -forward.x);
+
+        float v = Input.GetAxisRaw("leftanalogY");
+        float h = Input.GetAxisRaw("leftanalogX");
+
+        if (runningBack)
+        {
+            h *= -1;
+        }
+
+        targetDirection = h * right + v * forward;
+        targetDirection = targetDirection.normalized * _movementSpeed;
+        targetDirection.y = -1;
+        transform.GetComponent<CharacterController>().Move(targetDirection * Time.deltaTime);
     }
 
     private void AttackPlayer()
@@ -90,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("BButton"))
         {
             basicAttack.Execute();
-        }
+        } 
     }
 
     private void RotatePlayer()

@@ -22,63 +22,36 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-
+        limitRotation = new GameObject();
+        _initialCameraPosition.position = _player.position + Vector3.up * _zeldaDistanceUp - _player.forward * _zeldaDistanceAway;
     }
 
     private void FixedUpdate()
     {
-        if (_player != null)
+
+        if (Input.GetAxis("leftanalogY") != 0.0f || Input.GetAxis("leftanalogX") != 0.0f)
         {
-            if (Input.GetAxis("leftanalogY") != 0.0f || Input.GetAxis("leftanalogX") != 0.0f)
-            {
-                _towardsInitialPosition = false;
-            }
-            if (Input.GetButtonDown("AButton"))
-            {
-                _towardsInitialPosition = true;
-            }
-
-            if (!_towardsInitialPosition && _player != null)
-            {
-                if (Mathf.Abs((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
-                    transform.GetComponent<CharacterController>()
-                             .Move(
-                                 Vector3.Lerp(transform.position,
-                                              _player.position + Vector3.up * _zeldaDistanceUp -
-                                              _player.forward * _zeldaDistanceAway, Time.deltaTime * _cameraMovementSpeed) -
-                                 transform.position);
-            }
-            else if (_initialCameraPosition != null)
-            {
-                transform.GetComponent<CharacterController>()
-                         .Move(
-                             Vector3.Lerp(transform.position, _initialCameraPosition.position,
-                                          Time.deltaTime * _cameraMovementSpeed) - transform.position);
-            }
-
-            limitRotation.transform.position = transform.position;
-            limitRotation.transform.rotation = transform.rotation;
-            limitRotation.transform.LookAt(_player);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, limitRotation.transform.rotation,
-                                                  Time.deltaTime * _cameraRotationSpeed);
+            _towardsInitialPosition = false;
         }
-        else
+        if (Input.GetButtonDown("AButton"))
         {
-            foreach (GameObject Player in GameObject.FindGameObjectsWithTag(Tags.player))
-            {
-                if (Player.GetComponent<NetworkView>().isMine)
-                {
-                    _player = Player.transform;
-                }
-            }
-            if (_player != null)
-            {
-                limitRotation = new GameObject();
-                _initialCameraPosition = _player.FindChild("CameraDestination").transform;
-                _initialCameraPosition.position = _player.position + Vector3.up * _zeldaDistanceUp -
-                                                  _player.forward * _zeldaDistanceAway;
-            }
+            _towardsInitialPosition = true;
         }
+
+        if (!_towardsInitialPosition && _player != null)
+        {
+            if (Mathf.Abs((_player.position - transform.position).magnitude) > _zeldaDistanceAway)
+                transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _player.position + Vector3.up * _zeldaDistanceUp - _player.forward * _zeldaDistanceAway, Time.deltaTime * _cameraMovementSpeed) - transform.position);
+        }
+        else if (_initialCameraPosition != null)
+        {
+            transform.GetComponent<CharacterController>().Move(Vector3.Lerp(transform.position, _initialCameraPosition.position, Time.deltaTime * _cameraMovementSpeed) - transform.position);
+        }
+
+        limitRotation.transform.position = transform.position;
+        limitRotation.transform.rotation = transform.rotation;
+        limitRotation.transform.LookAt(_player);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, limitRotation.transform.rotation, Time.deltaTime * _cameraRotationSpeed);
     }
 }
