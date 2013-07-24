@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private float _healthPoints = 10f;
-    private float _maxHealth = 10f;
+    public float _healthPoints = 10f;
+    public float _maxHealth = 10f;
     private float _incMaxHealth;
-    private float _minHealth = 0f;
+    public float _minHealth = 0f;
     private float _maxHealthMultiplier = 1f;
 
     private float _deadCounter;
