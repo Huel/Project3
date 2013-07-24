@@ -118,4 +118,9 @@ public class ContactTrigger : MonoBehaviour
             foreach (OnContact listener in targetListener[target])
                 if (listener != null) listener(target);
     }
+
+    public void SetActive(bool value)
+    {
+        gameObject.SetActive(value);
+    }
 }
