@@ -3414,6 +3414,7 @@ GameObject:
   - 195: {fileID: 1228276633}
   - 136: {fileID: 1228276635}
   - 114: {fileID: 1228276636}
+  - 114: {fileID: 1228276634}
   m_Layer: 0
   m_Name: minion
   m_TagString: Untagged
@@ -3559,6 +3560,17 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1228276634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1228276623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414cc816d28198b4b81f123975c097b9, type: 3}
+  m_Name: 
+  xmlFile: minion
 --- !u!136 &1228276635
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4532,7 +4544,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1539563615}
-  - 114: {fileID: 1539563616}
   m_Layer: 0
   m_Name: minion xml reader
   m_TagString: Untagged
@@ -4551,17 +4562,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &1539563616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1539563614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9877d70edd622be438cf5c18a3d47d0f, type: 3}
-  m_Name: 
-  minion: {fileID: 1228276623}
 --- !u!1001 &1567436272
 Prefab:
   m_ObjectHideFlags: 0
@@ -6055,6 +6055,7 @@ GameObject:
   - 114: {fileID: 1939346771}
   - 114: {fileID: 1939346772}
   - 208: {fileID: 1939346774}
+  - 114: {fileID: 1939346773}
   m_Layer: 0
   m_Name: hero01
   m_TagString: Untagged
@@ -6224,6 +6225,17 @@ MonoBehaviour:
   untereKameraGrenze: -50
   frozenYDown: 0
   frozenYUp: 0
+--- !u!114 &1939346773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1939346760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414cc816d28198b4b81f123975c097b9, type: 3}
+  m_Name: 
+  xmlFile: hero01
 --- !u!208 &1939346774
 NavMeshObstacle:
   m_ObjectHideFlags: 0

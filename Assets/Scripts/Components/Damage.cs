@@ -7,8 +7,8 @@ public class Damage : MonoBehaviour
     private float _incDamage;
     private float _hitSpeed;        // Hits per second
     private float _incHitSpeed;     
-    private float _damageMultiplier;
-    private float _hitSpeedMultiplier;
+    private float _damageMultiplier = 1.0f;
+    private float _hitSpeedMultiplier = 1.0f;
 
     // properties are read-only
 

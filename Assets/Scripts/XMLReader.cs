@@ -5,11 +5,11 @@ using System.IO;
 
 public class XMLReader
 {
-    private XmlDocument document = new XmlDocument();
+	private XmlDocument document = new XmlDocument();
 	private ArrayList content = new ArrayList();
 
-    public XMLReader(string path)
-    {
+	public XMLReader(string path)
+	{
 		try
 		{
 			document.LoadXml(File.ReadAllText(Path.GetFullPath("Assets/XML/" + path)));
@@ -29,7 +29,7 @@ public class XMLReader
 		{
 			throw(error);
 		}    
-    }
+	}
 	
 	/*
 	ArrayList GetInnerChilds(XmlElement innerNode)

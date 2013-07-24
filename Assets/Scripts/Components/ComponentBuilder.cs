@@ -1,29 +1,36 @@
 using System.Xml;
 using UnityEngine;
 
-public class Minion : MonoBehaviour
+public class ComponentBuilder : MonoBehaviour
 {
-    public GameObject minion;
+    // ONLY TESTING !!!
+    public string xmlFile;
 
     // Use this for initialization
     void Start()
     {
-        getDatafromXML(minion);
+        // this is ONLY for TESTING !!!!!
+        getDatafromXML(xmlFile+".xml");
     }
 
-    private void getDatafromXML(GameObject minion)
+    /// <summary>
+    ///     set all important values from health, damage and speed component from the relevant .xml
+    /// </summary>
+    /// <param name="owner">GameObject which has health, damage and speed components</param>
+    /// <param name="dataPath">dataname.xml</param>
+    private void getDatafromXML(string dataPath)
     {
-        Health healthComp = minion.GetComponent<Health>();
-        Speed speedComp = minion.GetComponent<Speed>();
-        Damage damageComp = minion.GetComponent<Damage>();
-        XmlDocument document = new XMLReader("Minion.xml").GetXML();
+        Health healthComp = GetComponent<Health>();
+        Speed speedComp = GetComponent<Speed>();
+        Damage damageComp = GetComponent<Damage>();
+        XmlDocument document = new XMLReader(dataPath).GetXML();
         XmlElement health = null;
         foreach (XmlElement node in document.GetElementsByTagName("health"))
             health = node;
 
         if (health != null)
         {
-            healthComp.SetMaxHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText), false);
+            healthComp.SetMaxHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText), true);
             healthComp.SetHealthToValue(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText));
             healthComp.SetIncMaxHealth(0.0f);
             healthComp.SetMinHealth(0.0f);

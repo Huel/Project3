@@ -4,7 +4,7 @@ public class Speed : MonoBehaviour
 {
     private float _defaultSpeed = 3f;
     private float _sprintSpeed = 3.3f;
-    private float _speedMultiplier;
+    private float _speedMultiplier =1.0f;
     private float _stamina = 10f;
     private float _maxStamina = 10f;
     private float _minStamina = 1f;
