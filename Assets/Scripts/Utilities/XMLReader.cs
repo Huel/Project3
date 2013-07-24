@@ -5,11 +5,16 @@ using System.IO;
 
 public class XMLReader
 {
+<<<<<<< HEAD:Assets/Scripts/Utilities/XMLReader.cs
     private XmlDocument document = new XmlDocument();
 	//private ArrayList content = new ArrayList();
+=======
+	private XmlDocument document = new XmlDocument();
+	private ArrayList content = new ArrayList();
+>>>>>>> refs/heads/feature/minion&hero_xml:Assets/Scripts/XMLReader.cs
 
-    public XMLReader(string path)
-    {
+	public XMLReader(string path)
+	{
 		try
 		{
 			document.LoadXml(File.ReadAllText(Path.GetFullPath("Assets/XML/" + path)));
@@ -29,7 +34,7 @@ public class XMLReader
 		{
 			throw(error);
 		}    
-    }
+	}
 	
 	/*
 	ArrayList GetInnerChilds(XmlElement innerNode)

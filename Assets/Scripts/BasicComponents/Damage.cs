@@ -5,9 +5,15 @@ public class Damage : MonoBehaviour
     private float _defaultDamage = 3f;
     private float _incDamage;
     private float _hitSpeed;        // Hits per second
+<<<<<<< HEAD:Assets/Scripts/BasicComponents/Damage.cs
     private float _incHitSpeed;
     private float _damageMultiplier = 1f;
     private float _hitSpeedMultiplier;
+=======
+    private float _incHitSpeed;     
+    private float _damageMultiplier = 1.0f;
+    private float _hitSpeedMultiplier = 1.0f;
+>>>>>>> refs/heads/feature/minion&hero_xml:Assets/Scripts/Components/Damage.cs
 
     // properties are read-only
 
