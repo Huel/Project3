@@ -37,15 +37,19 @@ class Modifier
 						if(target == "Self") comp = skill.gameObject.GetComponent<Health>();
                         if(target == "Target")
                         {
-                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContact();
+                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypes(new List<TargetType> { TargetType.Hero, TargetType.Minion });
                             if (contact != null)
                                 comp = contact.gameObject.GetComponent<Health>();
                         }
-						
 						if(comp != null)
 						{
                             if(valueType=="increase") comp.IncHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
-							if(valueType=="decrease") comp.DecHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
+                            if (valueType == "decrease")
+                            {
+                                comp.DecHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
+                                if (comp.gameObject.GetComponent<Target>().type == TargetType.Hero && skill.gameObject.GetComponent<Target>().type == TargetType.Hero)
+                                    comp.gameObject.GetComponent<LastHeroDamage>().SetSource(skill.gameObject.networkView.viewID);   
+                            }
 						}
 						break;
 				}
@@ -241,7 +245,7 @@ public class Skill : MonoBehaviour
                         valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
                         target = skill.ChildNodes[3].InnerText;
                         modifiers.Add(new Modifier(this, field, parsedValue, valueType, target));
-						break;
+                        break;
 				}
 			}
 		}

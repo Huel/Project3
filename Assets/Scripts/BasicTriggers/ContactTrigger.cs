@@ -24,6 +24,19 @@ public class ContactTrigger : MonoBehaviour
         return null;
     }
 
+    public Target GetContactByType(TargetType targetType)
+    {
+        return GetContactByTypes(new List<TargetType> {targetType});
+    }
+
+    public Target GetContactByTypes(List<TargetType> targetTypes)
+    {
+        for (int i = 0; i < contacts.Count; i++)
+            if (targetTypes.Contains(contacts[i].type))
+                return contacts[i];
+        return null;
+    }
+
     public void AddListener(OnContact listenerFunction)
     {
         defaultListener.Add(listenerFunction);
@@ -69,13 +82,18 @@ public class ContactTrigger : MonoBehaviour
         if (other.GetComponent<Target>() == null) return;
         contacts.Add(other.gameObject.GetComponent<Target>());
 
+        List<Target> removeList = new List<Target>();
         foreach (Target target in targetListener.Keys)
-            if (target.gameObject == null)
-                targetListener.Remove(target);
+            if (target == null || target.gameObject == null)
+                removeList.Add(target);
 
-        foreach (Target target in contacts)
-            if (target.gameObject == null)
-                contacts.Remove(target);
+        foreach (Target target in removeList)
+            targetListener.Remove(target);
+
+        for (int j = contacts.Count - 1; j >= 0; j--)
+            if (j < contacts.Count)
+                if (contacts[j] == null)
+                    contacts.RemoveAt(j);
     }
 
     void OnTriggerExit(Collider other)
