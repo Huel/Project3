@@ -1,15 +1,14 @@
 using UnityEngine;
-using System.Collections;
 
-public enum TargetType { Hero, Minion, Valve, Spot, Checkpoint };
+public enum TargetType { Hero, Minion, Valve, Spot, Checkpoint, Base };
 
-public class Target : MonoBehaviour 
+public class Target : MonoBehaviour
 {
     private Vector3 _position;
 
     public TargetType type;
 
-    public Vector3 Position { set{ _position = value;} get { return _position;}}
+    public Vector3 Position { set { _position = value; } get { return _position; } }
 
     float GetDistance(Target target)
     {
