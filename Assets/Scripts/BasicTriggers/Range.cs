@@ -72,6 +72,16 @@ public class Range : MonoBehaviour
         return null;
     }
 
+    public Target GetNearestTargetByTypePriorityAndEnemyOnly(List<TargetType> types, Team team)
+    {
+        order();
+        foreach(TargetType type in types)
+            for (int i = 0; i < objectsInRange.Count; i++)
+                if (objectsInRange[i].type == type && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
+                    return objectsInRange[i];
+        return null;
+    }
+
     public Target GetNearestTargetByType(TargetType type)
     {
         order();
@@ -92,7 +102,7 @@ public class Range : MonoBehaviour
 
     public List<Target> GetNearestTargets(int amount)
     {
-        order();
+        order(amount);
         if (amount > objectsInRange.Count) amount = objectsInRange.Count;
 
         List<Target> targets = new List<Target>();
@@ -103,7 +113,7 @@ public class Range : MonoBehaviour
 
     public List<Target> GetNearestTargetsByType(int amount, TargetType type)
     {
-        order();
+        order(amount);
         if (amount > objectsInRange.Count) amount = objectsInRange.Count;
 
         List<Target> targets = new List<Target>();
@@ -114,7 +124,7 @@ public class Range : MonoBehaviour
 
     public List<Target> GetTargets()
     {
-        order();
+        order(objectsInRange.Count);
         return objectsInRange;
     }
 
@@ -138,35 +148,44 @@ public class Range : MonoBehaviour
         objectsInRange.Remove(target);
     }
 
-    void order()
+    public void order(int count=1)
     {
-        for (int j = objectsInRange.Count - 1; j >= 0; j--)
+        int j;
+        for (j = objectsInRange.Count - 1; j >= 0; j--)
             if (j < objectsInRange.Count)
                 if (objectsInRange[j] == null)
                     objectsInRange.RemoveAt(j);
+
+        Target target;
         float distance;
         int position;
         int amount = objectsInRange.Count;
         int i;
-        List<Target> sortedList = new List<Target>();
-        while(sortedList.Count < amount)
+        j = 0;
+        while(j < count)
         {
             position = -1;
-            distance = float.MaxValue;
-            for(i = 0; i<objectsInRange.Count; i++)
+            distance = 100f;
+            for(i = j; i<objectsInRange.Count; i++)
                 if ((objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude <= distance)
                 {
                     position = i;
                     distance = (objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude;
                 }
-            sortedList.Add(objectsInRange[position]);
-            objectsInRange.RemoveAt(position);
+            target = objectsInRange[position];
+            objectsInRange[position] = objectsInRange[j];
+            objectsInRange[j] = target;
+            j++;
         }
-        objectsInRange = sortedList;
     }
 
     public bool isInRange(Target target)
     {
         return objectsInRange.IndexOf(target) != -1;
+    }
+
+    public void SetActive(bool value)
+    {
+        gameObject.SetActive(value);
     }
 }
