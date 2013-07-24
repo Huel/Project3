@@ -84,10 +84,14 @@ GameObject:
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400010}
+  - 114: {fileID: 11400016}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
   - 208: {fileID: 20800000}
-  - 114: {fileID: 11400016}
+  - 114: {fileID: 11400018}
+  - 114: {fileID: 11400020}
+  - 114: {fileID: 11400022}
+  - 114: {fileID: 11400024}
   m_Layer: 0
   m_Name: hero01
   m_TagString: Untagged
@@ -407,6 +411,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414cc816d28198b4b81f123975c097b9, type: 3}
   m_Name: 
   xmlFile: Hero01
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9244e2896e1671c4698f7866e15546ce, type: 3}
+  m_Name: 
+  lastDamageSource: {fileID: 0}
+  duration: 0
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1172cd7dd0d6fdd47b18a0fcc6ed94cd, type: 3}
+  m_Name: 
+  trophyLevel: 0
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9244e2896e1671c4698f7866e15546ce, type: 3}
+  m_Name: 
+  lastDamageSource: {fileID: 0}
+  duration: 0
+--- !u!114 &11400024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1172cd7dd0d6fdd47b18a0fcc6ed94cd, type: 3}
+  m_Name: 
+  trophyLevel: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ public class NetworkManager : MonoBehaviour
 {
 
 	public int listeningPort = 50005;
-	public string ip = "172.21.66.8";
+	public string ip = "172.21.66.11";
 	public bool oneVSOne = false;
 	public bool twoVSTwo = false;
 	public bool startServer = false;

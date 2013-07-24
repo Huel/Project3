@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class ComponentBuilder : MonoBehaviour
 {
-    // ONLY TESTING !!!
     public string xmlFile;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        // this is ONLY for TESTING !!!!!
         getDatafromXML(xmlFile+".xml");
     }
 

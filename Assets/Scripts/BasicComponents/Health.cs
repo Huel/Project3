@@ -184,7 +184,10 @@ public class Health : MonoBehaviour
         if (_healthPoints > 0 && !alive)
             alive = true;
         else if (_healthPoints <= 0 && !immortal)
+        {
             alive = false;
+            gameObject.GetComponent<Target>().type = TargetType.Dead;
+        }
         if (!alive)
             _deadCounter += Time.deltaTime;
         else
