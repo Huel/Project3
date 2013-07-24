@@ -172,10 +172,15 @@ public class Range : MonoBehaviour
                     position = i;
                     distance = (objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude;
                 }
-            target = objectsInRange[position];
-            objectsInRange[position] = objectsInRange[j];
-            objectsInRange[j] = target;
-            j++;
+            if (position >= 0)
+            {
+                target = objectsInRange[position];
+                objectsInRange[position] = objectsInRange[j];
+                objectsInRange[j] = target;
+                j++;
+            }
+            else
+                break;
         }
     }
 
