@@ -33,7 +33,15 @@ public class MinionAgent : MonoBehaviour
     void Update()
     {
         if (!networkView.isMine)
-             this.enabled = false;
+        {
+            this.enabled = false;
+            return;
+        }
+
+        attentionRange.enabled = _target == null;
+        looseAttentionRange.enabled = _target != null;
+        contact.enabled = _target != null;
+
         agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;  
         if (_target == null)
         {
@@ -52,12 +60,12 @@ public class MinionAgent : MonoBehaviour
             agent.destination = _target.gameObject.transform.position;
         if (looseAttentionRange != null && _target != null)
             if (!looseAttentionRange.isInRange(_target))
-            {
-                _target = null;
-                
-            }
+                _target = null;  
+        
         if (_target != null)
-            basicAttack.Execute();
+            if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
+                basicAttack.Execute();
+            
     }
 
     void SelectTarget()
