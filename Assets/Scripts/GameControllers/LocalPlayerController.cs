@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LocalPlayerController : MonoBehaviour
@@ -8,19 +7,11 @@ public class LocalPlayerController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        List<NetworkPlayerController> allNetworkPlayerController =
-            GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>().AllNetworkPlayerController;
-        Debug.Log(GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>().AllNetworkPlayerController.Count);
-        if (allNetworkPlayerController != null)
-        {
-            foreach (NetworkPlayerController nPController in allNetworkPlayerController)
-            {
-                if (nPController.networkPlayer == Network.player)
-                {
-                    networkPlayerController = nPController;
-                }
-            }
-        }
+        networkPlayerController = GameObject.FindGameObjectWithTag(Tags.gameController)
+                  .GetComponent<GameController>()
+                  .GetNetworkPlayerController(Network.player);
+        if (networkPlayerController == null)
+            Debug.LogError("Couldn't find NetworkPlayerController");
 
         GetComponent<Team>().ID = (Team.TeamIdentifier)networkPlayerController.team;
 

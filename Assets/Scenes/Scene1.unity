@@ -114,9 +114,10 @@ MonoBehaviour:
   m_Name: 
   listeningPort: 50005
   ip: 172.21.66.4
-  oneVSOne: 0
+  oneVSOne: 1
   twoVSTwo: 0
   startServer: 0
+  nameDefied: 1
   playerName: 
 --- !u!148 &643629104
 NetworkView:
@@ -138,7 +139,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1705538044}
-  - 114: {fileID: 1705538045}
   - 114: {fileID: 1705538046}
   - 148: {fileID: 1705538047}
   m_Layer: 0
@@ -159,17 +159,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &1705538045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1705538043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
-  m_Name: 
-  ID: 0
 --- !u!114 &1705538046
 MonoBehaviour:
   m_ObjectHideFlags: 0

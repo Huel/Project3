@@ -1,41 +1,44 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class GameController : MonoBehaviour
 {
-	private float _startTime;
+    public enum GameState { Starting, Running, Ended };
 
-	public enum GameState {Starting, Running, Ended};
+    private float _startTime;
+    public GameState state;
+    private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
 
-	public GameState state;
+    public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
+    {
+        foreach (NetworkPlayerController controller in _networkPlayerControllers)
+        {
+            if (controller.networkPlayer == player)
+            {
+                return controller;
+            }
+        }
+        return null;
+    }
 
-	private List<NetworkPlayerController> _allNetworkPlayerController = new List<NetworkPlayerController>();
+    public float GameTime
+    {
+        get { return Time.time - _startTime; }
+    }
 
-	public List<NetworkPlayerController> AllNetworkPlayerController
-	{
-		get { return _allNetworkPlayerController; }
-	}
+    [RPC]
+    void AddNetworkPlayerController(int playerID, string playerName, int Team, NetworkPlayer networkPlayer)
+    {
+        _networkPlayerControllers.Add(new NetworkPlayerController(playerID, playerName, Team, networkPlayer));
+    }
 
-	public float GameTime
-	{
-		get { return Time.time - _startTime; }
-	}
-
-	[RPC]
-	void AddNetworkPlayerController(int playerID, string playerName, int Team, NetworkPlayer networkPlayer)
-	{
-		_allNetworkPlayerController.Add(new NetworkPlayerController(playerID, playerName, Team, networkPlayer));
-	}
-
-	[RPC]
-	void SetGameState(int state)
-	{
-		this.state = (GameState)state;
-		if (this.state == GameState.Running)
-		{
-			_startTime = Time.time;
-		}
-	}
+    [RPC]
+    void SetGameState(int state)
+    {
+        this.state = (GameState)state;
+        if (this.state == GameState.Running)
+        {
+            _startTime = Time.time;
+        }
+    }
 }
