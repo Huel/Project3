@@ -26,6 +26,7 @@ public class NetworkManager : MonoBehaviour
 		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 
 		DontDestroyOnLoad(gameController);
+		DontDestroyOnLoad(gameObject);
 	}
 
 	// Update is called once per frame
@@ -37,12 +38,10 @@ public class NetworkManager : MonoBehaviour
 			{
 				gameStartet = true;
 				networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
-				gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int) GameController.GameState.Running);
 			}
 			else if (twoVSTwo && Network.connections.Length == 3 && !gameStartet)
 			{
 				networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
-				gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int) GameController.GameState.Running);
 				gameStartet = true;
 			}
 		}
@@ -159,11 +158,15 @@ public class NetworkManager : MonoBehaviour
 		Network.SetLevelPrefix(levelPrefix);
 		Application.LoadLevel(level);
 
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 
 		//Allow receiving data again
 		Network.isMessageQueueRunning = true;
 		//Now the level has been loaded and we can start sending out data to clients
 		Network.SetSendingEnabled(0, true);
+
+
+		gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
+		Destroy(gameObject);
 	}
 }
