@@ -160,7 +160,16 @@ public class Health : MonoBehaviour
 
         if (_deadCounter >= keepDeadUnitTime)
         {
-            NetworkView.DestroyObject(gameObject);
+            if (networkView.isMine)
+            {
+                networkView.RPC("killObject", RPCMode.AllBuffered);
+            }
         }
+    }
+
+    [RPC]
+    public void killObject()
+    {
+        Destroy(gameObject);
     }
 }
