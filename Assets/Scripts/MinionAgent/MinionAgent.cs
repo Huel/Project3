@@ -7,8 +7,8 @@ public class MinionAgent : MonoBehaviour
     public enum LaneIdentifier{ Lane1, Lane2, Lane3 };
     public LaneIdentifier laneID;
 
-    private NavMeshAgent agent;
-    private Skill basicAttack;
+    private NavMeshAgent _agent;
+    private Skill _basicAttack;
 
     public Target _destination;    // default target
     public Target _origin;         // came from here
@@ -22,66 +22,74 @@ public class MinionAgent : MonoBehaviour
 
     void Start()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
-        basicAttack = gameObject.AddComponent<Skill>();
-        basicAttack.Init("Basic Attack");
+        _agent = gameObject.GetComponent<NavMeshAgent>();
+        _basicAttack = gameObject.AddComponent<Skill>();
+        _basicAttack.Init("Basic Attack");
 
-        if (networkView.isMine)
-            agent.enabled = true;
-    }
+        attentionRange.SetActive(_target == null);
+        looseAttentionRange.SetActive(_target != null);
+        contact.SetActive(_target != null);
+
+        // only works when Minion is creatd by network.instansiate !!!
+        // ***********************************************************
+        //_agent.enabled = networkView.isMine;
+        //this.enabled = networkView.isMine;
+        //if (!networkView.isMine)
+        //{
+        //    attentionRange.SetActive(false);
+        //    looseAttentionRange.SetActive(false);
+        //    contact.SetActive(false);
+        //}
+        // ***********************************************************
+    } 
 
     void Update()
     {
-        if (!networkView.isMine && this.enabled)
-        {
-            this.enabled = false;
-            return;
-        }
+        // only works when Minion is creatd by network.instansiate !!!
+        // ***********************************************************
+        //if (!networkView.isMine)
+        //    return;
+        // ***********************************************************
 
-        attentionRange.enabled = _target == null;
-        looseAttentionRange.enabled = _target != null;
-        contact.enabled = _target != null;
+        attentionRange.SetActive(_target == null);
+        looseAttentionRange.SetActive(_target != null);
+        contact.SetActive(_target != null);
 
-        agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;  
+        _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;  
         if (_target == null)
         {
-            agent.enabled = true;
+            _agent.enabled = true;
             if (_destination != null)
-                agent.destination = _destination.gameObject.transform.position;
+                _agent.destination = _destination.gameObject.transform.position;
             else
-            {
                 //if it hasn't a destination reset to its position
-                agent.destination = transform.position;
-            }
+                _agent.destination = transform.position;
             if (attentionRange != null)
                 SelectTarget();
+                
         }
-        else if (agent.enabled)
-            agent.destination = _target.gameObject.transform.position;
-        if (looseAttentionRange != null && _target != null)
+        else if (_agent.enabled)
+            _agent.destination = _target.gameObject.transform.position;
+        if (looseAttentionRange != null && looseAttentionRange.gameObject.active 
+            && _target != null)
             if (!looseAttentionRange.isInRange(_target))
                 _target = null;  
-        
+
+
         if (_target != null)
             if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
-                basicAttack.Execute();  // --> start fight
+                _basicAttack.Execute();  // --> start fight
     }
 
     void SelectTarget()
     {
-        Team team;
         var target = attentionRange.GetNearestTargetByTypePriorityAndEnemyOnly(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
         if (target == null) return;
-
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
-            team = target.gameObject.GetComponent<Team>();
-            if (team != null && team.isEnemy(GetComponent<Team>()))
-            {
-                _target = target;
-                contact.AddListener(target, OnEnemyContact);
-                return;
-            }
+            _target = target;
+            contact.AddListener(target, OnEnemyContact);
+            return;
         }
 
         if (target.type == TargetType.Valve)
@@ -99,7 +107,7 @@ public class MinionAgent : MonoBehaviour
 
     private void OnEnemyContact(Target target)
     {
-        //agent.enabled = false;
+        //_agent.enabled = false;
         //basicSkill.Execute();
     }
 }
