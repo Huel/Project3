@@ -1,8 +1,16 @@
-using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class NetworkManager : MonoBehaviour
 {
+    private static NetworkManager _instance;
+    public static NetworkManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
 
     public int listeningPort = 50005;
     public string ip = "172.21.66.8";
@@ -22,10 +30,24 @@ public class NetworkManager : MonoBehaviour
 
     void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.Log("Destorying multiple game manager");
+            DestroyObject(gameObject);
+            return;
+        }
+
+        Application.runInBackground = true;
+
+
         gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 
         DontDestroyOnLoad(gameController);
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -142,7 +164,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     [RPC]
-    IEnumerator LoadLevel(string level, int levelPrefix)
+    void LoadLevel(string level, int levelPrefix)
     {
         //There is no reason to send any more data over the network on the default channel,
         //because we are about to load the level, thus all those objects will get deleted anyway
@@ -157,8 +179,6 @@ public class NetworkManager : MonoBehaviour
         Network.SetLevelPrefix(levelPrefix);
         Application.LoadLevel(level);
 
-        yield return new WaitForSeconds(2);
-
         //Allow receiving data again
         Network.isMessageQueueRunning = true;
         //Now the level has been loaded and we can start sending out data to clients
@@ -166,6 +186,11 @@ public class NetworkManager : MonoBehaviour
 
 
         gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
-        Destroy(gameObject);
     }
+
+    public static bool isNetwork
+    {
+        get { return Network.isServer || Network.isClient; }
+    }
+
 }

@@ -22,6 +22,7 @@ public class LocalPlayerController : MonoBehaviour
                 _myBase = spawnPoint;
             }
         }
+        SpawnMinion();
     }
 
     // Update is called once per frame
@@ -41,5 +42,14 @@ public class LocalPlayerController : MonoBehaviour
             Object hero = Resources.Load("hero01");
             Network.Instantiate(hero, _myBase.transform.position, _myBase.transform.rotation, 1);
         }
+    }
+
+    void SpawnMinion()
+    {
+        Object minion = Resources.Load("minion");
+        GameObject minionInstance = (GameObject)Network.Instantiate(minion, _myBase.transform.position, _myBase.transform.rotation, 1);
+        //For Testing:
+        minionInstance.GetComponent<Team>().ID = (Team.TeamIdentifier)(((int)GetComponent<Team>().ID + 1) % 2);
+
     }
 }

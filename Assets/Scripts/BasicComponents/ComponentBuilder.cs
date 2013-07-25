@@ -1,6 +1,7 @@
 using System.Xml;
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class ComponentBuilder : MonoBehaviour
 {
     public enum LoadingState { InActive, Loaded, NotLoaded }
@@ -11,12 +12,19 @@ public class ComponentBuilder : MonoBehaviour
     public bool speedParsed = false;
     public bool damageParsed = false;
 
-    void Awake()
+    void Update()
     {
+        if (!NetworkManager.isNetwork)
+            return;
         if (networkView.isMine)
+        {
             getDatafromXML(xmlFile + ".xml");
+        }
         else
+        {
             state = LoadingState.NotLoaded;
+            enabled = false;
+        }
     }
 
     private void getDatafromXML(string dataPath)
@@ -34,9 +42,6 @@ public class ComponentBuilder : MonoBehaviour
         if (healthComp != null && health != null)
         {
             healthComp.SetMaxHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText), true);
-            healthComp.SetHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText));
-            healthComp.SetMinHealth(0.0f);
-            healthComp.SetMaxHealthMultiplier(1.0f);
             healthComp.keepDeadUnitTime = float.Parse(health.GetElementsByTagName("keepDeadUnitTime")[0].InnerText);
             healthParsed = true;
         }
@@ -66,5 +71,6 @@ public class ComponentBuilder : MonoBehaviour
             damageParsed = true;
         }
         state = LoadingState.Loaded;
+        enabled = false;
     }
 }

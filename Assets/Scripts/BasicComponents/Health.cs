@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class Health : MonoBehaviour
 {
     private float _healthPoints = 10f;
@@ -74,7 +75,7 @@ public class Health : MonoBehaviour
         _incMaxHealth = incMaxHealth;
         if (networkView.isMine)
         {
-            networkView.RPC("SetIncreasedMaxHealth", RPCMode.Others, incMaxHealth);
+            networkView.RPC("SetIncreasedMaxHealth", RPCMode.OthersBuffered, incMaxHealth);
             IncHealth(incMaxHealth);
         }
 
@@ -84,14 +85,20 @@ public class Health : MonoBehaviour
     /// </summary>
     public void SetToMinHealth()
     {
-        networkView.RPC("SetHealth", networkView.owner, MinHealth);
+        if (networkView.isMine)
+            SetHealth(MinHealth);
+        else
+            networkView.RPC("SetHealth", networkView.owner, MinHealth);
     }
     /// <summary>
     ///     set the health to the MAX !!
     /// </summary>
     public void SetToMaxHealth()
     {
-        networkView.RPC("SetHealth", networkView.owner, MaxHealth);
+        if (networkView.isMine)
+            SetHealth(MaxHealth);
+        else
+            networkView.RPC("SetHealth", networkView.owner, MaxHealth);
     }
     /// <summary>
     ///     set and return the health
@@ -104,7 +111,8 @@ public class Health : MonoBehaviour
         _healthPoints = Mathf.Clamp(healthValue, MinHealth, MaxHealth);
         if (networkView.isMine)
         {
-            networkView.RPC("SetHealth", RPCMode.Others, HealthPoints);
+            networkView.RPC("SetHealth", RPCMode.OthersBuffered, HealthPoints);
+
         }
         return HealthPoints;
     }
@@ -119,7 +127,7 @@ public class Health : MonoBehaviour
         _maxHealthMultiplier = maxHealthMultiplier;
         if (networkView.isMine)
         {
-            networkView.RPC("SetMaxHealthMultiplier", RPCMode.Others, maxHealthMultiplier);
+            networkView.RPC("SetMaxHealthMultiplier", RPCMode.OthersBuffered, maxHealthMultiplier);
             IncHealth(MaxHealth - tempMaxHealth);
         }
 
@@ -131,7 +139,10 @@ public class Health : MonoBehaviour
     /// <returns>value is never higher than maxHealth</returns>
     public float IncHealth(float healthValue)
     {
-        networkView.RPC("SetHealth", networkView.owner, HealthPoints + healthValue);
+        if (networkView.isMine)
+            SetHealth(HealthPoints + healthValue);
+        else
+            networkView.RPC("SetHealth", networkView.owner, HealthPoints + healthValue);
         return HealthPoints;
     }
     /// <summary>
@@ -146,6 +157,7 @@ public class Health : MonoBehaviour
 
     void Update()
     {
+
         if (_healthPoints > 0 && !alive)
             alive = true;
         else if (_healthPoints <= 0 && !immortal)

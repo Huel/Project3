@@ -1,11 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class Damage : MonoBehaviour
 {
     private float _defaultDamage = 3f;
     private float _incDamage;
-    private float _hitSpeed;        // Hits per second
-    private float _incHitSpeed;     
+    private float _hitSpeed = 0.5f;        // Hits per second
+    private float _incHitSpeed;
     private float _damageMultiplier = 1.0f;
     private float _hitSpeedMultiplier = 1.0f;
 
@@ -16,39 +17,21 @@ public class Damage : MonoBehaviour
     /// </summary>
     public float CurrentDamage
     {
-        get { return _defaultDamage * _damageMultiplier; }
+        get { return (DefaultDamage * _damageMultiplier) + _incDamage; }
     }
     public float DefaultDamage
     {
         get { return _defaultDamage; }
     }
-    public float IncDamage
-    {
-        get { return _incDamage; }
-    }
+
     /// <summary>
     ///     returns hitspeed multiply with hitspeed Multiplier
     /// </summary>
     public float HitSpeed
     {
-        get { return _hitSpeed * _hitSpeedMultiplier; }
+        get { return (_hitSpeed * _hitSpeedMultiplier) + _incHitSpeed; }
     }
-    public float DeafultHitSpeed
-    {
-        get { return _hitSpeed; }
-    }
-    public float IncHitSpeed
-    {
-        get { return _incHitSpeed; }
-    }
-    public float DamageMultiplier
-    {
-        get { return _damageMultiplier; }
-    }
-    public float HitSpeedMultiplierHitRate
-    {
-        get { return _hitSpeedMultiplier; }
-    }
+
 
     // setter methods must be executed on all clients from oject-owner
 
@@ -59,70 +42,21 @@ public class Damage : MonoBehaviour
     [RPC]
     public void SetDefaultDamage(float defaultDamage)
     {
-        if (_defaultDamage > 0)
-            _defaultDamage = defaultDamage * _damageMultiplier;
-        else
-            _defaultDamage = 0;
+        _defaultDamage = Mathf.Max(0, defaultDamage);
 
         if (networkView.isMine)
-            networkView.RPC("SetDefaultDamage", RPCMode.Others, defaultDamage);
+            networkView.RPC("SetDefaultDamage", RPCMode.OthersBuffered, defaultDamage);
     }
     /// <summary>
     ///     set the increased damage
     /// </summary>
     /// <param name="incDamage">increased damage never under 0</param>
     [RPC]
-    public void SetIncDamage(float incDamage)
+    public void SetIncreasedDamage(float incDamage)
     {
-        if (_incDamage > 0)
-            _incDamage = incDamage;
-        else
-            _incDamage = 0;
-
+        _incDamage = incDamage;
         if (networkView.isMine)
-            networkView.RPC("SetIncDamage", RPCMode.Others, incDamage);
-    }
-    /// <summary>
-    ///     set the increased damage by multiply with the default damage
-    /// </summary>
-    [RPC]
-    public void SetIncDamageByMultiplier()
-    {
-        _incDamage *= _damageMultiplier;
-        if (networkView.isMine)
-            networkView.RPC("SetIncDamageByMultiplier", RPCMode.Others);
-    }
-    /// <summary>
-    ///     set the default hit speed
-    /// </summary>
-    /// <param name="hitSpeed">hit speed means hits per second</param>
-    [RPC]
-    public void SetHitSpeed(float hitSpeed)
-    {
-        _hitSpeed = hitSpeed;
-        if (networkView.isMine)
-            networkView.RPC("SetHitSpeed", RPCMode.Others, hitSpeed);
-    }
-    /// <summary>
-    ///     set the increased hit speed
-    /// </summary>
-    /// <param name="incHitSpeed">hit speed means hits per second</param>
-    [RPC]
-    public void SetIncHitSpeed(float incHitSpeed)
-    {
-        _incHitSpeed = incHitSpeed;
-        if (networkView.isMine)
-            networkView.RPC("SetIncHitSpeed", RPCMode.Others, incHitSpeed);
-    }
-    /// <summary>
-    ///     set the increased hit speed by multiply with the default hit speed
-    /// </summary>
-    [RPC]
-    public void SetIncHitSpeedByMultiplier()
-    {
-        _incHitSpeed *= _hitSpeedMultiplier;
-        if (networkView.isMine)
-            networkView.RPC("SetIncHitSpeedByMultiplier", RPCMode.Others);
+            networkView.RPC("SetIncreasedDamage", RPCMode.OthersBuffered, incDamage);
     }
     /// <summary>
     ///     set the damage multiplier
@@ -133,7 +67,29 @@ public class Damage : MonoBehaviour
     {
         _damageMultiplier = damageMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetDamageMultiplier", RPCMode.Others, damageMultiplier);
+            networkView.RPC("SetDamageMultiplier", RPCMode.OthersBuffered, damageMultiplier);
+    }
+    /// <summary>
+    ///     set the default hit speed
+    /// </summary>
+    /// <param name="hitSpeed">hit speed means how fast you hit</param>
+    [RPC]
+    public void SetHitSpeed(float hitSpeed)
+    {
+        _hitSpeed = hitSpeed;
+        if (networkView.isMine)
+            networkView.RPC("SetHitSpeed", RPCMode.OthersBuffered, hitSpeed);
+    }
+    /// <summary>
+    ///     set the increased hit speed
+    /// </summary>
+    /// <param name="incHitSpeed">hit speed means hits per second</param>
+    [RPC]
+    public void SetIncreasedHitSpeed(float incHitSpeed)
+    {
+        _incHitSpeed = incHitSpeed;
+        if (networkView.isMine)
+            networkView.RPC("SetIncreasedHitSpeed", RPCMode.OthersBuffered, incHitSpeed);
     }
     /// <summary>
     ///     set the hit speed Multiplier
@@ -144,6 +100,6 @@ public class Damage : MonoBehaviour
     {
         _hitSpeedMultiplier = hitSpeedMultiplier;
         if (networkView.isMine)
-            networkView.RPC("SetHitSpeedMultiplier", RPCMode.Others, hitSpeedMultiplier);
+            networkView.RPC("SetHitSpeedMultiplier", RPCMode.OthersBuffered, hitSpeedMultiplier);
     }
 }
