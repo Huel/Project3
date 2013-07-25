@@ -1,11 +1,9 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 public enum RangeEvent { EnterRange, ExitRange };
 
-public class Range : MonoBehaviour 
+public class Range : MonoBehaviour
 {
     public delegate void OnRangeEvent(Target target);
 
@@ -16,7 +14,7 @@ public class Range : MonoBehaviour
 
     float Radius
     {
-        set { gameObject.GetComponent<SphereCollider>().radius = value; } 
+        set { gameObject.GetComponent<SphereCollider>().radius = value; }
         get { return gameObject.GetComponent<SphereCollider>().radius; }
     }
 
@@ -75,7 +73,7 @@ public class Range : MonoBehaviour
     public Target GetNearestTargetByTypePriorityAndEnemyOnly(List<TargetType> types, Team team)
     {
         order();
-        foreach(TargetType type in types)
+        foreach (TargetType type in types)
             for (int i = 0; i < objectsInRange.Count; i++)
                 if (objectsInRange[i].type == type && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
                     return objectsInRange[i];
@@ -133,7 +131,7 @@ public class Range : MonoBehaviour
         if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
         objectsInRange.Add(other.gameObject.GetComponent<Target>());
-        if(relevantTargetTypes.Contains(target.type))
+        if (relevantTargetTypes.Contains(target.type))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
     }
@@ -148,7 +146,7 @@ public class Range : MonoBehaviour
         objectsInRange.Remove(target);
     }
 
-    public void order(int count=1)
+    public void order(int count = 1)
     {
         int j;
         for (j = objectsInRange.Count - 1; j >= 0; j--)
@@ -159,14 +157,13 @@ public class Range : MonoBehaviour
         Target target;
         float distance;
         int position;
-        int amount = objectsInRange.Count;
         int i;
         j = 0;
-        while(j < count)
+        while (j < count)
         {
             position = -1;
             distance = 100f;
-            for(i = j; i<objectsInRange.Count; i++)
+            for (i = j; i < objectsInRange.Count; i++)
                 if ((objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude <= distance)
                 {
                     position = i;

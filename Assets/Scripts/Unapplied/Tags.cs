@@ -1,6 +1,5 @@
-using UnityEngine;
 
-public class Tags : MonoBehaviour
+public class Tags
 {
     public const string gameController = "GameController";
     public const string networkManager = "NetworkManager";
