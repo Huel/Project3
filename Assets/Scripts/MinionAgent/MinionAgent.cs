@@ -32,7 +32,7 @@ public class MinionAgent : MonoBehaviour
 
     void Update()
     {
-        if (!networkView.isMine)
+        if (!networkView.isMine && this.enabled)
         {
             this.enabled = false;
             return;
@@ -64,8 +64,7 @@ public class MinionAgent : MonoBehaviour
         
         if (_target != null)
             if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
-                basicAttack.Execute();
-            
+                basicAttack.Execute();  // --> start fight
     }
 
     void SelectTarget()

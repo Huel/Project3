@@ -77,7 +77,8 @@ public class Range : MonoBehaviour
         order();
         foreach(TargetType type in types)
             for (int i = 0; i < objectsInRange.Count; i++)
-                if (objectsInRange[i].type == type && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
+                if (objectsInRange[i].type == type 
+                    && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
                     return objectsInRange[i];
         return null;
     }
@@ -172,10 +173,15 @@ public class Range : MonoBehaviour
                     position = i;
                     distance = (objectsInRange[i].gameObject.transform.position - gameObject.transform.position).magnitude;
                 }
-            target = objectsInRange[position];
-            objectsInRange[position] = objectsInRange[j];
-            objectsInRange[j] = target;
-            j++;
+            if (position >= 0)
+            {
+                target = objectsInRange[position];
+                objectsInRange[position] = objectsInRange[j];
+                objectsInRange[j] = target;
+                j++;
+            }
+            else
+                break;
         }
     }
 
