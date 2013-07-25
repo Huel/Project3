@@ -6,14 +6,13 @@ public class NetworkManager : MonoBehaviour
 {
 
 	public int listeningPort = 50005;
-	public string ip = "172.21.66.8";
+	public string ip = "172.21.66.11";
+	public bool oneVSOne = false;
+	public bool twoVSTwo = false;
 	public bool startServer = false;
 
-	private int levelIndex = 0;
+	private int levelIndex = 1;
 	private string levelName = "Scene2";
-
-	private bool oneVSOne = true; // set false if you want to choose mode
-	private bool twoVSTwo = false;
 
 	private bool gameStartet = false;
 	private bool nameDefied = false;
@@ -48,16 +47,14 @@ public class NetworkManager : MonoBehaviour
 
 	private void OnGUI()
 	{
-		//if (nameDefied && !oneVSOne && !twoVSTwo)
-		//{
+		if (nameDefied && !oneVSOne && !twoVSTwo)
+		{
 			if (!Network.isClient && !Network.isServer && !startServer)
 			{
 				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
 				               "Start Server"))
 				{
 					startServer = true;
-					Debug.Log("Starting Server");	
-					StartServer();	// delete it if you want to choose play mode
 				}
 
 				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
@@ -68,37 +65,39 @@ public class NetworkManager : MonoBehaviour
 				}
 			}
 
-		//	if (startServer)
-		//	{
-		//		if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
-		//					   "One VS One"))
-		//		{
-		//			Debug.Log("One VS One");
-		//			oneVSOne = true;
-		//			
-		//		}
+			if (startServer)
+			{
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+				               "One VS One"))
+				{
+					Debug.Log("One VS One");
+					oneVSOne = true;
+					Debug.Log("Starting Server");
+					StartServer();
+				}
 
-		//		if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
-		//					   "Two VS Two"))
-		//		{
-		//			Debug.Log("Two VS Two");
-		//			twoVSTwo = true;
-		//			StartServer();
-		//		}
-		//	}
-		//}
-		//else if(!nameDefied)
-		//{
-		//	playerName = GUI.TextField(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
-		//				  playerName);
+				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
+				               "Two VS Two"))
+				{
+					Debug.Log("Two VS Two");
+					twoVSTwo = true;
+					Debug.Log("Starting Server");
+					StartServer();
+				}
+			}
+		}
+		else if(!nameDefied)
+		{
+			playerName = GUI.TextField(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+			              playerName);
 
-		//	if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f),
-		//				   "Set Name"))
-		//	{
-		//		nameDefied = true;
-		//	}
+			if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f),
+						   "Set Name"))
+			{
+				nameDefied = true;
+			}
 			
-		//}
+		}
 	}
 
 	private void StartServer()
