@@ -6,8 +6,8 @@ public class NetworkManager : MonoBehaviour
 {
 
 	public int listeningPort = 50005;
-	public string ip = "172.21.66.11";
-	public bool oneVSOne = false;
+	public string ip = "172.21.66.8";
+	public bool oneVSOne = true;
 	public bool twoVSTwo = false;
 	public bool startServer = false;
 
@@ -25,36 +25,40 @@ public class NetworkManager : MonoBehaviour
 	{
 		gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
 
-		NetworkView.DontDestroyOnLoad(gameController);
+		DontDestroyOnLoad(gameController);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (oneVSOne && Network.connections.Length == 1 && !gameStartet)
+		if (Network.isServer)
 		{
-			networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
-			gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
-			gameStartet = true;
-		}
-		else if (twoVSTwo && Network.connections.Length == 3 && !gameStartet)
-		{
-			networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
-			gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, GameController.GameState.Running);
-			gameStartet = true;
+			if (oneVSOne && Network.connections.Length == 1 && !gameStartet)
+			{
+				gameStartet = true;
+				networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
+				gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int) GameController.GameState.Running);
+			}
+			else if (twoVSTwo && Network.connections.Length == 3 && !gameStartet)
+			{
+				networkView.RPC("LoadLevel", RPCMode.AllBuffered, levelName, levelIndex);
+				gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int) GameController.GameState.Running);
+				gameStartet = true;
+			}
 		}
 	}
 
 	private void OnGUI()
 	{
-		if (nameDefied && !oneVSOne && !twoVSTwo)
-		{
+		//if (nameDefied && !oneVSOne && !twoVSTwo)
+		//{
 			if (!Network.isClient && !Network.isServer && !startServer)
 			{
 				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
 				               "Start Server"))
 				{
-					startServer = true;
+					//startServer = true;
+					StartServer();
 				}
 
 				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
@@ -65,39 +69,39 @@ public class NetworkManager : MonoBehaviour
 				}
 			}
 
-			if (startServer)
-			{
-				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
-				               "One VS One"))
-				{
-					Debug.Log("One VS One");
-					oneVSOne = true;
-					Debug.Log("Starting Server");
-					StartServer();
-				}
+			//if (startServer)
+			//{
+			//	if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+			//				   "One VS One"))
+			//	{
+			//		Debug.Log("One VS One");
+			//		oneVSOne = true;
+			//		Debug.Log("Starting Server");
+			//		StartServer();
+			//	}
 
-				if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
-				               "Two VS Two"))
-				{
-					Debug.Log("Two VS Two");
-					twoVSTwo = true;
-					Debug.Log("Starting Server");
-					StartServer();
-				}
-			}
-		}
-		else if(!nameDefied)
-		{
-			playerName = GUI.TextField(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
-			              playerName);
+			//	if (GUI.Button(new Rect(Screen.width*0.01f, Screen.height*0.12f, Screen.width*0.1f, Screen.height*0.1f),
+			//				   "Two VS Two"))
+			//	{
+			//		Debug.Log("Two VS Two");
+			//		twoVSTwo = true;
+			//		Debug.Log("Starting Server");
+			//		StartServer();
+			//	}
+			//}
+		//}
+		//else if(!nameDefied)
+		//{
+		//	playerName = GUI.TextField(new Rect(Screen.width*0.01f, Screen.height*0.01f, Screen.width*0.1f, Screen.height*0.1f),
+		//				  playerName);
 
-			if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f),
-						   "Set Name"))
-			{
-				nameDefied = true;
-			}
+		//	if (GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.12f, Screen.width * 0.1f, Screen.height * 0.1f),
+		//				   "Set Name"))
+		//	{
+		//		nameDefied = true;
+		//	}
 			
-		}
+		//}
 	}
 
 	private void StartServer()
@@ -142,7 +146,6 @@ public class NetworkManager : MonoBehaviour
 	[RPC]
 	void LoadLevel(string level, int levelPrefix)
 	{
-
 		//There is no reason to send any more data over the network on the default channel,
 		//because we are about to load the level, thus all those objects will get deleted anyway
 		Network.SetSendingEnabled(0, false);
