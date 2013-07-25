@@ -8,7 +8,15 @@ public class ComponentBuilder : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        getDatafromXML(xmlFile+".xml");
+        if (!networkView.isMine)
+        {
+            enabled = false;
+        }
+        else
+        {
+            getDatafromXML(xmlFile + ".xml");
+        }
+
     }
 
     /// <summary>
@@ -29,8 +37,7 @@ public class ComponentBuilder : MonoBehaviour
         if (health != null)
         {
             healthComp.SetMaxHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText), true);
-            healthComp.SetHealthToValue(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText));
-            healthComp.SetIncMaxHealth(0.0f);
+            healthComp.SetHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText));
             healthComp.SetMinHealth(0.0f);
             healthComp.SetMaxHealthMultiplier(1.0f);
             healthComp.keepDeadUnitTime = float.Parse(health.GetElementsByTagName("keepDeadUnitTime")[0].InnerText);
@@ -56,5 +63,6 @@ public class ComponentBuilder : MonoBehaviour
             damageComp.SetDefaultDamage(float.Parse(damage.GetElementsByTagName("defaultDamage")[0].InnerText));
             damageComp.SetHitSpeed(float.Parse(damage.GetElementsByTagName("hitSpeed")[0].InnerText));
         }
+        enabled = false;
     }
 }
