@@ -144,7 +144,7 @@ public class NetworkManager : MonoBehaviour
 	}
 
 	[RPC]
-	void LoadLevel(string level, int levelPrefix)
+	IEnumerator LoadLevel(string level, int levelPrefix)
 	{
 		//There is no reason to send any more data over the network on the default channel,
 		//because we are about to load the level, thus all those objects will get deleted anyway
@@ -158,6 +158,8 @@ public class NetworkManager : MonoBehaviour
 		//This will prevent old updates from clients leaking into a newly created scene.
 		Network.SetLevelPrefix(levelPrefix);
 		Application.LoadLevel(level);
+
+		yield return new WaitForSeconds(3);
 
 		//Allow receiving data again
 		Network.isMessageQueueRunning = true;
