@@ -79,8 +79,7 @@ public class Range : MonoBehaviour
             for (int i = 0; i < objectsInRange.Count; i++)
                 if (objectsInRange[i].type == type
                     && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
-                    
-                    return objectsInRange[i];                
+                    return objectsInRange[i];
         return null;
     }
 
@@ -132,14 +131,9 @@ public class Range : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
-        if (!gameObject.active) return;
-        Debug.Log(gameObject);
         if (other.GetComponent<Target>() == null) return;
+        if (objectsInRange.IndexOf(other.GetComponent<Target>()) != -1 ) return;  
         Target target = other.gameObject.GetComponent<Target>();
-
-        //if (objectsInRange.IndexOf(other.gameObject.GetComponent<Target>()) != -1)
-        //    objectsInRange.RemoveAt(objectsInRange.IndexOf(other.gameObject.GetComponent<Target>()));
-
         objectsInRange.Add(other.gameObject.GetComponent<Target>());
         if(relevantTargetTypes.Contains(target.type))
             foreach (OnRangeEvent listener in enterRangeListener)
@@ -148,7 +142,6 @@ public class Range : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!gameObject.active) return;
         if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
         if (relevantTargetTypes.Contains(target.type))
@@ -156,6 +149,8 @@ public class Range : MonoBehaviour
                 if (listener != null) 
                     listener(other.gameObject.GetComponent<Target>());   
         objectsInRange.Remove(target);
+        if (gameObject.name == "looserange_minion")
+            gameObject.transform.parent.transform.FindChild("attentionrange_minion").GetComponent<Range>().deleteSpecificTarget(target);
     }
 
     public void order(int count=1)
@@ -202,5 +197,10 @@ public class Range : MonoBehaviour
     public void SetActive(bool value)
     {
         gameObject.SetActive(value);
+    }
+
+    public void deleteSpecificTarget(Target target)
+    {
+        objectsInRange.Remove(target);
     }
 }

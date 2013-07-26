@@ -55,30 +55,35 @@ public class MinionAgent : MonoBehaviour
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
 
-        _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;  
+        _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
+        
         if (_target == null)
         {
             _agent.enabled = true;
             if (_destination != null)
                 _agent.destination = _destination.gameObject.transform.position;
             else
-                //if it hasn't a destination reset to its position
                 _agent.destination = transform.position;
-            if (attentionRange != null)
+            if (attentionRange != null && attentionRange.gameObject.active)
+            {
                 SelectTarget();
-                
+            }        
         }
-        else if (_agent.enabled)
-            _agent.destination = _target.gameObject.transform.position;
-        if (looseAttentionRange != null && looseAttentionRange.gameObject.active 
-            && _target != null)
-            if (!looseAttentionRange.isInRange(_target))
-                _target = null;  
-
-
-        if (_target != null)
+        else
+        {
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.active)
+                if (!looseAttentionRange.isInRange(_target))
+                {
+                    _target = null;
+                    return;
+                }
+            if (_agent.enabled)
+                _agent.destination = _target.gameObject.transform.position;
             if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
-                _basicAttack.Execute();  // --> start fight
+                _basicAttack.Execute();  // --> start fight ??
+        }
+        
+            
     }
 
     void SelectTarget()
@@ -101,7 +106,6 @@ public class MinionAgent : MonoBehaviour
         if (target.type == TargetType.Checkpoint)
         {
             _target = target;
-            return;
         }
     }
 
