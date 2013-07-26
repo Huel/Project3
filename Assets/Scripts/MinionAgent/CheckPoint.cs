@@ -1,7 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
-public class CheckPoint : MonoBehaviour 
+public class CheckPoint : MonoBehaviour
 {
-    
+    public Target checkPointA;
+    public Target checkPointB;
+
+    public Target GetNextCheckPoint(Target origin)
+    {
+        return origin == checkPointA ? checkPointB : checkPointA;
+    }
 }
