@@ -1,9 +1,15 @@
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class LocalPlayerController : MonoBehaviour
 {
     public NetworkPlayerController networkPlayerController;
     private GameObject _myBase;
+
+    [SerializeField]
+    public int[] minionDeployment = new int[] { 3, 1, 1 };
+
+    public int spawnJitter = 2;
     // Use this for initialization
     void Awake()
     {
@@ -22,7 +28,6 @@ public class LocalPlayerController : MonoBehaviour
                 _myBase = spawnPoint;
             }
         }
-        SpawnMinion();
     }
 
     // Update is called once per frame
@@ -44,12 +49,35 @@ public class LocalPlayerController : MonoBehaviour
         }
     }
 
-    void SpawnMinion()
+    public void SpawnMinions()
     {
-        Object minion = Resources.Load("minion");
-        GameObject minionInstance = (GameObject)Network.Instantiate(minion, _myBase.transform.position, _myBase.transform.rotation, 1);
-        //For Testing:
-        minionInstance.GetComponent<Team>().ID = (Team.TeamIdentifier)(((int)GetComponent<Team>().ID + 1) % 2);
+        for (int i = 0; i < minionDeployment.Length; i++)
+        {
+            for (int j = 0; j < minionDeployment[i]; j++)
+            {
+                Vector3 pos = _myBase.transform.position;
+                pos.x += Random.Range(-spawnJitter, spawnJitter);
+                pos.y += Random.Range(-spawnJitter, spawnJitter);
+                Object minion = Resources.Load("minion");
+                GameObject minionInstance = (GameObject)Network.Instantiate(minion, pos, _myBase.transform.rotation, 1);
+                MinionAgent agent = minionInstance.GetComponent<MinionAgent>();
+                agent.laneID = (MinionAgent.LaneIdentifier)i;
+                agent.SetOrigin(_myBase.GetComponent<Target>());
+                agent.SetDestination(_myBase.GetComponent<Base>().GetCheckPoint(agent.laneID));
+            }
 
+        }
+
+
+    }
+
+    public void setMinionDebployment(MinionAgent.LaneIdentifier lane, int count)
+    {
+        minionDeployment[(int)lane] = count;
+    }
+
+    public int GetMinionsOnLane(MinionAgent.LaneIdentifier lane)
+    {
+        return minionDeployment[(int)lane];
     }
 }
