@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class LastHeroDamage : MonoBehaviour
 {
@@ -7,6 +6,7 @@ public class LastHeroDamage : MonoBehaviour
 
     public float duration = 0;
 
+    [RPC]
     public void SetSource(NetworkViewID ID)
     {
         if (networkView.isMine)
