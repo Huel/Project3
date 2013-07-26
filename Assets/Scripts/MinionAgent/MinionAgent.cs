@@ -81,14 +81,14 @@ public class MinionAgent : MonoBehaviour
             }
             else  //move to own position
                 _agent.destination = transform.position;
-            if (attentionRange != null && attentionRange.gameObject.active)
+            if (attentionRange != null && attentionRange.gameObject.activeSelf)
                 SelectTarget();       
         }
         // already has target
         else
         {
             //if target out of range
-            if (looseAttentionRange != null && looseAttentionRange.gameObject.active 
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf 
                 && !looseAttentionRange.isInRange(_target))
             {
                 _target = null;
