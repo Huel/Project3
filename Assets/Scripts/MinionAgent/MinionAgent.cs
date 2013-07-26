@@ -51,7 +51,13 @@ public class MinionAgent : MonoBehaviour
         if (!networkView.isMine)
            return;
         // ***********************************************************
-
+        if (!gameObject.GetComponent<Health>().alive)
+        {
+            attentionRange.SetActive(false);
+            looseAttentionRange.SetActive(false);
+            contact.SetActive(false);
+            _agent.enabled = false;
+        }
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
@@ -96,8 +102,7 @@ public class MinionAgent : MonoBehaviour
             }
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
-            if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
-                _basicAttack.Execute();  // --> start fight ??
+            
         }
         
             
@@ -123,7 +128,11 @@ public class MinionAgent : MonoBehaviour
 
     private void OnEnemyContact(Target target)
     {
-        //_agent.enabled = false;
+        if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
+        {
+            _basicAttack.Execute();  // --> start fight ??
+            _agent.enabled = false;
+        }
         //basicSkill.Execute();
     }
 
