@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
     private float passedTime = 0f;
     private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
 
+    private float _spawnTime = 30f;
+    private float _spawnTimer = 0f;
+
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
         foreach (NetworkPlayerController controller in _networkPlayerControllers)
@@ -57,6 +60,14 @@ public class GameController : MonoBehaviour
             {
                 Application.Quit();
             }
+        }
+
+        if (state == GameState.Running)
+            _spawnTimer += Time.deltaTime;
+        if (_spawnTimer >= _spawnTime)
+        {
+            _spawnTimer = 0;
+            GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().SpawnMinions();
         }
     }
 
