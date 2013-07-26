@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
             enabled = false;
         }
 
-        _movementSpeed = GetComponent<Speed>().CurrentSpeed;
+        
         forward = new Vector3(0f, 0f, 0f);
         basicAttack = gameObject.AddComponent<Skill>();
         basicAttack.Init("Basic Attack");
@@ -35,6 +35,12 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (Input.GetButton("AButton"))
+            gameObject.GetComponent<Speed>().IsSprinting = true;
+        else
+            gameObject.GetComponent<Speed>().IsSprinting = false;
+        _movementSpeed = gameObject.GetComponent<Speed>().CurrentSpeed;
+
         if (_camera == null)
         {
             _camera = GameObject.FindGameObjectWithTag(Tags.camera).transform;
