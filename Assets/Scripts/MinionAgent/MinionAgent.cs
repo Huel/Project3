@@ -12,6 +12,7 @@ public class MinionAgent : MonoBehaviour
     public Target _destination;    // default target
     public Target _origin;         // came from here
     public Target _target;         // current target
+    private float destinationOffset = 1f;
 
     public Range attentionRange;
     public Range looseAttentionRange;
@@ -38,7 +39,25 @@ public class MinionAgent : MonoBehaviour
         {
             agent.enabled = true;
             if (_destination != null)
-                agent.destination = _destination.gameObject.transform.position;
+            {
+                agent.destination = _destination.Position;
+                if (_destination.GetDistance(transform.position) <= destinationOffset)
+                {
+                    CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
+                    if (checkPoint != null)
+                    {
+                        Target newDestination = checkPoint.GetNextCheckPoint(_origin);
+                        SetOrigin(_destination);
+                        SetDestination(newDestination);
+
+                    }
+                    else
+                    {
+                        SetDestination(null);
+                    }
+                }
+
+            }
             else
             {
                 //if it hasn't a destination reset to its position
@@ -92,16 +111,6 @@ public class MinionAgent : MonoBehaviour
     public void SetDestination(Target destination)
     {
         _destination = destination;
-        contact.AddListener(destination, OnReachDestination);
-    }
-
-    private void OnReachDestination(Target target)
-    {
-        contact.RemoveListener(target, OnReachDestination);
-        if (target.type == TargetType.Checkpoint)
-            SetDestination(target.GetComponent<CheckPoint>().GetNextCheckPoint(_origin));
-        else
-            SetDestination(null);
     }
 
     public void SetOrigin(Target origin)

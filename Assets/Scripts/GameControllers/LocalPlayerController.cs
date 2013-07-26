@@ -7,12 +7,17 @@ public class LocalPlayerController : MonoBehaviour
     private GameObject _myBase;
 
     [SerializeField]
-    public int[] minionDeployment = new int[] { 3, 1, 1 };
+    public int[] minionDeployment = new int[3];
 
     public int spawnJitter = 2;
     // Use this for initialization
     void Awake()
     {
+        //For Testing
+        minionDeployment[0] = 2;
+        minionDeployment[1] = 2;
+        minionDeployment[2] = 1;
+
         networkPlayerController = GameObject.FindGameObjectWithTag(Tags.gameController)
                   .GetComponent<GameController>()
                   .GetNetworkPlayerController(Network.player);

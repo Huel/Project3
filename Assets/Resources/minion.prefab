@@ -194,7 +194,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!95 &9500000
 Animator:
   m_ObjectHideFlags: 1
@@ -332,6 +332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414cc816d28198b4b81f123975c097b9, type: 3}
   m_Name: 
   xmlFile: Minion
+  state: 0
+  healthParsed: 0
+  speedParsed: 0
+  damageParsed: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -405,7 +409,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: .200000003
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
