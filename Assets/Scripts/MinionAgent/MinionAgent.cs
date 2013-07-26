@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class MinionAgent : MonoBehaviour
 {
-    public enum LaneIdentifier{ Lane1, Lane2, Lane3 };
+    public enum LaneIdentifier { Lane1, Lane2, Lane3 };
     public LaneIdentifier laneID;
 
     private NavMeshAgent agent;
@@ -33,8 +32,8 @@ public class MinionAgent : MonoBehaviour
     void Update()
     {
         if (!networkView.isMine)
-             this.enabled = false;
-        agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;  
+            this.enabled = false;
+        agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
         if (_target == null)
         {
             agent.enabled = true;
@@ -54,7 +53,7 @@ public class MinionAgent : MonoBehaviour
             if (!looseAttentionRange.isInRange(_target))
             {
                 _target = null;
-                
+
             }
         if (_target != null)
             basicAttack.Execute();
@@ -82,17 +81,31 @@ public class MinionAgent : MonoBehaviour
             _target = target;
             return;
         }
-
-        if (target.type == TargetType.Checkpoint)
-        {
-            _target = target;
-            return;
-        }
     }
 
     private void OnEnemyContact(Target target)
     {
         //agent.enabled = false;
         //basicSkill.Execute();
+    }
+
+    public void SetDestination(Target destination)
+    {
+        _destination = destination;
+        contact.AddListener(destination, OnReachDestination);
+    }
+
+    private void OnReachDestination(Target target)
+    {
+        contact.RemoveListener(target, OnReachDestination);
+        if (target.type == TargetType.Checkpoint)
+            SetDestination(target.GetComponent<CheckPoint>().GetNextCheckPoint(_origin));
+        else
+            SetDestination(null);
+    }
+
+    public void SetOrigin(Target origin)
+    {
+        _origin = origin;
     }
 }
