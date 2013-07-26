@@ -15,7 +15,7 @@ public class LastHeroDamage : MonoBehaviour
             duration = 15f;
         }
         else
-            networkView.RPC("SetSourceRPC", networkView.owner, ID);
+            networkView.RPC("SetSource", networkView.owner, ID);
     }
 
     void Update()
