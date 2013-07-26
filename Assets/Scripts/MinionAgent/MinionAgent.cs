@@ -10,9 +10,10 @@ public class MinionAgent : MonoBehaviour
     private NavMeshAgent _agent;
     private Skill _basicAttack;
 
-    public Target _destination;    // default target
-    public Target _origin;         // came from here
-    public Target _target;         // current target
+    private Target _destination;    // default target
+    private Target _origin;         // came from here
+    private Target _target;         // current target
+    private float _destinationOffset = 1f;
 
     public Range attentionRange;
     public Range looseAttentionRange;
@@ -32,14 +33,14 @@ public class MinionAgent : MonoBehaviour
 
         // only works when Minion is creatd by network.instansiate !!!
         // ***********************************************************
-        //_agent.enabled = networkView.isMine;
-        //this.enabled = networkView.isMine;
-        //if (!networkView.isMine)
-        //{
-        //    attentionRange.SetActive(false);
-        //    looseAttentionRange.SetActive(false);
-        //    contact.SetActive(false);
-        //}
+        _agent.enabled = networkView.isMine;
+        this.enabled = networkView.isMine;
+        if (!networkView.isMine)
+        {
+            attentionRange.SetActive(false);
+            looseAttentionRange.SetActive(false);
+            contact.SetActive(false);
+        }
         // ***********************************************************
     } 
 
@@ -47,8 +48,8 @@ public class MinionAgent : MonoBehaviour
     {
         // only works when Minion is creatd by network.instansiate !!!
         // ***********************************************************
-        //if (!networkView.isMine)
-        //    return;
+        if (!networkView.isMine)
+           return;
         // ***********************************************************
 
         attentionRange.SetActive(_target == null);
@@ -62,7 +63,22 @@ public class MinionAgent : MonoBehaviour
         {
             _agent.enabled = true;
             if (_destination != null)
-                _agent.destination = _destination.gameObject.transform.position;
+            {
+                _agent.destination = _destination.Position;
+                if (_destination.GetDistance(transform.position) <= _destinationOffset)
+                {
+                    CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
+                    if (checkPoint != null)
+                    {
+                        Target newDestination = checkPoint.GetNextCheckPoint(_origin);
+                        SetOrigin(_destination);
+                        SetDestination(newDestination);
+                    }
+                    else
+                        SetDestination(null);
+                }
+
+            }
             else  //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.active)
@@ -103,16 +119,21 @@ public class MinionAgent : MonoBehaviour
             _target = target;
             return;
         }
-
-        if (target.type == TargetType.Checkpoint)
-        {
-            _target = target;
-        }
     }
 
     private void OnEnemyContact(Target target)
     {
         //_agent.enabled = false;
         //basicSkill.Execute();
+    }
+
+    public void SetDestination(Target destination)
+    {
+        _destination = destination;
+    }
+
+    public void SetOrigin(Target origin)
+    {
+        _origin = origin;
     }
 }
