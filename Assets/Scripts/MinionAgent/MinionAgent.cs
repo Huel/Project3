@@ -57,26 +57,27 @@ public class MinionAgent : MonoBehaviour
 
         _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
         
+        // no target
         if (_target == null)
         {
             _agent.enabled = true;
             if (_destination != null)
                 _agent.destination = _destination.gameObject.transform.position;
-            else
+            else  //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.active)
-            {
-                SelectTarget();
-            }        
+                SelectTarget();       
         }
+        // already has target
         else
         {
-            if (looseAttentionRange != null && looseAttentionRange.gameObject.active)
-                if (!looseAttentionRange.isInRange(_target))
-                {
-                    _target = null;
-                    return;
-                }
+            //if target out of range
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.active 
+                && !looseAttentionRange.isInRange(_target))
+            {
+                _target = null;
+                return;
+            }
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
             if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)

@@ -149,6 +149,7 @@ public class Range : MonoBehaviour
                 if (listener != null) 
                     listener(other.gameObject.GetComponent<Target>());   
         objectsInRange.Remove(target);
+        // attentionRange is deactivated, so OnTriggerExit will not be triggered
         if (gameObject.name == "looserange_minion")
             gameObject.transform.parent.transform.FindChild("attentionrange_minion").GetComponent<Range>().deleteSpecificTarget(target);
     }
