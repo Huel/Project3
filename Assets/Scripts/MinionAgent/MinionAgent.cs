@@ -104,7 +104,11 @@ public class MinionAgent : MonoBehaviour
                 _agent.destination = _target.gameObject.transform.position;
             
         }
-        
+        if (contact.gameObject.activeSelf && !_agent.enabled)
+        {
+            _agent.enabled = true;
+            contact.RemoveListener(_target, OnEnemyContact);
+        }
             
     }
 
