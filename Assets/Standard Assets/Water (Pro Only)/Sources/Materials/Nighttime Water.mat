@@ -96,15 +96,11 @@ Material:
     m_Colors:
       data:
         first:
-          name: _MainTex_ST
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _BumpMap_ST
+          name: _MainTex_ST
         second: {r: 1, g: 1, b: 0, a: 0}
       data:
         first:
@@ -113,6 +109,10 @@ Material:
       data:
         first:
           name: _Fresnel_ST
+        second: {r: 1, g: 1, b: 0, a: 0}
+      data:
+        first:
+          name: _BumpMap_ST
         second: {r: 1, g: 1, b: 0, a: 0}
       data:
         first:
@@ -180,6 +180,10 @@ Material:
         second: {r: 0, g: .100000001, b: -.5, a: 0}
       data:
         first:
+          name: _Foam
+        second: {r: .100000001, g: .375, b: 0, a: 0}
+      data:
+        first:
           name: _GAmplitude
         second: {r: .300000012, g: .349999994, b: .25, a: .25}
       data:
@@ -202,10 +206,6 @@ Material:
         first:
           name: _GDirectionCD
         second: {r: .100000001, g: .899999976, b: .5, a: .5}
-      data:
-        first:
-          name: _Foam
-        second: {r: .100000001, g: .375, b: 0, a: 0}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

@@ -92,8 +92,6 @@ GameObject:
   - 208: {fileID: 20800000}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400022}
-  - 114: {fileID: 11400024}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -371,7 +369,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fedbf751295cac44eb0820a2ebb9dab7, type: 3}
   m_Name: 
-  trigger: {fileID: 0}
+  trigger: {fileID: 11400000}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -468,29 +466,6 @@ MonoBehaviour:
   lastDamageSource: {fileID: 0}
   duration: 0
 --- !u!114 &11400020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1172cd7dd0d6fdd47b18a0fcc6ed94cd, type: 3}
-  m_Name: 
-  trophyLevel: 0
---- !u!114 &11400022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9244e2896e1671c4698f7866e15546ce, type: 3}
-  m_Name: 
-  lastDamageSource: {fileID: 0}
-  duration: 0
---- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
