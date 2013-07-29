@@ -14,8 +14,9 @@ class Modifier
     private float value;
     private string valueType;
     private string target;
+    private List<Team.TeamIdentifier> targetTeams;
 
-	public Modifier(Skill skill, string field, float value, string valueType, string target)
+    public Modifier(Skill skill, string field, float value, string valueType, string target, string targetTeam)
 	{
         this.skill = skill;
         type = modifierType.modify;
@@ -23,6 +24,20 @@ class Modifier
         this.value = value;
         this.valueType = valueType;
         this.target = target;
+        targetTeams = new List<Team.TeamIdentifier>();
+        switch (targetTeam)
+        {
+            case "Ally":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                break;
+            case "Enemy":
+                targetTeams.Add((skill.gameObject.GetComponent<Team>().ID == Team.TeamIdentifier.Team1) ? Team.TeamIdentifier.Team2 : Team.TeamIdentifier.Team1);
+                break;
+            case "All":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                targetTeams.Add((skill.gameObject.GetComponent<Team>().ID == Team.TeamIdentifier.Team1) ? Team.TeamIdentifier.Team2 : Team.TeamIdentifier.Team1);
+                break;
+        }
 	}
 
     public void execute()
@@ -37,7 +52,7 @@ class Modifier
 						if(target == "Self") comp = skill.gameObject.GetComponent<Health>();
                         if(target == "Target")
                         {
-                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypes(new List<TargetType> { TargetType.Hero, TargetType.Minion });
+                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(new List<TargetType> { TargetType.Hero, TargetType.Minion }, targetTeams);
                             if (contact != null)
                                 comp = contact.gameObject.GetComponent<Health>();
                         }
@@ -197,7 +212,7 @@ public class Skill : MonoBehaviour
 			List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
 			List<TargetType> targetTypes;
 			string[] fieldStrings;
-            string field, target, valueType;
+            string field, target, valueType, targetType;
 			Vector3 position;
 			float parsedValue;
 			
@@ -244,7 +259,8 @@ public class Skill : MonoBehaviour
 						parsedValue = float.Parse(skill.ChildNodes[2].InnerText);
                         valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
                         target = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target));
+                        targetType = skill.ChildNodes[4].InnerText;
+                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, targetType));
                         break;
 				}
 			}

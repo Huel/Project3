@@ -37,6 +37,14 @@ public class ContactTrigger : MonoBehaviour
         return null;
     }
 
+    public Target GetContactByTypesAndTeam(List<TargetType> targetTypes, List<Team.TeamIdentifier> IDs)
+    {
+        for (int i = 0; i < contacts.Count; i++)
+            if (targetTypes.Contains(contacts[i].type) && IDs.Contains(contacts[i].gameObject.GetComponent<Team>().ID))
+                return contacts[i];
+        return null;
+    }
+
     public void AddListener(OnContact listenerFunction)
     {
         defaultListener.Add(listenerFunction);

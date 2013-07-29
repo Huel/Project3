@@ -1,9 +1,10 @@
 <Skills>
 	<skill name="Basic Attack">
 	    <type>modify
-			<field>Health</field>
+			  <field>Health</field>
 			  <value type="decrease">1.0</value>
 			  <target>Target</target>
+			  <targetTeam>Enemy</targetTeam>
 		  </type>
 		
 		  <!--<type>modify
@@ -23,6 +24,7 @@
 			  <field>Damage</field>
         <value type="decrease">1.5</value>
 			  <target>Target</target>
+			  <targetTeam>Enemy</targetTeam>
 		  </type>
 		
 	    <trigger>onContact
