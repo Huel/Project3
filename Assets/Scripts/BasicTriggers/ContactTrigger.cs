@@ -24,16 +24,26 @@ public class ContactTrigger : MonoBehaviour
         return null;
     }
 
-    public Target GetContactByType(TargetType targetType)
+    public Target GetContactByType(TargetType targetType, Team.TeamIdentifier team)
     {
-        return GetContactByTypes(new List<TargetType> {targetType});
+        return GetContactByTypes(new List<TargetType> {targetType}, team);
     }
 
-    public Target GetContactByTypes(List<TargetType> targetTypes)
+    public Target GetContactByTypes(List<TargetType> targetTypes, Team.TeamIdentifier team)
     {
         for (int i = 0; i < contacts.Count; i++)
             if (targetTypes.Contains(contacts[i].type))
-                return contacts[i];
+            {   if (team != null)
+                {
+                    Team contactTeam = contacts[i].GetComponent<Team>();
+                    if(contactTeam != null && contactTeam.isOwnTeam(team))
+                        return contacts[i];
+                }
+                else
+                    return contacts[i];
+                
+            }
+                
         return null;
     }
 

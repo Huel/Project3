@@ -24,9 +24,9 @@ public class LastHeroDamage : MonoBehaviour
 
         if (duration > 0) duration -= Time.deltaTime;
 
-        if (duration <= 0 || !lastDamageSource.GetComponent<Health>().isAlive() || !gameObject.GetComponent<Health>().isAlive())
+        if (duration <= 0 || !lastDamageSource.GetComponent<Health>().IsAlive() || !gameObject.GetComponent<Health>().IsAlive())
         {
-            if (!gameObject.GetComponent<Health>().isAlive())
+            if (!gameObject.GetComponent<Health>().IsAlive())
                 lastDamageSource.GetComponent<Trophy>().IncTrophyLevel();
             duration = 15;
             lastDamageSource = null;

@@ -51,7 +51,7 @@ public class MinionAgent : MonoBehaviour
         if (!networkView.isMine)
            return;
         // ***********************************************************
-        if (!gameObject.GetComponent<Health>().alive)
+        if (!gameObject.GetComponent<Health>().IsAlive())
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
