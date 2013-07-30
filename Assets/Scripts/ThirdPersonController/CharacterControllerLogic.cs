@@ -217,7 +217,6 @@ public class CharacterControllerLogic : MonoBehaviour
 		{
 			if (basicAttack)
 			{
-				gameObject.GetComponent<DebugChangeColor>().Attack();
 				basicAttack.Execute();
 			}
 			

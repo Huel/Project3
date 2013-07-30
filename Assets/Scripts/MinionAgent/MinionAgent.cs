@@ -134,7 +134,6 @@ public class MinionAgent : MonoBehaviour
 	{
 		if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
 		{
-			gameObject.GetComponent<DebugChangeColor>().Attack();
 			basicAttack.Execute();
 			_agent.enabled = false;
 		}

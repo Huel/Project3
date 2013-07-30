@@ -22,7 +22,15 @@ public class DebugChangeColor : MonoBehaviour
 	[RPC]
 	public void SetColor(int color)
 	{
-		colors = (Colors)color;
+		if (colors != Colors.Black)
+		{
+			colors = (Colors) color;
+		}
+		else
+		{
+			color = (int) Colors.Black;
+		}
+
 		switch ((Colors)color)
 		{
 			case Colors.Blue:
