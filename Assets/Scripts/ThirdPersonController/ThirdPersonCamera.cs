@@ -24,6 +24,27 @@ using UnityEngine;
 /// <summary>
 /// Struct to hold data for aligning camera
 /// </summary>
+struct CameraPosition
+{
+    // Position to align camera to, probably somewhere behind the character
+    // or position to point camera at, probably somewhere along character's axis
+    private Vector3 position;
+    // Transform used for any rotation
+    private Transform xForm;
+
+    public Vector3 Position { get { return position; } set { position = value; } }
+    public Transform XForm { get { return xForm; } set { xForm = value; } }
+
+    public void Init(string camName, Vector3 pos, Transform transform, Transform parent)
+    {
+        position = pos;
+        xForm = transform;
+        xForm.name = camName;
+        xForm.parent = parent;
+        xForm.localPosition = Vector3.zero;
+        xForm.localPosition = position;
+    }
+}
 
 /// <summary>
 /// #DESCRIPTION OF CLASS#
@@ -54,10 +75,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private float targetingTime = 0.5f;
     [SerializeField]
     private float firstPersonLookSpeed = 3.0f;
-    [SerializeField]
-    private Vector2 firstPersonXAxisClamp = new Vector2(-70.0f, 90.0f);
-    [SerializeField]
-    private float fPSRotationDegreePerSecond = 120f;
+
     [SerializeField]
     private float firstPersonThreshold = 0.5f;
     [SerializeField]
@@ -85,6 +103,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private BarsEffect barEffect;
     private CamStates camState = CamStates.Behind;
     private float xAxisRot = 0.0f;
+    private CameraPosition firstPersonCamPos;
     private float lookWeight;
     private const float TARGETING_THRESHOLD = 0.01f;
     private Vector3 savedRigToGoal;
@@ -124,7 +143,6 @@ public class ThirdPersonCamera : MonoBehaviour
     public enum CamStates
     {
         Behind,
-        FirstPerson,
         Target,
         Free
     }
@@ -145,11 +163,20 @@ public class ThirdPersonCamera : MonoBehaviour
             Debug.LogError("Parent camera to empty GameObject.", this);
         }
 
+
+
+
+
+
+
+
         barEffect = GetComponent<BarsEffect>();
         if (barEffect == null)
         {
             Debug.LogError("Attach a widescreen BarsEffect script to the camera.", this);
         }
+
+
     }
 
     /// <summary>
@@ -157,7 +184,35 @@ public class ThirdPersonCamera : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (follow == null)
+            FindPlayer();
+    }
 
+    void FindPlayer()
+    {
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject p in playerList)
+        {
+            if (p.networkView.isMine)
+            {
+                follow = p.GetComponent<CharacterControllerLogic>();
+                followXform = p.transform;
+                break;
+            }
+        }
+
+        lookDir = followXform.forward;
+        curLookDir = followXform.forward;
+
+        // Position and parent a GameObject where first person view should be
+        firstPersonCamPos = new CameraPosition();
+        firstPersonCamPos.Init
+            (
+                "First Person Camera",
+                new Vector3(0.0f, 1.6f, 0.2f),
+                new GameObject().transform,
+                follow.transform
+            );
     }
 
     /// <summary>
@@ -170,19 +225,8 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (follow == null || followXform == null)
-        {
-            foreach (GameObject Player in GameObject.FindGameObjectsWithTag(Tags.player))
-            {
-                if (Player.GetComponent<NetworkView>().isMine)
-                {
-                    follow = Player.GetComponent<CharacterControllerLogic>();
-                    followXform = Player.transform;
-                    lookDir = followXform.forward;
-                    curLookDir = followXform.forward;
-                }
-            }
-        }
+        if (follow == null)
+            return;
         // Pull values from controller/keyboard
         float rightX = Input.GetAxis("rightanalogX");
         float rightY = Input.GetAxis("rightanalogY");
@@ -205,6 +249,7 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, 0f, targetingTime);
 
+
             if (rightY < freeThreshold && System.Math.Round(follow.Speed, 2) == 0)
             {
                 camState = CamStates.Free;
@@ -212,8 +257,7 @@ public class ThirdPersonCamera : MonoBehaviour
             }
 
             // * Behind the back *
-            if ((camState == CamStates.FirstPerson && Input.GetButton("ExitFPV")) ||
-                (camState == CamStates.Target && (Input.GetAxis("Target") <= TARGETING_THRESHOLD)))
+            if (camState == CamStates.Target && (Input.GetAxis("Target") <= TARGETING_THRESHOLD))
             {
                 camState = CamStates.Behind;
             }

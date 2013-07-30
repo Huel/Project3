@@ -27,6 +27,13 @@ using UnityEngine;
 /// </summary>
 public class CharacterControllerLogic : MonoBehaviour
 {
+
+    public Skill basicAttack;
+    public Skill skill1;
+    public Skill skill2;
+    public Skill skill3;
+    public Skill skill4;
+
     #region Variables (private)
 
     // Inspector serialized
@@ -138,13 +145,16 @@ public class CharacterControllerLogic : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (!GetComponent<NetworkView>().isMine || !GetComponent<Health>().isAlive())
+        if (!GetComponent<NetworkView>().isMine || !GetComponent<Health>().IsAlive())
             return;
+
+        HandleInput();
+
         if (gamecam == null)
         {
             gamecam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera>();
         }
-        if (animator && gamecam.CamState != ThirdPersonCamera.CamStates.FirstPerson)
+        if (animator)
         {
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             transInfo = animator.GetAnimatorTransitionInfo(0);
@@ -162,11 +172,6 @@ public class CharacterControllerLogic : MonoBehaviour
 
             // Translate controls stick coordinates into world/cam/character space
             StickToWorldspace(this.transform, gamecam.transform, ref direction, ref charSpeed, ref charAngle, IsInPivot());
-
-            if (Input.GetButtonDown("Sprint"))
-            {
-                speedComp.IsSprinting = true;
-            }
 
 
             // Press B to sprint
@@ -201,12 +206,26 @@ public class CharacterControllerLogic : MonoBehaviour
         }
     }
 
+    private void HandleInput()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            GetComponent<Speed>().IsSprinting = true;
+        }
+
+        if (Input.GetButtonDown("BButton"))
+        {
+            if (basicAttack)
+                basicAttack.Execute();
+        }
+    }
+
     /// <summary>
     /// Any code that moves the character needs to be checked against physics
     /// </summary>
     void FixedUpdate()
     {
-        if (!GetComponent<NetworkView>().isMine || !GetComponent<Health>().isAlive())
+        if (!GetComponent<NetworkView>().isMine || !GetComponent<Health>().IsAlive())
             return;
         // Rotate character model if stick is tilted right or left, but only if character is moving in that direction
         if (IsInLocomotion() && gamecam.CamState != ThirdPersonCamera.CamStates.Free && !IsInPivot() && ((direction >= 0 && leftX >= 0) || (direction < 0 && leftX < 0)))
