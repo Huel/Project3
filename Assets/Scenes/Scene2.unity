@@ -1439,7 +1439,7 @@ Transform:
   m_PrefabInternal: {fileID: 964039533}
   m_GameObject: {fileID: 352207552}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: -40.9849434, y: 10.4841938, z: 18.0138683}
+  m_LocalPosition: {x: 288.037476, y: 10.4841938, z: 18.0138283}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3806,7 +3806,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: e14f40f85c4b1ad46bd6bb2f620a845b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -40.9849434
+      value: 288.037476
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e14f40f85c4b1ad46bd6bb2f620a845b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3814,7 +3814,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e14f40f85c4b1ad46bd6bb2f620a845b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 18.0138683
+      value: 18.0138283
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e14f40f85c4b1ad46bd6bb2f620a845b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6574,7 +6574,6 @@ GameObject:
   - 114: {fileID: 1414066134}
   - 114: {fileID: 1414066133}
   - 114: {fileID: 1414066132}
-  - 143: {fileID: 1414066131}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6582,21 +6581,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!143 &1414066131
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 14300000, guid: e6e40eda5a3f31244baa1160274612a8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1914965000}
-  m_GameObject: {fileID: 1414066130}
-  serializedVersion: 2
-  m_Height: .800000012
-  m_Radius: .5
-  m_SlopeLimit: 45
-  m_StepOffset: .300000012
-  m_SkinWidth: .0799999982
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: .289999992}
 --- !u!114 &1414066132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6717,8 +6701,6 @@ MonoBehaviour:
   widescreen: .200000003
   targetingTime: .5
   firstPersonLookSpeed: 3
-  firstPersonXAxisClamp: {x: -70, y: 60}
-  fPSRotationDegreePerSecond: 120
   firstPersonThreshold: .5
   freeThreshold: -.100000001
   camMinDistFromChar: {x: 1, y: -.5}
