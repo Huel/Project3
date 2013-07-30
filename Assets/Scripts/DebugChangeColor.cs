@@ -31,7 +31,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = blue;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = blue;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = blue;
 					
 					if (networkView.isMine)
 					{
@@ -45,7 +45,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = lightBlue;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = lightBlue;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = lightBlue;
 
 					if (networkView.isMine)
 					{
@@ -59,7 +59,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = green;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = green;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = green;
 
 					if (networkView.isMine)
 					{
@@ -73,7 +73,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = lightGreen;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = lightGreen;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = lightGreen;
 
 					if (networkView.isMine)
 					{
@@ -87,7 +87,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = red;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = red;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = red;
 
 					//if (networkView.isMine)
 					//{
@@ -101,7 +101,7 @@ public class DebugChangeColor : MonoBehaviour
 						gameObject.transform.FindChild("mesh_minion").renderer.material.color = black;
 
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01_01").renderer.material.color = black;
+						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = black;
 
 					if (networkView.isMine)
 					{

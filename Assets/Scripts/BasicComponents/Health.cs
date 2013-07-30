@@ -152,6 +152,10 @@ public class Health : MonoBehaviour
     /// <returns>value is never lower than minHealth</returns>
     public float DecHealth(float healthValue)
     {
+		//debug Damage indicator
+		//+++++++++
+		gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Red));
+		//+++++++++
         return IncHealth(-healthValue);
     }
 
@@ -163,6 +167,10 @@ public class Health : MonoBehaviour
         else if (_healthPoints <= 0 && !immortal)
         {
             alive = false;
+			//debug Damage indicator
+			//+++++++++
+			gameObject.GetComponent<DebugChangeColor>().SetColor((int)DebugChangeColor.Colors.Black);
+			//+++++++++
             gameObject.GetComponent<Target>().type = TargetType.Dead;
         }
         if (!alive)
