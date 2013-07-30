@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class MinionAgent : MonoBehaviour
 {
-    public enum LaneIdentifier{ Lane1, Lane2, Lane3 };
+    public enum LaneIdentifier { Lane1, Lane2, Lane3 };
     public LaneIdentifier laneID;
 
     private NavMeshAgent _agent;
-    private Skill _basicAttack;
+    public Skill basicAttack;
 
     private Target _destination;    // default target
     private Target _origin;         // came from here
@@ -24,8 +23,6 @@ public class MinionAgent : MonoBehaviour
     void Start()
     {
         _agent = gameObject.GetComponent<NavMeshAgent>();
-        _basicAttack = gameObject.AddComponent<Skill>();
-        _basicAttack.Init("Basic Attack");
 
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
@@ -42,14 +39,14 @@ public class MinionAgent : MonoBehaviour
             contact.SetActive(false);
         }
         // ***********************************************************
-    } 
+    }
 
     void Update()
     {
         // only works when Minion is creatd by network.instansiate !!!
         // ***********************************************************
         if (!networkView.isMine)
-           return;
+            return;
         // ***********************************************************
         if (!gameObject.GetComponent<Health>().IsAlive())
         {
@@ -63,7 +60,7 @@ public class MinionAgent : MonoBehaviour
         contact.SetActive(_target != null);
 
         _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
-        
+
         // no target
         if (_target == null)
         {
@@ -88,13 +85,13 @@ public class MinionAgent : MonoBehaviour
             else  //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
-                SelectTarget();       
+                SelectTarget();
         }
         // already has target
         else
         {
             //if target out of range
-            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf 
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf
                 && !looseAttentionRange.isInRange(_target))
             {
                 _target = null;
@@ -102,7 +99,7 @@ public class MinionAgent : MonoBehaviour
             }
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
-            
+
         }
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
@@ -111,7 +108,7 @@ public class MinionAgent : MonoBehaviour
         }
         if (_target != null && contact.Contact(_target))
         {
-            _basicAttack.Execute();
+            basicAttack.Execute();
         }
     }
 
@@ -137,7 +134,7 @@ public class MinionAgent : MonoBehaviour
     {
         if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
         {
-            _basicAttack.Execute();
+            basicAttack.Execute();
             _agent.enabled = false;
         }
     }

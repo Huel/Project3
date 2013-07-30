@@ -21,6 +21,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400020}
   - 114: {fileID: 11400022}
+  - 114: {fileID: 11400024}
   m_Layer: 9
   m_Name: minion
   m_TagString: Untagged
@@ -219,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cbd7d2137ba6848a319b873cce4280, type: 3}
   m_Name: 
   laneID: 0
+  basicAttack: {fileID: 11400024}
   attentionRange: {fileID: 11400006}
   looseAttentionRange: {fileID: 11400002}
   contact: {fileID: 11400004}
@@ -242,6 +244,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 321e0c39376c9074680259cec2c61848, type: 3}
   m_Name: 
+  contacts: []
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,7 +310,6 @@ MonoBehaviour:
   keepDeadUnitTime: 5
   immortal: 0
   invulnerable: 0
-  alive: 1
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,6 +347,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2543e79ed310554fa8486821eec0106, type: 3}
   m_Name: 
   colors: 0
+--- !u!114 &11400024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Name: 
+  skillName: Basic Attack
+  actualCooldown: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

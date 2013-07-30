@@ -92,6 +92,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400024}
+  - 114: {fileID: 11400026}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -1063,6 +1064,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 321e0c39376c9074680259cec2c61848, type: 3}
   m_Name: 
+  contacts: []
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1087,7 +1089,6 @@ MonoBehaviour:
   keepDeadUnitTime: 5
   immortal: 0
   invulnerable: 0
-  alive: 1
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1129,6 +1130,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b216def2ca252840817bbbae8b9f6bf, type: 3}
   m_Name: 
+  basicAttack: {fileID: 11400026}
+  skill1: {fileID: 0}
+  skill2: {fileID: 0}
+  skill3: {fileID: 0}
+  skill4: {fileID: 0}
   animator: {fileID: 0}
   gamecam: {fileID: 0}
   rotationDegreePerSecond: 120
@@ -1210,6 +1216,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2543e79ed310554fa8486821eec0106, type: 3}
   m_Name: 
   colors: 0
+--- !u!114 &11400026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Name: 
+  skillName: Basic Attack
+  actualCooldown: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
