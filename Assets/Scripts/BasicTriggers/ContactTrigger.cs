@@ -6,7 +6,7 @@ public class ContactTrigger : MonoBehaviour
 {
     public delegate void OnContact(Target contact);
 
-    private List<Target> contacts = new List<Target>();
+    public List<Target> contacts = new List<Target>();
 
     private List<OnContact> defaultListener = new List<OnContact>();
     private Dictionary<TargetType, List<OnContact>> typeListener = new Dictionary<TargetType, List<OnContact>>();
@@ -14,25 +14,48 @@ public class ContactTrigger : MonoBehaviour
 
     public bool Contact(Target target)
     {
+        ClearDead();
         return contacts.Contains(target);
     }
 
     public Target GetContact()
     {
+        ClearDead();
         if (contacts.Count != 0)
             return contacts[0];
         return null;
     }
 
-    public Target GetContactByType(TargetType targetType)
+    public Target GetContactByType(TargetType targetType, Team.TeamIdentifier team)
     {
-        return GetContactByTypes(new List<TargetType> {targetType});
+        ClearDead();
+        return GetContactByTypes(new List<TargetType> {targetType}, team);
     }
 
-    public Target GetContactByTypes(List<TargetType> targetTypes)
+    public Target GetContactByTypes(List<TargetType> targetTypes, Team.TeamIdentifier team)
     {
+        ClearDead();
         for (int i = 0; i < contacts.Count; i++)
             if (targetTypes.Contains(contacts[i].type))
+            {   if (team != null)
+                {
+                    Team contactTeam = contacts[i].GetComponent<Team>();
+                    if(contactTeam != null && contactTeam.isOwnTeam(team))
+                        return contacts[i];
+                }
+                else
+                    return contacts[i];
+                
+            }
+                
+        return null;
+    }
+
+    public Target GetContactByTypesAndTeam(List<TargetType> targetTypes, List<Team.TeamIdentifier> IDs)
+    {
+        ClearDead();
+        for (int i = 0; i < contacts.Count; i++)
+            if (targetTypes.Contains(contacts[i].type) && IDs.Contains(contacts[i].gameObject.GetComponent<Team>().ID))
                 return contacts[i];
         return null;
     }
@@ -90,16 +113,15 @@ public class ContactTrigger : MonoBehaviour
         foreach (Target target in removeList)
             targetListener.Remove(target);
 
-        for (int j = contacts.Count - 1; j >= 0; j--)
-            if (j < contacts.Count)
-                if (contacts[j] == null)
-                    contacts.RemoveAt(j);
+        ClearDead();
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<Target>() == null) return;
         contacts.Remove(other.gameObject.GetComponent<Target>());
+
+        ClearDead();
     }
 
     void OnTriggerStay(Collider other)
@@ -122,5 +144,13 @@ public class ContactTrigger : MonoBehaviour
     public void SetActive(bool value)
     {
         gameObject.SetActive(value);
+    }
+
+    private void ClearDead()
+    {
+        for (int j = contacts.Count - 1; j >= 0; j--)
+            if (j < contacts.Count)
+                if (contacts[j] == null)
+                    contacts.RemoveAt(j);
     }
 }

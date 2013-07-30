@@ -15,7 +15,9 @@ class Modifier
     private string valueType;
     private string target;
 
-	public Modifier(Skill skill, string field, float value, string valueType, string target)
+    private List<Team.TeamIdentifier> targetTeams;
+
+    public Modifier(Skill skill, string field, float value, string valueType, string target, string targetTeam)
 	{
         this.skill = skill;
         type = modifierType.modify;
@@ -23,10 +25,26 @@ class Modifier
         this.value = value;
         this.valueType = valueType;
         this.target = target;
+
+        targetTeams = new List<Team.TeamIdentifier>();
+        switch (targetTeam)
+        {
+            case "Ally":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                break;
+            case "Enemy":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+            case "All":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+        }
 	}
 
     public void execute()
     {
+        Debug.Log("try to execute of " + skill.gameObject);
         switch(type)
         {
             case modifierType.modify:
@@ -37,11 +55,11 @@ class Modifier
 						if(target == "Self") comp = skill.gameObject.GetComponent<Health>();
                         if(target == "Target")
                         {
-                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypes(new List<TargetType> { TargetType.Hero, TargetType.Minion });
+                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(new List<TargetType> { TargetType.Hero, TargetType.Minion }, targetTeams);
                             if (contact != null)
                                 comp = contact.gameObject.GetComponent<Health>();
                         }
-						if(comp != null)
+                        if(comp != null)
 						{
                             if(valueType=="increase") comp.IncHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
                             if (valueType == "decrease")
@@ -50,6 +68,7 @@ class Modifier
                                 if (comp.gameObject.GetComponent<Target>().type == TargetType.Hero && skill.gameObject.GetComponent<Target>().type == TargetType.Hero)
                                     comp.gameObject.GetComponent<LastHeroDamage>().SetSource(skill.gameObject.networkView.viewID);   
                             }
+                            Debug.Log(skill.gameObject.ToString() + " has executed " + skill.skillName + " to " + comp.gameObject.ToString() + " with " + type.ToString() + "/" + field.ToString() + "/" + target.ToString() + "/" + valueType.ToString() + "/" + value.ToString());   
 						}
 						break;
 				}
@@ -113,14 +132,14 @@ public enum SkillState { Ready, InExecution, Active, OnCooldown };
 
 public class Skill : MonoBehaviour
 {
-    private string skillName;
+    public string skillName;
 
     private List<Modifier> modifiers = new List<Modifier>();
     private Trigger trigger = null;
     private float cooldown;
     private float castingTime;
 
-    private float actualCooldown;
+    public float actualCooldown;
     private float actualCastingTime;
     private bool _enabled;
     private SkillState _state;
@@ -165,6 +184,7 @@ public class Skill : MonoBehaviour
 
         if (_state == SkillState.Active)
         {
+            Debug.Log(modifiers.Count);
             foreach (Modifier modifier in modifiers)
                 modifier.execute();
             _state = SkillState.OnCooldown;
@@ -197,7 +217,7 @@ public class Skill : MonoBehaviour
 			List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
 			List<TargetType> targetTypes;
 			string[] fieldStrings;
-            string field, target, valueType;
+            string field, target, valueType, targetType;
 			Vector3 position;
 			float parsedValue;
 			
@@ -244,7 +264,8 @@ public class Skill : MonoBehaviour
 						parsedValue = float.Parse(skill.ChildNodes[2].InnerText);
                         valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
                         target = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target));
+                        targetType = skill.ChildNodes[4].InnerText;
+                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, targetType));
                         break;
 				}
 			}

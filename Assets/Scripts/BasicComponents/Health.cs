@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
 
     public bool immortal;
     public bool invulnerable;
-    public bool alive = true;
+    private bool _alive = true;
 
     public float HealthPoints
     {
@@ -29,9 +29,9 @@ public class Health : MonoBehaviour
     {
         get { return _minHealth; }
     }
-    public bool isAlive()
+    public bool IsAlive()
     {
-        return alive;
+        return _alive;
     }
     /// <summary>
     ///     set the maximum health
@@ -161,34 +161,49 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-
-        if (_healthPoints > 0 && !alive)
-            alive = true;
-        else if (_healthPoints <= 0 && !immortal)
-        {
-            alive = false;
-			//debug Damage indicator
-			//+++++++++
-			gameObject.GetComponent<DebugChangeColor>().SetColor((int)DebugChangeColor.Colors.Black);
-			//+++++++++
-            gameObject.GetComponent<Target>().type = TargetType.Dead;
-        }
-        if (!alive)
-            _deadCounter += Time.deltaTime;
-        else
-            _deadCounter = 0;
-
-        if (_deadCounter >= keepDeadUnitTime)
-        {
-            if (networkView.isMine)
-            {
-                networkView.RPC("killObject", RPCMode.AllBuffered);
-            }
-        }
+		if(networkView.isMine)
+			CheckHealthState(); 
     }
+	private void CheckHealthState()
+	{	
+		if(IsAlive())
+		{
+			if(HealthPoints <= 0)
+				SetAlive(false);
+		}
+		else
+		{
+			_deadCounter += Time.deltaTime;
+			
+			if (_deadCounter >= keepDeadUnitTime)
+			{
+				networkView.RPC("KillObject", RPCMode.AllBuffered);
+			}
+		}
+	}
+	
+	[RPC]
+	public void SetAlive(bool alive)
+	{
+		if(networkView.isMine)
+		{
+			if(!alive)
+			{
+				if(immortal)
+					return;
+				_deadCounter = 0;
+			    GetComponent<Target>().type = TargetType.Dead;
+			}
+			networkView.RPC("SetAlive",RPCMode.OthersBuffered,alive);
+		}
+		
+		_alive = alive;
+
+			
+	}
 
     [RPC]
-    public void killObject()
+    public void KillObject()
     {
         Destroy(gameObject);
     }

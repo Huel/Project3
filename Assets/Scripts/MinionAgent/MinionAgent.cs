@@ -51,7 +51,7 @@ public class MinionAgent : MonoBehaviour
         if (!networkView.isMine)
            return;
         // ***********************************************************
-        if (!gameObject.GetComponent<Health>().alive)
+        if (!gameObject.GetComponent<Health>().IsAlive())
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
@@ -107,9 +107,12 @@ public class MinionAgent : MonoBehaviour
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
             _agent.enabled = true;
-            contact.RemoveListener(_target, OnEnemyContact);
+            //contact.RemoveListener(_target, OnEnemyContact);
         }
-            
+        if (_target != null && contact.Contact(_target))
+        {
+            _basicAttack.Execute();
+        }
     }
 
     void SelectTarget()
@@ -119,7 +122,7 @@ public class MinionAgent : MonoBehaviour
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
             _target = target;
-            contact.AddListener(target, OnEnemyContact);
+            //contact.AddListener(target, OnEnemyContact);
             return;
         }
 
@@ -134,10 +137,9 @@ public class MinionAgent : MonoBehaviour
     {
         if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
         {
-            _basicAttack.Execute();  // --> start fight ??
+            _basicAttack.Execute();
             _agent.enabled = false;
         }
-        //basicSkill.Execute();
     }
 
     public void SetDestination(Target destination)
