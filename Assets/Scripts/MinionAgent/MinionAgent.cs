@@ -109,7 +109,10 @@ public class MinionAgent : MonoBehaviour
             _agent.enabled = true;
             contact.RemoveListener(_target, OnEnemyContact);
         }
-            
+        if (_target != null && contact.Contact(_target))
+        {
+            _basicAttack.Execute();
+        }
     }
 
     void SelectTarget()

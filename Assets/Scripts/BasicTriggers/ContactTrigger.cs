@@ -6,7 +6,7 @@ public class ContactTrigger : MonoBehaviour
 {
     public delegate void OnContact(Target contact);
 
-    private List<Target> contacts = new List<Target>();
+    public List<Target> contacts = new List<Target>();
 
     private List<OnContact> defaultListener = new List<OnContact>();
     private Dictionary<TargetType, List<OnContact>> typeListener = new Dictionary<TargetType, List<OnContact>>();
@@ -44,6 +44,14 @@ public class ContactTrigger : MonoBehaviour
                 
             }
                 
+        return null;
+    }
+
+    public Target GetContactByTypesAndTeam(List<TargetType> targetTypes, List<Team.TeamIdentifier> IDs)
+    {
+        for (int i = 0; i < contacts.Count; i++)
+            if (targetTypes.Contains(contacts[i].type) && IDs.Contains(contacts[i].gameObject.GetComponent<Team>().ID))
+                return contacts[i];
         return null;
     }
 
