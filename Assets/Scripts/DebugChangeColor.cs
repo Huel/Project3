@@ -103,10 +103,10 @@ public class DebugChangeColor : MonoBehaviour
 					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
 						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = black;
 
-					if (networkView.isMine)
-					{
-						networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					}
+					//if (networkView.isMine)
+					//{
+					//	networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
+					//}
 					break;
 				}
 		}

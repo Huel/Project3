@@ -168,8 +168,15 @@ public class Health : MonoBehaviour
 	{	
 		if(IsAlive())
 		{
-			if(HealthPoints <= 0)
+			if (HealthPoints <= 0)
+			{
+				//debug Damage indicator
+				//+++++++++
+				gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Black));
+				//+++++++++
 				SetAlive(false);
+			}
+				
 		}
 		else
 		{
