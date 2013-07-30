@@ -103,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 375.486938, y: 2.96242476, z: 77.3303375}
+  m_LocalPosition: {x: 255.34198, y: 5.06292343, z: .83831805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -218,9 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cbd7d2137ba6848a319b873cce4280, type: 3}
   m_Name: 
   laneID: 0
-  _destination: {fileID: 0}
-  _origin: {fileID: 0}
-  _target: {fileID: 0}
   attentionRange: {fileID: 11400006}
   looseAttentionRange: {fileID: 11400002}
   contact: {fileID: 11400004}
@@ -309,7 +306,6 @@ MonoBehaviour:
   keepDeadUnitTime: 5
   immortal: 0
   invulnerable: 0
-  alive: 1
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,8 +354,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .200000003
-  m_Center: {x: 0, y: .50999999, z: .389999986}
+  m_Radius: .5
+  m_Center: {x: 0, y: .50999999, z: .75}
 --- !u!135 &13500004
 SphereCollider:
   m_ObjectHideFlags: 1

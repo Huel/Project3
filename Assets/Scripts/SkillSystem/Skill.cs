@@ -14,8 +14,9 @@ class Modifier
     private float value;
     private string valueType;
     private string target;
+    private Team.TeamIdentifier team;
 
-	public Modifier(Skill skill, string field, float value, string valueType, string target)
+	public Modifier(Skill skill, string field, float value, string valueType, string target, Team.TeamIdentifier team)
 	{
         this.skill = skill;
         type = modifierType.modify;
@@ -23,6 +24,7 @@ class Modifier
         this.value = value;
         this.valueType = valueType;
         this.target = target;
+	    this.team = team;
 	}
 
     public void execute()
@@ -37,7 +39,7 @@ class Modifier
 						if(target == "Self") comp = skill.gameObject.GetComponent<Health>();
                         if(target == "Target")
                         {
-                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypes(new List<TargetType> { TargetType.Hero, TargetType.Minion });
+                            Target contact = skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypes(new List<TargetType> { TargetType.Hero, TargetType.Minion }, team);
                             if (contact != null)
                                 comp = contact.gameObject.GetComponent<Health>();
                         }
@@ -244,7 +246,7 @@ public class Skill : MonoBehaviour
 						parsedValue = float.Parse(skill.ChildNodes[2].InnerText);
                         valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
                         target = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target));
+                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, GetComponent<Team>().Other()));
                         break;
 				}
 			}

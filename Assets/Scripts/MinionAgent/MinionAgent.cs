@@ -134,10 +134,9 @@ public class MinionAgent : MonoBehaviour
     {
         if (gameObject.GetComponent<Team>().ID != _target.gameObject.GetComponent<Team>().ID)
         {
-            _basicAttack.Execute();  // --> start fight ??
+            _basicAttack.Execute();
             _agent.enabled = false;
         }
-        //basicSkill.Execute();
     }
 
     public void SetDestination(Target destination)
