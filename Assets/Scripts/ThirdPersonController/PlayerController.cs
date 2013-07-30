@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("BButton"))
         {
+			gameObject.GetComponent<DebugChangeColor>().Attack();
             basicAttack.Execute();
         }
     }

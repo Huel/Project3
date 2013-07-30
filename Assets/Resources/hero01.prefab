@@ -90,6 +90,7 @@ GameObject:
   - 208: {fileID: 20800000}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400020}
+  - 114: {fileID: 11400022}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -448,6 +449,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1172cd7dd0d6fdd47b18a0fcc6ed94cd, type: 3}
   m_Name: 
   trophyLevel: 0
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2543e79ed310554fa8486821eec0106, type: 3}
+  m_Name: 
+  colors: 0
 --- !u!143 &14300000
 CharacterController:
   m_ObjectHideFlags: 1
