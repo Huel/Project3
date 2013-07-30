@@ -42,7 +42,6 @@ class Modifier
 
     public void execute()
     {
-        Debug.Log("try to execute of " + skill.gameObject);
         switch (type)
         {
             case modifierType.modify:
@@ -66,7 +65,7 @@ class Modifier
                                 if (comp.gameObject.GetComponent<Target>().type == TargetType.Hero && skill.gameObject.GetComponent<Target>().type == TargetType.Hero)
                                     comp.gameObject.GetComponent<LastHeroDamage>().SetSource(skill.gameObject.networkView.viewID);
                             }
-                            Debug.Log(skill.gameObject.ToString() + " has executed " + skill.skillName + " to " + comp.gameObject.ToString() + " with " + type.ToString() + "/" + field.ToString() + "/" + target.ToString() + "/" + valueType.ToString() + "/" + value.ToString());
+                            //Debug.Log(skill.gameObject.ToString() + " has executed " + skill.skillName + " to " + comp.gameObject.ToString() + " with " + type.ToString() + "/" + field.ToString() + "/" + target.ToString() + "/" + valueType.ToString() + "/" + value.ToString());
                         }
                         break;
                 }
@@ -182,7 +181,6 @@ public class Skill : MonoBehaviour
 
         if (_state == SkillState.Active)
         {
-            Debug.Log(modifiers.Count);
             foreach (Modifier modifier in modifiers)
                 modifier.execute();
             _state = SkillState.OnCooldown;
