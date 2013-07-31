@@ -152,62 +152,62 @@ public class Health : MonoBehaviour
     /// <returns>value is never lower than minHealth</returns>
     public float DecHealth(float healthValue)
     {
-		//debug Damage indicator
-		//+++++++++
-		gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Red));
-		//+++++++++
+        //debug Damage indicator
+        //+++++++++
+        gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Red));
+        //+++++++++
         return IncHealth(-healthValue);
     }
 
     void Update()
     {
-		if(networkView.isMine)
-			CheckHealthState(); 
+        if (networkView.isMine)
+            CheckHealthState();
     }
-	private void CheckHealthState()
-	{	
-		if(IsAlive())
-		{
-			if (HealthPoints <= 0)
-			{
-				//debug Damage indicator
-				//+++++++++
-				gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Black));
-				//+++++++++
-				SetAlive(false);
-			}
-				
-		}
-		else
-		{
-			_deadCounter += Time.deltaTime;
-			
-			if (_deadCounter >= keepDeadUnitTime)
-			{
-				networkView.RPC("KillObject", RPCMode.AllBuffered);
-			}
-		}
-	}
-	
-	[RPC]
-	public void SetAlive(bool alive)
-	{
-		if(networkView.isMine)
-		{
-			if(!alive)
-			{
-				if(immortal)
-					return;
-				_deadCounter = 0;
-			    GetComponent<Target>().type = TargetType.Dead;
-			}
-			networkView.RPC("SetAlive",RPCMode.OthersBuffered,alive);
-		}
-		
-		_alive = alive;
+    private void CheckHealthState()
+    {
+        if (IsAlive())
+        {
+            if (HealthPoints <= 0)
+            {
+                //debug Damage indicator
+                //+++++++++
+                gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Black));
+                //+++++++++
+                SetAlive(false);
+            }
 
-			
-	}
+        }
+        else
+        {
+            _deadCounter += Time.deltaTime;
+
+            if (_deadCounter >= keepDeadUnitTime)
+            {
+                networkView.RPC("KillObject", RPCMode.AllBuffered);
+            }
+        }
+    }
+
+    [RPC]
+    public void SetAlive(bool alive)
+    {
+        if (networkView.isMine)
+        {
+            if (!alive)
+            {
+                if (immortal)
+                    return;
+                _deadCounter = 0;
+                GetComponent<Target>().SwitchTargetType((int)TargetType.Dead);
+            }
+            networkView.RPC("SetAlive", RPCMode.OthersBuffered, alive);
+        }
+
+        _alive = alive;
+
+
+    }
 
     [RPC]
     public void KillObject()

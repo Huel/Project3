@@ -126,6 +126,7 @@ public class Speed : MonoBehaviour
     public void SetMaxStamina(float maxStamina)
     {
         _maxStamina = Mathf.Max(0, maxStamina);
+        SetStamina(_maxStamina);
 
         if (networkView.isMine)
             networkView.RPC("SetMaxStamina", RPCMode.OthersBuffered, maxStamina);

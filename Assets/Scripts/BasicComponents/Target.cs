@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
 {
 
     public TargetType type;
+    private TargetType _oldType;
 
     public Vector3 Position { set { transform.position = value; } get { return transform.position; } }
 
@@ -17,5 +18,16 @@ public class Target : MonoBehaviour
     public float GetDistance(Vector3 position)
     {
         return (position - Position).magnitude;
+    }
+
+    [RPC]
+    public void SwitchTargetType(int type)
+    {
+        _oldType = this.type;
+        this.type = (TargetType)type;
+        if (networkView.isMine)
+        {
+            networkView.RPC("SwitchTargetType", RPCMode.OthersBuffered, type);
+        }
     }
 }
