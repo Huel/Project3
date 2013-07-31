@@ -58,6 +58,8 @@ class Modifier
 						}
 						if (comp != null)
 						{
+                            if (valueType == "set") comp.SetHealth(value);
+                            if (valueType == "heal") comp.IncHealth(comp.MaxHealth * value);
 							if (valueType == "increase") comp.IncHealth(skill.gameObject.GetComponent<Damage>().DefaultDamage * value);
 							if (valueType == "decrease")
 							{
@@ -65,7 +67,7 @@ class Modifier
 								if (comp.gameObject.GetComponent<Target>().type == TargetType.Hero && skill.gameObject.GetComponent<Target>().type == TargetType.Hero)
 									comp.gameObject.GetComponent<LastHeroDamage>().SetSource(skill.gameObject.networkView.viewID);
 							}
-							//Debug.Log(skill.gameObject.ToString() + " has executed " + skill.skillName + " to " + comp.gameObject.ToString() + " with " + type.ToString() + "/" + field.ToString() + "/" + target.ToString() + "/" + valueType.ToString() + "/" + value.ToString());
+							Debug.Log(skill.gameObject.ToString() + " has executed " + skill.skillName + " to " + comp.gameObject.ToString() + " with " + type.ToString() + "/" + field.ToString() + "/" + target.ToString() + "/" + valueType.ToString() + "/" + value.ToString());
 						}
 						break;
 				}
@@ -78,34 +80,33 @@ class Trigger
 {
 	private Skill skill;
 	private triggerType type;
-	enum triggerType { onRange, onContact, atPosition, instant };
+	enum triggerType { onContact, instant };
 
 	private float radius;
 
-	public Trigger(Skill skill, float radius)
-	{
-		this.skill = skill;
-		type = triggerType.onRange;
-		this.radius = radius;
-	}
+	private List<TargetType> targetTypes;
+    private List<Team.TeamIdentifier> targetTeams;
 
-	List<TargetType> targetTypes;
-
-	public Trigger(Skill skill, List<TargetType> targetTypes)
+    public Trigger(Skill skill, List<TargetType> targetTypes, string targetTeam)
 	{
 		this.skill = skill;
 		type = triggerType.onContact;
 		this.targetTypes = targetTypes;
-	}
 
-	Vector3 position;
-
-	public Trigger(Skill skill, Vector3 position, float radius)
-	{
-		this.skill = skill;
-		type = triggerType.atPosition;
-		this.position = position;
-		this.radius = radius;
+        targetTeams = new List<Team.TeamIdentifier>();
+        switch (targetTeam)
+        {
+            case "Ally":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                break;
+            case "Enemy":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+            case "All":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+        }
 	}
 
 	public Trigger(Skill skill)
@@ -116,11 +117,8 @@ class Trigger
 
 	public bool check()
 	{
-		switch (type)
-		{
-			case triggerType.onContact:
-				return (skill.gameObject.GetComponent<Range>().GetNearestTargetByTypes(targetTypes) != null);
-		}
+		if(type == triggerType.onContact)
+			return (skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(targetTypes, targetTeams) != null);
 		return true;
 	}
 }
@@ -215,18 +213,12 @@ public class Skill : MonoBehaviour
 			List<TargetType> targetTypes;
 			string[] fieldStrings;
 			string field, target, valueType, targetType;
-			Vector3 position;
 			float parsedValue;
 
 			string triggerType = triggerList[0].FirstChild.Value;
 			triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
 			switch (triggerType)
 			{
-				case "inRange":
-					parsedValue = float.Parse(triggerList[0].ChildNodes[1].InnerText);
-					trigger = new Trigger(this, parsedValue);
-					break;
-
 				case "onContact":
 					fieldStrings = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
 					targetTypes = new List<TargetType>();
@@ -234,14 +226,8 @@ public class Skill : MonoBehaviour
 						foreach (TargetType compareType in compareTypes)
 							if (compareType.ToString() == type)
 								targetTypes.Add(compareType);
-					trigger = new Trigger(this, targetTypes);
-					break;
-
-				case "atPosition":
-					fieldStrings = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
-					position = new Vector3(float.Parse(fieldStrings[0]), float.Parse(fieldStrings[1]), float.Parse(fieldStrings[2]));
-					parsedValue = float.Parse(triggerList[0].ChildNodes[2].InnerText);
-					trigger = new Trigger(this, position, parsedValue);
+                    targetType = triggerList[0].ChildNodes[2].InnerText;
+					trigger = new Trigger(this, targetTypes, targetType);
 					break;
 
 				case "instant":

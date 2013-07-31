@@ -8,6 +8,19 @@
 
       <cooldown type="related">0.4</cooldown>
 	</skill>
+
+  <skill name="Fresh Meat">
+    <type>modify<field>Health</field><value type="set">0.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
+    <type>modify<field>Health</field><value type="heal">0.5</value><target>Self</target><targetTeam>All</targetTeam></type>
+
+    <trigger>onContact<allowedTypes>Minion</allowedTypes><allowedTeam>Enemy</allowedTeam></trigger>
+
+    <castingTime>0.0</castingTime>
+
+    <cooldown>90.0</cooldown>
+  </skill>
+  
+  
 	<skill name="Monster Slash">
 	    <type>modify<field>Damage</field><value type="decrease">1.5</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
 		
