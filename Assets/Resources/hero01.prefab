@@ -93,6 +93,7 @@ GameObject:
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400026}
   - 136: {fileID: 13600000}
+  - 143: {fileID: 14300000}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -1297,6 +1298,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -.106840581, y: -.000400871038, z: .564605653}
     m_Extent: {x: .616556287, y: .971207261, z: .888682783}
   m_DirtyAABB: 0
+--- !u!143 &14300000
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  serializedVersion: 2
+  m_Height: .400000006
+  m_Radius: .400000006
+  m_SlopeLimit: 30
+  m_StepOffset: .300000012
+  m_SkinWidth: .0799999982
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: .25, z: 0}
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
