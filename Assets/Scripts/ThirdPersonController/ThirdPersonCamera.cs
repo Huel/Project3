@@ -164,12 +164,6 @@ public class ThirdPersonCamera : MonoBehaviour
         }
 
 
-
-
-
-
-
-
         barEffect = GetComponent<BarsEffect>();
         if (barEffect == null)
         {
@@ -190,7 +184,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void FindPlayer()
     {
-        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag(Tags.player);
         foreach (GameObject p in playerList)
         {
             if (p.networkView.isMine)
@@ -203,16 +197,6 @@ public class ThirdPersonCamera : MonoBehaviour
 
         lookDir = followXform.forward;
         curLookDir = followXform.forward;
-
-        // Position and parent a GameObject where first person view should be
-        firstPersonCamPos = new CameraPosition();
-        firstPersonCamPos.Init
-            (
-                "First Person Camera",
-                new Vector3(0.0f, 1.6f, 0.2f),
-                new GameObject().transform,
-                follow.transform
-            );
     }
 
     /// <summary>
@@ -228,10 +212,10 @@ public class ThirdPersonCamera : MonoBehaviour
         if (follow == null)
             return;
         // Pull values from controller/keyboard
-        float rightX = Input.GetAxis("rightanalogX");
-        float rightY = Input.GetAxis("rightanalogY");
-        float leftX = Input.GetAxis("leftanalogX");
-        float leftY = Input.GetAxis("leftanalogY");
+        float rightX = Input.GetAxis(InputTags.cameraX);
+        float rightY = Input.GetAxis(InputTags.cameraY);
+        float leftX = Input.GetAxis(InputTags.horizontal);
+        float leftY = Input.GetAxis(InputTags.vertical);
 
         Vector3 characterOffset = followXform.position + new Vector3(0f, distanceUp, 0f);
         Vector3 lookAt = characterOffset;
@@ -239,7 +223,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         // Determine camera state
         // * Targeting *
-        if (Input.GetAxis("Target") > TARGETING_THRESHOLD)
+        if (Input.GetAxis(InputTags.target) > TARGETING_THRESHOLD)
         {
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, widescreen, targetingTime);
 
@@ -257,7 +241,7 @@ public class ThirdPersonCamera : MonoBehaviour
             }
 
             // * Behind the back *
-            if (camState == CamStates.Target && (Input.GetAxis("Target") <= TARGETING_THRESHOLD))
+            if (camState == CamStates.Target && (Input.GetAxis(InputTags.target) <= TARGETING_THRESHOLD))
             {
                 camState = CamStates.Behind;
             }

@@ -76,6 +76,8 @@ public class CharacterControllerLogic : MonoBehaviour
     private int m_LocomotionPivotLTransId = 0;
     private int m_LocomotionPivotRTransId = 0;
 
+    private const float TARGETING_THRESHOLD = 0.01f;
+
     #endregion
 
 
@@ -123,6 +125,7 @@ public class CharacterControllerLogic : MonoBehaviour
     /// </summary>
     void Start()
     {
+        PlayerPrefs.DeleteAll();
         animator = GetComponent<Animator>();
         capCollider = GetComponent<CapsuleCollider>();
         capsuleHeight = capCollider.height;
@@ -154,7 +157,7 @@ public class CharacterControllerLogic : MonoBehaviour
 
         if (gamecam == null)
         {
-            gamecam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera>();
+            gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<ThirdPersonCamera>();
         }
         if (animator)
         {
@@ -164,8 +167,8 @@ public class CharacterControllerLogic : MonoBehaviour
             if (alive)
             {
                 // Pull values from controller/keyboard
-                leftX = Input.GetAxis("leftanalogX");
-                leftY = Input.GetAxis("leftanalogY");
+                leftX = Input.GetAxis(InputTags.horizontal);
+                leftY = Input.GetAxis(InputTags.vertical);
 
                 stickDirection = new Vector3(leftX, 0, leftY);
             }
@@ -185,7 +188,7 @@ public class CharacterControllerLogic : MonoBehaviour
 
 
             // Press B to sprint
-            if (speedComp.IsSprinting && Input.GetButton("Sprint") && charSpeed >= 0.1f)
+            if (speedComp.IsSprinting && Input.GetButton(InputTags.sprint) && charSpeed >= 0.1f)
             {
 
                 speed = Mathf.Lerp(speed, speedComp.CurrentSpeed, Time.deltaTime);
@@ -198,32 +201,31 @@ public class CharacterControllerLogic : MonoBehaviour
                 gamecam.camera.fieldOfView = Mathf.Lerp(gamecam.camera.fieldOfView, NORMAL_FOV, fovDampTime * Time.deltaTime);
             }
 
-            animator.SetFloat("Speed", speed, speedDampTime, Time.deltaTime);
-            animator.SetFloat("Direction", direction, directionDampTime, Time.deltaTime);
+            animator.SetFloat(AnimatorTags.speed, speed, speedDampTime, Time.deltaTime);
+            animator.SetFloat(AnimatorTags.direction, direction, directionDampTime, Time.deltaTime);
 
             if (speed > LocomotionThreshold)	// Dead zone
             {
                 if (!IsInPivot())
                 {
-                    Animator.SetFloat("Angle", charAngle);
+                    Animator.SetFloat(AnimatorTags.angle, charAngle);
                 }
             }
             if (speed < LocomotionThreshold && Mathf.Abs(leftX) < 0.05f)    // Dead zone
             {
-                animator.SetFloat("Direction", 0f);
-                animator.SetFloat("Angle", 0f);
+                animator.SetFloat(AnimatorTags.direction, 0f);
+                animator.SetFloat(AnimatorTags.angle, 0f);
             }
         }
     }
 
     private void HandleInput()
     {
-        if (Input.GetButtonDown("Sprint"))
+        if (Input.GetButtonDown(InputTags.sprint))
         {
             GetComponent<Speed>().IsSprinting = true;
         }
-
-        if (Input.GetButtonDown("BButton"))
+        if (Input.GetAxis(InputTags.basicAttack) >= TARGETING_THRESHOLD)
         {
             if (basicAttack)
             {
