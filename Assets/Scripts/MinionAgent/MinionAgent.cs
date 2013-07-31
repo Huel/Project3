@@ -18,6 +18,8 @@ public class MinionAgent : MonoBehaviour
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
+    public float productivity = 1.0f;
+
     //public Skill basicSkill;
 
     void Start()
