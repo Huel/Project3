@@ -1,33 +1,55 @@
 <Skills>
-	<skill name="Basic Attack">
-	    <type>modify<field>Health</field><value type="decrease">1.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
+	  <skill name="Basic Attack">
+	      <type>modify<field>Health</field><value type="decrease">1.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
 		
-	    <trigger>instant</trigger>
+	      <trigger>instant</trigger>
 			
-	    <castingTime type="related">0.6</castingTime>
+	      <castingTime type="related">0.6</castingTime>
 
-      <cooldown type="related">0.4</cooldown>
-	</skill>
+        <cooldown type="related">0.4</cooldown>
+	  </skill>
 
-  <skill name="Fresh Meat">
-    <type>modify<field>Health</field><value type="set">0.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
-    <type>modify<field>Health</field><value type="heal">0.5</value><target>Self</target><targetTeam>All</targetTeam></type>
+    <skill name="Shieldwall">
+        <type>debuff<component>Shieldwall</component><target>Self</target><targetTeam>All</targetTeam></type>
 
-    <trigger>onContact<allowedTypes>Minion</allowedTypes><allowedTeam>Enemy</allowedTeam></trigger>
+        <trigger>instant</trigger>
 
-    <castingTime>0.0</castingTime>
+        <castingTime>0.0</castingTime>
 
-    <cooldown>90.0</cooldown>
-  </skill>
+        <cooldown>30.0</cooldown>
+
+        <buff id="Shieldwall">
+            <addModifier><field>Health</field><value type="setInvulnerable">true</value></addModifier>
+            <addModifier><field>Speed</field><value type="setSpeedMultiplier">0.2</value></addModifier>
+            <duration>3.0</duration>
+            <removeModifier><field>Health</field><value type="setInvulnerable">false</value></removeModifier>
+            <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
+        </buff>
+    </skill>
+
+    <skill name="Fresh Meat">
+        <type>modify<field>Health</field><value type="set">0.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
+        <type>modify<field>Health</field><value type="heal">0.5</value><target>Self</target><targetTeam>All</targetTeam></type>
+
+        <trigger>onContact<allowedTypes>Minion</allowedTypes><allowedTeam>Enemy</allowedTeam></trigger>
+
+        <castingTime>0.0</castingTime>
+
+        <cooldown>90.0</cooldown>
+    </skill>
   
-  
-	<skill name="Monster Slash">
-	    <type>modify<field>Damage</field><value type="decrease">1.5</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
-		
-	    <trigger>onContact<allowedTypes>Hero, Minion</allowedTypes></trigger>
-			
-	    <castingTime>1.5</castingTime>
-	
-	    <cooldown>5.0</cooldown>
-	</skill>
+  <skill name="Slowaura">
+        <type>aura<buff>Slow</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><minValue>0.0</minValue><maxValue>0.0</maxValue></type>
+
+        <trigger>instant</trigger>
+
+        <castingTime>0.0</castingTime>
+
+        <cooldown>30.0</cooldown>
+
+        <buff id="Slow">
+            <addModifier><field>Speed</field><value type="setSpeedMultiplier">0.2</value></addModifier>
+            <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
+        </buff>
+    </skill>
 </Skills>

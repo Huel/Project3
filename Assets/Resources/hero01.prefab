@@ -93,6 +93,7 @@ GameObject:
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400026}
+  - 114: {fileID: 11400028}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -1226,8 +1227,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
-  skillName: Fresh Meat
+  skillName: Slowaura
   actualCooldown: 0
+--- !u!114 &11400028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
+  m_Name: 
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
