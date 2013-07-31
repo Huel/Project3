@@ -52,7 +52,7 @@ public class CharacterControllerLogic : MonoBehaviour
     [SerializeField]
     private float fovDampTime = 3f;
     [SerializeField]
-    private CharacterController capCollider;
+    private CapsuleCollider capCollider;
 
 
     // Private global only
@@ -124,7 +124,7 @@ public class CharacterControllerLogic : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        capCollider = GetComponent<CharacterController>();
+        capCollider = GetComponent<CapsuleCollider>();
         capsuleHeight = capCollider.height;
 
         if (animator.layerCount >= 2)

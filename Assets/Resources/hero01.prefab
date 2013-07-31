@@ -90,9 +90,9 @@ GameObject:
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400012}
-  - 143: {fileID: 14300000}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400026}
+  - 136: {fileID: 13600000}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -979,10 +979,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   directionDampTime: .25
   speedDampTime: .0500000007
   fovDampTime: 3
-  capCollider: {fileID: 14300000}
+  capCollider: {fileID: 13600000}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1228,6 +1228,19 @@ MonoBehaviour:
   m_Name: 
   skillName: Basic Attack
   actualCooldown: 0
+--- !u!136 &13600000
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.04999995, z: 0}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1284,20 +1297,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -.106840581, y: -.000400871038, z: .564605653}
     m_Extent: {x: .616556287, y: .971207261, z: .888682783}
   m_DirtyAABB: 0
---- !u!143 &14300000
-CharacterController:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: .5
-  m_SlopeLimit: 45
-  m_StepOffset: .300000012
-  m_SkinWidth: 9.99999975e-05
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1.04999995, z: 0}
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
