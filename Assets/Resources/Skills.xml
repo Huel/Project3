@@ -1,0 +1,20 @@
+<Skills>
+	<skill name="Basic Attack">
+	    <type>modify<field>Health</field><value type="decrease">1.0</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
+		
+	    <trigger>instant</trigger>
+			
+	    <castingTime type="related">0.6</castingTime>
+
+      <cooldown type="related">0.4</cooldown>
+	</skill>
+	<skill name="Monster Slash">
+	    <type>modify<field>Damage</field><value type="decrease">1.5</value><target>Target</target><targetTeam>Enemy</targetTeam></type>
+		
+	    <trigger>onContact<allowedTypes>Hero, Minion</allowedTypes></trigger>
+			
+	    <castingTime>1.5</castingTime>
+	
+	    <cooldown>5.0</cooldown>
+	</skill>
+</Skills>
