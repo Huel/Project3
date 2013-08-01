@@ -24,7 +24,7 @@ public class NetworkCharacter : MonoBehaviour
     // Keep track of what slots are used
     int m_TimestampCount;
 
-    void Awake()
+    void Start()
     {
 
     }
@@ -116,7 +116,7 @@ public class NetworkCharacter : MonoBehaviour
     // And only if no more data arrives we will use extra polation
     void Update()
     {
-        if (networkView.isMine)// || )
+        if (networkView.isMine)
             return;
 
         if (GetComponent<Animator>().GetFloat("Speed") < 0.0001f)
