@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Aura : MonoBehaviour
 {
-    private Range aura = null;
+    public Range aura = null;
     private bool buffIsDebuff;
 
     private Skill skill;
@@ -59,10 +55,10 @@ public class Aura : MonoBehaviour
         float value;
         foreach (Target target in targets)
         {
-            value = target.GetDistance(gameObject.transform.position)/minValue;
+            value = target.GetDistance(gameObject.transform.position) / minValue;
             foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
                 if (buff.buffID == buffName)
                     buff.ChangeAuraValue(value);
-        }  
+        }
     }
 }
