@@ -37,15 +37,10 @@ public class ContactTrigger : MonoBehaviour
         ClearDead();
         for (int i = 0; i < contacts.Count; i++)
             if (targetTypes.Contains(contacts[i].type))
-            {   if (team != null)
-                {
-                    Team contactTeam = contacts[i].GetComponent<Team>();
-                    if(contactTeam != null && contactTeam.isOwnTeam(team))
-                        return contacts[i];
-                }
-                else
+            {  
+                Team contactTeam = contacts[i].GetComponent<Team>();
+                if(contactTeam != null && contactTeam.isOwnTeam(team))
                     return contacts[i];
-                
             }
                 
         return null;
