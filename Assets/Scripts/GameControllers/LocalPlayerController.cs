@@ -9,13 +9,16 @@ public class LocalPlayerController : MonoBehaviour
     [SerializeField]
     public int[] minionDeployment = new int[3];
 
-    public int spawnJitter = 2;
-    // Use this for initialization
+    public float spawnJitter = 2;
+    // Use this for initialization 
+
     void Awake()
     {
+        if(Network.isServer)
+            GameObject.FindGameObjectWithTag(Tags.gameController).networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
         //For Testing
-        minionDeployment[0] = 2;
-        minionDeployment[1] = 2;
+        minionDeployment[0] = 1;
+        minionDeployment[1] = 1;
         minionDeployment[2] = 1;
 
         networkPlayerController = GameObject.FindGameObjectWithTag(Tags.gameController)
@@ -76,7 +79,12 @@ public class LocalPlayerController : MonoBehaviour
 
     }
 
-    public void setMinionDebployment(MinionAgent.LaneIdentifier lane, int count)
+    public void setMinionDeployment(int identifier, int value)
+    {
+        minionDeployment[identifier - 1] = value;
+    }
+
+    public void setMinionDeployment(MinionAgent.LaneIdentifier lane, int count)
     {
         minionDeployment[(int)lane] = count;
     }

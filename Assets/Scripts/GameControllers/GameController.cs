@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     private float passedTime = 0f;
     private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
 
+    private float _currentMinionSpawn = 10f;
     private float _spawnTime = 30f;
     private float _spawnTimer = 0f;
 
@@ -29,6 +30,18 @@ public class GameController : MonoBehaviour
     public float GameTime
     {
         get { return Time.time - _startTime; }
+    }
+
+    public float FirstMinionSpawn
+    {
+        set { _currentMinionSpawn = value; }
+        get { return _currentMinionSpawn;  }
+    }
+
+    public float SpawnTime
+    {
+        set { _spawnTime = value; }
+        get { return _spawnTime; }
     }
 
     void OnPlayerDisconnected()
@@ -64,8 +77,9 @@ public class GameController : MonoBehaviour
 
         if (state == GameState.Running)
             _spawnTimer += Time.deltaTime;
-        if (_spawnTimer >= _spawnTime)
+        if (_spawnTimer >= _currentMinionSpawn)
         {
+            _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
             GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().SpawnMinions();
         }
@@ -88,6 +102,7 @@ public class GameController : MonoBehaviour
         this.state = (GameState)state;
         if (this.state == GameState.Running)
         {
+            GetComponent<GameSettings>().Init();
             _startTime = Time.time;
         }
 

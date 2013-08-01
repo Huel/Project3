@@ -30,6 +30,7 @@ public class NetworkManager : MonoBehaviour
 
     void Awake()
     {
+        GetComponent<NetworkSettings>().Init();
         if (_instance == null)
         {
             _instance = this;
@@ -183,9 +184,6 @@ public class NetworkManager : MonoBehaviour
         Network.isMessageQueueRunning = true;
         //Now the level has been loaded and we can start sending out data to clients
         Network.SetSendingEnabled(0, true);
-
-
-        gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
     }
 
     public static bool isNetwork
