@@ -1,5 +1,6 @@
 using System.IO;
 using System.Xml;
+using UnityEngine;
 
 public class XMLReader
 {
@@ -10,7 +11,7 @@ public class XMLReader
     {
         try
         {
-            document.LoadXml(File.ReadAllText(Path.GetFullPath("Assets/XML/" + path)));
+            document.LoadXml(File.ReadAllText(Application.dataPath + "/XML/" + path));
             /*foreach (XmlNode node in document.ChildNodes)
             switch(node.GetType().ToString())
             {
