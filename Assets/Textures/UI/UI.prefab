@@ -1,0 +1,218 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f932d426897c863498e2d3724f22d837, type: 3}
+  m_Name: 
+  material: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+  sprites:
+  - name: Interface_hero_background
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 497
+      width: 613
+      height: 177
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 497
+      width: 613
+      height: 177
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Health_bar
+    outer:
+      serializedVersion: 2
+      x: 614
+      y: 652
+      width: 407
+      height: 22
+    inner:
+      serializedVersion: 2
+      x: 614
+      y: 652
+      width: 407
+      height: 22
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_map_background
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 675
+      width: 774
+      height: 349
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 675
+      width: 774
+      height: 349
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_blue
+    outer:
+      serializedVersion: 2
+      x: 775
+      y: 978
+      width: 205
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 775
+      y: 978
+      width: 205
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_endurance
+    outer:
+      serializedVersion: 2
+      x: 614
+      y: 640
+      width: 400
+      height: 11
+    inner:
+      serializedVersion: 2
+      x: 614
+      y: 640
+      width: 400
+      height: 11
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_skill
+    outer:
+      serializedVersion: 2
+      x: 981
+      y: 988
+      width: 37
+      height: 36
+    inner:
+      serializedVersion: 2
+      x: 981
+      y: 988
+      width: 37
+      height: 36
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_red
+    outer:
+      serializedVersion: 2
+      x: 775
+      y: 931
+      width: 205
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 775
+      y: 931
+      width: 205
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomb
+    outer:
+      serializedVersion: 2
+      x: 775
+      y: 884
+      width: 47
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 775
+      y: 884
+      width: 47
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_pfeil
+    outer:
+      serializedVersion: 2
+      x: 823
+      y: 891
+      width: 54
+      height: 39
+    inner:
+      serializedVersion: 2
+      x: 823
+      y: 891
+      width: 54
+      height: 39
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  mCoordinates: 0
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
