@@ -221,7 +221,7 @@ public class CharacterControllerLogic : MonoBehaviour
         }
     }
 
-   
+
 
     private void HandleInput()
     {
@@ -236,6 +236,27 @@ public class CharacterControllerLogic : MonoBehaviour
                 basicAttack.Execute();
             }
 
+        }
+
+        if (Input.GetButtonDown(InputTags.skill1))
+        {
+            if (skill1)
+                skill1.Execute();
+        }
+        if (Input.GetButtonDown(InputTags.skill2))
+        {
+            if (skill2)
+                skill2.Execute();
+        }
+        if (Input.GetButtonDown(InputTags.skill3))
+        {
+            if (skill3)
+                skill3.Execute();
+        }
+        if (Input.GetButtonDown(InputTags.skill4))
+        {
+            if (skill4)
+                skill4.Execute();
         }
     }
 

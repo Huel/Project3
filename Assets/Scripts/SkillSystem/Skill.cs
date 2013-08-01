@@ -4,20 +4,20 @@ using UnityEngine;
 
 class Trigger
 {
-	private Skill skill;
-	private triggerType type;
-	enum triggerType { onContact, instant };
+    private Skill skill;
+    private triggerType type;
+    enum triggerType { onContact, instant };
 
-	private float radius;
+    private float radius;
 
-	private List<TargetType> targetTypes;
+    private List<TargetType> targetTypes;
     private List<Team.TeamIdentifier> targetTeams;
 
     public Trigger(Skill skill, List<TargetType> targetTypes, string targetTeam)
-	{
-		this.skill = skill;
-		type = triggerType.onContact;
-		this.targetTypes = targetTypes;
+    {
+        this.skill = skill;
+        type = triggerType.onContact;
+        this.targetTypes = targetTypes;
 
         targetTeams = new List<Team.TeamIdentifier>();
         switch (targetTeam)
@@ -33,152 +33,152 @@ class Trigger
                 targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
                 break;
         }
-	}
+    }
 
-	public Trigger(Skill skill)
-	{
-		this.skill = skill;
-		type = triggerType.instant;
-	}
+    public Trigger(Skill skill)
+    {
+        this.skill = skill;
+        type = triggerType.instant;
+    }
 
-	public bool check()
-	{
-		if(type == triggerType.onContact)
-			return (skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(targetTypes, targetTeams) != null);
-		return true;
-	}
+    public bool check()
+    {
+        if (type == triggerType.onContact)
+            return (skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(targetTypes, targetTeams) != null);
+        return true;
+    }
 }
 
 public enum SkillState { Ready, InExecution, Active, OnCooldown, AuraActive };
 
 public class Skill : MonoBehaviour
 {
-	public string skillName;
+    public string skillName;
 
-	private List<Modifier> modifiers = new List<Modifier>();
-	private Trigger trigger = null;
-	private float cooldown;
-	private float castingTime;
+    private List<Modifier> modifiers = new List<Modifier>();
+    private Trigger trigger = null;
+    private float cooldown;
+    private float castingTime;
 
-	public float actualCooldown;
-	private float actualCastingTime;
-	private bool _enabled;
-	private SkillState _state;
+    public float actualCooldown;
+    private float actualCastingTime;
+    private bool _enabled;
+    private SkillState _state;
 
     private bool isAura;
 
-	bool Enabled { get { return _enabled; } set { _enabled = value; } }
-	SkillState State { get { return _state; } }
+    bool Enabled { get { return _enabled; } set { _enabled = value; } }
+    SkillState State { get { return _state; } }
 
-	public void Start()
-	{
+    public void Start()
+    {
         isAura = false;
 
-		ConvertXML();
+        ConvertXML();
 
-		actualCooldown = 0f;
-		actualCastingTime = 0f;
-		_enabled = true;
-		_state = SkillState.Ready;
-	}
+        actualCooldown = 0f;
+        actualCastingTime = 0f;
+        _enabled = true;
+        _state = SkillState.Ready;
+    }
 
-	public bool Execute()
-	{
-		if (gameObject == null) return false;
+    public bool Execute()
+    {
+        if (gameObject == null) return false;
         if (!GetComponent<Health>().IsAlive()) return false;
-		if (!_enabled) return false;
+        if (!_enabled) return false;
         if (isAura && _state == SkillState.AuraActive) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
-		if (_state != SkillState.Ready) return false;
-		if (trigger != null && !trigger.check()) return false;
-		actualCooldown = cooldown;
-		actualCastingTime = castingTime;
-		_state = SkillState.InExecution;
-		gameObject.GetComponent<DebugChangeColor>().Attack();
-		return true;
-	}
+        if (_state != SkillState.Ready) return false;
+        if (trigger != null && !trigger.check()) return false;
+        actualCooldown = cooldown;
+        actualCastingTime = castingTime;
+        _state = SkillState.InExecution;
+        gameObject.GetComponent<DebugChangeColor>().Attack();
+        return true;
+    }
 
-	void Update()
-	{
+    void Update()
+    {
         if (_state == SkillState.Ready || _state == SkillState.AuraActive) return;
 
-		if (_state == SkillState.InExecution)
-		{
-			actualCastingTime -= Time.deltaTime;
-			if (actualCastingTime <= 0)
-				_state = SkillState.Active;
-		}
+        if (_state == SkillState.InExecution)
+        {
+            actualCastingTime -= Time.deltaTime;
+            if (actualCastingTime <= 0)
+                _state = SkillState.Active;
+        }
 
-		if (_state == SkillState.Active)
-		{
-			foreach (Modifier modifier in modifiers)
-				modifier.Execute();
+        if (_state == SkillState.Active)
+        {
+            foreach (Modifier modifier in modifiers)
+                modifier.Execute();
             _state = (isAura) ? SkillState.AuraActive : SkillState.OnCooldown;
-		}
+        }
 
-		if (_state == SkillState.OnCooldown)
-		{
-			actualCooldown -= Time.deltaTime;
-			if (actualCooldown <= 0)
-				_state = SkillState.Ready;
-		}
-	}
+        if (_state == SkillState.OnCooldown)
+        {
+            actualCooldown -= Time.deltaTime;
+            if (actualCooldown <= 0)
+                _state = SkillState.Ready;
+        }
+    }
 
-	private void ConvertXML()
-	{
-		XmlDocument document = new XMLReader("Skills.xml").GetXML();
-		XmlElement skillNode = null;
-		foreach (XmlElement node in document.GetElementsByTagName("skill"))
-			if (node.GetAttribute("name") == skillName)
-				skillNode = node;
-		if (skillNode != null)
-		{
-			XmlNodeList typeList = skillNode.GetElementsByTagName("type");
-			XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
-			XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
-			XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
-			cooldown = ((cooldownList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(cooldownList[0].InnerText) : float.Parse(cooldownList[0].InnerText);
-			castingTime = ((castingTimeList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(castingTimeList[0].InnerText) : float.Parse(castingTimeList[0].InnerText);
+    private void ConvertXML()
+    {
+        XmlDocument document = new XMLReader("Skills.xml").GetXML();
+        XmlElement skillNode = null;
+        foreach (XmlElement node in document.GetElementsByTagName("skill"))
+            if (node.GetAttribute("name") == skillName)
+                skillNode = node;
+        if (skillNode != null)
+        {
+            XmlNodeList typeList = skillNode.GetElementsByTagName("type");
+            XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
+            XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
+            XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
+            cooldown = ((cooldownList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(cooldownList[0].InnerText) : float.Parse(cooldownList[0].InnerText);
+            castingTime = ((castingTimeList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(castingTimeList[0].InnerText) : float.Parse(castingTimeList[0].InnerText);
 
-			List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
-			List<TargetType> targetTypes;
-			string[] fieldStrings;
-			string field, target, valueType, targetType, parsedValue;
+            List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
+            List<TargetType> targetTypes;
+            string[] fieldStrings;
+            string field, target, valueType, targetType, parsedValue;
 
-			string triggerType = triggerList[0].FirstChild.Value;
-			triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
-			switch (triggerType)
-			{
-				case "onContact":
-					fieldStrings = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
-					targetTypes = new List<TargetType>();
-					foreach (string type in fieldStrings)
-						foreach (TargetType compareType in compareTypes)
-							if (compareType.ToString() == type)
-								targetTypes.Add(compareType);
+            string triggerType = triggerList[0].FirstChild.Value;
+            triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
+            switch (triggerType)
+            {
+                case "onContact":
+                    fieldStrings = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
+                    targetTypes = new List<TargetType>();
+                    foreach (string type in fieldStrings)
+                        foreach (TargetType compareType in compareTypes)
+                            if (compareType.ToString() == type)
+                                targetTypes.Add(compareType);
                     targetType = triggerList[0].ChildNodes[2].InnerText;
-					trigger = new Trigger(this, targetTypes, targetType);
-					break;
+                    trigger = new Trigger(this, targetTypes, targetType);
+                    break;
 
-				case "instant":
-					trigger = new Trigger(this);
-					break;
-			}
+                case "instant":
+                    trigger = new Trigger(this);
+                    break;
+            }
 
-			string skillType;
-			foreach (XmlNode skill in typeList)
-			{
-				skillType = skill.FirstChild.Value;
-				skillType = skillType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
-				switch (skillType)
-				{
-					case "modify":
-						field = skill.ChildNodes[1].InnerText;
-						parsedValue = skill.ChildNodes[2].InnerText;
-						valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
-						target = skill.ChildNodes[3].InnerText;
-						targetType = skill.ChildNodes[4].InnerText;
-						modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, targetType));
-						break;
+            string skillType;
+            foreach (XmlNode skill in typeList)
+            {
+                skillType = skill.FirstChild.Value;
+                skillType = skillType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
+                switch (skillType)
+                {
+                    case "modify":
+                        field = skill.ChildNodes[1].InnerText;
+                        parsedValue = skill.ChildNodes[2].InnerText;
+                        valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
+                        target = skill.ChildNodes[3].InnerText;
+                        targetType = skill.ChildNodes[4].InnerText;
+                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, targetType));
+                        break;
 
                     case "buff":
                         field = skill.ChildNodes[1].InnerText;
@@ -198,16 +198,16 @@ public class Skill : MonoBehaviour
                         isAura = true;
                         field = skill.ChildNodes[1].InnerText;
                         fieldStrings = skill.ChildNodes[2].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
-					    targetTypes = new List<TargetType>();
-					    foreach (string type in fieldStrings)
-						    foreach (TargetType compareType in compareTypes)
-							    if (compareType.ToString() == type)
-								    targetTypes.Add(compareType);
+                        targetTypes = new List<TargetType>();
+                        foreach (string type in fieldStrings)
+                            foreach (TargetType compareType in compareTypes)
+                                if (compareType.ToString() == type)
+                                    targetTypes.Add(compareType);
                         targetType = skill.ChildNodes[3].InnerText;
                         modifiers.Add(new Modifier(this, field, targetTypes, targetType, skill.ChildNodes[4].InnerText, skill.ChildNodes[5].InnerText));
                         break;
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 }

@@ -3,9 +3,9 @@ public class InputTags
 {
     public const string sprint = "LB";
     public const string basicAttack = "TriggersR";
-    public const string skill1 = "X";
-    public const string skill2 = "A";
-    public const string skill3 = "B";
+    public const string skill1 = "A";
+    public const string skill2 = "B";
+    public const string skill3 = "X";
     public const string skill4 = "Y";
     public const string horizontal = "L_XAxis";
     public const string vertical = "L_YAxis";

@@ -27,7 +27,7 @@ public class LastHeroDamage : MonoBehaviour
         if (duration <= 0 || !lastDamageSource.GetComponent<Health>().IsAlive() || !gameObject.GetComponent<Health>().IsAlive())
         {
             if (!gameObject.GetComponent<Health>().IsAlive())
-                lastDamageSource.GetComponent<Trophy>().IncTrophyLevel();
+                lastDamageSource.networkView.RPC("IncTrophyLevel", lastDamageSource.networkView.owner);
             duration = 15;
             lastDamageSource = null;
         }
