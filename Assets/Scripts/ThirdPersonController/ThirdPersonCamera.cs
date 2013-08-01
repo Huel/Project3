@@ -250,7 +250,7 @@ public class ThirdPersonCamera : MonoBehaviour
         // Set the Look At Weight - amount to use look at IK vs using the head's animation
         follow.Animator.SetLookAtWeight(lookWeight);
 
-        // Execute camera state
+        // Init camera state
         switch (camState)
         {
             case CamStates.Behind:
