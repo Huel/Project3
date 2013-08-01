@@ -76,6 +76,8 @@ public class CharacterControllerLogic : MonoBehaviour
     private int m_LocomotionPivotLTransId = 0;
     private int m_LocomotionPivotRTransId = 0;
 
+
+
     private const float TARGETING_THRESHOLD = 0.01f;
 
     #endregion
@@ -219,13 +221,15 @@ public class CharacterControllerLogic : MonoBehaviour
         }
     }
 
+   
+
     private void HandleInput()
     {
         if (Input.GetButtonDown(InputTags.sprint))
         {
             GetComponent<Speed>().IsSprinting = true;
         }
-        if (Input.GetAxis(InputTags.basicAttack) >= TARGETING_THRESHOLD)
+        if (CustomInput.GetTriggerDown(InputTags.basicAttack))
         {
             if (basicAttack)
             {

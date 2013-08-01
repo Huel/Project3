@@ -9,6 +9,7 @@ public class Range : MonoBehaviour
 
     private List<Target> objectsInRange = new List<Target>();
     private List<TargetType> relevantTargetTypes = new List<TargetType>();
+    private List<Team.TeamIdentifier> relevantTargetTeams = new List<Team.TeamIdentifier>();
     private List<OnRangeEvent> enterRangeListener = new List<OnRangeEvent>();
     private List<OnRangeEvent> exitRangeListener = new List<OnRangeEvent>();
 
@@ -52,6 +53,11 @@ public class Range : MonoBehaviour
     public void SetRelevantTargetTypes(List<TargetType> types)
     {
         relevantTargetTypes = types;
+    }
+
+    public void SetRelevantTargetTeams(List<Team.TeamIdentifier> teams)
+    {
+        relevantTargetTeams = teams;
     }
 
     public int CountByType(TargetType type)
@@ -127,13 +133,37 @@ public class Range : MonoBehaviour
         return objectsInRange;
     }
 
+    public List<Target> GetTargetsByTypes(List<TargetType> types)
+    {
+        order(objectsInRange.Count);
+
+        List<Target> targets = new List<Target>();
+        for (int i = 0; i < objectsInRange.Count; i++)
+            if (types.Contains(objectsInRange[i].type)) 
+                targets.Add(objectsInRange[i]);
+
+        return targets;
+    }
+
+    public List<Target> GetTargetsByTypesAndTeam(List<TargetType> types, List<Team.TeamIdentifier> IDs)
+    {
+        order(objectsInRange.Count);
+
+        List<Target> targets = new List<Target>();
+        for (int i = 0; i < objectsInRange.Count; i++)
+            if (types.Contains(objectsInRange[i].type) && IDs.Contains(objectsInRange[i].gameObject.GetComponent<Team>().ID))
+                targets.Add(objectsInRange[i]);
+
+        return targets;
+    }
+
     void OnTriggerEnter(Collider other)
     {   
         if (other.GetComponent<Target>() == null) return;
         if (objectsInRange.IndexOf(other.GetComponent<Target>()) != -1 ) return;  
         Target target = other.gameObject.GetComponent<Target>();
         objectsInRange.Add(other.gameObject.GetComponent<Target>());
-        if (relevantTargetTypes.Contains(target.type))
+        if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
     }
@@ -142,7 +172,7 @@ public class Range : MonoBehaviour
     {
         if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
-        if (relevantTargetTypes.Contains(target.type))
+        if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in exitRangeListener)
                 if (listener != null) 
                     listener(other.gameObject.GetComponent<Target>());   

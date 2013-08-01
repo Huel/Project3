@@ -223,7 +223,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         // Determine camera state
         // * Targeting *
-        if (Input.GetAxis(InputTags.target) > TARGETING_THRESHOLD)
+        if (CustomInput.GetTrigger(InputTags.target))
         {
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, widescreen, targetingTime);
 
@@ -241,7 +241,7 @@ public class ThirdPersonCamera : MonoBehaviour
             }
 
             // * Behind the back *
-            if (camState == CamStates.Target && (Input.GetAxis(InputTags.target) <= TARGETING_THRESHOLD))
+            if (camState == CamStates.Target && CustomInput.GetTriggerDown(InputTags.target))
             {
                 camState = CamStates.Behind;
             }
