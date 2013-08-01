@@ -46,16 +46,10 @@ public class BuffBehaviour : MonoBehaviour
 
     public void ChangeAuraValue(float value)
     {
-        foreach (Modifier modifier in removeModifiers)
+        foreach (Modifier adder in addModifiers)
         {
-            modifier.Execute();
-            modifier.ChangeValue(value);
-        }
-            
-        foreach (Modifier modifier in addModifiers)
-        {
-            modifier.ChangeValue(value);
-            modifier.Execute();
+            adder.ChangeValue(value);
+            adder.Execute();
         }
     }
 
@@ -79,8 +73,8 @@ public class BuffBehaviour : MonoBehaviour
             if (node.GetAttribute("id") == buffName)
                 buffNode = node;
 
-        XmlNodeList addModifierList = skillNode.GetElementsByTagName("addModifier");
-        XmlNodeList removeModifierList = skillNode.GetElementsByTagName("removeModifier");
+        XmlNodeList addModifierList = buffNode.GetElementsByTagName("addModifier");
+        XmlNodeList removeModifierList = buffNode.GetElementsByTagName("removeModifier");
 
         List<Modifier> adders = new List<Modifier>();
         foreach (XmlNode addModifier in addModifierList)
@@ -94,7 +88,7 @@ public class BuffBehaviour : MonoBehaviour
         this.auraPart = auraPart;
         if (!auraPart)
         {
-            XmlNodeList durationList = skillNode.GetElementsByTagName("duration");
+            XmlNodeList durationList = buffNode.GetElementsByTagName("duration");
             duration = float.Parse(durationList[0].InnerText);
             Init(adders, duration, removers);
         }

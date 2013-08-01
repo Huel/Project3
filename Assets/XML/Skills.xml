@@ -39,7 +39,7 @@
     </skill>
   
   <skill name="Slowaura">
-        <type>aura<buff>Slow</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><minValue>0.0</minValue><maxValue>0.0</maxValue></type>
+        <type>aura<buff>Slow</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
 
         <trigger>instant</trigger>
 
@@ -47,9 +47,30 @@
 
         <cooldown>30.0</cooldown>
 
-        <buff id="Slow">
+        <debuff id="Slow">
             <addModifier><field>Speed</field><value type="setSpeedMultiplier">0.2</value></addModifier>
             <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
-        </buff>
+        </debuff>
     </skill>
+
+  <skill name="SlowauraExtended">
+    <type>aura<buff>SlowExtended</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>0.2</minValue></type>
+
+    <trigger>instant</trigger>
+
+    <castingTime>0.0</castingTime>
+
+    <cooldown>30.0</cooldown>
+
+    <debuff id="SlowExtended">
+      <addModifier>
+        <field>Speed</field>
+        <value type="setSpeedMultiplier">1.0</value>
+      </addModifier>
+      <removeModifier>
+        <field>Speed</field>
+        <value type="setSpeedMultiplier">1.0</value>
+      </removeModifier>
+    </debuff>
+  </skill>
 </Skills>

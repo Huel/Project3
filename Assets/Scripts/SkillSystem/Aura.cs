@@ -10,23 +10,22 @@ public class Aura : MonoBehaviour
     private string buffName;
     private List<TargetType> types;
     private List<Team.TeamIdentifier> IDs;
-    private float minValue = 0;
-    private float maxValue = 0;
+    private float minValue = 1;
+    private float radius;
 
     private List<Target> targets;
 
-    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float maxValue)
+    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float radius)
     {
         this.skill = skill;
         this.buffName = buffName;
         this.types = types;
         this.IDs = IDs;
         this.minValue = minValue;
-        this.maxValue = maxValue;
+        this.radius = radius;
 
-        buffIsDebuff = !IDs.Contains(gameObject.GetComponent<Team>().ID);
+        buffIsDebuff = !IDs.Contains(skill.gameObject.GetComponent<Team>().ID);
 
-        aura = gameObject.GetComponent<Range>();
         aura.SetRelevantTargetTypes(types);
         aura.SetRelevantTargetTeams(IDs);
         aura.AddListener(RangeEvent.EnterRange, onEnter);
@@ -50,12 +49,12 @@ public class Aura : MonoBehaviour
 
     void Update()
     {
-        if (minValue == maxValue) return;
+        if (minValue == 1) return;
         targets = aura.GetTargetsByTypesAndTeam(types, IDs);
         float value;
         foreach (Target target in targets)
         {
-            value = target.GetDistance(gameObject.transform.position) / minValue;
+            value = minValue + ((1-(target.GetDistance(skill.gameObject.transform.position)/radius))* (1-minValue));
             foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
                 if (buff.buffID == buffName)
                     buff.ChangeAuraValue(value);

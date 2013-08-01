@@ -49,7 +49,7 @@ class Trigger
 	}
 }
 
-public enum SkillState { Ready, InExecution, Active, OnCooldown };
+public enum SkillState { Ready, InExecution, Active, OnCooldown, AuraActive };
 
 public class Skill : MonoBehaviour
 {
@@ -65,12 +65,14 @@ public class Skill : MonoBehaviour
 	private bool _enabled;
 	private SkillState _state;
 
+    private bool isAura;
+
 	bool Enabled { get { return _enabled; } set { _enabled = value; } }
 	SkillState State { get { return _state; } }
 
 	public void Start()
 	{
-
+        isAura = false;
 
 		ConvertXML();
 
@@ -84,6 +86,7 @@ public class Skill : MonoBehaviour
 	{
 		if (gameObject == null) return false;
 		if (!_enabled) return false;
+        if (isAura && _state == SkillState.AuraActive) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
 		if (_state != SkillState.Ready) return false;
 		if (trigger != null && !trigger.check()) return false;
 		actualCooldown = cooldown;
@@ -95,7 +98,7 @@ public class Skill : MonoBehaviour
 
 	void Update()
 	{
-		if (_state == SkillState.Ready) return;
+        if (_state == SkillState.Ready || _state == SkillState.AuraActive) return;
 
 		if (_state == SkillState.InExecution)
 		{
@@ -108,7 +111,7 @@ public class Skill : MonoBehaviour
 		{
 			foreach (Modifier modifier in modifiers)
 				modifier.Execute();
-			_state = SkillState.OnCooldown;
+            _state = (isAura) ? SkillState.AuraActive : SkillState.OnCooldown;
 		}
 
 		if (_state == SkillState.OnCooldown)
@@ -191,6 +194,7 @@ public class Skill : MonoBehaviour
                         break;
 
                     case "aura":
+                        isAura = true;
                         field = skill.ChildNodes[1].InnerText;
                         fieldStrings = skill.ChildNodes[2].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
 					    targetTypes = new List<TargetType>();

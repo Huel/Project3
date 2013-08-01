@@ -83,17 +83,18 @@ public class Modifier
 
     private List<TargetType> targetTypes;
     private string buffName;
-    private float minValue, maxValue;
+    private float minValue, range;
+    private UnityEngine.Object aura = null;
 
-    public Modifier(Skill skill, string buffName, List<TargetType> targetTypes, string targetTeam, string minValue, string maxValue)
+    public Modifier(Skill skill, string buffName, List<TargetType> targetTypes, string targetTeam, string range, string minValue)
     {
         this.skill = skill;
         type = modifierType.aura;
         this.buffName = buffName;
         this.targetTypes = targetTypes;
 
+        this.range = float.Parse(range);
         this.minValue = float.Parse(minValue);
-        this.maxValue = float.Parse(maxValue);
 
         targetTeams = new List<Team.TeamIdentifier>();
         switch (targetTeam)
@@ -132,11 +133,20 @@ public class Modifier
                 break;
 
             case modifierType.aura:
-                Aura aura = skill.gameObject.AddComponent<Aura>();
-                aura.Init(skill, buffName, targetTypes, targetTeams, minValue, maxValue);
+                aura = Network.Instantiate(Resources.Load("aurabuff"), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
+                (aura as GameObject).transform.parent = skill.gameObject.transform;
+                (aura as GameObject).GetComponent<Aura>().Init(skill, buffName, targetTypes, targetTeams, minValue, range);
+                (aura as GameObject).GetComponent<SphereCollider>().radius = range;
                 break;
 		}
 	}
+
+    public void deactivateAura()
+    {
+        if (type != modifierType.aura || aura == null) return;
+        MonoBehaviour.Destroy(aura);
+        aura = null;
+    }
 
     public void ChangeValue(float value)
     {
