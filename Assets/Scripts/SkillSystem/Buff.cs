@@ -7,7 +7,7 @@ using System.Xml;
 
 public class BuffBehaviour : MonoBehaviour
 {
-    private string buffID;
+    public string buffID;
     private bool initializated = false;
     private bool auraPart;
 
