@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-class Trigger
+class SkillTrigger
 {
     private Skill skill;
     private triggerType type;
@@ -13,7 +13,7 @@ class Trigger
     private List<TargetType> targetTypes;
     private List<Team.TeamIdentifier> targetTeams;
 
-    public Trigger(Skill skill, List<TargetType> targetTypes, string targetTeam)
+    public SkillTrigger(Skill skill, List<TargetType> targetTypes, string targetTeam)
     {
         this.skill = skill;
         type = triggerType.onContact;
@@ -35,7 +35,7 @@ class Trigger
         }
     }
 
-    public Trigger(Skill skill)
+    public SkillTrigger(Skill skill)
     {
         this.skill = skill;
         type = triggerType.instant;
@@ -56,7 +56,7 @@ public class Skill : MonoBehaviour
     public string skillName;
 
     private List<Modifier> modifiers = new List<Modifier>();
-    private Trigger trigger = null;
+    private SkillTrigger _skillTrigger = null;
     private float cooldown;
     private float castingTime;
 
@@ -89,7 +89,7 @@ public class Skill : MonoBehaviour
         if (!_enabled) return false;
         if (isAura && _state == SkillState.AuraActive) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
         if (_state != SkillState.Ready) return false;
-        if (trigger != null && !trigger.check()) return false;
+        if (_skillTrigger != null && !_skillTrigger.check()) return false;
         actualCooldown = cooldown;
         actualCastingTime = castingTime;
         _state = SkillState.InExecution;
@@ -156,11 +156,11 @@ public class Skill : MonoBehaviour
                             if (compareType.ToString() == type)
                                 targetTypes.Add(compareType);
                     targetType = triggerList[0].ChildNodes[2].InnerText;
-                    trigger = new Trigger(this, targetTypes, targetType);
+                    _skillTrigger = new SkillTrigger(this, targetTypes, targetType);
                     break;
 
                 case "instant":
-                    trigger = new Trigger(this);
+                    _skillTrigger = new SkillTrigger(this);
                     break;
             }
 
