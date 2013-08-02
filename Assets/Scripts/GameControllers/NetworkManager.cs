@@ -33,7 +33,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     void Awake()
-    {
+    {           
         GetComponent<NetworkSettings>().Init();
         if (_instance == null)
         {
@@ -49,10 +49,9 @@ public class NetworkManager : MonoBehaviour
 
         Application.runInBackground = true;
 
-
         gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
-
         DontDestroyOnLoad(gameController);
+
     }
 
     // Update is called once per frame
