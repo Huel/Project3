@@ -23,7 +23,6 @@ public class PostProcessBuilder : MonoBehaviour
         {
             File.Delete(filePath);
         }
-
         // Run the game (Process class from System.Diagnostics).
         Process proc = new Process();
         proc.StartInfo.FileName = path + "Project3.exe";
