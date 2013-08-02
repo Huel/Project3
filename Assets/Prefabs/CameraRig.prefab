@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400026}
   m_Layer: 0
-  m_Name: CameraRig
+  m_Name: camerarig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: camera_main
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,7 +494,7 @@ GameObject:
   - 20: {fileID: 2000002}
   - 114: {fileID: 11400022}
   m_Layer: 0
-  m_Name: Sec Camera
+  m_Name: camera_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,8 +507,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 376.140015, y: 6.77902174, z: 74.1589432}
-  m_LocalScale: {x: .00210526306, y: .00210526306, z: .00210526306}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .0043668123, y: .0043668123, z: .0043668123}
   m_Children:
   - {fileID: 400060}
   - {fileID: 400002}
@@ -1200,11 +1200,11 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c29e5ad42bc78149a8caa3319861f63, type: 3}
   m_Name: 
-  debug: 0
+  debug: 1
   useMouse: 0
   useTouch: 0
   allowMultiTouch: 0
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bdc19516dceeab4b9c65f8df28be70d, type: 3}
   m_Name: 
@@ -1480,18 +1480,18 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 475.000031
+    e00: 229.000015
     e01: 0
     e02: 0
-    e03: -178560.5
+    e03: 106.022652
     e10: 0
-    e11: 475.000031
+    e11: 229.000015
     e12: 0
-    e13: -3220.03564
+    e13: 0
     e20: 0
     e21: 0
-    e22: 475.000031
-    e23: -35927.7148
+    e22: 229.000015
+    e23: -702.21521
     e30: 0
     e31: 0
     e32: 0
