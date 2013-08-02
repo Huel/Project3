@@ -15,7 +15,7 @@ public class GameSettings : MonoBehaviour
                
         XmlDocument document = new XMLReader(dataPath).GetXML();
 
-        gameController.FirstMinionSpawn = float.Parse(document.GetElementsByTagName("Minionspawn")[0].InnerText);
+        gameController.FirstMinionSpawn = float.Parse(document.GetElementsByTagName("FirstMinionspawn")[0].InnerText);
         gameController.SpawnTime = float.Parse(document.GetElementsByTagName("Minionspawn")[0].InnerText);
 
         for (int i = 1; i < 4; i++)

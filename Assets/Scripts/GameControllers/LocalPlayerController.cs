@@ -16,10 +16,6 @@ public class LocalPlayerController : MonoBehaviour
     {
         if(Network.isServer)
             GameObject.FindGameObjectWithTag(Tags.gameController).networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
-        //For Testing
-        minionDeployment[0] = 1;
-        minionDeployment[1] = 1;
-        minionDeployment[2] = 1;
 
         networkPlayerController = GameObject.FindGameObjectWithTag(Tags.gameController)
                   .GetComponent<GameController>()
