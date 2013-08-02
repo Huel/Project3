@@ -106,7 +106,7 @@ GameObject:
   - 114: {fileID: 11400008}
   m_Layer: 13
   m_Name: trophy01
-  m_TagString: Trophy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   - 114: {fileID: 11400014}
   m_Layer: 13
   m_Name: stamina
-  m_TagString: StaminaBar
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,7 +218,7 @@ GameObject:
   - 114: {fileID: 11400022}
   m_Layer: 13
   m_Name: health
-  m_TagString: HealthBar
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   - 114: {fileID: 11400028}
   m_Layer: 13
   m_Name: trophy03
-  m_TagString: Trophy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,6 +310,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400038}
+  - 114: {fileID: 11400048}
   m_Layer: 13
   m_Name: characterstate
   m_TagString: Untagged
@@ -455,7 +456,7 @@ GameObject:
   - 114: {fileID: 11400046}
   m_Layer: 13
   m_Name: trophy02
-  m_TagString: Trophy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1418,6 +1419,16 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!114 &11400048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f5c62eb79ebe848a4dbe8006cff284, type: 3}
+  m_Name: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
