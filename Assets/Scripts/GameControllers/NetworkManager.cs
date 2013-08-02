@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     public int listeningPort = 50005;
-    public string ip = "172.21.66.8";
+    private string _ip = "172.21.66.8";
     public bool oneVSOne = true;
     public bool twoVSTwo = false;
     public bool startServer = false;
@@ -27,6 +27,10 @@ public class NetworkManager : MonoBehaviour
     public string playerName = "Enter Your Name";
     private GameObject gameController;
 
+    public void setIP(string ip)
+    {
+        _ip = ip;
+    }
 
     void Awake()
     {
@@ -86,7 +90,7 @@ public class NetworkManager : MonoBehaviour
                            "Join Server"))
             {
                 Debug.Log("Joining Server");
-                Network.Connect(ip, listeningPort);
+                Network.Connect(_ip, listeningPort);
             }
         }
 
