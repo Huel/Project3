@@ -112,11 +112,6 @@ public class Health : MonoBehaviour
         if (networkView.isMine)
         {
             networkView.RPC("SetHealth", RPCMode.OthersBuffered, HealthPoints);
-	        if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-	        {
-				GameObject healthBar = GameObject.FindGameObjectWithTag(Tags.healthBar);
-		        healthBar.GetComponent<UISprite>().fillAmount = _healthPoints/MaxHealth;
-	        }
         }
         return HealthPoints;
     }
@@ -160,7 +155,7 @@ public class Health : MonoBehaviour
         //+++++++++
         gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.Red));
         //+++++++++
-		
+
         return IncHealth(-healthValue);
     }
 

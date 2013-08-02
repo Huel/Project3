@@ -115,16 +115,11 @@ public class Speed : MonoBehaviour
     /// <param name="stamina"></param>
     public void SetStamina(float stamina)
     {
-		if (networkView.isMine)
-		{
-			_stamina = Mathf.Clamp(stamina, 0, MaxStamina);
-			if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-			{
-				GameObject staminaBar = GameObject.FindGameObjectWithTag(Tags.staminaBar);
-				staminaBar.GetComponent<UISprite>().fillAmount = _stamina/MaxStamina;
-			}
-		}
-            
+        if (networkView.isMine)
+        {
+            _stamina = Mathf.Clamp(stamina, 0, MaxStamina);
+        }
+
     }
     /// <summary>
     ///     set the maximum stamina, minimum value 0
