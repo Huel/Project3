@@ -10,4 +10,5 @@ public class Tags
 	public const string healthBar = "HealthBar";
 	public const string staminaBar = "StaminaBar";
 	public const string trophy = "Trophy";
+    public const string debugstreamer = "DebugStreamer";
 }
