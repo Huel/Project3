@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     private float _incMaxHealth;
     private float _minHealth = 0f;
     private float _maxHealthMultiplier = 1f;
+    private float _healthRegeneration = 1f;
 
     private float _deadCounter;
 
@@ -28,6 +29,10 @@ public class Health : MonoBehaviour
     public float MinHealth
     {
         get { return _minHealth; }
+    }
+    public float HealthRegeneration
+    {
+        get { return _healthRegeneration; }
     }
     public bool IsAlive()
     {
@@ -129,7 +134,18 @@ public class Health : MonoBehaviour
             networkView.RPC("SetMaxHealthMultiplier", RPCMode.OthersBuffered, maxHealthMultiplier);
             IncHealth(MaxHealth - tempMaxHealth);
         }
-
+    }
+    /// <summary>
+    ///     set the health regeneration value
+    /// </summary>
+    /// <param name="maxHealthMultiplier"></param>
+    [RPC]
+    public void SetHealthRegeneration(float healthRegeneration)
+    {
+        if (networkView.isMine)
+            _healthRegeneration = healthRegeneration;
+        else
+            networkView.RPC("SetHealthRegeneration", networkView.owner, healthRegeneration);
     }
     /// <summary>
     ///     increases the current health
@@ -176,7 +192,8 @@ public class Health : MonoBehaviour
                 //+++++++++
                 SetAlive(false);
             }
-
+            if (HealthPoints <= MaxHealth)
+                IncHealth(Time.deltaTime * HealthRegeneration);
         }
         else
         {

@@ -42,6 +42,7 @@ public class ComponentBuilder : MonoBehaviour
         if (healthComp != null && health != null)
         {
             healthComp.SetMaxHealth(float.Parse(health.GetElementsByTagName("maxHealth")[0].InnerText), true);
+            healthComp.SetHealthRegeneration(float.Parse(health.GetElementsByTagName("regeneration")[0].InnerText));
             healthComp.keepDeadUnitTime = float.Parse(health.GetElementsByTagName("keepDeadUnitTime")[0].InnerText);
             healthParsed = true;
         }
