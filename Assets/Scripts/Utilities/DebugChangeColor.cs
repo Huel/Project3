@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DebugChangeColor : MonoBehaviour
 {
-	public enum Colors { Blue, Green, LightBlue, LightGreen, Red, Black };
+	public enum Colors { Blue, Green, LightBlue, LightGreen, Red, Black, White };
 	public Colors colors;
 
 	private float passedTime = 0;
@@ -13,6 +13,7 @@ public class DebugChangeColor : MonoBehaviour
 	private Color lightGreen = new Color(0.4f, 1f, 0.4f, 1f);
 	private Color red = new Color(1f, 0f, 0f, 1f);
 	private Color black = new Color(0f, 0f, 0f, 1f);
+    private Color white = new Color(1f, 1f, 1f, 1f);
 
 	// Use this for initialization
 	void Start () {
@@ -117,6 +118,20 @@ public class DebugChangeColor : MonoBehaviour
 					//}
 					break;
 				}
+            case Colors.White:
+                {
+                    if (gameObject.GetComponent<Target>().type == TargetType.Minion)
+                        gameObject.transform.FindChild("mesh_minion").renderer.material.color = white;
+
+                    if (gameObject.GetComponent<Target>().type == TargetType.Hero)
+                        gameObject.transform.FindChild("mesh_hero01").renderer.material.color = white;
+
+                    //if (networkView.isMine)
+                    //{
+                    //	networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
+                    //}
+                    break;
+                }
 		}
 	}
 

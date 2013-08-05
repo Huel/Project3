@@ -12,11 +12,14 @@ public class MinionAgent : MonoBehaviour
     private Target _destination;    // default target
     private Target _origin;         // came from here
     private Target _target;         // current target
+    private Target _targetSaved;         // current target (Saved for overwritting processces)
     private float _destinationOffset = 1f;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
+
+    public float productivity = 1f;
 
     //public Skill basicSkill;
 
@@ -104,7 +107,6 @@ public class MinionAgent : MonoBehaviour
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
             _agent.enabled = true;
-            //contact.RemoveListener(_target, OnEnemyContact);
         }
         if (_target != null && contact.Contact(_target))
         {
@@ -123,7 +125,6 @@ public class MinionAgent : MonoBehaviour
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
             _target = target;
-            //contact.AddListener(target, OnEnemyContact);
             return;
         }
 
@@ -142,5 +143,36 @@ public class MinionAgent : MonoBehaviour
     public void SetOrigin(Target origin)
     {
         _origin = origin;
+    }
+
+    public void Manipulate(string effect, string value="", Target aim=null)
+    {
+        switch (effect)
+        {
+            case "Target":
+                _targetSaved = _target;
+                _target = aim;
+                break;
+
+            case "ResetTarget":
+                _target = _targetSaved;
+                break;
+
+            case "CanMove":
+                _agent.enabled = bool.Parse(value);
+                break;
+
+            case "CanAttack":
+                basicAttack.enabled = bool.Parse(value);
+                break;
+
+            case "Productivity":
+                productivity = float.Parse(value);
+                break;
+
+            case "Revive":
+                gameObject.GetComponent<Health>().SetHealth(gameObject.GetComponent<Health>().MaxHealth * float.Parse(value));
+                break;
+        }
     }
 }

@@ -185,6 +185,14 @@ public class Health : MonoBehaviour
         }
         else
         {
+            if (HealthPoints >= 0)
+            {
+                _deadCounter = 0;
+                gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.White));
+                SetAlive(true);
+                return;
+            }
+
             _deadCounter += Time.deltaTime;
 
             if (_deadCounter >= keepDeadUnitTime)

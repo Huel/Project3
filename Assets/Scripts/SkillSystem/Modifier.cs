@@ -8,7 +8,7 @@ public class Modifier
 {
 	private Skill skill;
 	private modifierType type;
-	enum modifierType { modify, buff, debuff, buffModification, aura};
+	enum modifierType { modify, buff, debuff, buffModification, aura, minionAgentManupulation};
 
 	private string field;
 	private string value;
@@ -81,6 +81,17 @@ public class Modifier
         this.valueType = valueType;
     }
 
+    private string modificator;
+
+    public Modifier(GameObject source, GameObject target, string modificator, string value)
+    {
+        type = modifierType.minionAgentManupulation;
+        sourceObject = source;
+        targetObject = target;
+        this.modificator = modificator;
+        this.value = value;
+    }
+
     private List<TargetType> targetTypes;
     private string buffName;
     private float minValue, range;
@@ -133,10 +144,17 @@ public class Modifier
                 break;
 
             case modifierType.aura:
+                Debug.Log("activate aura");
                 aura = Network.Instantiate(Resources.Load("aurabuff"), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
                 (aura as GameObject).transform.parent = skill.gameObject.transform;
                 (aura as GameObject).GetComponent<Aura>().Init(skill, buffName, targetTypes, targetTeams, minValue, range);
                 (aura as GameObject).GetComponent<SphereCollider>().radius = range;
+                break;
+
+            case modifierType.minionAgentManupulation:
+                Debug.Log("manipulate" + targetObject.ToString());
+                GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
+                //targetObject.GetComponent<MinionAgent>().Manipulate(modificator, value, (aim==null)?null:aim.GetComponent<Target>());
                 break;
 		}
 	}

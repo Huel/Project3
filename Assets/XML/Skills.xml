@@ -10,7 +10,8 @@
 	  </skill>
 
     <skill name="Shieldwall">
-        <type>debuff<component>Shieldwall</component><target>Self</target><targetTeam>All</targetTeam></type>
+        <type>buff<component>Shieldwall</component><target>Self</target><targetTeam>All</targetTeam></type>
+        <type>aura<buff>Taunt</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
 
         <trigger>instant</trigger>
 
@@ -25,6 +26,11 @@
             <removeModifier><field>Health</field><value type="setInvulnerable">false</value></removeModifier>
             <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
         </buff>
+
+        <debuff id="Taunt">
+          <addModifier><field>Target</field><value>Self</value></addModifier>
+          <removeModifier><field>ResetTarget</field><value></value></removeModifier>
+        </debuff>
     </skill>
 
     <skill name="Fresh Meat">
