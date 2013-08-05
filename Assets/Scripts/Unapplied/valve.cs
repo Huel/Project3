@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class valve : MonoBehaviour
+public class Valve : MonoBehaviour
 {
 
 
 	public class ValveOccupant
 	{
-        public int player;
-        public int minionCount;
-        public float productivity;
-        public Team.TeamIdentifier team;
+		public int player;
+		public int minionCount;
+		public float productivity;
+		public Team.TeamIdentifier team;
 	}
 
 	public enum ValveState { Closed, Opened, FullyOccupied, NotFullyOccupied, NotOccupied }
@@ -20,7 +20,7 @@ public class valve : MonoBehaviour
 	private bool currentlyDecaying = false;
 	private Team.TeamIdentifier team;
 
-	private float _state = 0.0f;
+	private float _state = 100.0f;
 	private List<MinionAgent> _localMinions;
 	private List<ValveOccupant> _occupants;
 	private float _localProductivity = 0.0f;
@@ -37,24 +37,27 @@ public class valve : MonoBehaviour
 		}
 	}
 
-    public int MinionCount
-    {
-        get { return GetMinionCount(); }
-    }
+	public int MinionCount
+	{
+		get { return GetMinionCount(); }
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
 		team = GetComponent<Team>().ID;
 
-		_occupants.Add(new ValveOccupant());
-	    _occupants[0].player = -89;
-        _occupants[0].minionCount = 0;
-        _occupants[0].productivity = 0;
+	    _localMinions = new List<MinionAgent>();
+		_occupants = new List<ValveOccupant>();
 
-        _occupants.Add(new ValveOccupant());
-	    _occupants[1].minionCount = 0;
-        _occupants[1].productivity = 0;
+		_occupants.Add(new ValveOccupant());
+		_occupants[0].player = -89;
+		_occupants[0].minionCount = 0;
+		_occupants[0].productivity = 0;
+
+		_occupants.Add(new ValveOccupant());
+		_occupants[1].minionCount = 0;
+		_occupants[1].productivity = 0;
 	}
 	
 	// Update is called once per frame
@@ -100,27 +103,36 @@ public class valve : MonoBehaviour
 	{
 		if (DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened) //being occupied by team x but already fully opened, then minions from team x may not use it
 		{
-			return false;
+            Debug.Log("DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened");
+            return false;
 		}
 		if (occupant != team && (GetValveState() == ValveState.NotFullyOccupied || GetValveState() == ValveState.FullyOccupied)) //valve occupied by enemy team, and at least one enemy is at valve, minion may not use it
 		{
-			return false;
+            Debug.Log("occupant != team && (GetValveState() == ValveState.NotFullyOccupied || GetValveState() == ValveState.FullyOccupied)");
+            return false;
 		}
 		if (GetValveState() == ValveState.FullyOccupied)
 		{
-			return false;
-		}
-        if (!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed)
-        {
+            Debug.Log("GetValveState() == ValveState.FullyOccupied");
             return false;
-        }
+		}
+		if (!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed)
+		{
+            Debug.Log("!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed");
+            return false;
+		}
+	    if (_localMinions.Any(minionAgent => minionAgent == minion))
+	    {
+            Debug.Log("_localMinions.Any(minionAgent => minionAgent == minion)");
+            return false;
+	    }
 
 		_localMinions.Add(minion);
 		float localProductivity = _localMinions.Sum(mini => mini.productivity);
 
 		if (!networkView.isMine)
 			networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, 
-                _localMinions.Count, localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID, (int)minion.GetComponent<Team>().ID);
+				_localMinions.Count, localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID, (int)minion.GetComponent<Team>().ID);
 		else
 			SubmitLocalMinionCount(_localMinions.Count, localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID, (int)minion.GetComponent<Team>().ID);
 
@@ -133,16 +145,16 @@ public class valve : MonoBehaviour
 		{
 			if (localMinion.gameObject == minion.gameObject)
 			{
-                _localMinions.Remove(localMinion);
-                float localProductivity = _localMinions.Sum(mini => mini.productivity);
-			    if (!networkView.isMine)
-			        networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, _localMinions.Count, localProductivity,
-			                        GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-			                        (int) minion.GetComponent<Team>().ID);
-			    else
-			        SubmitLocalMinionCount(_localMinions.Count, localProductivity,
-			                               GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-			                               (int) minion.GetComponent<Team>().ID);
+				_localMinions.Remove(localMinion);
+				float localProductivity = _localMinions.Sum(mini => mini.productivity);
+				if (!networkView.isMine)
+					networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, _localMinions.Count, localProductivity,
+									GetComponent<LocalPlayerController>().networkPlayerController.playerID,
+									(int) minion.GetComponent<Team>().ID);
+				else
+					SubmitLocalMinionCount(_localMinions.Count, localProductivity,
+										   GetComponent<LocalPlayerController>().networkPlayerController.playerID,
+										   (int) minion.GetComponent<Team>().ID);
 				return true;
 			}
 		}
@@ -183,12 +195,13 @@ public class valve : MonoBehaviour
 
 	private int GetMinionCount()
 	{
-        return _occupants[0].minionCount + _occupants[1].minionCount;
+		return _occupants[0].minionCount + _occupants[1].minionCount;
 	}
 
 	private float GetEntireProductivity()
 	{
-        return _occupants[0].productivity + _occupants[1].productivity;
+        if(_occupants == null) Debug.Log("ES LIEGT AN OCCUPANTS NULL");
+		return _occupants[0].productivity + _occupants[1].productivity;
 	}
 
 
@@ -197,53 +210,53 @@ public class valve : MonoBehaviour
 	{
 		if (occupant == (Team.TeamIdentifier)team) //belongs to your team
 		{
-            if (_occupants[0].player == playerID)
-            {
-                _occupants[0].minionCount = count;
-                _occupants[0].productivity = productivity;
+			if (_occupants[0].player == playerID)
+			{
+				_occupants[0].minionCount = count;
+				_occupants[0].productivity = productivity;
 			}
 			else
-            {
-                _occupants[1].player = playerID;
-                _occupants[1].minionCount = count;
-                _occupants[1].productivity = productivity;
+			{
+				_occupants[1].player = playerID;
+				_occupants[1].minionCount = count;
+				_occupants[1].productivity = productivity;
 			}
 		}
 		else //does not belong to your team so it could have been used from AddMinion only
 		{
-            occupant = (Team.TeamIdentifier)team;
+			occupant = (Team.TeamIdentifier)team;
 
-            _occupants[1].minionCount = 0;
-            _occupants[1].productivity = 0;
-            _occupants[1].team = (Team.TeamIdentifier)team;
+			_occupants[1].minionCount = 0;
+			_occupants[1].productivity = 0;
+			_occupants[1].team = (Team.TeamIdentifier)team;
 
-            _occupants[0].player = playerID;
-            _occupants[0].minionCount = count;
-            _occupants[0].productivity = productivity;
-            _occupants[0].team = (Team.TeamIdentifier) team;
+			_occupants[0].player = playerID;
+			_occupants[0].minionCount = count;
+			_occupants[0].productivity = productivity;
+			_occupants[0].team = (Team.TeamIdentifier) team;
 			networkView.RPC("UpdateOccupant", RPCMode.OthersBuffered, team);
 		}
-        networkView.RPC("UpdateMinionCount", RPCMode.OthersBuffered, _occupants[0].minionCount, _occupants[1].minionCount);
+		networkView.RPC("UpdateMinionCount", RPCMode.OthersBuffered, _occupants[0].minionCount, _occupants[1].minionCount);
 	}
 
 	[RPC]
 	public void SubmitLocalProductivity(float productivity, int playerID)
 	{
-        if (_occupants[0].player == playerID)
+		if (_occupants[0].player == playerID)
 		{
-            _occupants[0].productivity = productivity;
+			_occupants[0].productivity = productivity;
 		}
 		else
 		{
-            _occupants[1].productivity = productivity;
+			_occupants[1].productivity = productivity;
 		}
 	}
 
 	[RPC]
 	public void UpdateMinionCount(int first, int second)
-    {
-        _occupants[0].minionCount = first;
-        _occupants[1].minionCount = second;
+	{
+		_occupants[0].minionCount = first;
+		_occupants[1].minionCount = second;
 	}
 
 	[RPC]

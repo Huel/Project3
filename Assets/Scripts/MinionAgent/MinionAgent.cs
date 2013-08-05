@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Team))]
 public class MinionAgent : MonoBehaviour
 {
     public enum LaneIdentifier { Lane1, Lane2, Lane3 };
@@ -11,12 +12,14 @@ public class MinionAgent : MonoBehaviour
 
     private Target _destination;    // default target
     private Target _origin;         // came from here
-    private Target _target;         // current target
+    public Target _target;         // current target
     private float _destinationOffset = 1f;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
+
+    public float productivity = 0f;
 
     //public Skill basicSkill;
 
@@ -85,7 +88,9 @@ public class MinionAgent : MonoBehaviour
             else  //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
+            {
                 SelectTarget();
+            }
         }
         // already has target
         else
@@ -118,16 +123,17 @@ public class MinionAgent : MonoBehaviour
 
     void SelectTarget()
     {
-        var target = attentionRange.GetNearestTargetByTypePriorityAndEnemyOnly(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
+        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve }, GetComponent<Team>());
         if (target == null) return;
-        if (target.type == TargetType.Minion || target.type == TargetType.Hero)
+        if ((target.type == TargetType.Minion || target.type == TargetType.Hero))
         {
             _target = target;
             //contact.AddListener(target, OnEnemyContact);
             return;
         }
-
-        if (target.type == TargetType.Valve)
+        Debug.Log(target);
+        if (target.type == TargetType.Valve 
+            && target.gameObject.GetComponent<Valve>().AddMinion(this))
         {
             _target = target;
             return;
