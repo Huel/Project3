@@ -15,16 +15,16 @@ public class Valve : MonoBehaviour
 	}
 
 	public enum ValveState { Closed, Opened, FullyOccupied, NotFullyOccupied, NotOccupied }
-	private Team.TeamIdentifier occupant;
-	private float productivity = 0.0f;
-	private bool currentlyDecaying = false;
-	private Team.TeamIdentifier team;
+	public Team.TeamIdentifier occupant;
+    public float productivity = 0.0f;
+    public bool currentlyDecaying = false;
+    public Team.TeamIdentifier team;
 
-	private float _state = 100.0f;
-	private List<MinionAgent> _localMinions;
-	private List<ValveOccupant> _occupants;
-	private float _localProductivity = 0.0f;
-	private float _localProductivitySave = 0.0f;
+	public float _state = 100.0f;
+    public List<MinionAgent> _localMinions;
+    public List<ValveOccupant> _occupants;
+    public float _localProductivity = 0.0f;
+    public float _localProductivitySave = 0.0f;
 
 	public float _openValve = 100.0f;
 	public int _maxMinionCount = 5;
@@ -45,7 +45,8 @@ public class Valve : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		team = GetComponent<Team>().ID;
+        team = gameObject.GetComponent<Team>().ID;
+	    occupant = team;
 
 	    _localMinions = new List<MinionAgent>();
 		_occupants = new List<ValveOccupant>();
@@ -68,11 +69,11 @@ public class Valve : MonoBehaviour
 		{
 			if (!currentlyDecaying)
 			{
-				_state += GetEntireProductivity();
+				_state += GetEntireProductivity() * Time.deltaTime;
 			}
 			else
 			{
-				_state -= GetEntireProductivity();
+                _state -= GetEntireProductivity() * Time.deltaTime;
 			}
 		}
 
@@ -83,7 +84,7 @@ public class Valve : MonoBehaviour
 			_localProductivity = _localProductivitySave;
 			if (!networkView.isMine)
 			{
-				networkView.RPC("SubmitLocalProductivity", RPCMode.Server, _localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID);
+				networkView.RPC("SubmitLocalProductivity", RPCMode.Server, _localProductivity, GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID);
 			}
 		}
 
@@ -102,39 +103,29 @@ public class Valve : MonoBehaviour
 	public bool AddMinion(MinionAgent minion)
 	{
 		if (DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened) //being occupied by team x but already fully opened, then minions from team x may not use it
-		{
-            Debug.Log("DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened");
             return false;
-		}
-		if (occupant != team && (GetValveState() == ValveState.NotFullyOccupied || GetValveState() == ValveState.FullyOccupied)) //valve occupied by enemy team, and at least one enemy is at valve, minion may not use it
-		{
-            Debug.Log("occupant != team && (GetValveState() == ValveState.NotFullyOccupied || GetValveState() == ValveState.FullyOccupied)");
+		if (occupant != team && (GetValveState() == ValveState.NotFullyOccupied)) //valve occupied by enemy team, and at least one enemy is at valve, minion may not use it
             return false;
-		}
 		if (GetValveState() == ValveState.FullyOccupied)
-		{
-            Debug.Log("GetValveState() == ValveState.FullyOccupied");
             return false;
-		}
 		if (!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed)
-		{
-            Debug.Log("!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed");
             return false;
-		}
 	    if (_localMinions.Any(minionAgent => minionAgent == minion))
-	    {
-            Debug.Log("_localMinions.Any(minionAgent => minionAgent == minion)");
             return false;
-	    }
 
 		_localMinions.Add(minion);
 		float localProductivity = _localMinions.Sum(mini => mini.productivity);
-
 		if (!networkView.isMine)
-			networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, 
-				_localMinions.Count, localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID, (int)minion.GetComponent<Team>().ID);
+        {
+		    networkView.RPC("SubmitLocalMinionCount", RPCMode.Server,
+                            _localMinions.Count, localProductivity, 
+                            GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID, 
+                            (int)minion.gameObject.GetComponent<Team>().ID);
+		}
 		else
-			SubmitLocalMinionCount(_localMinions.Count, localProductivity, GetComponent<LocalPlayerController>().networkPlayerController.playerID, (int)minion.GetComponent<Team>().ID);
+			SubmitLocalMinionCount(_localMinions.Count, localProductivity, 
+                GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID, 
+                (int)minion.gameObject.GetComponent<Team>().ID);
 
 		return true;
 	}
@@ -149,12 +140,12 @@ public class Valve : MonoBehaviour
 				float localProductivity = _localMinions.Sum(mini => mini.productivity);
 				if (!networkView.isMine)
 					networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, _localMinions.Count, localProductivity,
-									GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-									(int) minion.GetComponent<Team>().ID);
+                                    GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID,
+                                    (int)minion.gameObject.GetComponent<Team>().ID);
 				else
 					SubmitLocalMinionCount(_localMinions.Count, localProductivity,
-										   GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-										   (int) minion.GetComponent<Team>().ID);
+                                           GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID,
+                                           (int)minion.gameObject.GetComponent<Team>().ID);
 				return true;
 			}
 		}
@@ -163,9 +154,9 @@ public class Valve : MonoBehaviour
 
 	public ValveState GetValveState()
 	{
-		if (_occupants.Count > 0)
+        if (GetMinionCount() > 0)
 		{
-			if (_occupants.Count < _maxMinionCount)
+            if (GetMinionCount() < _maxMinionCount)
 			{
 				return ValveState.NotFullyOccupied;
 			}
@@ -185,7 +176,7 @@ public class Valve : MonoBehaviour
 
 	private bool DoesValveBelongTo(MinionAgent minion)
 	{
-		return team == minion.GetComponent<Team>().ID;
+        return team == minion.gameObject.GetComponent<Team>().ID;
 	}
 
 	public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)

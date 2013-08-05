@@ -19,7 +19,7 @@ public class MinionAgent : MonoBehaviour
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 0f;
+    public float productivity = 2f;
 
     //public Skill basicSkill;
 
@@ -131,13 +131,8 @@ public class MinionAgent : MonoBehaviour
             //contact.AddListener(target, OnEnemyContact);
             return;
         }
-        Debug.Log(target);
-        if (target.type == TargetType.Valve 
-            && target.gameObject.GetComponent<Valve>().AddMinion(this))
-        {
+        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().AddMinion(this))
             _target = target;
-            return;
-        }
     }
 
     public void SetDestination(Target destination)

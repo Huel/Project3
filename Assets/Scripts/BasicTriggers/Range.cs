@@ -82,7 +82,6 @@ public class Range : MonoBehaviour
         foreach (TargetType type in types)
             for (int i = 0; i < objectsInRange.Count; i++)
             {
-                if (objectsInRange[i].type == TargetType.Valve) Debug.Log("ventil");
                 if (objectsInRange[i].type == type
                    && (objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team)
                    || type == TargetType.Valve))
@@ -163,7 +162,7 @@ public class Range : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {   
+    {
         if (other.GetComponent<Target>() == null) return;
         if (objectsInRange.IndexOf(other.GetComponent<Target>()) != -1 ) return;  
         Target target = other.gameObject.GetComponent<Target>();
