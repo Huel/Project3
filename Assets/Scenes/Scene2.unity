@@ -183,9 +183,13 @@ GameObject:
   - 33: {fileID: 55330609}
   - 23: {fileID: 55330608}
   - 95: {fileID: 55330607}
+  - 54: {fileID: 55330615}
+  - 148: {fileID: 55330614}
   - 64: {fileID: 55330606}
-  - 208: {fileID: 55330611}
-  m_Layer: 0
+  - 114: {fileID: 55330613}
+  - 114: {fileID: 55330612}
+  - 114: {fileID: 55330611}
+  m_Layer: 9
   m_Name: valve_lane03_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,16 +261,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &55330611
-NavMeshObstacle:
+--- !u!114 &55330611
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1625758901}
   m_GameObject: {fileID: 55330605}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &55330612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625758901}
+  m_GameObject: {fileID: 55330605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &55330613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625758901}
+  m_GameObject: {fileID: 55330605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &55330614
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625758901}
+  m_GameObject: {fileID: 55330605}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 55330611}
+  m_ViewID:
+    m_ID: 13
+    m_Type: 1
+--- !u!54 &55330615
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625758901}
+  m_GameObject: {fileID: 55330605}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &60671475
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,9 +686,13 @@ GameObject:
   - 33: {fileID: 104570707}
   - 23: {fileID: 104570706}
   - 95: {fileID: 104570705}
+  - 54: {fileID: 104570713}
+  - 148: {fileID: 104570712}
   - 64: {fileID: 104570704}
-  - 208: {fileID: 104570709}
-  m_Layer: 0
+  - 114: {fileID: 104570711}
+  - 114: {fileID: 104570710}
+  - 114: {fileID: 104570709}
+  m_Layer: 9
   m_Name: valve_lane01_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,16 +764,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &104570709
-NavMeshObstacle:
+--- !u!114 &104570709
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 2104174095}
   m_GameObject: {fileID: 104570703}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &104570710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2104174095}
+  m_GameObject: {fileID: 104570703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &104570711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2104174095}
+  m_GameObject: {fileID: 104570703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &104570712
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2104174095}
+  m_GameObject: {fileID: 104570703}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 104570709}
+  m_ViewID:
+    m_ID: 11
+    m_Type: 1
+--- !u!54 &104570713
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2104174095}
+  m_GameObject: {fileID: 104570703}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &106889892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,6 +1249,22 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane03_05
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 1428038431}
@@ -1347,9 +1501,13 @@ GameObject:
   - 33: {fileID: 208326703}
   - 23: {fileID: 208326702}
   - 95: {fileID: 208326701}
+  - 54: {fileID: 208326709}
+  - 148: {fileID: 208326708}
   - 64: {fileID: 208326700}
-  - 208: {fileID: 208326705}
-  m_Layer: 0
+  - 114: {fileID: 208326707}
+  - 114: {fileID: 208326706}
+  - 114: {fileID: 208326705}
+  m_Layer: 9
   m_Name: valve_lane03_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1421,16 +1579,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &208326705
-NavMeshObstacle:
+--- !u!114 &208326705
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1180164952}
   m_GameObject: {fileID: 208326699}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &208326706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1180164952}
+  m_GameObject: {fileID: 208326699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &208326707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1180164952}
+  m_GameObject: {fileID: 208326699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &208326708
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1180164952}
+  m_GameObject: {fileID: 208326699}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 208326705}
+  m_ViewID:
+    m_ID: 7
+    m_Type: 1
+--- !u!54 &208326709
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1180164952}
+  m_GameObject: {fileID: 208326699}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &219674449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,9 +1749,13 @@ GameObject:
   - 33: {fileID: 256172010}
   - 23: {fileID: 256172009}
   - 95: {fileID: 256172008}
+  - 54: {fileID: 256172016}
+  - 148: {fileID: 256172015}
   - 64: {fileID: 256172007}
-  - 208: {fileID: 256172012}
-  m_Layer: 0
+  - 114: {fileID: 256172014}
+  - 114: {fileID: 256172013}
+  - 114: {fileID: 256172012}
+  m_Layer: 9
   m_Name: valve_lane01_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1600,16 +1827,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &256172012
-NavMeshObstacle:
+--- !u!114 &256172012
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 448674943}
   m_GameObject: {fileID: 256172006}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &256172013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 448674943}
+  m_GameObject: {fileID: 256172006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &256172014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 448674943}
+  m_GameObject: {fileID: 256172006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &256172015
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 448674943}
+  m_GameObject: {fileID: 256172006}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 256172012}
+  m_ViewID:
+    m_ID: 5
+    m_Type: 1
+--- !u!54 &256172016
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 448674943}
+  m_GameObject: {fileID: 256172006}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &273462278
 Prefab:
   m_ObjectHideFlags: 0
@@ -1762,6 +2054,22 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane02_05
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 1128194268}
@@ -1889,6 +2197,14 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane02_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -2281,9 +2597,13 @@ GameObject:
   - 33: {fileID: 370503367}
   - 23: {fileID: 370503366}
   - 95: {fileID: 370503365}
+  - 54: {fileID: 370503373}
+  - 148: {fileID: 370503372}
   - 64: {fileID: 370503364}
-  - 208: {fileID: 370503369}
-  m_Layer: 0
+  - 114: {fileID: 370503371}
+  - 114: {fileID: 370503370}
+  - 114: {fileID: 370503369}
+  m_Layer: 9
   m_Name: valve_lane02_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,16 +2675,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &370503369
-NavMeshObstacle:
+--- !u!114 &370503369
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1327318677}
   m_GameObject: {fileID: 370503363}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &370503370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1327318677}
+  m_GameObject: {fileID: 370503363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &370503371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1327318677}
+  m_GameObject: {fileID: 370503363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &370503372
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1327318677}
+  m_GameObject: {fileID: 370503363}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 370503369}
+  m_ViewID:
+    m_ID: 14
+    m_Type: 1
+--- !u!54 &370503373
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1327318677}
+  m_GameObject: {fileID: 370503363}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &377990551
 Prefab:
   m_ObjectHideFlags: 0
@@ -2458,9 +2843,13 @@ GameObject:
   - 33: {fileID: 410674233}
   - 23: {fileID: 410674232}
   - 95: {fileID: 410674231}
+  - 54: {fileID: 410674239}
+  - 148: {fileID: 410674238}
   - 64: {fileID: 410674230}
-  - 208: {fileID: 410674235}
-  m_Layer: 0
+  - 114: {fileID: 410674237}
+  - 114: {fileID: 410674236}
+  - 114: {fileID: 410674235}
+  m_Layer: 9
   m_Name: valve_lane03_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2532,16 +2921,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &410674235
-NavMeshObstacle:
+--- !u!114 &410674235
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1315239700}
   m_GameObject: {fileID: 410674229}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &410674236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1315239700}
+  m_GameObject: {fileID: 410674229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &410674237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1315239700}
+  m_GameObject: {fileID: 410674229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &410674238
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1315239700}
+  m_GameObject: {fileID: 410674229}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 410674235}
+  m_ViewID:
+    m_ID: 8
+    m_Type: 1
+--- !u!54 &410674239
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1315239700}
+  m_GameObject: {fileID: 410674229}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &414355531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,6 +3420,22 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane01_04
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 256172006}
@@ -3142,9 +3612,13 @@ GameObject:
   - 33: {fileID: 481809165}
   - 23: {fileID: 481809164}
   - 95: {fileID: 481809163}
+  - 54: {fileID: 481809171}
+  - 148: {fileID: 481809170}
   - 64: {fileID: 481809162}
-  - 208: {fileID: 481809167}
-  m_Layer: 0
+  - 114: {fileID: 481809169}
+  - 114: {fileID: 481809168}
+  - 114: {fileID: 481809167}
+  m_Layer: 9
   m_Name: valve_lane01_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3216,16 +3690,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &481809167
-NavMeshObstacle:
+--- !u!114 &481809167
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 531501495}
   m_GameObject: {fileID: 481809161}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &481809168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 531501495}
+  m_GameObject: {fileID: 481809161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &481809169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 531501495}
+  m_GameObject: {fileID: 481809161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &481809170
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 531501495}
+  m_GameObject: {fileID: 481809161}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 481809167}
+  m_ViewID:
+    m_ID: 16
+    m_Type: 1
+--- !u!54 &481809171
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 531501495}
+  m_GameObject: {fileID: 481809161}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &491851182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3348,6 +3887,22 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane02_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -3601,6 +4156,14 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane01_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -3871,9 +4434,13 @@ GameObject:
   - 33: {fileID: 580469328}
   - 23: {fileID: 580469327}
   - 95: {fileID: 580469326}
+  - 54: {fileID: 580469334}
+  - 148: {fileID: 580469333}
   - 64: {fileID: 580469325}
-  - 208: {fileID: 580469330}
-  m_Layer: 0
+  - 114: {fileID: 580469332}
+  - 114: {fileID: 580469331}
+  - 114: {fileID: 580469330}
+  m_Layer: 9
   m_Name: valve_lane01_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3945,16 +4512,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &580469330
-NavMeshObstacle:
+--- !u!114 &580469330
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 2112569842}
   m_GameObject: {fileID: 580469324}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &580469331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2112569842}
+  m_GameObject: {fileID: 580469324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &580469332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2112569842}
+  m_GameObject: {fileID: 580469324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &580469333
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2112569842}
+  m_GameObject: {fileID: 580469324}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 580469330}
+  m_ViewID:
+    m_ID: 17
+    m_Type: 1
+--- !u!54 &580469334
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 2112569842}
+  m_GameObject: {fileID: 580469324}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &594154992
 Prefab:
   m_ObjectHideFlags: 0
@@ -4215,9 +4847,13 @@ GameObject:
   - 33: {fileID: 615923535}
   - 23: {fileID: 615923534}
   - 95: {fileID: 615923533}
+  - 54: {fileID: 615923541}
+  - 148: {fileID: 615923540}
   - 64: {fileID: 615923532}
-  - 208: {fileID: 615923537}
-  m_Layer: 0
+  - 114: {fileID: 615923539}
+  - 114: {fileID: 615923538}
+  - 114: {fileID: 615923537}
+  m_Layer: 9
   m_Name: valve_lane02_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4289,16 +4925,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &615923537
-NavMeshObstacle:
+--- !u!114 &615923537
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 312979013}
   m_GameObject: {fileID: 615923531}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &615923538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 312979013}
+  m_GameObject: {fileID: 615923531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &615923539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 312979013}
+  m_GameObject: {fileID: 615923531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &615923540
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 312979013}
+  m_GameObject: {fileID: 615923531}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 615923537}
+  m_ViewID:
+    m_ID: 4
+    m_Type: 1
+--- !u!54 &615923541
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 312979013}
+  m_GameObject: {fileID: 615923531}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &625023203
 GameObject:
   m_ObjectHideFlags: 0
@@ -5090,6 +5791,22 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane01_06
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 1534166223}
@@ -5329,9 +6046,13 @@ GameObject:
   - 33: {fileID: 833934252}
   - 23: {fileID: 833934251}
   - 95: {fileID: 833934250}
+  - 54: {fileID: 833934258}
+  - 148: {fileID: 833934257}
   - 64: {fileID: 833934249}
-  - 208: {fileID: 833934254}
-  m_Layer: 0
+  - 114: {fileID: 833934256}
+  - 114: {fileID: 833934255}
+  - 114: {fileID: 833934254}
+  m_Layer: 9
   m_Name: valve_lane02_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5403,16 +6124,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &833934254
-NavMeshObstacle:
+--- !u!114 &833934254
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1675311192}
   m_GameObject: {fileID: 833934248}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &833934255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1675311192}
+  m_GameObject: {fileID: 833934248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &833934256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1675311192}
+  m_GameObject: {fileID: 833934248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &833934257
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1675311192}
+  m_GameObject: {fileID: 833934248}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 833934254}
+  m_ViewID:
+    m_ID: 12
+    m_Type: 1
+--- !u!54 &833934258
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1675311192}
+  m_GameObject: {fileID: 833934248}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &867984268
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,9 +6618,13 @@ GameObject:
   - 33: {fileID: 963854865}
   - 23: {fileID: 963854864}
   - 95: {fileID: 963854863}
+  - 54: {fileID: 963854871}
+  - 148: {fileID: 963854870}
   - 64: {fileID: 963854862}
-  - 208: {fileID: 963854867}
-  m_Layer: 0
+  - 114: {fileID: 963854869}
+  - 114: {fileID: 963854868}
+  - 114: {fileID: 963854867}
+  m_Layer: 9
   m_Name: valve_lane03_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5906,16 +6696,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &963854867
-NavMeshObstacle:
+--- !u!114 &963854867
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1112261315}
   m_GameObject: {fileID: 963854861}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &963854868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1112261315}
+  m_GameObject: {fileID: 963854861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &963854869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1112261315}
+  m_GameObject: {fileID: 963854861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &963854870
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1112261315}
+  m_GameObject: {fileID: 963854861}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 963854867}
+  m_ViewID:
+    m_ID: 6
+    m_Type: 1
+--- !u!54 &963854871
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1112261315}
+  m_GameObject: {fileID: 963854861}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &964039533
 Prefab:
   m_ObjectHideFlags: 0
@@ -7090,6 +7945,14 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane03_02
       objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 963854861}
@@ -7191,9 +8054,13 @@ GameObject:
   - 33: {fileID: 1120601245}
   - 23: {fileID: 1120601244}
   - 95: {fileID: 1120601243}
+  - 54: {fileID: 1120601251}
+  - 148: {fileID: 1120601250}
   - 64: {fileID: 1120601242}
-  - 208: {fileID: 1120601247}
-  m_Layer: 0
+  - 114: {fileID: 1120601249}
+  - 114: {fileID: 1120601248}
+  - 114: {fileID: 1120601247}
+  m_Layer: 9
   m_Name: valve_lane01_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7265,16 +8132,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1120601247
-NavMeshObstacle:
+--- !u!114 &1120601247
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1495905504}
   m_GameObject: {fileID: 1120601241}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1120601248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1495905504}
+  m_GameObject: {fileID: 1120601241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1120601249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1495905504}
+  m_GameObject: {fileID: 1120601241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &1120601250
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1495905504}
+  m_GameObject: {fileID: 1120601241}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1120601247}
+  m_ViewID:
+    m_ID: 3
+    m_Type: 1
+--- !u!54 &1120601251
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1495905504}
+  m_GameObject: {fileID: 1120601241}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1128194268
 GameObject:
   m_ObjectHideFlags: 0
@@ -7286,9 +8218,13 @@ GameObject:
   - 33: {fileID: 1128194272}
   - 23: {fileID: 1128194271}
   - 95: {fileID: 1128194270}
+  - 54: {fileID: 1128194278}
+  - 148: {fileID: 1128194277}
   - 64: {fileID: 1128194269}
-  - 208: {fileID: 1128194274}
-  m_Layer: 0
+  - 114: {fileID: 1128194276}
+  - 114: {fileID: 1128194275}
+  - 114: {fileID: 1128194274}
+  m_Layer: 9
   m_Name: valve_lane02_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7360,16 +8296,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1128194274
-NavMeshObstacle:
+--- !u!114 &1128194274
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 287603734}
   m_GameObject: {fileID: 1128194268}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1128194275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 287603734}
+  m_GameObject: {fileID: 1128194268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1128194276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 287603734}
+  m_GameObject: {fileID: 1128194268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &1128194277
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 287603734}
+  m_GameObject: {fileID: 1128194268}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1128194274}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
+--- !u!54 &1128194278
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 287603734}
+  m_GameObject: {fileID: 1128194268}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1142429176
 Prefab:
   m_ObjectHideFlags: 0
@@ -7408,6 +8409,14 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane03_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -7891,6 +8900,14 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 1927531432}
@@ -7996,6 +9013,22 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane03_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -9457,6 +10490,14 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane03_03
       objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 410674229}
@@ -9556,6 +10597,22 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane02_06
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -10291,9 +11348,13 @@ GameObject:
   - 33: {fileID: 1428038435}
   - 23: {fileID: 1428038434}
   - 95: {fileID: 1428038433}
+  - 54: {fileID: 1428038441}
+  - 148: {fileID: 1428038440}
   - 64: {fileID: 1428038432}
-  - 208: {fileID: 1428038437}
-  m_Layer: 0
+  - 114: {fileID: 1428038439}
+  - 114: {fileID: 1428038438}
+  - 114: {fileID: 1428038437}
+  m_Layer: 9
   m_Name: valve_lane03_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10365,16 +11426,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1428038437
-NavMeshObstacle:
+--- !u!114 &1428038437
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 163657768}
   m_GameObject: {fileID: 1428038431}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1428038438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 163657768}
+  m_GameObject: {fileID: 1428038431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1428038439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 163657768}
+  m_GameObject: {fileID: 1428038431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &1428038440
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 163657768}
+  m_GameObject: {fileID: 1428038431}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1428038437}
+  m_ViewID:
+    m_ID: 9
+    m_Type: 1
+--- !u!54 &1428038441
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 163657768}
+  m_GameObject: {fileID: 1428038431}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1433685915
 GameObject:
   m_ObjectHideFlags: 0
@@ -10935,6 +12061,14 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane01_03
       objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 1120601241}
@@ -10951,9 +12085,13 @@ GameObject:
   - 33: {fileID: 1498898928}
   - 23: {fileID: 1498898927}
   - 95: {fileID: 1498898926}
+  - 54: {fileID: 1498898934}
+  - 148: {fileID: 1498898933}
   - 64: {fileID: 1498898925}
-  - 208: {fileID: 1498898930}
-  m_Layer: 0
+  - 114: {fileID: 1498898932}
+  - 114: {fileID: 1498898931}
+  - 114: {fileID: 1498898930}
+  m_Layer: 9
   m_Name: valve_lane03_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11025,16 +12163,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1498898930
-NavMeshObstacle:
+--- !u!114 &1498898930
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1142429176}
   m_GameObject: {fileID: 1498898924}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1498898931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1142429176}
+  m_GameObject: {fileID: 1498898924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1498898932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1142429176}
+  m_GameObject: {fileID: 1498898924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &1498898933
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1142429176}
+  m_GameObject: {fileID: 1498898924}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1498898930}
+  m_ViewID:
+    m_ID: 15
+    m_Type: 1
+--- !u!54 &1498898934
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1142429176}
+  m_GameObject: {fileID: 1498898924}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1502885122
 Prefab:
   m_ObjectHideFlags: 0
@@ -11190,9 +12393,13 @@ GameObject:
   - 33: {fileID: 1534166227}
   - 23: {fileID: 1534166226}
   - 95: {fileID: 1534166225}
+  - 54: {fileID: 1534166233}
+  - 148: {fileID: 1534166232}
   - 64: {fileID: 1534166224}
-  - 208: {fileID: 1534166229}
-  m_Layer: 0
+  - 114: {fileID: 1534166231}
+  - 114: {fileID: 1534166230}
+  - 114: {fileID: 1534166229}
+  m_Layer: 9
   m_Name: valve_lane01_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11264,16 +12471,81 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1534166229
-NavMeshObstacle:
+--- !u!114 &1534166229
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 767331219}
   m_GameObject: {fileID: 1534166223}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1534166230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 767331219}
+  m_GameObject: {fileID: 1534166223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1534166231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 767331219}
+  m_GameObject: {fileID: 1534166223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &1534166232
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 767331219}
+  m_GameObject: {fileID: 1534166223}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1534166229}
+  m_ViewID:
+    m_ID: 2
+    m_Type: 1
+--- !u!54 &1534166233
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 767331219}
+  m_GameObject: {fileID: 1534166223}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1539130136
 Prefab:
   m_ObjectHideFlags: 0
@@ -11760,6 +13032,22 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane03_06
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 55330605}
@@ -11920,6 +13208,14 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane02_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
@@ -12738,9 +14034,13 @@ GameObject:
   - 33: {fileID: 1837009832}
   - 23: {fileID: 1837009831}
   - 95: {fileID: 1837009830}
+  - 54: {fileID: 1837009838}
+  - 148: {fileID: 1837009837}
   - 64: {fileID: 1837009829}
-  - 208: {fileID: 1837009834}
-  m_Layer: 0
+  - 114: {fileID: 1837009836}
+  - 114: {fileID: 1837009835}
+  - 114: {fileID: 1837009834}
+  m_Layer: 9
   m_Name: valve_lane02_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12812,16 +14112,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1837009834
-NavMeshObstacle:
+--- !u!114 &1837009834
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 504192403}
   m_GameObject: {fileID: 1837009828}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 1
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1837009835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 504192403}
+  m_GameObject: {fileID: 1837009828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1837009836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 504192403}
+  m_GameObject: {fileID: 1837009828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 1
+--- !u!148 &1837009837
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 504192403}
+  m_GameObject: {fileID: 1837009828}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1837009834}
+  m_ViewID:
+    m_ID: 18
+    m_Type: 1
+--- !u!54 &1837009838
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 504192403}
+  m_GameObject: {fileID: 1837009828}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1841513406
 GameObject:
   m_ObjectHideFlags: 0
@@ -13250,9 +14615,13 @@ GameObject:
   - 33: {fileID: 1927531436}
   - 23: {fileID: 1927531435}
   - 95: {fileID: 1927531434}
+  - 54: {fileID: 1927531442}
+  - 148: {fileID: 1927531441}
   - 64: {fileID: 1927531433}
-  - 208: {fileID: 1927531438}
-  m_Layer: 0
+  - 114: {fileID: 1927531440}
+  - 114: {fileID: 1927531439}
+  - 114: {fileID: 1927531438}
+  m_Layer: 9
   m_Name: valve_lane02_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13324,16 +14693,81 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!208 &1927531438
-NavMeshObstacle:
+--- !u!114 &1927531438
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 20800000, guid: 9142853126df8114884aa24f63fe9715,
+  m_PrefabParentObject: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715,
     type: 2}
   m_PrefabInternal: {fileID: 1175062431}
   m_GameObject: {fileID: 1927531432}
   m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
+  m_Name: 
+  occupant: 0
+  productivity: 0
+  currentlyDecaying: 0
+  team: 0
+  currentState: 1
+  _state: 100
+  _localMinions: []
+  _localProductivity: 0
+  _localProductivitySave: 0
+  _openValve: 100
+  _maxMinionCount: 5
+--- !u!114 &1927531439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1175062431}
+  m_GameObject: {fileID: 1927531432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
+  m_Name: 
+  type: 2
+--- !u!114 &1927531440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1175062431}
+  m_GameObject: {fileID: 1927531432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
+  m_Name: 
+  ID: 0
+--- !u!148 &1927531441
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1175062431}
+  m_GameObject: {fileID: 1927531432}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1927531438}
+  m_ViewID:
+    m_ID: 10
+    m_Type: 1
+--- !u!54 &1927531442
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 9142853126df8114884aa24f63fe9715,
+    type: 2}
+  m_PrefabInternal: {fileID: 1175062431}
+  m_GameObject: {fileID: 1927531432}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1927897122
 Prefab:
   m_ObjectHideFlags: 0
@@ -13758,6 +15192,18 @@ Prefab:
       propertyPath: m_Name
       value: valve_lane01_05
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
   m_RootGameObject: {fileID: 104570703}
@@ -13805,6 +15251,14 @@ Prefab:
     - target: {fileID: 100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
       propertyPath: m_Name
       value: valve_lane01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 9142853126df8114884aa24f63fe9715, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9142853126df8114884aa24f63fe9715, type: 2}

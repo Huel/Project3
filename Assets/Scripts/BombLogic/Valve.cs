@@ -47,7 +47,7 @@ public class Valve : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
         team = gameObject.GetComponent<Team>().ID;
 	    occupant = team;

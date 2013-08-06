@@ -11,7 +11,7 @@ public class MinionAgent : MonoBehaviour
 
     private Target _destination;    // default target
     private Target _origin;         // came from here
-    private Target _target;         // current target
+    public Target _target;         // current target
     private float _destinationOffset = 1f;
 
     public float productivity;
@@ -117,7 +117,10 @@ public class MinionAgent : MonoBehaviour
             if (_target.type == TargetType.Hero ||  _target.type == TargetType.Minion)
                 basicAttack.Execute();
             else if (_target.type == TargetType.Valve)
-               _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            {
+                Debug.Log("dran");
+                _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            }
         }
         if (_target != null && _target.type == TargetType.Dead)
         {
@@ -127,7 +130,7 @@ public class MinionAgent : MonoBehaviour
 
     void SelectTarget()
     {
-        var target = attentionRange.GetNearestTargetByTypePriorityAndEnemyOnly(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
+        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
         if (target == null) return;
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
