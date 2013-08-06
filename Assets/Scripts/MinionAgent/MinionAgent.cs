@@ -91,8 +91,7 @@ public class MinionAgent : MonoBehaviour
         else
         {
             //if target out of range
-            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf
-                && !looseAttentionRange.isInRange(_target))
+            if (!looseAttentionRange.isInRange(_target))
             {
                 _target = null;
                 return;
@@ -100,6 +99,11 @@ public class MinionAgent : MonoBehaviour
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
 
+            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
+            {
+                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
+                _target = null;
+            }
         }
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
@@ -108,7 +112,10 @@ public class MinionAgent : MonoBehaviour
         }
         if (_target != null && contact.Contact(_target))
         {
-            basicAttack.Execute();
+            if (_target.type == TargetType.Hero ||  _target.type == TargetType.Minion)
+                basicAttack.Execute();
+            else if (_target.type == TargetType.Valve)
+               _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
         if (_target != null && _target.type == TargetType.Dead)
         {
@@ -126,9 +133,13 @@ public class MinionAgent : MonoBehaviour
             //contact.AddListener(target, OnEnemyContact);
             return;
         }
+<<<<<<< HEAD
 
         if (target.type == TargetType.Valve)
         {
+=======
+        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
+>>>>>>> refs/heads/feature/valve&bomb_logic
             _target = target;
             return;
         }
