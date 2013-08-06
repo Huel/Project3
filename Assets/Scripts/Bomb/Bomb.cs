@@ -11,6 +11,7 @@ public class Bomb : MonoBehaviour
 	public GameObject WaypointB;
 	private const float forceMultiplier = 0.01f;
 	private float movementSpeed;
+    private GameObject towardsDestination;
 	public List<GameObject> valvesA = new List<GameObject>();
 	public List<GameObject> valvesB = new List<GameObject>();
 
@@ -18,7 +19,7 @@ public class Bomb : MonoBehaviour
 	{
 		get
 		{
-			return (valvesA.Sum(valve => valve.GetComponent<Valve>().state) * forceMultiplier);
+			return (valvesA.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier);
 		}
 	}
 
@@ -26,7 +27,7 @@ public class Bomb : MonoBehaviour
 	{
 		get
 		{
-			return (valvesB.Sum(valve => valve.GetComponent<Valve>().state) * forceMultiplier);
+			return (valvesB.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier);
 		}
 	}
 
@@ -47,21 +48,27 @@ public class Bomb : MonoBehaviour
 
 	State[] m_BufferedState = new State[20];
 	int m_TimestampCount;
+    private bool gameOver = false;
 
-	void Start() 
+    void Start() 
 	{
 		movementSpeed = float.Parse(new XMLReader("Bomb.xml").GetXML().GetElementsByTagName("speed")[0].InnerText);
+        towardsDestination = new GameObject();
 	}
 
 	void Update()
 	{
-		if (!Network.isServer || ForceA - ForceB == 0f) return;
+		if (!Network.isServer || ForceA - ForceB == 0f || gameOver) return;
 
 		if (ForceA > ForceB)
 		{
 			if (!HaveReached(WaypointB))
 			{
-				transform.position = Vector3.ClampMagnitude(WaypointB.transform.position - transform.position, Speed);
+                WaypointB.transform.position = new Vector3(WaypointB.transform.position.x, transform.position.y, WaypointB.transform.position.z);
+				transform.position += Vector3.ClampMagnitude(WaypointB.transform.position - transform.position, Speed);
+			    towardsDestination.transform.position = transform.position;
+                towardsDestination.transform.LookAt(transform.position + transform.position - WaypointB.transform.position);
+			    transform.rotation = Quaternion.Slerp(transform.rotation, towardsDestination.transform.rotation, 0.01f);
 			}
 			else
 			{
@@ -78,7 +85,11 @@ public class Bomb : MonoBehaviour
 		{
 			if (!HaveReached(WaypointA))
 			{
-				transform.position = Vector3.ClampMagnitude(WaypointA.transform.position - transform.position, Speed);
+                WaypointA.transform.position = new Vector3(WaypointA.transform.position.x, transform.position.y, WaypointA.transform.position.z);
+                transform.position += Vector3.ClampMagnitude(WaypointA.transform.position - transform.position, Speed);
+                towardsDestination.transform.position = transform.position;
+                towardsDestination.transform.LookAt(WaypointA.transform);
+                transform.rotation = Quaternion.Slerp(transform.rotation, towardsDestination.transform.rotation, 0.01f);
 			}
 			else
 			{
@@ -96,6 +107,7 @@ public class Bomb : MonoBehaviour
 	[RPC]
 	private void GameOver()
 	{
+	    gameOver = true;
 		throw new System.NotImplementedException();
 	}
 
