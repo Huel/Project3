@@ -83,7 +83,6 @@ public class MinionAgent : MonoBehaviour
                     else
                         SetDestination(null);
                 }
-
             }
             else  //move to own position
                 _agent.destination = transform.position;

@@ -76,8 +76,6 @@ public class Valve : MonoBehaviour
                 _state -= GetEntireProductivity() * Time.deltaTime;
 			}
 		}
-
-
 		_localProductivitySave = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
 		if (_localProductivitySave != _localProductivity)
 		{
@@ -97,7 +95,11 @@ public class Valve : MonoBehaviour
 		{
 			currentlyDecaying = false;
 		}
-
+        for (int i = _localMinions.Count; i > 0; i--)
+	    {
+            if (_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
+                RemoveMinion(_localMinions[i]);
+	    }
 	}
 
 	public bool AddMinion(MinionAgent minion)
