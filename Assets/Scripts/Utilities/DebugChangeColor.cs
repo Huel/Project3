@@ -1,149 +1,96 @@
 using UnityEngine;
-using System.Collections;
 
+public enum DebugColor { Team, TeamLight, Hit, Dead };
 public class DebugChangeColor : MonoBehaviour
 {
-	public enum Colors { Blue, Green, LightBlue, LightGreen, Red, Black };
-	public Colors colors;
 
-	private float passedTime = 0;
-	private Color blue = new Color(0f, 0f, 1f, 1f);
-	private Color lightBlue = new Color(0.2f, 0.2f, 1f, 1f);
-	private Color green = new Color(0f, 1f, 0f, 1f);
-	private Color lightGreen = new Color(0.4f, 1f, 0.4f, 1f);
-	private Color red = new Color(1f, 0f, 0f, 1f);
-	private Color black = new Color(0f, 0f, 0f, 1f);
+    private DebugColor _objectColor;
+    private int _team;
 
-	// Use this for initialization
-	void Start () {
-		SetColor((int)gameObject.GetComponent<Team>().ID);
-	}
+    private float _effectTimer = 0f;
+    private static float _effectTime = 0.1f;
+    private bool _effectRunning = false;
+    private bool _stableEffect = false;
+    public static Color blue = new Color(0f, 0f, 1f, 1f);
+    public static Color lightBlue = new Color(0.2f, 0.2f, 1f, 1f);
+    public static Color green = new Color(0f, 1f, 0f, 1f);
+    public static Color lightGreen = new Color(0.4f, 1f, 0.4f, 1f);
+    public static Color red = new Color(1f, 0f, 0f, 1f);
+    public static Color black = new Color(0f, 0f, 0f, 1f);
+    public static Color[] colorSet1 = { blue, lightBlue, red, black };
+    public static Color[] colorSet2 = { green, lightGreen, red, black };
+    public static Color[][] debugColors = { colorSet1, colorSet2 };
 
-	[RPC]
-	public void SetColor(int color)
-	{
-		if (colors != Colors.Black)
-		{
-			colors = (Colors) color;
-		}
-		else
-		{
-			color = (int) Colors.Black;
-		}
+    // Use this for initialization
+    void Awake()
+    {
+        _team = (int)GetComponent<Team>().ID;
+        SetColor(DebugColor.Team);
+    }
 
-		switch ((Colors)color)
-		{
-			case Colors.Blue:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = blue;
+    [RPC]
+    public void SetColor(int color)
+    {
+        _objectColor = (DebugColor)color;
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = blue;
-					
-					if (networkView.isMine)
-					{
-						networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					}
-					break;
-				}
-			case Colors.LightBlue:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = lightBlue;
+        string meshName;
+        if (gameObject.GetComponent<Target>().type == TargetType.Minion)
+            meshName = "mesh_minion";
+        else if (gameObject.GetComponent<Target>().type == TargetType.Hero)
+            meshName = "mesh_hero01";
+        else return;
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = lightBlue;
+        gameObject.transform.FindChild(meshName).renderer.material.color = debugColors[_team][color];
 
-					if (networkView.isMine)
-					{
-						networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					}
-					break;
-				}
-			case Colors.Green:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = green;
+        if (networkView.isMine)
+        {
+            networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
+        }
+    }
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = green;
+    public void SetColor(DebugColor color)
+    {
+        SetColor((int)color);
+    }
 
-					if (networkView.isMine)
-					{
-						networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					}
-					break;
-				}
-			case Colors.LightGreen:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = lightGreen;
+    [RPC]
+    public void SetEffect(int color, bool stable)
+    {
+        if (!_stableEffect)
+        {
+            SetColor(color);
+            _stableEffect = stable;
+            _effectRunning = !stable;
+        }
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = lightGreen;
+    }
 
-					if (networkView.isMine)
-					{
-						networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					}
-					break;
-				}
-			case Colors.Red:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = red;
+    public void SetEffect(DebugColor color, bool stable = false)
+    {
+        SetEffect((int)color, stable);
+    }
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = red;
 
-					//if (networkView.isMine)
-					//{
-					//	networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					//}
-					break;
-				}
-			case Colors.Black:
-				{
-					if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-						gameObject.transform.FindChild("mesh_minion").renderer.material.color = black;
 
-					if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-						gameObject.transform.FindChild("mesh_hero01").renderer.material.color = black;
+    // Update is called once per frame
+    void Update()
+    {
+        if ((int)GetComponent<Team>().ID != _team)
+        {
+            _team = (int)GetComponent<Team>().ID;
+            SetColor(_objectColor);
+        }
+        if (!_stableEffect && _effectRunning)
+        {
+            _effectTimer += Time.deltaTime;
+            if (_effectTimer >= _effectTime)
+            {
+                SetColor(DebugColor.Team);
+                _effectTimer = 0f;
+                _effectRunning = false;
+            }
+        }
 
-					//if (networkView.isMine)
-					//{
-					//	networkView.RPC("SetColor", RPCMode.OthersBuffered, color);
-					//}
-					break;
-				}
-		}
-	}
 
-	public void Attack()
-	{
-		if (gameObject.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-		{
-			SetColor((int) Colors.LightBlue);
-		}
-		else
-		{
-			SetColor((int)Colors.LightGreen);
-		}
-	}
-
-	// Update is called once per frame
-	void Update () 
-	{
-		if (colors == Colors.Red || colors == Colors.LightBlue || colors == Colors.LightGreen)
-		{
-			passedTime += Time.deltaTime;
-		}
-
-		if (passedTime >= 0.1f)
-		{
-			SetColor((int)gameObject.GetComponent<Team>().ID);
-			passedTime = 0;
-		}
-	}
+    }
 }

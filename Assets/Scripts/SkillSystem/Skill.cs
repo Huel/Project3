@@ -93,7 +93,13 @@ public class Skill : MonoBehaviour
         actualCooldown = cooldown;
         actualCastingTime = castingTime;
         _state = SkillState.InExecution;
-        gameObject.GetComponent<DebugChangeColor>().Attack();
+        //debug Damage indicator
+        //+++++++++
+        if (networkView.isMine)
+            gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.TeamLight);
+        else
+            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight);
+        //+++++++++
         return true;
     }
 
