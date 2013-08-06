@@ -1,9 +1,9 @@
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
-using System.Diagnostics;
 
 public class PostProcessBuilder : MonoBehaviour
 {
@@ -12,7 +12,9 @@ public class PostProcessBuilder : MonoBehaviour
     {
         // Get filename.
         string path = Application.dataPath + "/../build/";
-        
+
+        // save IP
+        saveIPXML("NetworkSettings.xml");
 
         // Build player.
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
@@ -26,8 +28,8 @@ public class PostProcessBuilder : MonoBehaviour
         {
             File.Delete(filePath);
         }
-        // save IP
-        saveIPXML("NetworkSettings.xml");
+
+
 
         // Run the game (Process class from System.Diagnostics).
         Process proc = new Process();
@@ -49,6 +51,6 @@ public class PostProcessBuilder : MonoBehaviour
         ipElement.InnerText = addr[addr.Length - 1].ToString();
 
         element.AppendChild(ipElement);
-        document.Save(Application.dataPath + "/../build/Project3_Data/XML/" + dataPath);
+        document.Save(Application.dataPath + "/XML/" + dataPath);
     }
 }
