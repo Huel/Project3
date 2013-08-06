@@ -20,6 +20,10 @@ public class Valve : MonoBehaviour
     public bool currentlyDecaying = false;
     public Team.TeamIdentifier team;
 
+    // testing
+    public ValveState currentState;
+    // *********************
+
 	public float _state = 100.0f;
     public List<MinionAgent> _localMinions;
     public List<ValveOccupant> _occupants;
@@ -64,17 +68,15 @@ public class Valve : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+	    currentState = GetValveState();
 
 		if (networkView.isMine)
 		{
 			if (!currentlyDecaying)
-			{
 				_state += GetEntireProductivity() * Time.deltaTime;
-			}
-			else
-			{
+            else if (currentlyDecaying)
                 _state -= GetEntireProductivity() * Time.deltaTime;
-			}
+            Mathf.Clamp(_state, 0, _openValve);
 		}
 		_localProductivitySave = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
 		if (_localProductivitySave != _localProductivity)
@@ -85,36 +87,32 @@ public class Valve : MonoBehaviour
 				networkView.RPC("SubmitLocalProductivity", RPCMode.Server, _localProductivity, GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID);
 			}
 		}
+	    currentlyDecaying = (team != occupant);
 
-		if (team != occupant)
-		{
-			currentlyDecaying = true;
-		}
-
-		if (_state <= 0.0f)
-		{
-			currentlyDecaying = false;
-		}
-        for (int i = _localMinions.Count; i > 0; i--)
+        for (int i = _localMinions.Count-1; i > 0; i--)
 	    {
-            if (_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
+            if (!_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
                 RemoveMinion(_localMinions[i]);
 	    }
 	}
 
-	public bool AddMinion(MinionAgent minion)
-	{
-		if (DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened) //being occupied by team x but already fully opened, then minions from team x may not use it
-            return false;
-		if (occupant != team && (GetValveState() == ValveState.NotFullyOccupied)) //valve occupied by enemy team, and at least one enemy is at valve, minion may not use it
-            return false;
-		if (GetValveState() == ValveState.FullyOccupied)
-            return false;
-		if (!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed)
-            return false;
-	    if (_localMinions.Any(minionAgent => minionAgent == minion))
-            return false;
+    public bool stateComplete(MinionAgent minion)
+    {
+        return ((DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened)
+                || (!DoesValveBelongTo(minion) && GetValveState() == ValveState.Closed));
+    }
 
+    public bool isAvailable(MinionAgent minion)
+    {
+        return !(stateComplete(minion)
+            || (_localMinions.Any(minionAgent => minionAgent == minion))
+            || GetValveState() == ValveState.FullyOccupied
+            || occupant != team) ;
+    }
+
+	public void AddMinion(MinionAgent minion)
+	{
+        if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
 		_localMinions.Add(minion);
 		float localProductivity = _localMinions.Sum(mini => mini.productivity);
 		if (!networkView.isMine)
@@ -128,8 +126,6 @@ public class Valve : MonoBehaviour
 			SubmitLocalMinionCount(_localMinions.Count, localProductivity, 
                 GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID, 
                 (int)minion.gameObject.GetComponent<Team>().ID);
-
-		return true;
 	}
 
 	public bool RemoveMinion(MinionAgent minion)
@@ -156,6 +152,15 @@ public class Valve : MonoBehaviour
 
 	public ValveState GetValveState()
 	{
+        if (_state <= 0.0f)
+        {
+            return ValveState.Closed;
+        }
+        if (_state >= _openValve)
+        {
+            return ValveState.Opened;
+        }
+        
         if (GetMinionCount() > 0)
 		{
             if (GetMinionCount() < _maxMinionCount)
@@ -163,15 +168,6 @@ public class Valve : MonoBehaviour
 				return ValveState.NotFullyOccupied;
 			}
 			return ValveState.FullyOccupied;
-		}
-
-		if (_state <= 0.0f)
-		{
-			return ValveState.Closed;
-		}
-		if (_state >= _openValve)
-		{
-			return ValveState.Opened;
 		}
 		return ValveState.NotOccupied;
 	}

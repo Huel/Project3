@@ -170,6 +170,8 @@ public class Range : MonoBehaviour
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
+        if (gameObject.name == "attentionrange_minion")
+            gameObject.transform.parent.transform.FindChild("looserange_minion").GetComponent<Range>().addSpecificTarget(target);
     }
 
     void OnTriggerExit(Collider other)
@@ -179,7 +181,7 @@ public class Range : MonoBehaviour
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in exitRangeListener)
                 if (listener != null) 
-                    listener(other.gameObject.GetComponent<Target>());   
+                    listener(other.gameObject.GetComponent<Target>()); 
         objectsInRange.Remove(target);
         // attentionRange is deactivated, so OnTriggerExit will not be triggered
         if (gameObject.name == "looserange_minion")
@@ -234,5 +236,10 @@ public class Range : MonoBehaviour
     public void deleteSpecificTarget(Target target)
     {
         objectsInRange.Remove(target);
+    }
+
+    public void addSpecificTarget(Target target)
+    {
+        objectsInRange.Add(target);
     }
 }
