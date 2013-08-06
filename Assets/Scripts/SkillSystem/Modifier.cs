@@ -8,7 +8,7 @@ public class Modifier
 {
 	private Skill skill;
 	private modifierType type;
-	enum modifierType { modify, buff, debuff, buffModification, aura, minionAgentManupulation};
+	enum modifierType { modify, buff, debuff, buffModification, aura, minionAgentManupulation, spot};
 
 	private string field;
 	private string value;
@@ -71,8 +71,9 @@ public class Modifier
 
     private GameObject sourceObject = null, targetObject = null;
 
-    public Modifier(GameObject source, GameObject target, string field, string value, string valueType)
+    public Modifier(Skill skill, GameObject source, GameObject target, string field, string value, string valueType)
     {
+        this.skill = skill;
         type = modifierType.buffModification;
         sourceObject = source;
         targetObject = target;
@@ -83,8 +84,9 @@ public class Modifier
 
     private string modificator;
 
-    public Modifier(GameObject source, GameObject target, string modificator, string value)
+    public Modifier(Skill skill, GameObject source, GameObject target, string modificator, string value)
     {
+        this.skill = skill;
         type = modifierType.minionAgentManupulation;
         sourceObject = source;
         targetObject = target;
@@ -123,6 +125,16 @@ public class Modifier
         }
     }
 
+    private string spotPrefabName;
+    private UnityEngine.Object spot = null;
+
+    public Modifier(Skill skill, string spotPrefabName)
+    {
+        this.skill = skill;
+        type = modifierType.spot;
+        this.spotPrefabName = spotPrefabName;
+    }
+
 	public void Execute()
 	{
 		switch (type)
@@ -144,7 +156,6 @@ public class Modifier
                 break;
 
             case modifierType.aura:
-                Debug.Log("activate aura");
                 aura = Network.Instantiate(Resources.Load("aurabuff"), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
                 (aura as GameObject).transform.parent = skill.gameObject.transform;
                 (aura as GameObject).GetComponent<Aura>().Init(skill, buffName, targetTypes, targetTeams, minValue, range);
@@ -152,9 +163,14 @@ public class Modifier
                 break;
 
             case modifierType.minionAgentManupulation:
-                Debug.Log("manipulate" + targetObject.ToString());
+                if (!targetObject.GetComponent<Target>().IsMinion()) return;
                 GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
-                //targetObject.GetComponent<MinionAgent>().Manipulate(modificator, value, (aim==null)?null:aim.GetComponent<Target>());
+                targetObject.GetComponent<MinionAgent>().Manipulate(modificator, value, (aim==null)?null:aim.GetComponent<Target>());
+                break;
+
+            case modifierType.spot:
+                spot = Network.Instantiate(Resources.Load(spotPrefabName), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
+                (spot as GameObject).GetComponent<Team>().ID = skill.gameObject.GetComponent<Team>().ID;
                 break;
 		}
 	}
@@ -162,8 +178,22 @@ public class Modifier
     public void deactivateAura()
     {
         if (type != modifierType.aura || aura == null) return;
+        (aura as GameObject).GetComponent<Aura>().RemoveEffects();
         MonoBehaviour.Destroy(aura);
         aura = null;
+    }
+
+    public void deactivateAuraSensitive(string auraName)
+    {
+        if (type != modifierType.aura || aura == null || (aura as GameObject).GetComponent<Aura>().buffName != auraName) return;
+        deactivateAura();
+    }
+
+    public void deactivateSpot()
+    {
+        if (type != modifierType.spot || spot == null) return;
+        MonoBehaviour.Destroy(spot);
+        spot = null;
     }
 
     public void ChangeValue(float value)
@@ -183,6 +213,29 @@ public class Modifier
             if (contact != null)
                 targetObject = contact.gameObject;
         }
+        if (targetIdentifier == "EnemyBase")
+        {
+            GameObject[] bases = GameObject.FindGameObjectsWithTag("Base");
+            foreach (GameObject baseObject in bases)
+                if (baseObject.GetComponent<Team>().ID != this.targetObject.GetComponent<Team>().ID)
+                    targetObject = baseObject;
+                   
+        }
+        if (targetIdentifier == "OwnBase")
+        {
+            GameObject[] bases = GameObject.FindGameObjectsWithTag("Base");
+            foreach (GameObject baseObject in bases)
+                if (baseObject.GetComponent<Team>().ID == this.targetObject.GetComponent<Team>().ID)
+                    targetObject = baseObject;
+        }
+        if (targetIdentifier == "Destination")
+        {
+            targetObject = this.targetObject.GetComponent<MinionAgent>().GetDestination().gameObject;
+        }
+        if (targetIdentifier == "Origin")
+        {
+            targetObject = this.targetObject.GetComponent<MinionAgent>().GetOrigin().gameObject;
+        }
 
         return targetObject;
     }
@@ -201,6 +254,8 @@ public class Modifier
             case "Health":
                 Health comp = targetObject.GetComponent<Health>();
                 if (valueType == "setInvulnerable") comp.invulnerable = bool.Parse(value);
+                if (valueType == "setImmortal") comp.immortal = bool.Parse(value);
+                if (valueType == "setHealthMultiplier") comp.SetMaxHealthMultiplier(float.Parse(value));
                 if (valueType == "set") comp.SetHealth(float.Parse(value));
                 if (valueType == "heal") comp.IncHealth(comp.MaxHealth * float.Parse(value));
                 if (valueType == "increase") comp.IncHealth(sourceObject.GetComponent<Damage>().DefaultDamage * float.Parse(value));
@@ -215,6 +270,23 @@ public class Modifier
             case "Speed":
                 Speed speedComp = targetObject.GetComponent<Speed>();
                 if (valueType == "setSpeedMultiplier") speedComp.SetSpeedMultiplier(float.Parse(value));
+                if (valueType == "multiplyDefaultSpeed") speedComp.SetDefaultSpeed(speedComp.DefaultSpeed*float.Parse(value));
+                if (valueType == "multiplySprintSpeed") speedComp.SetSprintSpeed(speedComp.SprintSpeed * float.Parse(value));
+                break;
+
+            case "Damage":
+                Damage damageComp = targetObject.GetComponent<Damage>();
+                if (valueType == "setDamageMultiplier") damageComp.SetDamageMultiplier(float.Parse(value));
+                break;
+
+            case "Aura":
+                if (valueType == "removeAura") skill.DeactivateAura(value);
+                break;
+
+            case "Manipulation":
+                if (!targetObject.GetComponent<Target>().IsMinion()) return;
+                GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
+                targetObject.GetComponent<MinionAgent>().Manipulate(valueType, value, (aim==null)?null:aim.GetComponent<Target>());
                 break;
         }
     }
@@ -226,7 +298,6 @@ public class Modifier
 
         if (targetObject == null) return;
 
-        Debug.Log("Apply Buff " + componentName + " to " + targetObject.ToString() + " from " + skill.gameObject.ToString());
         BuffBehaviour buff = targetObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, componentName, (type == modifierType.debuff));
     }

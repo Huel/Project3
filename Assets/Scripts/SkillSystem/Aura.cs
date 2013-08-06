@@ -35,17 +35,24 @@ public class Aura : MonoBehaviour
 
     private void onEnter(Target target)
     {
-        Debug.Log("Enter:" + target);
         BuffBehaviour buff = target.gameObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, buffName, buffIsDebuff, true);
     }
 
     private void onExit(Target target)
     {
-        Debug.Log("Exit:" + target);
         foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
             if (buff.buffID == buffName)
                 buff.Remove();
+    }
+
+    public void RemoveEffects()
+    {
+        targets = aura.GetTargetsByTypesAndTeam(types, IDs);
+        foreach (Target target in targets)
+            foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
+                if (buff.buffID == buffName)
+                    buff.Remove();
     }
 
     void Update()

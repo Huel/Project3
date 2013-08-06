@@ -12,7 +12,7 @@
     <skill name="Shieldwall">
         <type>buff<component>Shieldwall</component><target>Self</target><targetTeam>All</targetTeam></type>
         <type>aura<buff>Taunt</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
-
+      
         <trigger>instant</trigger>
 
         <castingTime>0.0</castingTime>
@@ -25,12 +25,26 @@
             <duration>3.0</duration>
             <removeModifier><field>Health</field><value type="setInvulnerable">false</value></removeModifier>
             <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
+            <removeModifier><field>Aura</field><value type="removeAura">Taunt</value></removeModifier>
         </buff>
 
         <debuff id="Taunt">
           <addModifier><field>Target</field><value>Self</value></addModifier>
           <removeModifier><field>ResetTarget</field><value></value></removeModifier>
         </debuff>
+    </skill>
+
+    <skill name="Kamikaze Mission">
+      <type>modify<field>Manipulation</field><value type="Target">EnemyBase</value><target>Target</target><targetTeam>Ally</targetTeam></type>
+      <type>modify<field>Manipulation</field><value type="RelevantTargetTypes"></value><target>Target</target><targetTeam>Ally</targetTeam></type>
+      <type>modify<field>Speed</field><value type="multiplyDefaultSpeed">1.25</value><target>Target</target><targetTeam>Ally</targetTeam></type>
+      <type>modify<field>Speed</field><value type="multiplySprintSpeed">1.25</value><target>Target</target><targetTeam>Ally</targetTeam></type>
+
+      <trigger>onContact<allowedTypes>Minion</allowedTypes><allowedTeam>Ally</allowedTeam></trigger>
+      
+      <castingTime>0.0</castingTime>
+
+      <cooldown>20.0</cooldown>
     </skill>
 
     <skill name="Fresh Meat">
@@ -43,40 +57,141 @@
 
         <cooldown>90.0</cooldown>
     </skill>
-  
-  <skill name="Slowaura">
-        <type>aura<buff>Slow</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
 
-        <trigger>instant</trigger>
+    <skill name="Battlecry">
+      <type>aura<buff>Cry</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
+      <type>buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam></type>
 
-        <castingTime>0.0</castingTime>
+      <trigger>instant</trigger>
 
-        <cooldown>30.0</cooldown>
+      <castingTime>0.0</castingTime>
 
-        <debuff id="Slow">
-            <addModifier><field>Speed</field><value type="setSpeedMultiplier">0.2</value></addModifier>
-            <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
-        </debuff>
+      <cooldown>20.0</cooldown>
+
+      <buff id="Cry" randomEffect="true">
+        <addBuff><field>Freeze</field><chance></chance></addBuff>
+        <addBuff><field>Flee</field><value></value></addBuff>
+      </buff>
+
+      <buff id="Freeze">
+        <addModifier><field>CanMove</field><value>false</value></addModifier>
+        <duration>3.0</duration>
+        <removeModifier><field>CanMove</field><value>true</value></removeModifier>
+      </buff>
+
+      <buff id="Flee">
+        <addModifier><field>Target</field><value>Origin</value></addModifier>
+        <duration>3.0</duration>
+        <removeModifier><field>ResetTarget</field><value></value></removeModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>0.1</duration>
+        <removeModifier><field>Aura</field><value type="removeAura">Cry</value></removeModifier>
+      </buff>
     </skill>
 
-  <skill name="SlowauraExtended">
-    <type>aura<buff>SlowExtended</buff><allowedTypes>Minion</allowedTypes><targetTeam>Enemy</targetTeam><range>5.0</range><minValue>0.2</minValue></type>
+    <skill name="Broodmothers Whip">
+      <type>aura<buff>Production</buff><allowedTypes>Minion</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
+      <type>buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam></type>
 
-    <trigger>instant</trigger>
+      <trigger>instant</trigger>
 
-    <castingTime>0.0</castingTime>
+      <castingTime>0.0</castingTime>
 
-    <cooldown>30.0</cooldown>
+      <cooldown>30.0</cooldown>
 
-    <debuff id="SlowExtended">
-      <addModifier>
-        <field>Speed</field>
-        <value type="setSpeedMultiplier">1.0</value>
-      </addModifier>
-      <removeModifier>
-        <field>Speed</field>
-        <value type="setSpeedMultiplier">1.0</value>
-      </removeModifier>
-    </debuff>
-  </skill>
+      <buff id="Production">
+        <addModifier><field>Productivity</field><value>2.0</value></addModifier>
+        <removeModifier><field>Productivity</field><value>1.0</value></removeModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>5.0</duration>
+        <removeModifier><field>Aura</field><value type="removeAura">Production</value></removeModifier>
+      </buff>
+    </skill>
+
+    <skill name="Resurrection">
+      <type>aura<buff>Reviver</buff><allowedTypes>Dead</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
+      <type>buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam></type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>90.0</cooldown>
+
+      <buff id="Reviver">
+        <addModifier><field>Revive</field><value>0.5</value></addModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>0.1</duration>
+        <removeModifier><field>Aura</field><value type="removeAura">Reviver</value></removeModifier>
+      </buff>
+    </skill>
+
+    <skill name="Rally Point">
+      <type>spot<prefab>rallypoint</prefab></type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>0.0</cooldown>
+    </skill>
+
+    <skill name="Trance">
+      <type>
+        aura<buff>Immortality</buff><allowedTypes>Minion</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue>
+      </type>
+      <type>
+        buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam>
+      </type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>30.0</cooldown>
+
+      <buff id="Immortality">
+        <addModifier>
+          <field>Health</field>
+          <value type="setImmortal">true</value>
+        </addModifier>
+        <removeModifier>
+          <field>Health</field>
+          <value type="setImmortal">false</value>
+        </removeModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>10.0</duration>
+        <removeModifier>
+          <field>Aura</field>
+          <value type="removeAura">Immortality</value>
+        </removeModifier>
+      </buff>
+    </skill>
+
+    <skill name="Heroic Aura" passive="true">
+      <type>aura<buff>HeroicAura</buff><allowedTypes>Minion</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>0.0</cooldown>
+
+      <buff id="HeroicAura">
+        <addModifier><field>Health</field><value type="setHealthMultiplier">1.1</value></addModifier>
+        <addModifier><field>Speed</field><value type="setSpeedMultiplier">1.5</value></addModifier>
+        <addModifier><field>Damage</field><value type="setDamageMultiplier">1.5</value></addModifier>
+        <removeModifier><field>Damage</field><value type="setDamageMultiplier">1.0</value></removeModifier>
+        <removeModifier><field>Speed</field><value type="setSpeedMultiplier">1.0</value></removeModifier>
+        <removeModifier><field>Health</field><value type="setHealthMultiplier">1.0</value></removeModifier>
+      </buff>
+    </skill>
 </Skills>

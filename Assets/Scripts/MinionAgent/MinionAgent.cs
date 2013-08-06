@@ -9,9 +9,9 @@ public class MinionAgent : MonoBehaviour
     private NavMeshAgent _agent;
     public Skill basicAttack;
 
-    private Target _destination;    // default target
+    public Target _destination;    // default target
     private Target _origin;         // came from here
-    private Target _target;         // current target
+    public Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
     private float _destinationOffset = 1f;
 
@@ -145,6 +145,16 @@ public class MinionAgent : MonoBehaviour
         _origin = origin;
     }
 
+    public Target GetDestination()
+    {
+        return _destination;
+    }
+
+    public Target GetOrigin()
+    {
+        return _origin;
+    }
+
     public void Manipulate(string effect, string value="", Target aim=null)
     {
         switch (effect)
@@ -168,6 +178,17 @@ public class MinionAgent : MonoBehaviour
 
             case "Productivity":
                 productivity = float.Parse(value);
+                break;
+
+            case "RelevantTargetTypes":
+                List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
+                List<TargetType> types = new List<TargetType>();
+                string[] splitedString = value.Split(new string[] { ", " }, System.StringSplitOptions.None);
+                foreach (string type in splitedString)
+                    foreach (TargetType compareType in compareTypes)
+                        if (compareType.ToString() == type)
+                            types.Add(compareType);
+                attentionRange.SetRelevantTargetTypes(types);
                 break;
 
             case "Revive":

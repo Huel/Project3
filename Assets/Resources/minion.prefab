@@ -221,9 +221,12 @@ MonoBehaviour:
   m_Name: 
   laneID: 0
   basicAttack: {fileID: 11400024}
+  _destination: {fileID: 0}
+  _target: {fileID: 0}
   attentionRange: {fileID: 11400006}
   looseAttentionRange: {fileID: 11400002}
   contact: {fileID: 11400004}
+  productivity: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,6 +237,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
   m_Name: 
+  objectsInRange: []
+  relevantTargetTypes: 
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +260,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
   m_Name: 
+  objectsInRange: []
+  relevantTargetTypes: 00000000020000000100000003000000
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
