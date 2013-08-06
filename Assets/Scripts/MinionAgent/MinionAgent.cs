@@ -14,6 +14,8 @@ public class MinionAgent : MonoBehaviour
     private Target _target;         // current target
     private float _destinationOffset = 1f;
 
+    public float productivity;
+
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
@@ -133,15 +135,9 @@ public class MinionAgent : MonoBehaviour
             //contact.AddListener(target, OnEnemyContact);
             return;
         }
-<<<<<<< HEAD
-
-        if (target.type == TargetType.Valve)
-        {
-=======
         if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
->>>>>>> refs/heads/feature/valve&bomb_logic
+        {
             _target = target;
-            return;
         }
     }
 
