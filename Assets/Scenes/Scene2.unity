@@ -74,6 +74,46 @@ NavMeshSettings:
     widthInaccuracy: 16
     heightInaccuracy: 5
   m_NavMesh: {fileID: 19400000, guid: c6fb58621a561364aa22a0df69e76f7b, type: 2}
+--- !u!1 &315087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+  m_PrefabInternal: {fileID: 1539130136}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 315088}
+  - 114: {fileID: 315089}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &315088
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+  m_PrefabInternal: {fileID: 1539130136}
+  m_GameObject: {fileID: 315087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.9570923, y: .0541974455, z: 14.930666}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1008936107}
+--- !u!114 &315089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630,
+    type: 2}
+  m_PrefabInternal: {fileID: 1539130136}
+  m_GameObject: {fileID: 315087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 2146703213}
+  WaypointB: {fileID: 228469712}
 --- !u!1 &40225877
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +399,22 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 235068241}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 890515874}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 235068241}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 890515874}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 1576209204}
@@ -606,6 +662,76 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
+--- !u!1 &104227418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 104227419}
+  - 33: {fileID: 104227422}
+  - 136: {fileID: 104227421}
+  - 23: {fileID: 104227420}
+  m_Layer: 0
+  m_Name: mesh_bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104227419
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 104227418}
+  m_LocalRotation: {x: 0, y: 0, z: -.707106829, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.93297315, y: 13.7866955, z: 3.93297315}
+  m_Children: []
+  m_Father: {fileID: 1045652654}
+--- !u!23 &104227420
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 104227418}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!136 &104227421
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13600000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 104227418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &104227422
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 104227418}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &104570703
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +840,7 @@ GameObject:
   - 95: {fileID: 106889894}
   - 64: {fileID: 106889897}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,7 +924,7 @@ GameObject:
   - 95: {fileID: 107754168}
   - 64: {fileID: 107754171}
   m_Layer: 0
-  m_Name: IWSewerHoleLR
+  m_Name: walls_sewer_hole_LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,7 +1255,7 @@ GameObject:
   - 95: {fileID: 165930535}
   - 64: {fileID: 165930538}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1331,6 +1457,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1791915073}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 1603792088}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1791915073}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 1603792088}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 1000863899}
@@ -1431,6 +1573,46 @@ NavMeshObstacle:
   m_Enabled: 1
   m_Radius: 3.8599999
   m_Height: 7.67036343
+--- !u!1 &211538858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 753762396}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 211538859}
+  - 114: {fileID: 211538860}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211538859
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 753762396}
+  m_GameObject: {fileID: 211538858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.0460262, y: 2.8031888, z: 15.9407063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1393093923}
+--- !u!114 &211538860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37,
+    type: 2}
+  m_PrefabInternal: {fileID: 753762396}
+  m_GameObject: {fileID: 211538858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1568790931}
+  WaypointB: {fileID: 0}
 --- !u!1 &219674449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1626,7 @@ GameObject:
   - 95: {fileID: 219674451}
   - 64: {fileID: 219674454}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1515,6 +1697,86 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 2530f879d4d13894098e15b91915784c, type: 3}
+--- !u!1 &228469712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 2124070108}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 228469713}
+  - 114: {fileID: 228469714}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228469713
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 2124070108}
+  m_GameObject: {fileID: 228469712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.3510132, y: .0542010143, z: 15.0178547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1271210983}
+--- !u!114 &228469714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84,
+    type: 2}
+  m_PrefabInternal: {fileID: 2124070108}
+  m_GameObject: {fileID: 228469712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 315087}
+  WaypointB: {fileID: 1032927631}
+--- !u!1 &235068241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 1927897122}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 235068242}
+  - 114: {fileID: 235068243}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &235068242
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 1927897122}
+  m_GameObject: {fileID: 235068241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.3510132, y: .0542010143, z: 15.0178547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1110907785}
+--- !u!114 &235068243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84,
+    type: 2}
+  m_PrefabInternal: {fileID: 1927897122}
+  m_GameObject: {fileID: 235068241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1603792088}
+  WaypointB: {fileID: 557484111}
 --- !u!1 &256172006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,7 +2042,7 @@ GameObject:
   - 95: {fileID: 293346313}
   - 64: {fileID: 293346316}
   m_Layer: 0
-  m_Name: IWSewerCurveL
+  m_Name: walls_sewer_curve_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,7 +2170,7 @@ GameObject:
   - 95: {fileID: 341290461}
   - 64: {fileID: 341290464}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2154,7 +2416,7 @@ GameObject:
   - 95: {fileID: 357460693}
   - 64: {fileID: 357460696}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2412,11 +2674,67 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 538011694}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 1568790931}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 538011694}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 1568790931}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 1609123047}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &379345632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 181079734}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 379345633}
+  - 114: {fileID: 379345634}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &379345633
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 181079734}
+  m_GameObject: {fileID: 379345632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1000863904}
+--- !u!114 &379345634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 181079734}
+  m_GameObject: {fileID: 379345632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1791915073}
+  WaypointB: {fileID: 1603792088}
 --- !u!1 &384101249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,6 +3391,22 @@ Prefab:
       propertyPath: m_Name
       value: sewer_hole_l_lane01_01
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 379345632}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 235068241}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 379345632}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 235068241}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 1004684736}
@@ -3401,6 +3735,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1177536861}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 538011694}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1177536861}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 538011694}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 980324898}
@@ -3617,7 +3967,6 @@ GameObject:
   - 4: {fileID: 533422675}
   - 33: {fileID: 533422678}
   - 23: {fileID: 533422677}
-  - 95: {fileID: 533422676}
   - 64: {fileID: 533422679}
   m_Layer: 0
   m_Name: sewer_hole_lr_lane02_02
@@ -3636,21 +3985,9 @@ Transform:
   m_LocalPosition: {x: 48.2549973, y: 4.98042297, z: 22.3986626}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1032927632}
   - {fileID: 107754167}
   m_Father: {fileID: 1327052201}
---- !u!95 &533422676
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: cd13cb969b80cf34c80c693799214630,
-    type: 2}
-  m_PrefabInternal: {fileID: 600882365}
-  m_GameObject: {fileID: 533422674}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b8b63544c18af184496aa80469bd7960, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &533422677
 Renderer:
   m_ObjectHideFlags: 0
@@ -3692,6 +4029,46 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: b8b63544c18af184496aa80469bd7960, type: 3}
+--- !u!1 &538011694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 1667451395}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 538011695}
+  - 114: {fileID: 538011696}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538011695
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+  m_PrefabInternal: {fileID: 1667451395}
+  m_GameObject: {fileID: 538011694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.3510132, y: .0542010143, z: 15.0178547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 625023208}
+--- !u!114 &538011696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84,
+    type: 2}
+  m_PrefabInternal: {fileID: 1667451395}
+  m_GameObject: {fileID: 538011694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 907286220}
+  WaypointB: {fileID: 714768277}
 --- !u!1 &538142619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,10 +4079,9 @@ GameObject:
   - 4: {fileID: 538142620}
   - 33: {fileID: 538142623}
   - 23: {fileID: 538142622}
-  - 95: {fileID: 538142621}
   - 64: {fileID: 538142624}
   m_Layer: 0
-  m_Name: IWSewerHoleL
+  m_Name: walls_sewer_hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3722,19 +4098,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 980324899}
---- !u!95 &538142621
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 507476907}
-  m_GameObject: {fileID: 538142619}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4f9034839b532a6478cff8dd6b9c6dd2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &538142622
 Renderer:
   m_ObjectHideFlags: 0
@@ -3776,6 +4139,46 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 4f9034839b532a6478cff8dd6b9c6dd2, type: 3}
+--- !u!1 &557484111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 80284447}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 557484112}
+  - 114: {fileID: 557484113}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &557484112
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 80284447}
+  m_GameObject: {fileID: 557484111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.0509033, y: .0542010963, z: 15.7088642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1576209205}
+--- !u!114 &557484113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c,
+    type: 2}
+  m_PrefabInternal: {fileID: 80284447}
+  m_GameObject: {fileID: 557484111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 235068241}
+  WaypointB: {fileID: 890515874}
 --- !u!1 &565947711
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,6 +4497,22 @@ Prefab:
       propertyPath: m_Name
       value: sewer_hole_lr_lane02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 228469712}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 776014927}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 228469712}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 776014927}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
   m_RootGameObject: {fileID: 533422674}
@@ -4146,6 +4565,14 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 1177536861}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 1177536861}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
   m_RootGameObject: {fileID: 1714858974}
@@ -4309,7 +4736,6 @@ GameObject:
   - 4: {fileID: 625023208}
   - 33: {fileID: 625023207}
   - 23: {fileID: 625023206}
-  - 95: {fileID: 625023205}
   - 64: {fileID: 625023204}
   m_Layer: 0
   m_Name: sewer_gully_lane03
@@ -4332,19 +4758,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
---- !u!95 &625023205
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 1667451395}
-  m_GameObject: {fileID: 625023203}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &625023206
 Renderer:
   m_ObjectHideFlags: 0
@@ -4382,6 +4795,7 @@ Transform:
   m_LocalPosition: {x: 163.192535, y: 4.98052597, z: 105.006271}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 538011695}
   - {fileID: 1684873564}
   - {fileID: 1812139650}
   - {fileID: 429047274}
@@ -4615,7 +5029,6 @@ GameObject:
   - 4: {fileID: 684173950}
   - 33: {fileID: 684173949}
   - 23: {fileID: 684173948}
-  - 95: {fileID: 684173947}
   - 64: {fileID: 684173946}
   m_Layer: 0
   m_Name: sewer_curve_lane01_01
@@ -4638,19 +5051,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
---- !u!95 &684173947
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 9a548463009a31e4d83eb93860290f37,
-    type: 2}
-  m_PrefabInternal: {fileID: 1073874335}
-  m_GameObject: {fileID: 684173945}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &684173948
 Renderer:
   m_ObjectHideFlags: 0
@@ -4688,6 +5088,7 @@ Transform:
   m_LocalPosition: {x: 247.06337, y: 4.98044872, z: -69.96035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1791915074}
   - {fileID: 293346312}
   m_Father: {fileID: 1327052201}
 --- !u!1 &686689923
@@ -4847,6 +5248,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1756822663}
   m_GameObject: {fileID: 689921700}
   m_Mesh: {fileID: 4300000, guid: 6e0cd28308196924fb770725bfec8a38, type: 3}
+--- !u!1 &714768277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 377990551}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 714768278}
+  - 114: {fileID: 714768279}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714768278
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 377990551}
+  m_GameObject: {fileID: 714768277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.0509033, y: .0542010963, z: 15.7088642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1609123048}
+--- !u!114 &714768279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c,
+    type: 2}
+  m_PrefabInternal: {fileID: 377990551}
+  m_GameObject: {fileID: 714768277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 538011694}
+  WaypointB: {fileID: 1568790931}
 --- !u!1 &730746373
 GameObject:
   m_ObjectHideFlags: 0
@@ -4857,7 +5298,6 @@ GameObject:
   - 4: {fileID: 730746378}
   - 33: {fileID: 730746377}
   - 23: {fileID: 730746376}
-  - 95: {fileID: 730746375}
   - 64: {fileID: 730746374}
   m_Layer: 0
   m_Name: sewer_line_lane03_01
@@ -4880,19 +5320,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &730746375
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 1259612433}
-  m_GameObject: {fileID: 730746373}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &730746376
 Renderer:
   m_ObjectHideFlags: 0
@@ -4930,6 +5357,7 @@ Transform:
   m_LocalPosition: {x: 247.063629, y: 4.98048782, z: 105.005806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1177536862}
   - {fileID: 106889893}
   m_Father: {fileID: 1327052201}
 --- !u!1001 &753762396
@@ -4979,6 +5407,14 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1568790931}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1568790931}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
   m_RootGameObject: {fileID: 1393093918}
@@ -5095,6 +5531,46 @@ Prefab:
   m_RootGameObject: {fileID: 1534166223}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &776014927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1447576136}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 776014928}
+  - 114: {fileID: 776014929}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776014928
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1447576136}
+  m_GameObject: {fileID: 776014927}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1713501953}
+--- !u!114 &776014929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 1447576136}
+  m_GameObject: {fileID: 776014927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1032927631}
+  WaypointB: {fileID: 0}
 --- !u!1 &790119381
 GameObject:
   m_ObjectHideFlags: 0
@@ -5160,10 +5636,9 @@ GameObject:
   - 4: {fileID: 823363880}
   - 33: {fileID: 823363883}
   - 23: {fileID: 823363882}
-  - 95: {fileID: 823363881}
   - 64: {fileID: 823363884}
   m_Layer: 0
-  m_Name: IWSewerHoleL
+  m_Name: walls_sewer_hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5180,19 +5655,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1576209205}
---- !u!95 &823363881
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 80284447}
-  m_GameObject: {fileID: 823363879}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4f9034839b532a6478cff8dd6b9c6dd2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &823363882
 Renderer:
   m_ObjectHideFlags: 0
@@ -5331,6 +5793,7 @@ GameObject:
   - 95: {fileID: 833934250}
   - 64: {fileID: 833934249}
   - 208: {fileID: 833934254}
+  - 114: {fileID: 833934255}
   m_Layer: 0
   m_Name: valve_lane02_03
   m_TagString: Untagged
@@ -5413,6 +5876,17 @@ NavMeshObstacle:
   m_Enabled: 1
   m_Radius: 3.8599999
   m_Height: 7.67036343
+--- !u!114 &833934255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 833934248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673c1d9a41b4ac041acb64222c18dc2a, type: 3}
+  m_Name: 
+  state: 0
 --- !u!1 &867984268
 GameObject:
   m_ObjectHideFlags: 0
@@ -5629,6 +6103,86 @@ Transform:
   - {fileID: 825738892}
   - {fileID: 491851183}
   m_Father: {fileID: 1565048154}
+--- !u!1 &890515874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1569285377}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 890515875}
+  - 114: {fileID: 890515876}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &890515875
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1569285377}
+  m_GameObject: {fileID: 890515874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1229385645}
+--- !u!114 &890515876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 1569285377}
+  m_GameObject: {fileID: 890515874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 557484111}
+  WaypointB: {fileID: 1722305897}
+--- !u!1 &907286220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 507476907}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 907286221}
+  - 114: {fileID: 907286222}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &907286221
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 507476907}
+  m_GameObject: {fileID: 907286220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.0509033, y: .0542010963, z: 15.7088642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 980324899}
+--- !u!114 &907286222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c,
+    type: 2}
+  m_PrefabInternal: {fileID: 507476907}
+  m_GameObject: {fileID: 907286220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1177536861}
+  WaypointB: {fileID: 538011694}
 --- !u!1001 &927429502
 Prefab:
   m_ObjectHideFlags: 0
@@ -5694,7 +6248,7 @@ GameObject:
   - 95: {fileID: 930616004}
   - 64: {fileID: 930616007}
   m_Layer: 0
-  m_Name: IWSewerHoleLR
+  m_Name: walls_sewer_hole_LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5990,7 +6544,6 @@ GameObject:
   - 4: {fileID: 980324899}
   - 33: {fileID: 980324903}
   - 23: {fileID: 980324902}
-  - 95: {fileID: 980324901}
   - 64: {fileID: 980324900}
   m_Layer: 0
   m_Name: sewer_hole_l_lane03_01
@@ -6009,6 +6562,7 @@ Transform:
   m_LocalPosition: {x: 205.128311, y: 4.98048687, z: 105.006119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 907286221}
   - {fileID: 538142620}
   m_Father: {fileID: 1327052201}
 --- !u!64 &980324900
@@ -6025,19 +6579,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
---- !u!95 &980324901
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 507476907}
-  m_GameObject: {fileID: 980324898}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &980324902
 Renderer:
   m_ObjectHideFlags: 0
@@ -6215,7 +6756,6 @@ GameObject:
   - 4: {fileID: 1000863904}
   - 33: {fileID: 1000863903}
   - 23: {fileID: 1000863902}
-  - 95: {fileID: 1000863901}
   - 64: {fileID: 1000863900}
   m_Layer: 0
   m_Name: sewer_line_lane01_01
@@ -6238,19 +6778,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &1000863901
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 181079734}
-  m_GameObject: {fileID: 1000863899}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1000863902
 Renderer:
   m_ObjectHideFlags: 0
@@ -6288,6 +6815,7 @@ Transform:
   m_LocalPosition: {x: 247.063385, y: 4.98044205, z: -69.96035}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
+  - {fileID: 379345633}
   - {fileID: 165930534}
   m_Father: {fileID: 1327052201}
 --- !u!1001 &1003984636
@@ -6344,7 +6872,6 @@ GameObject:
   - 4: {fileID: 1004684741}
   - 33: {fileID: 1004684740}
   - 23: {fileID: 1004684739}
-  - 95: {fileID: 1004684738}
   - 64: {fileID: 1004684737}
   m_Layer: 0
   m_Name: sewer_hole_l_lane01_01
@@ -6367,19 +6894,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
---- !u!95 &1004684738
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 460752513}
-  m_GameObject: {fileID: 1004684736}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1004684739
 Renderer:
   m_ObjectHideFlags: 0
@@ -6417,8 +6931,125 @@ Transform:
   m_LocalPosition: {x: 205.128067, y: 4.98044395, z: -69.9600525}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
+  - {fileID: 1603792089}
   - {fileID: 1155584159}
   m_Father: {fileID: 1327052201}
+--- !u!1001 &1008125863
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 125.841522
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .345087051
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 104.952072
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 538011694}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 538011694}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[0]
+      value: 
+      objectReference: {fileID: 1498898924}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[1]
+      value: 
+      objectReference: {fileID: 963854861}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[2]
+      value: 
+      objectReference: {fileID: 410674229}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[3]
+      value: 
+      objectReference: {fileID: 208326699}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[4]
+      value: 
+      objectReference: {fileID: 1428038431}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[5]
+      value: 
+      objectReference: {fileID: 55330605}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[0]
+      value: 
+      objectReference: {fileID: 1498898924}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[1]
+      value: 
+      objectReference: {fileID: 963854861}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[2]
+      value: 
+      objectReference: {fileID: 410674229}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[0]
+      value: 
+      objectReference: {fileID: 208326699}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[1]
+      value: 
+      objectReference: {fileID: 1428038431}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[2]
+      value: 
+      objectReference: {fileID: 55330605}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_RootGameObject: {fileID: 2084342031}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1008936103
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,7 +7060,6 @@ GameObject:
   - 4: {fileID: 1008936107}
   - 33: {fileID: 1008936106}
   - 23: {fileID: 1008936105}
-  - 95: {fileID: 1008936104}
   - 64: {fileID: 1008936108}
   m_Layer: 0
   m_Name: sewer_hole_lr_lane02_01
@@ -6438,19 +7068,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
---- !u!95 &1008936104
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: cd13cb969b80cf34c80c693799214630,
-    type: 2}
-  m_PrefabInternal: {fileID: 1539130136}
-  m_GameObject: {fileID: 1008936103}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b8b63544c18af184496aa80469bd7960, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1008936105
 Renderer:
   m_ObjectHideFlags: 0
@@ -6488,6 +7105,7 @@ Transform:
   m_LocalPosition: {x: 205.130219, y: 4.98044395, z: 22.3986702}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 315088}
   - {fileID: 930616003}
   m_Father: {fileID: 1327052201}
 --- !u!64 &1008936108
@@ -6610,6 +7228,46 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &1032927631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+  m_PrefabInternal: {fileID: 600882365}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1032927632}
+  - 114: {fileID: 1032927633}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1032927632
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+  m_PrefabInternal: {fileID: 600882365}
+  m_GameObject: {fileID: 1032927631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.9570923, y: .0541974455, z: 14.930666}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 533422675}
+--- !u!114 &1032927633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630,
+    type: 2}
+  m_PrefabInternal: {fileID: 600882365}
+  m_GameObject: {fileID: 1032927631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 228469712}
+  WaypointB: {fileID: 776014927}
 --- !u!1001 &1039285685
 Prefab:
   m_ObjectHideFlags: 0
@@ -6661,11 +7319,84 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 315087}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 315087}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 1113753446}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1045652653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1045652654}
+  - 148: {fileID: 1045652656}
+  - 114: {fileID: 1045652655}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1045652654
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 1045652653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 125.841278, y: .0959472656, z: -69.9060059}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 104227419}
+  m_Father: {fileID: 0}
+--- !u!114 &1045652655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 1045652653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
+  m_Name: 
+  m_InterpolationBackTime: .10000000000000001
+  m_ExtrapolationLimit: .5
+  WaypointA: {fileID: 235068241}
+  WaypointB: {fileID: 235068241}
+  valvesA:
+  - {fileID: 580469324}
+  - {fileID: 481809161}
+  - {fileID: 1120601241}
+  valvesB:
+  - {fileID: 256172006}
+  - {fileID: 104570703}
+  - {fileID: 1534166223}
+--- !u!148 &1045652656
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1734145196}
+  m_GameObject: {fileID: 1045652653}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1045652655}
+  m_ViewID:
+    m_ID: 2
+    m_Type: 1
 --- !u!1 &1057966466
 GameObject:
   m_ObjectHideFlags: 0
@@ -6823,6 +7554,14 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 379345632}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 379345632}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
   m_RootGameObject: {fileID: 684173945}
@@ -6893,7 +7632,7 @@ GameObject:
   - 95: {fileID: 1095310233}
   - 64: {fileID: 1095310236}
   m_Layer: 0
-  m_Name: IWSewerCurveL
+  m_Name: walls_sewer_curve_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6974,7 +7713,6 @@ GameObject:
   - 4: {fileID: 1110907785}
   - 33: {fileID: 1110907784}
   - 23: {fileID: 1110907783}
-  - 95: {fileID: 1110907782}
   - 64: {fileID: 1110907781}
   m_Layer: 0
   m_Name: sewer_gully_lane01
@@ -6997,19 +7735,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
---- !u!95 &1110907782
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 1927897122}
-  m_GameObject: {fileID: 1110907780}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1110907783
 Renderer:
   m_ObjectHideFlags: 0
@@ -7047,6 +7772,7 @@ Transform:
   m_LocalPosition: {x: 163.192291, y: 4.98048306, z: -69.9602051}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
+  - {fileID: 235068242}
   - {fileID: 1292828628}
   - {fileID: 154895727}
   - {fileID: 1155079138}
@@ -7105,7 +7831,6 @@ GameObject:
   - 4: {fileID: 1113753451}
   - 33: {fileID: 1113753450}
   - 23: {fileID: 1113753449}
-  - 95: {fileID: 1113753448}
   - 64: {fileID: 1113753447}
   m_Layer: 0
   m_Name: sewer_line_lane02_01
@@ -7128,19 +7853,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &1113753448
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 1039285685}
-  m_GameObject: {fileID: 1113753446}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1113753449
 Renderer:
   m_ObjectHideFlags: 0
@@ -7178,8 +7890,74 @@ Transform:
   m_LocalPosition: {x: 247.065521, y: 4.98046112, z: 22.3986626}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2146703214}
   - {fileID: 341290460}
   m_Father: {fileID: 1327052201}
+--- !u!1 &1118826051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1118826052}
+  - 148: {fileID: 1118826053}
+  - 114: {fileID: 1118826054}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118826052
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1118826051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 125.84343, y: -.274118423, z: 22.3446102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1623207659}
+  m_Father: {fileID: 0}
+--- !u!148 &1118826053
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1118826051}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 1118826054}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
+--- !u!114 &1118826054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1118826051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
+  m_Name: 
+  m_InterpolationBackTime: .10000000000000001
+  m_ExtrapolationLimit: .5
+  WaypointA: {fileID: 228469712}
+  WaypointB: {fileID: 228469712}
+  valvesA:
+  - {fileID: 1927531432}
+  - {fileID: 615923531}
+  - {fileID: 833934248}
+  valvesB:
+  - {fileID: 1837009828}
+  - {fileID: 1128194268}
+  - {fileID: 370503363}
 --- !u!1 &1120601241
 GameObject:
   m_ObjectHideFlags: 0
@@ -7487,10 +8265,9 @@ GameObject:
   - 4: {fileID: 1155584159}
   - 33: {fileID: 1155584162}
   - 23: {fileID: 1155584161}
-  - 95: {fileID: 1155584160}
   - 64: {fileID: 1155584163}
   m_Layer: 0
-  m_Name: IWSewerHoleL
+  m_Name: walls_sewer_hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7507,19 +8284,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1004684741}
---- !u!95 &1155584160
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 460752513}
-  m_GameObject: {fileID: 1155584158}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4f9034839b532a6478cff8dd6b9c6dd2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1155584161
 Renderer:
   m_ObjectHideFlags: 0
@@ -7571,7 +8335,6 @@ GameObject:
   - 4: {fileID: 1158619290}
   - 33: {fileID: 1158619289}
   - 23: {fileID: 1158619288}
-  - 95: {fileID: 1158619287}
   - 64: {fileID: 1158619286}
   m_Layer: 0
   m_Name: sewer_line_lane03_02
@@ -7594,19 +8357,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &1158619287
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 1435486875}
-  m_GameObject: {fileID: 1158619285}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1158619288
 Renderer:
   m_ObjectHideFlags: 0
@@ -7644,6 +8394,7 @@ Transform:
   m_LocalPosition: {x: 48.2530861, y: 4.98039246, z: 105.005516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1568790932}
   - {fileID: 1864179001}
   m_Father: {fileID: 1327052201}
 --- !u!1001 &1160163692
@@ -7896,68 +8647,46 @@ Prefab:
   m_RootGameObject: {fileID: 1927531432}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!1 &1180058326
+--- !u!1 &1177536861
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1259612433}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1180058328}
-  - 108: {fileID: 1180058327}
+  - 4: {fileID: 1177536862}
+  - 114: {fileID: 1177536863}
   m_Layer: 0
-  m_Name: directionallight
-  m_TagString: Untagged
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!108 &1180058327
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1180058326}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Type: 1
-  m_Color: {r: .789583564, g: 1, b: .731343269, a: 1}
-  m_Intensity: .300000012
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 1
-  m_ShadowSamples: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_IndirectIntensity: 1
-  m_AreaSize: {x: 1, y: 1}
---- !u!4 &1180058328
+--- !u!4 &1177536862
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1180058326}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: -.707106829}
-  m_LocalPosition: {x: 56.3727341, y: 34.0486488, z: -14.2394295}
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1259612433}
+  m_GameObject: {fileID: 1177536861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1327052201}
+  m_Father: {fileID: 730746378}
+--- !u!114 &1177536863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 1259612433}
+  m_GameObject: {fileID: 1177536861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 1338395135}
+  WaypointB: {fileID: 907286220}
 --- !u!1001 &1180164952
 Prefab:
   m_ObjectHideFlags: 0
@@ -8207,7 +8936,7 @@ GameObject:
   - 95: {fileID: 1218372432}
   - 64: {fileID: 1218372435}
   m_Layer: 0
-  m_Name: IWSewerCurveL
+  m_Name: walls_sewer_curve_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8372,7 +9101,6 @@ GameObject:
   - 4: {fileID: 1229385645}
   - 33: {fileID: 1229385644}
   - 23: {fileID: 1229385643}
-  - 95: {fileID: 1229385642}
   - 64: {fileID: 1229385641}
   m_Layer: 0
   m_Name: sewer_line_lane01_02
@@ -8395,19 +9123,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &1229385642
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 1569285377}
-  m_GameObject: {fileID: 1229385640}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1229385643
 Renderer:
   m_ObjectHideFlags: 0
@@ -8445,6 +9160,7 @@ Transform:
   m_LocalPosition: {x: 48.2528419, y: 4.98036957, z: -69.9594498}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
+  - {fileID: 890515875}
   - {fileID: 357460692}
   m_Father: {fileID: 1327052201}
 --- !u!1 &1229961831
@@ -8748,6 +9464,22 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1338395135}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 907286220}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1338395135}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 907286220}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 730746373}
@@ -8832,7 +9564,6 @@ GameObject:
   - 4: {fileID: 1271210983}
   - 33: {fileID: 1271210982}
   - 23: {fileID: 1271210981}
-  - 95: {fileID: 1271210980}
   - 64: {fileID: 1271210979}
   m_Layer: 0
   m_Name: sewer_gully_lane02
@@ -8855,19 +9586,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
---- !u!95 &1271210980
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 2124070108}
-  m_GameObject: {fileID: 1271210978}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 31cbf1f464d0a2a4fb17f976f6bd28fb, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1271210981
 Renderer:
   m_ObjectHideFlags: 0
@@ -8905,6 +9623,7 @@ Transform:
   m_LocalPosition: {x: 163.194443, y: 4.98050117, z: 22.3988132}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 228469713}
   - {fileID: 1313645777}
   - {fileID: 455408089}
   - {fileID: 426386992}
@@ -9008,10 +9727,9 @@ GameObject:
   - 4: {fileID: 1292828628}
   - 33: {fileID: 1292828631}
   - 23: {fileID: 1292828630}
-  - 95: {fileID: 1292828629}
   - 64: {fileID: 1292828632}
   m_Layer: 0
-  m_Name: IWSewerGully
+  m_Name: walls_sewer_gully
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9028,19 +9746,6 @@ Transform:
   m_LocalScale: {x: 1.73820305, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1110907785}
---- !u!95 &1292828629
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 1927897122}
-  m_GameObject: {fileID: 1292828627}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 11aec340f756ada479c023724d0c189a, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1292828630
 Renderer:
   m_ObjectHideFlags: 0
@@ -9144,28 +9849,14 @@ GameObject:
   - 4: {fileID: 1313645777}
   - 33: {fileID: 1313645776}
   - 23: {fileID: 1313645775}
-  - 95: {fileID: 1313645774}
   - 64: {fileID: 1313645778}
   m_Layer: 0
-  m_Name: IWSewerGully
+  m_Name: walls_sewer_gully
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1313645774
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 2124070108}
-  m_GameObject: {fileID: 1313645773}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 11aec340f756ada479c023724d0c189a, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1313645775
 Renderer:
   m_ObjectHideFlags: 0
@@ -9495,7 +10186,6 @@ Transform:
   - {fileID: 565947716}
   - {fileID: 1443901369}
   - {fileID: 442623711}
-  - {fileID: 1180058328}
   - {fileID: 1565048154}
   - {fileID: 684173950}
   - {fileID: 1458238673}
@@ -9631,6 +10321,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1160163692}
   m_GameObject: {fileID: 1332211966}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1338395135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 612835168}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1338395136}
+  - 114: {fileID: 1338395137}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1338395136
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 612835168}
+  m_GameObject: {fileID: 1338395135}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.0460262, y: 2.8031888, z: 15.9407063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1714858979}
+--- !u!114 &1338395137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37,
+    type: 2}
+  m_PrefabInternal: {fileID: 612835168}
+  m_GameObject: {fileID: 1338395135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 0}
+  WaypointB: {fileID: 1177536861}
 --- !u!1001 &1357573163
 Prefab:
   m_ObjectHideFlags: 0
@@ -9844,7 +10574,6 @@ GameObject:
   - 4: {fileID: 1393093923}
   - 33: {fileID: 1393093922}
   - 23: {fileID: 1393093921}
-  - 95: {fileID: 1393093920}
   - 64: {fileID: 1393093919}
   m_Layer: 0
   m_Name: sewer_curve_lane03_02
@@ -9867,19 +10596,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
---- !u!95 &1393093920
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 9a548463009a31e4d83eb93860290f37,
-    type: 2}
-  m_PrefabInternal: {fileID: 753762396}
-  m_GameObject: {fileID: 1393093918}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1393093921
 Renderer:
   m_ObjectHideFlags: 0
@@ -9917,6 +10633,7 @@ Transform:
   m_LocalPosition: {x: 6.31729889, y: 4.98039246, z: 105.005516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 211538859}
   - {fileID: 1584895381}
   m_Father: {fileID: 1327052201}
 --- !u!1 &1397661808
@@ -9982,6 +10699,76 @@ Light:
   m_ShadowAngle: 0
   m_IndirectIntensity: 1
   m_AreaSize: {x: 59.2900009, y: 60.2999992}
+--- !u!1 &1412838871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1412838872}
+  - 33: {fileID: 1412838875}
+  - 136: {fileID: 1412838874}
+  - 23: {fileID: 1412838873}
+  m_Layer: 0
+  m_Name: mesh_bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1412838872
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 1412838871}
+  m_LocalRotation: {x: 0, y: 0, z: -.707106829, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.93297315, y: 13.7866955, z: 3.93297315}
+  m_Children: []
+  m_Father: {fileID: 2084342034}
+--- !u!23 &1412838873
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 1412838871}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!136 &1412838874
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13600000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 1412838871}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1412838875
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 1412838871}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1414066130
 GameObject:
   m_ObjectHideFlags: 0
@@ -10523,6 +11310,22 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 714768277}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 211538858}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 714768277}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 211538858}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 1158619285}
@@ -10651,6 +11454,14 @@ Prefab:
       propertyPath: m_Name
       value: sewer_line_lane02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1032927631}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1032927631}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 1713501948}
@@ -10740,7 +11551,6 @@ GameObject:
   - 4: {fileID: 1458238673}
   - 33: {fileID: 1458238672}
   - 23: {fileID: 1458238671}
-  - 95: {fileID: 1458238670}
   - 64: {fileID: 1458238669}
   m_Layer: 0
   m_Name: sewer_curve_lane01_02
@@ -10763,19 +11573,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
---- !u!95 &1458238670
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 9a548463009a31e4d83eb93860290f37,
-    type: 2}
-  m_PrefabInternal: {fileID: 1810807160}
-  m_GameObject: {fileID: 1458238668}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1458238671
 Renderer:
   m_ObjectHideFlags: 0
@@ -10813,6 +11610,7 @@ Transform:
   m_LocalPosition: {x: 6.31703949, y: 4.98037338, z: -69.959465}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1722305898}
   - {fileID: 1095310232}
   m_Father: {fileID: 1327052201}
 --- !u!1 &1468172933
@@ -11321,6 +12119,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 2146703213}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 228469712}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 2146703213}
+    - target: {fileID: 11400000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 228469712}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd13cb969b80cf34c80c693799214630, type: 2}
   m_RootGameObject: {fileID: 1008936103}
@@ -11411,6 +12225,46 @@ Transform:
   - {fileID: 886902484}
   - {fileID: 384101250}
   m_Father: {fileID: 1327052201}
+--- !u!1 &1568790931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1435486875}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1568790932}
+  - 114: {fileID: 1568790933}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1568790932
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1435486875}
+  m_GameObject: {fileID: 1568790931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1158619290}
+--- !u!114 &1568790933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 1435486875}
+  m_GameObject: {fileID: 1568790931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 714768277}
+  WaypointB: {fileID: 211538858}
 --- !u!1001 &1569285377
 Prefab:
   m_ObjectHideFlags: 0
@@ -11462,6 +12316,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 557484111}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 1722305897}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 557484111}
+    - target: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 1722305897}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
   m_RootGameObject: {fileID: 1229385640}
@@ -11477,7 +12347,6 @@ GameObject:
   - 4: {fileID: 1576209205}
   - 33: {fileID: 1576209209}
   - 23: {fileID: 1576209208}
-  - 95: {fileID: 1576209207}
   - 64: {fileID: 1576209206}
   m_Layer: 0
   m_Name: sewer_hole_l_lane01_02
@@ -11496,6 +12365,7 @@ Transform:
   m_LocalPosition: {x: 48.2528305, y: 4.98042393, z: -69.9600372}
   m_LocalScale: {x: -1, y: -1, z: 1}
   m_Children:
+  - {fileID: 557484112}
   - {fileID: 823363880}
   m_Father: {fileID: 1327052201}
 --- !u!64 &1576209206
@@ -11512,19 +12382,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
---- !u!95 &1576209207
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 80284447}
-  m_GameObject: {fileID: 1576209204}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1576209208
 Renderer:
   m_ObjectHideFlags: 0
@@ -11565,7 +12422,7 @@ GameObject:
   - 95: {fileID: 1584895382}
   - 64: {fileID: 1584895385}
   m_Layer: 0
-  m_Name: IWSewerCurveL
+  m_Name: walls_sewer_curve_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11636,6 +12493,46 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 042e987ae4d9e3642a8cb0e32c0c4037, type: 3}
+--- !u!1 &1603792088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 460752513}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1603792089}
+  - 114: {fileID: 1603792090}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1603792089
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+  m_PrefabInternal: {fileID: 460752513}
+  m_GameObject: {fileID: 1603792088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.0509033, y: .0542010963, z: 15.7088642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1004684741}
+--- !u!114 &1603792090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c,
+    type: 2}
+  m_PrefabInternal: {fileID: 460752513}
+  m_GameObject: {fileID: 1603792088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 379345632}
+  WaypointB: {fileID: 235068241}
 --- !u!1 &1609123047
 GameObject:
   m_ObjectHideFlags: 0
@@ -11646,7 +12543,6 @@ GameObject:
   - 4: {fileID: 1609123048}
   - 33: {fileID: 1609123052}
   - 23: {fileID: 1609123051}
-  - 95: {fileID: 1609123050}
   - 64: {fileID: 1609123049}
   m_Layer: 0
   m_Name: sewer_hole_l_lane03_02
@@ -11665,6 +12561,7 @@ Transform:
   m_LocalPosition: {x: 48.2530823, y: 4.98046684, z: 105.006111}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
+  - {fileID: 714768278}
   - {fileID: 2146715687}
   m_Father: {fileID: 1327052201}
 --- !u!64 &1609123049
@@ -11681,19 +12578,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
---- !u!95 &1609123050
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 377990551}
-  m_GameObject: {fileID: 1609123047}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1609123051
 Renderer:
   m_ObjectHideFlags: 0
@@ -11721,6 +12605,138 @@ MeshFilter:
   m_PrefabInternal: {fileID: 377990551}
   m_GameObject: {fileID: 1609123047}
   m_Mesh: {fileID: 4300000, guid: 8a293f91a68880d40b4ae83f7a622656, type: 3}
+--- !u!1 &1609539516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1609539518}
+  - 108: {fileID: 1609539517}
+  m_Layer: 0
+  m_Name: Directional light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1609539517
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1609539516}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: .5
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
+--- !u!4 &1609539518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1609539516}
+  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381661, w: .875426114}
+  m_LocalPosition: {x: 655.864624, y: 384.220306, z: -307.822845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!1 &1623207658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1623207659}
+  - 33: {fileID: 1623207662}
+  - 136: {fileID: 1623207661}
+  - 23: {fileID: 1623207660}
+  m_Layer: 0
+  m_Name: mesh_bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1623207659
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1623207658}
+  m_LocalRotation: {x: 0, y: 0, z: -.707106829, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.93297315, y: 13.7866955, z: 3.93297315}
+  m_Children: []
+  m_Father: {fileID: 1118826052}
+--- !u!23 &1623207660
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1623207658}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!136 &1623207661
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13600000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1623207658}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1623207662
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888291908}
+  m_GameObject: {fileID: 1623207658}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1625758901
 Prefab:
   m_ObjectHideFlags: 0
@@ -11877,6 +12893,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 907286220}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 714768277}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 907286220}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 714768277}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
   m_RootGameObject: {fileID: 625023203}
@@ -11936,10 +12968,9 @@ GameObject:
   - 4: {fileID: 1684873564}
   - 33: {fileID: 1684873567}
   - 23: {fileID: 1684873566}
-  - 95: {fileID: 1684873565}
   - 64: {fileID: 1684873568}
   m_Layer: 0
-  m_Name: IWSewerGully
+  m_Name: walls_sewer_gully
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11956,19 +12987,6 @@ Transform:
   m_LocalScale: {x: 1.73820305, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 625023208}
---- !u!95 &1684873565
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 3a7592cf790b0a9498e9b93def369d84,
-    type: 2}
-  m_PrefabInternal: {fileID: 1667451395}
-  m_GameObject: {fileID: 1684873563}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 11aec340f756ada479c023724d0c189a, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1684873566
 Renderer:
   m_ObjectHideFlags: 0
@@ -12116,7 +13134,6 @@ GameObject:
   - 4: {fileID: 1713501953}
   - 33: {fileID: 1713501952}
   - 23: {fileID: 1713501951}
-  - 95: {fileID: 1713501950}
   - 64: {fileID: 1713501949}
   m_Layer: 0
   m_Name: sewer_line_lane02_02
@@ -12139,19 +13156,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
---- !u!95 &1713501950
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 589a513177306c046a3e64336f5e1f85,
-    type: 2}
-  m_PrefabInternal: {fileID: 1447576136}
-  m_GameObject: {fileID: 1713501948}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 17999af29cf9e774a8a9abdc36614b07, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1713501951
 Renderer:
   m_ObjectHideFlags: 0
@@ -12189,6 +13193,7 @@ Transform:
   m_LocalPosition: {x: 6.31921005, y: 4.98044205, z: 22.3985138}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
+  - {fileID: 776014928}
   - {fileID: 219674450}
   m_Father: {fileID: 1327052201}
 --- !u!1 &1714858974
@@ -12201,7 +13206,6 @@ GameObject:
   - 4: {fileID: 1714858979}
   - 33: {fileID: 1714858978}
   - 23: {fileID: 1714858977}
-  - 95: {fileID: 1714858976}
   - 64: {fileID: 1714858975}
   m_Layer: 0
   m_Name: sewer_curve_lane03_01
@@ -12224,19 +13228,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
---- !u!95 &1714858976
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 9a548463009a31e4d83eb93860290f37,
-    type: 2}
-  m_PrefabInternal: {fileID: 612835168}
-  m_GameObject: {fileID: 1714858974}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 19b2c49b59ebe604eafc164baf1bad0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &1714858977
 Renderer:
   m_ObjectHideFlags: 0
@@ -12274,8 +13265,169 @@ Transform:
   m_LocalPosition: {x: 287.110229, y: 4.98048782, z: 94.2755814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1338395136}
   - {fileID: 1218372431}
   m_Father: {fileID: 1327052201}
+--- !u!1 &1722305897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 1810807160}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1722305898}
+  - 114: {fileID: 1722305899}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1722305898
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 1810807160}
+  m_GameObject: {fileID: 1722305897}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.0460262, y: 2.8031888, z: 15.9407063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1458238673}
+--- !u!114 &1722305899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810807160}
+  m_GameObject: {fileID: 1722305897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 890515874}
+  WaypointB: {fileID: 0}
+--- !u!1001 &1734145196
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 125.841278
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .0959472656
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -69.9060059
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 235068241}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 235068241}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[0]
+      value: 
+      objectReference: {fileID: 580469324}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[1]
+      value: 
+      objectReference: {fileID: 481809161}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[2]
+      value: 
+      objectReference: {fileID: 1120601241}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[3]
+      value: 
+      objectReference: {fileID: 256172006}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[4]
+      value: 
+      objectReference: {fileID: 104570703}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[5]
+      value: 
+      objectReference: {fileID: 1534166223}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[0]
+      value: 
+      objectReference: {fileID: 580469324}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[1]
+      value: 
+      objectReference: {fileID: 481809161}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[2]
+      value: 
+      objectReference: {fileID: 1120601241}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[0]
+      value: 
+      objectReference: {fileID: 256172006}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[1]
+      value: 
+      objectReference: {fileID: 104570703}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[2]
+      value: 
+      objectReference: {fileID: 1534166223}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_RootGameObject: {fileID: 1045652653}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1739275920
 GameObject:
   m_ObjectHideFlags: 0
@@ -12551,6 +13703,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1892029281}
   m_GameObject: {fileID: 1788761181}
   m_Mesh: {fileID: 4300000, guid: 3673285cc7b6e84448a75ba0a65289f9, type: 3}
+--- !u!1 &1791915073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 1073874335}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1791915074}
+  - 114: {fileID: 1791915075}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791915074
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+  m_PrefabInternal: {fileID: 1073874335}
+  m_GameObject: {fileID: 1791915073}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.0460262, y: 2.8031888, z: 15.9407063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 684173950}
+--- !u!114 &1791915075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37,
+    type: 2}
+  m_PrefabInternal: {fileID: 1073874335}
+  m_GameObject: {fileID: 1791915073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 0}
+  WaypointB: {fileID: 379345632}
 --- !u!1 &1809123814
 GameObject:
   m_ObjectHideFlags: 0
@@ -12659,6 +13851,14 @@ Prefab:
       propertyPath: m_Name
       value: sewer_curve_lane01_02
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 890515874}
+    - target: {fileID: 11400000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 890515874}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a548463009a31e4d83eb93860290f37, type: 2}
   m_RootGameObject: {fileID: 1458238668}
@@ -12919,7 +14119,7 @@ GameObject:
   - 95: {fileID: 1864179002}
   - 64: {fileID: 1864179005}
   m_Layer: 0
-  m_Name: IWSewerLine
+  m_Name: walls_sewer_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13124,6 +14324,126 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e60e0bd690560d247b044992fd45ea89, type: 2}
   m_RootGameObject: {fileID: 442623710}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1001 &1888291908
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 125.84343
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.274118423
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 22.3446102
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: m_Observed
+      value: 
+      objectReference: {fileID: 1118826054}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[0]
+      value: 
+      objectReference: {fileID: 1927531432}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[1]
+      value: 
+      objectReference: {fileID: 615923531}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[2]
+      value: 
+      objectReference: {fileID: 833934248}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[3]
+      value: 
+      objectReference: {fileID: 1837009828}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[4]
+      value: 
+      objectReference: {fileID: 1128194268}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valves.Array.data[5]
+      value: 
+      objectReference: {fileID: 370503363}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 228469712}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 228469712}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[0]
+      value: 
+      objectReference: {fileID: 1927531432}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[1]
+      value: 
+      objectReference: {fileID: 615923531}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesA.Array.data[2]
+      value: 
+      objectReference: {fileID: 833934248}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[0]
+      value: 
+      objectReference: {fileID: 1837009828}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[1]
+      value: 
+      objectReference: {fileID: 1128194268}
+    - target: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+      propertyPath: valvesB.Array.data[2]
+      value: 
+      objectReference: {fileID: 370503363}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_RootGameObject: {fileID: 1118826051}
   m_IsPrefabParent: 0
   m_IsExploded: 1
 --- !u!1001 &1892029281
@@ -13373,6 +14693,22 @@ Prefab:
       propertyPath: m_Name
       value: sewer_gully_lane01
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 1603792088}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 557484111}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 1603792088}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 557484111}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
   m_RootGameObject: {fileID: 1110907780}
@@ -13715,6 +15051,71 @@ MeshFilter:
   m_PrefabInternal: {fileID: 985985970}
   m_GameObject: {fileID: 2075811605}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2084342031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2084342034}
+  - 148: {fileID: 2084342033}
+  - 114: {fileID: 2084342032}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2084342032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 2084342031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
+  m_Name: 
+  m_InterpolationBackTime: .10000000000000001
+  m_ExtrapolationLimit: .5
+  WaypointA: {fileID: 538011694}
+  WaypointB: {fileID: 538011694}
+  valvesA:
+  - {fileID: 1498898924}
+  - {fileID: 963854861}
+  - {fileID: 410674229}
+  valvesB:
+  - {fileID: 208326699}
+  - {fileID: 1428038431}
+  - {fileID: 55330605}
+--- !u!148 &2084342033
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 14800000, guid: 8183c1028eee120449cfd486690a4882,
+    type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 2084342031}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 2084342032}
+  m_ViewID:
+    m_ID: 3
+    m_Type: 1
+--- !u!4 &2084342034
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 8183c1028eee120449cfd486690a4882, type: 2}
+  m_PrefabInternal: {fileID: 1008125863}
+  m_GameObject: {fileID: 2084342031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 125.841522, y: .345087051, z: 104.952072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1412838872}
+  m_Father: {fileID: 0}
 --- !u!1001 &2104174095
 Prefab:
   m_ObjectHideFlags: 0
@@ -13854,6 +15255,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase1
+      value: 
+      objectReference: {fileID: 315087}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointCloserToBase2
+      value: 
+      objectReference: {fileID: 1032927631}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointA
+      value: 
+      objectReference: {fileID: 315087}
+    - target: {fileID: 11400000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
+      propertyPath: WaypointB
+      value: 
+      objectReference: {fileID: 1032927631}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a7592cf790b0a9498e9b93def369d84, type: 2}
   m_RootGameObject: {fileID: 1271210978}
@@ -13907,6 +15324,46 @@ Prefab:
   m_RootGameObject: {fileID: 1443901368}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &2146703213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1039285685}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2146703214}
+  - 114: {fileID: 2146703215}
+  m_Layer: 0
+  m_Name: bomb_waypoint
+  m_TagString: BombWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2146703214
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 589a513177306c046a3e64336f5e1f85, type: 2}
+  m_PrefabInternal: {fileID: 1039285685}
+  m_GameObject: {fileID: 2146703213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.4490356, y: .0541667454, z: 16.4457417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1113753451}
+--- !u!114 &2146703215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 589a513177306c046a3e64336f5e1f85,
+    type: 2}
+  m_PrefabInternal: {fileID: 1039285685}
+  m_GameObject: {fileID: 2146703213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
+  m_Name: 
+  WaypointA: {fileID: 0}
+  WaypointB: {fileID: 315087}
 --- !u!1 &2146715686
 GameObject:
   m_ObjectHideFlags: 0
@@ -13917,10 +15374,9 @@ GameObject:
   - 4: {fileID: 2146715687}
   - 33: {fileID: 2146715690}
   - 23: {fileID: 2146715689}
-  - 95: {fileID: 2146715688}
   - 64: {fileID: 2146715691}
   m_Layer: 0
-  m_Name: IWSewerHoleL
+  m_Name: walls_sewer_hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13937,19 +15393,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1609123048}
---- !u!95 &2146715688
-Animator:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500004, guid: 5dd70fa35c142394cbca039e9acd345c,
-    type: 2}
-  m_PrefabInternal: {fileID: 377990551}
-  m_GameObject: {fileID: 2146715686}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4f9034839b532a6478cff8dd6b9c6dd2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 0
 --- !u!23 &2146715689
 Renderer:
   m_ObjectHideFlags: 0
