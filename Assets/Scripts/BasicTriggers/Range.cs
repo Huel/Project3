@@ -76,14 +76,13 @@ public class Range : MonoBehaviour
         return null;
     }
 
-    public Target GetNearestTargetByPriority(List<TargetType> types, Team team)
+    public Target GetNearestTargetByTypePriorityAndEnemyOnly(List<TargetType> types, Team team)
     {
         order();
         foreach (TargetType type in types)
             for (int i = 0; i < objectsInRange.Count; i++)
                 if (objectsInRange[i].type == type
-                    && (objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team)
-                    || objectsInRange[i].type == TargetType.Valve))
+                    && objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team))
                     return objectsInRange[i];
         return null;
     }
@@ -167,8 +166,6 @@ public class Range : MonoBehaviour
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
-        if (gameObject.name == "attentionrange_minion")
-            gameObject.transform.parent.transform.FindChild("looserange_minion").GetComponent<Range>().addSpecificTarget(target);
     }
 
     void OnTriggerExit(Collider other)
@@ -178,7 +175,7 @@ public class Range : MonoBehaviour
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in exitRangeListener)
                 if (listener != null) 
-                    listener(other.gameObject.GetComponent<Target>()); 
+                    listener(other.gameObject.GetComponent<Target>());   
         objectsInRange.Remove(target);
         // attentionRange is deactivated, so OnTriggerExit will not be triggered
         if (gameObject.name == "looserange_minion")
@@ -233,10 +230,5 @@ public class Range : MonoBehaviour
     public void deleteSpecificTarget(Target target)
     {
         objectsInRange.Remove(target);
-    }
-
-    public void addSpecificTarget(Target target)
-    {
-        objectsInRange.Add(target);
     }
 }

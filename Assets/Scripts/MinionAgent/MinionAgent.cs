@@ -11,10 +11,8 @@ public class MinionAgent : MonoBehaviour
 
     private Target _destination;    // default target
     private Target _origin;         // came from here
-    public Target _target;         // current target
+    private Target _target;         // current target
     private float _destinationOffset = 1f;
-
-    public float productivity;
 
     public Range attentionRange;
     public Range looseAttentionRange;
@@ -93,7 +91,8 @@ public class MinionAgent : MonoBehaviour
         else
         {
             //if target out of range
-            if (!looseAttentionRange.isInRange(_target))
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf
+                && !looseAttentionRange.isInRange(_target))
             {
                 _target = null;
                 return;
@@ -101,11 +100,6 @@ public class MinionAgent : MonoBehaviour
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
 
-            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
-            {
-                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
-                _target = null;
-            }
         }
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
@@ -114,13 +108,7 @@ public class MinionAgent : MonoBehaviour
         }
         if (_target != null && contact.Contact(_target))
         {
-            if (_target.type == TargetType.Hero ||  _target.type == TargetType.Minion)
-                basicAttack.Execute();
-            else if (_target.type == TargetType.Valve)
-            {
-                Debug.Log("dran");
-                _target.gameObject.GetComponent<Valve>().AddMinion(this);
-            }
+            basicAttack.Execute();
         }
         if (_target != null && _target.type == TargetType.Dead)
         {
@@ -130,7 +118,7 @@ public class MinionAgent : MonoBehaviour
 
     void SelectTarget()
     {
-        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
+        var target = attentionRange.GetNearestTargetByTypePriorityAndEnemyOnly(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
         if (target == null) return;
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
@@ -138,9 +126,11 @@ public class MinionAgent : MonoBehaviour
             //contact.AddListener(target, OnEnemyContact);
             return;
         }
-        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
+
+        if (target.type == TargetType.Valve)
         {
             _target = target;
+            return;
         }
     }
 
