@@ -17,9 +17,10 @@ public class DebugChangeColor : MonoBehaviour
     public static Color lightGreen = new Color(0.4f, 1f, 0.4f, 1f);
     public static Color red = new Color(1f, 0f, 0f, 1f);
     public static Color black = new Color(0f, 0f, 0f, 1f);
+    public static Color[] colorSet0 = { blue, lightBlue, red, black };
     public static Color[] colorSet1 = { blue, lightBlue, red, black };
     public static Color[] colorSet2 = { green, lightGreen, red, black };
-    public static Color[][] debugColors = { colorSet1, colorSet2 };
+    public static Color[][] debugColors = { colorSet0, colorSet1, colorSet2 };
 
     // Use this for initialization
     void Awake()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class Valve : MonoBehaviour
 {
 
@@ -11,27 +12,32 @@ public class Valve : MonoBehaviour
 		public int player;
 		public int minionCount;
 		public float productivity;
-		public Team.TeamIdentifier team;
+		public int team;
 	}
-
 	public enum ValveState { Closed, Opened, FullyOccupied, NotFullyOccupied, NotOccupied }
-	public Team.TeamIdentifier occupant;
-    public float productivity = 0.0f;
-    public bool currentlyDecaying = false;
-    public Team.TeamIdentifier team;
+
+    public const float _openValve = 100.0f;
+    public const int _maxMinionCount = 5;
+
+    public Team _valveTeam;
+    public float _state = 100.0f;
+
+	public Team.TeamIdentifier _occupant;
+    public List<ValveOccupant> _occupants;
+    public float _productivity = 0.0f;
+    public int _minionCount = 0;
+
 
     // testing
     public ValveState currentState;
     // *********************
 
-	public float _state = 100.0f;
+    public int _localPlayerID = -1;
     public List<MinionAgent> _localMinions;
-    public List<ValveOccupant> _occupants;
     public float _localProductivity = 0.0f;
-    public float _localProductivitySave = 0.0f;
 
-	public float _openValve = 100.0f;
-	public int _maxMinionCount = 5;
+
+    
 
 	public float State 
 	{
@@ -41,53 +47,52 @@ public class Valve : MonoBehaviour
 		}
 	}
 
-	public int MinionCount
-	{
-		get { return GetMinionCount(); }
-	}
-
 	// Use this for initialization
 	void Awake ()
 	{
-        team = gameObject.GetComponent<Team>().ID;
-	    occupant = team;
-
+        _valveTeam = gameObject.GetComponent<Team>();
+	    _occupant = _valveTeam.ID;
 	    _localMinions = new List<MinionAgent>();
 		_occupants = new List<ValveOccupant>();
 
-		_occupants.Add(new ValveOccupant());
-		_occupants[0].player = -89;
-		_occupants[0].minionCount = 0;
-		_occupants[0].productivity = 0;
-
-		_occupants.Add(new ValveOccupant());
-		_occupants[1].minionCount = 0;
-		_occupants[1].productivity = 0;
 	}
+
+    void FindLocalPlayerID()
+    {
+        NetworkPlayerController netPlayer = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController;
+        if(netPlayer != null)
+            _localPlayerID = netPlayer.playerID;
+        Debug.Log(networkView.owner);
+    }
 	
 	// Update is called once per frame
 	void Update ()
 	{
+        if(_localPlayerID == -1)
+            FindLocalPlayerID();
 	    currentState = GetValveState();
 
 		if (networkView.isMine)
 		{
-			if (!currentlyDecaying)
-				_state += GetEntireProductivity() * Time.deltaTime;
-            else if (currentlyDecaying)
-                _state -= GetEntireProductivity() * Time.deltaTime;
+			if (!_valveTeam.isEnemy(_occupant))
+				_state += _productivity * Time.deltaTime;
+            else if (_valveTeam.isEnemy(_occupant))
+                _state -= _productivity * Time.deltaTime;
             Mathf.Clamp(_state, 0, _openValve);
 		}
-		_localProductivitySave = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
-		if (_localProductivitySave != _localProductivity)
+        float tempProductivity = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
+        if (tempProductivity != _localProductivity)
 		{
-			_localProductivity = _localProductivitySave;
-			if (!networkView.isMine)
+            _localProductivity = tempProductivity;
+			if (networkView.isMine)
 			{
-				networkView.RPC("SubmitLocalProductivity", RPCMode.Server, _localProductivity, GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID);
+				SubmitLocalProductivity(_localProductivity, _localPlayerID);
+			}
+			else
+			{
+                networkView.RPC("SubmitLocalProductivity", networkView.owner, _localProductivity, _localPlayerID);
 			}
 		}
-	    currentlyDecaying = (team != occupant);
 
         for (int i = _localMinions.Count-1; i > 0; i--)
 	    {
@@ -107,25 +112,23 @@ public class Valve : MonoBehaviour
         return !(stateComplete(minion)
             || (_localMinions.Any(minionAgent => minionAgent == minion))
             || GetValveState() == ValveState.FullyOccupied
-            || occupant != team) ;
+            || (_valveTeam.isEnemy(_occupant) && GetValveState() == ValveState.NotFullyOccupied)) ;
     }
 
 	public void AddMinion(MinionAgent minion)
 	{
+
         if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
 		_localMinions.Add(minion);
-		float localProductivity = _localMinions.Sum(mini => mini.productivity);
-		if (!networkView.isMine)
+		_localProductivity = _localMinions.Sum(mini => mini.productivity);
+        if (networkView.isMine)
         {
-		    networkView.RPC("SubmitLocalMinionCount", RPCMode.Server,
-                            _localMinions.Count, localProductivity, 
-                            GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID, 
-                            (int)minion.gameObject.GetComponent<Team>().ID);
-		}
-		else
-			SubmitLocalMinionCount(_localMinions.Count, localProductivity, 
-                GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID, 
-                (int)minion.gameObject.GetComponent<Team>().ID);
+            SubmitLocalMinionCount(_localMinions.Count, _localProductivity, _localPlayerID, (int) minion.GetComponent<Team>().ID);
+        }
+        else
+        {
+            networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+        }	
 	}
 
 	public bool RemoveMinion(MinionAgent minion)
@@ -135,15 +138,15 @@ public class Valve : MonoBehaviour
 			if (localMinion.gameObject == minion.gameObject)
 			{
 				_localMinions.Remove(localMinion);
-				float localProductivity = _localMinions.Sum(mini => mini.productivity);
-				if (!networkView.isMine)
-					networkView.RPC("SubmitLocalMinionCount", RPCMode.Server, _localMinions.Count, localProductivity,
-                                    GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-                                    (int)minion.gameObject.GetComponent<Team>().ID);
-				else
-					SubmitLocalMinionCount(_localMinions.Count, localProductivity,
-                                           GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController.playerID,
-                                           (int)minion.gameObject.GetComponent<Team>().ID);
+                _localProductivity = _localMinions.Sum(mini => mini.productivity);
+                if (networkView.isMine)
+                {
+                    SubmitLocalMinionCount(_localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+                }
+                else
+                {
+                    networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+                }
 				return true;
 			}
 		}
@@ -161,9 +164,9 @@ public class Valve : MonoBehaviour
             return ValveState.Opened;
         }
         
-        if (GetMinionCount() > 0)
+        if (_minionCount > 0)
 		{
-            if (GetMinionCount() < _maxMinionCount)
+            if (_minionCount < _maxMinionCount)
 			{
 				return ValveState.NotFullyOccupied;
 			}
@@ -174,7 +177,7 @@ public class Valve : MonoBehaviour
 
 	private bool DoesValveBelongTo(MinionAgent minion)
 	{
-        return team == minion.gameObject.GetComponent<Team>().ID;
+        return _valveTeam.isOwnTeam(minion.gameObject.GetComponent<Team>());
 	}
 
 	public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
@@ -182,75 +185,80 @@ public class Valve : MonoBehaviour
 		stream.Serialize(ref _state);
 	}
 
-	private int GetMinionCount()
-	{
-		return _occupants[0].minionCount + _occupants[1].minionCount;
-	}
-
-	private float GetEntireProductivity()
-	{
-        if(_occupants == null) Debug.Log("ES LIEGT AN OCCUPANTS NULL");
-		return _occupants[0].productivity + _occupants[1].productivity;
-	}
 
 
+    //Only called on Server
 	[RPC]
 	public void SubmitLocalMinionCount(int count, float productivity, int playerID, int team)
 	{
-		if (occupant == (Team.TeamIdentifier)team) //belongs to your team
-		{
-			if (_occupants[0].player == playerID)
-			{
-				_occupants[0].minionCount = count;
-				_occupants[0].productivity = productivity;
-			}
-			else
-			{
-				_occupants[1].player = playerID;
-				_occupants[1].minionCount = count;
-				_occupants[1].productivity = productivity;
-			}
-		}
-		else //does not belong to your team so it could have been used from AddMinion only
-		{
-			occupant = (Team.TeamIdentifier)team;
+        if(!networkView.isMine)
+            return;
+	    ValveOccupant submittedOccupant = null;
+	    foreach (ValveOccupant valveOccupant in _occupants)
+	    {
+            if (valveOccupant.player == playerID)
+            {
+                submittedOccupant = valveOccupant;
+            }
+	    }
+        if (submittedOccupant != null)
+        {
+            if (count == 0)
+                _occupants.Remove(submittedOccupant);
+            else
+            {
+                submittedOccupant.minionCount = count;
+                submittedOccupant.productivity = productivity;
+            }
+        }
+        else if(count != 0)
+        {
+            submittedOccupant = new ValveOccupant();
+            submittedOccupant.minionCount = count;
+            submittedOccupant.player = playerID;
+            submittedOccupant.productivity = productivity;
+            submittedOccupant.team = team;
+            _occupants.Add(submittedOccupant);
+            if (_occupants.Count == 1)
+            {
+                UpdateOccupant(team);
+                networkView.RPC("UpdateOccupant", RPCMode.OthersBuffered, team);
+            }
+        }
+        else
+            return;
 
-			_occupants[1].minionCount = 0;
-			_occupants[1].productivity = 0;
-			_occupants[1].team = (Team.TeamIdentifier)team;
-
-			_occupants[0].player = playerID;
-			_occupants[0].minionCount = count;
-			_occupants[0].productivity = productivity;
-			_occupants[0].team = (Team.TeamIdentifier) team;
-			networkView.RPC("UpdateOccupant", RPCMode.OthersBuffered, team);
-		}
-		networkView.RPC("UpdateMinionCount", RPCMode.OthersBuffered, _occupants[0].minionCount, _occupants[1].minionCount);
+        _minionCount = _occupants.Sum(minion => minion.minionCount);
+        _productivity = _occupants.Sum(minion => minion.productivity);
+		networkView.RPC("UpdateMinionCount", RPCMode.OthersBuffered, _minionCount);
 	}
 
 	[RPC]
 	public void SubmitLocalProductivity(float productivity, int playerID)
 	{
-		if (_occupants[0].player == playerID)
-		{
-			_occupants[0].productivity = productivity;
-		}
-		else
-		{
-			_occupants[1].productivity = productivity;
-		}
+        if(!networkView.isMine)
+            return;
+        ValveOccupant submittedOccupant = null;
+        foreach (ValveOccupant valveOccupant in _occupants)
+        {
+            if (valveOccupant.player == playerID)
+            {
+                submittedOccupant = valveOccupant;
+            }
+        }
+	    if (submittedOccupant != null)
+	        submittedOccupant.productivity = productivity;
 	}
 
 	[RPC]
-	public void UpdateMinionCount(int first, int second)
+	public void UpdateMinionCount(int globalMinionCount)
 	{
-		_occupants[0].minionCount = first;
-		_occupants[1].minionCount = second;
+        _minionCount = globalMinionCount;
 	}
 
 	[RPC]
 	public void UpdateOccupant(int team)
 	{
-		occupant = (Team.TeamIdentifier)team;
+		_occupant = (Team.TeamIdentifier)team;
 	}
 }

@@ -14,12 +14,11 @@ public class LocalPlayerController : MonoBehaviour
 
     void Awake()
     {
-        if(Network.isServer)
-            GameObject.FindGameObjectWithTag(Tags.gameController).networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
+        GameObject gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
+        if(gameController.networkView!= null && gameController.networkView.isMine)
+            gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Running);
 
-        networkPlayerController = GameObject.FindGameObjectWithTag(Tags.gameController)
-                  .GetComponent<GameController>()
-                  .GetNetworkPlayerController(Network.player);
+        networkPlayerController = gameController.GetComponent<GameController>().GetNetworkPlayerController(Network.player);
         if (networkPlayerController == null)
             Debug.LogError("Couldn't find NetworkPlayerController");
 

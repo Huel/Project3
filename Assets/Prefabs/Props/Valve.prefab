@@ -11,14 +11,13 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 95: {fileID: 9500000}
-  - 208: {fileID: 20800000}
   - 148: {fileID: 14800000}
   - 64: {fileID: 6400000}
   - 136: {fileID: 13600000}
-  - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
-  m_Layer: 0
+  - 114: {fileID: 11400000}
+  m_Layer: 9
   m_Name: Valve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +95,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
-  ID: 0
+  ID: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,17 +117,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  occupant: 0
-  productivity: 0
-  currentlyDecaying: 0
-  team: 0
-  currentState: 1
+  _valveTeam: {fileID: 0}
   _state: 100
+  _occupant: 0
+  _productivity: 0
+  _minionCount: 0
+  currentState: 1
+  _localPlayerID: -1
   _localMinions: []
   _localProductivity: 0
-  _localProductivitySave: 0
-  _openValve: 100
-  _maxMinionCount: 5
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -141,7 +138,7 @@ CapsuleCollider:
   m_Radius: 2.5
   m_Height: 10
   m_Direction: 2
-  m_Center: {x: 0, y: -1.23000002, z: 0}
+  m_Center: {x: 0, y: -1.23000002, z: 2}
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
@@ -150,19 +147,10 @@ NetworkView:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_StateSynchronization: 1
-  m_Observed: {fileID: 400000}
+  m_Observed: {fileID: 11400004}
   m_ViewID:
     m_ID: 0
     m_Type: 0
---- !u!208 &20800000
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_Radius: 3.8599999
-  m_Height: 7.67036343
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

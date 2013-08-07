@@ -221,9 +221,11 @@ MonoBehaviour:
   m_Name: 
   laneID: 0
   basicAttack: {fileID: 11400024}
+  _target: {fileID: 0}
   attentionRange: {fileID: 11400006}
   looseAttentionRange: {fileID: 11400002}
   contact: {fileID: 11400004}
+  productivity: 2
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,7 +298,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
-  ID: 1
+  ID: 0
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -346,7 +348,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2543e79ed310554fa8486821eec0106, type: 3}
   m_Name: 
-  colors: 0
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour
 
     void SetGameState(GameState state)
     {
-        this.state = (GameState)state;
+        this.state = state;
         if (this.state == GameState.Running)
         {
             GetComponent<GameSettings>().Init();

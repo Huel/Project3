@@ -4,7 +4,7 @@ public class Team : MonoBehaviour
 {
 
 
-    public enum TeamIdentifier { Team1, Team2 }
+    public enum TeamIdentifier {NoTeam, Team1, Team2 }
     public TeamIdentifier ID;
 
 
@@ -65,7 +65,7 @@ public class Team : MonoBehaviour
 
     void Awake()
     {
-        if (networkView != null && networkView.isMine)
+        if (NetworkManager.isNetwork && networkView != null && networkView.isMine && ID == TeamIdentifier.NoTeam)
         {
             setID(GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<Team>().ID);
             networkView.RPC("setID", RPCMode.OthersBuffered, (int)ID);

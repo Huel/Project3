@@ -57,6 +57,7 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
+            return;
         }
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
