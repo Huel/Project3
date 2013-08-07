@@ -11,9 +11,9 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 95: {fileID: 9500000}
-  - 64: {fileID: 6400000}
+  - 65: {fileID: 6500000}
   m_Layer: 0
-  m_Name: Bridge
+  m_Name: Pipe_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: -.315703452, y: .63271749, z: .63271749, w: .315703422}
-  m_LocalPosition: {x: -55.0129852, y: 3.40190482, z: 24.4934082}
+  m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+  m_LocalPosition: {x: 156.010635, y: 2.97260499, z: 78.9826584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 95da6a19991ef8f458c1ef44c30761dd, type: 2}
+  - {fileID: 2100000, guid: 5fd9d66b32c4928448328470ba7b3181, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -54,9 +54,9 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 4300000, guid: 0a886d0d6665ab64ab1347a3e8589532, type: 3}
---- !u!64 &6400000
-MeshCollider:
+  m_Mesh: {fileID: 4300000, guid: c1eccf6321280834e86c31bb56b72767, type: 3}
+--- !u!65 &6500000
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -65,9 +65,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 0a886d0d6665ab64ab1347a3e8589532, type: 3}
+  m_Size: {x: 3.03776813, y: 6.44999981, z: 18.365057}
+  m_Center: {x: .0915309191, y: -.0500000007, z: 9.18647289}
 --- !u!95 &9500000
 Animator:
   m_ObjectHideFlags: 1
@@ -75,7 +74,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0a886d0d6665ab64ab1347a3e8589532, type: 3}
+  m_Avatar: {fileID: 9000000, guid: c1eccf6321280834e86c31bb56b72767, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_ApplyRootMotion: 1

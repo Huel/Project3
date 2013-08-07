@@ -62,7 +62,6 @@ public class Valve : MonoBehaviour
         NetworkPlayerController netPlayer = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController;
         if(netPlayer != null)
             _localPlayerID = netPlayer.playerID;
-        Debug.Log(networkView.owner);
     }
 	
 	// Update is called once per frame
@@ -133,11 +132,11 @@ public class Valve : MonoBehaviour
 
 	public bool RemoveMinion(MinionAgent minion)
 	{
-		foreach (MinionAgent localMinion in _localMinions)
+		for (int i = _localMinions.Count-1; i>=0;i--)
 		{
-			if (localMinion.gameObject == minion.gameObject)
+			if (_localMinions[i].gameObject == minion.gameObject)
 			{
-				_localMinions.Remove(localMinion);
+                _localMinions.Remove(_localMinions[i]);
                 _localProductivity = _localMinions.Sum(mini => mini.productivity);
                 if (networkView.isMine)
                 {
