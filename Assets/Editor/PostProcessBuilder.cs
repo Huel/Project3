@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class PostProcessBuilder : MonoBehaviour
 {
-    [MenuItem("Build Project/Build")]
+    [MenuItem("Build Project/Build % ")]
     public static void BuildGame()
     {
+        EditorApplication.SaveCurrentSceneIfUserWantsTo();
         // Get filename.
         string path = Application.dataPath + "/../build/";
 
@@ -35,6 +36,9 @@ public class PostProcessBuilder : MonoBehaviour
         Process proc = new Process();
         proc.StartInfo.FileName = path + "Project3.exe";
         proc.Start();
+
+        EditorApplication.OpenScene(scenes[0]);
+        EditorApplication.isPlaying = true;
     }
 
     private static void saveIPXML(string dataPath)
