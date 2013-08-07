@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using UnityEngine;
 
+[RequireComponent(typeof(NetworkView))]
 public class Bomb : MonoBehaviour 
 {
 	public double m_InterpolationBackTime = 0.1;
