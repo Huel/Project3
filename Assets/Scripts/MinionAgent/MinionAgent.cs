@@ -17,6 +17,7 @@ public class MinionAgent : MonoBehaviour
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
+    public float productivity;
 
     //public Skill basicSkill;
 
