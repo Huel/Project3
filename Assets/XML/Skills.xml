@@ -68,22 +68,22 @@
 
       <cooldown>20.0</cooldown>
 
-      <buff id="Cry" randomEffect="true">
+      <debuff id="Cry" randomEffect="true">
         <addBuff><field>Freeze</field><chance></chance></addBuff>
         <addBuff><field>Flee</field><value></value></addBuff>
-      </buff>
+      </debuff>
 
-      <buff id="Freeze">
+      <debuff id="Freeze">
         <addModifier><field>CanMove</field><value>false</value></addModifier>
         <duration>3.0</duration>
         <removeModifier><field>CanMove</field><value>true</value></removeModifier>
-      </buff>
+      </debuff>
 
-      <buff id="Flee">
+      <debuff id="Flee">
         <addModifier><field>Target</field><value>Origin</value></addModifier>
         <duration>3.0</duration>
         <removeModifier><field>ResetTarget</field><value></value></removeModifier>
-      </buff>
+      </debuff>
 
       <buff id="AuraRemover">
         <duration>0.1</duration>
