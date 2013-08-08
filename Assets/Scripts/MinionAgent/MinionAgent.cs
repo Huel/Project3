@@ -19,7 +19,7 @@ public class MinionAgent : MonoBehaviour
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 1f;
+    public float productivity = 2f;
 
     //public Skill basicSkill;
 
@@ -57,6 +57,7 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
+            return;
         }
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
@@ -83,7 +84,6 @@ public class MinionAgent : MonoBehaviour
                     else
                         SetDestination(null);
                 }
-
             }
             else  //move to own position
                 _agent.destination = transform.position;
@@ -103,6 +103,11 @@ public class MinionAgent : MonoBehaviour
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
 
+            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
+            {
+                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
+                _target = null;
+            }
         }
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
@@ -110,12 +115,13 @@ public class MinionAgent : MonoBehaviour
         }
         if (_target != null && contact.Contact(_target))
         {
-            basicAttack.Execute();
+            if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
+                basicAttack.Execute();
+            else if (_target.type == TargetType.Valve)
+                _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
         if (_target != null && _target.type == TargetType.Dead)
-        {
             _target = null;
-        }
     }
 
     void SelectTarget()
@@ -129,10 +135,7 @@ public class MinionAgent : MonoBehaviour
         }
 
         if (target.type == TargetType.Valve)
-        {
             _target = target;
-            return;
-        }
     }
 
     public void SetDestination(Target destination)
