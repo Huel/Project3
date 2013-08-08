@@ -8,9 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 114: {fileID: 11400000}
-  m_Layer: 14
-  m_Name: blue_team
+  - 20: {fileID: 2000000}
+  m_Layer: 0
+  m_Name: camera_minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22,33 +22,39 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 4.37113918e-08, w: 1}
-  m_LocalPosition: {x: 93.3000488, y: 14.8000002, z: 34.5282173}
-  m_LocalScale: {x: 9.39999962, y: 9.19999981, z: 1}
+  m_LocalRotation: {x: -1.37678782e-07, y: .707106829, z: .707106829, w: 1.37678782e-07}
+  m_LocalPosition: {x: 127.184204, y: 65.8735428, z: 16.2931786}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &11400000
-MonoBehaviour:
+--- !u!20 &2000000
+Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
-  m_Name: 
-  mMat: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
-  mTex: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mDepth: 1
-  mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
-  mSpriteName: Interface_blue_team
-  mFillCenter: 1
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: .0389841907, g: .0963775665, b: .186567187, a: .0196078438}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 10
+  far clip plane: 100
+  field of view: 60
+  orthographic: 1
+  orthographic size: 132.300003
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: 3a931696f7dd25d4a8aa8372f2933361, type: 2}
+  m_HDR: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

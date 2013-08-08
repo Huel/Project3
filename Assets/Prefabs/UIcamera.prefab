@@ -344,7 +344,6 @@ GameObject:
   - 4: {fileID: 400042}
   - 114: {fileID: 11400036}
   - 114: {fileID: 11400034}
-  - 114: {fileID: 11400038}
   m_Layer: 13
   m_Name: characterstate
   m_TagString: Untagged
@@ -370,6 +369,54 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100046
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400046}
+  - 114: {fileID: 11400032}
+  m_Layer: 13
+  m_Name: Shieldwall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100048
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400048}
+  - 114: {fileID: 11400038}
+  m_Layer: 13
+  m_Name: Sprite (icon_kriegsschrei)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100050
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400050}
+  - 114: {fileID: 11400040}
+  m_Layer: 13
+  m_Name: Sprite (icon_kamikaze_minion)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &100052
 GameObject:
   m_ObjectHideFlags: 1
@@ -381,6 +428,22 @@ GameObject:
   - 114: {fileID: 11400042}
   m_Layer: 13
   m_Name: background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100054
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400054}
+  - 114: {fileID: 11400044}
+  m_Layer: 13
+  m_Name: freshMeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +472,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.7131252, y: 76.9804306, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .0009765625, y: .0009765625, z: .0009765625}
   m_Children:
   - {fileID: 400004}
@@ -631,7 +694,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0078125, y: -646.421875, z: 0}
+  m_LocalPosition: {x: 0, y: -646.441895, z: 0}
   m_LocalScale: {x: 1.00044799, y: 1.00044799, z: 1.00044799}
   m_Children:
   - {fileID: 400040}
@@ -658,7 +721,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0078125, y: -646.421875, z: 0}
+  m_LocalPosition: {x: 0, y: -646.441895, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400052}
@@ -667,6 +730,10 @@ Transform:
   - {fileID: 400056}
   - {fileID: 400012}
   - {fileID: 400018}
+  - {fileID: 400046}
+  - {fileID: 400050}
+  - {fileID: 400048}
+  - {fileID: 400054}
   m_Father: {fileID: 400028}
 --- !u!4 &400044
 Transform:
@@ -679,6 +746,39 @@ Transform:
   m_LocalScale: {x: 32.4742928, y: 32.4742928, z: 32.4742928}
   m_Children: []
   m_Father: {fileID: 400038}
+--- !u!4 &400046
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 191, y: 52, z: 0}
+  m_LocalScale: {x: 87, y: 92, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400042}
+--- !u!4 &400048
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23, y: 52, z: 0}
+  m_LocalScale: {x: 87, y: 92, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400042}
+--- !u!4 &400050
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 85, y: 52, z: 0}
+  m_LocalScale: {x: 87, y: 92, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400042}
 --- !u!4 &400052
 Transform:
   m_ObjectHideFlags: 1
@@ -688,6 +788,17 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 613, y: 177, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400042}
+--- !u!4 &400054
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -131, y: 52, z: 0}
+  m_LocalScale: {x: 87, y: 92, z: 1}
   m_Children: []
   m_Father: {fileID: 400042}
 --- !u!4 &400056
@@ -1063,11 +1174,11 @@ MonoBehaviour:
     e00: 1024
     e01: 0
     e02: 0
-    e03: -13018.2402
+    e03: 0
     e10: 0
     e11: 1024
     e12: 0
-    e13: -78827.9609
+    e13: 0
     e20: 0
     e21: 0
     e22: 1024
@@ -1147,6 +1258,28 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!114 &11400032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
+  m_Name: 
+  mMat: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+  mTex: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mDepth: 6
+  mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
+  mSpriteName: icon_schildwall
+  mFillCenter: 1
+  mType: 3
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1179,11 +1312,45 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100042}
+  m_GameObject: {fileID: 100048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f5c62eb79ebe848a4dbe8006cff284, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  mMat: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+  mTex: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mDepth: 4
+  mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
+  mSpriteName: icon_kriegsschrei
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!114 &11400040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
+  m_Name: 
+  mMat: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+  mTex: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mDepth: 5
+  mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
+  mSpriteName: icon_kamikaze_minion
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!114 &11400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1201,6 +1368,28 @@ MonoBehaviour:
   mDepth: 0
   mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
   mSpriteName: Interface_hero_background
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!114 &11400044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
+  m_Name: 
+  mMat: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+  mTex: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mDepth: 3
+  mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
+  mSpriteName: icon_frischfleisch
   mFillCenter: 1
   mType: 0
   mFillDirection: 4

@@ -4,28 +4,44 @@ using System.Collections.Generic;
 
 public class Minimap : MonoBehaviour
 {
-	public GameObject bluePointPrefab;
-	public GameObject greenPointPrefab;
+	public GameObject teamOnePointPrefab;
+	public GameObject teamTwoPointPrefab;
+	public GameObject heroTeamOnePointPrefab;
+	public GameObject heroTeamTwoPointPrefab;
 
-	private const float scale = 1.5f;
+	private const float scale = 13.8f;
 	private const float mapHight = 116;
 
 	private GameObject heroTeamOnePoint;
 	private GameObject heroTeamTwoPoint;
 
 	public List<GameObject> players = new List<GameObject>();
+	public List<GameObject> minionTeamOne = new List<GameObject>();
+	public List<GameObject> minionTeamTwo = new List<GameObject>();
 
 	void Awake()
 	{
-		heroTeamOnePoint = (GameObject) Instantiate(bluePointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-		heroTeamOnePoint.transform.parent = gameObject.transform;
-		//heroTeamOnePoint.transform.position = gameObject.transform.position;
-		heroTeamOnePoint.transform.localEulerAngles = new Vector3(90, 0, 0);
+		heroTeamOnePoint = (GameObject)Instantiate(heroTeamOnePointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		AdjustHeroPoint(heroTeamOnePoint);
 
-		heroTeamTwoPoint = (GameObject)Instantiate(greenPointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-		heroTeamTwoPoint.transform.parent = gameObject.transform;
-		//heroTeamTwoPoint.transform.position = gameObject.transform.position;
-		heroTeamTwoPoint.transform.localEulerAngles = new Vector3(90, 0, 0);
+		heroTeamTwoPoint = (GameObject)Instantiate(heroTeamTwoPointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		AdjustHeroPoint(heroTeamTwoPoint);
+	}
+
+	private void AdjustHeroPoint(GameObject point)
+	{
+		point.transform.parent = gameObject.transform;
+		point.transform.localScale = new Vector3(scale, scale);
+		point.transform.localEulerAngles = new Vector3(90, 0, 0);
+	}
+
+	private GameObject CreatMinionPoint(GameObject prefab)
+	{
+		GameObject point;
+		point = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+		point.transform.parent = gameObject.transform;
+		point.transform.localEulerAngles = new Vector3(90, 0, 0);
+		return point;
 	}
 
 	private void AdjustMap()
@@ -79,19 +95,94 @@ public class Minimap : MonoBehaviour
 		}
 	}
 
-	// Update is called once per frame
-	void Update () 
+	void SearchPlayer()
 	{
+		#region fill List of Players
 		if (players.Count < 2)
 		{
 			foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player))
 			{
 				if (!players.Contains(player) && player.GetComponent<Health>().IsAlive())
 				{
-						players.Add(player);
-				} 
+					players.Add(player);
+				}
 			}
 		}
+		#endregion
+
+		#region remove dead plyers
+		foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player))
+		{
+			if (!player.GetComponent<Health>().IsAlive())
+			{
+				players.Remove(player);
+			}
+		}
+		#endregion
+	}
+
+	private void PlaceMinions()
+	{
+		minionTeamOne = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.blueDot));
+		minionTeamTwo = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.greenDot));
+
+		foreach (GameObject minion in GameObject.FindGameObjectsWithTag(Tags.minion))
+		{
+			if (minion.GetComponent<Health>().IsAlive())
+			{
+				if (minion.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+				{
+					if (minionTeamOne.Count > 0)
+					{
+						minionTeamOne[0].transform.position =
+							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
+							            mapHight, minion.transform.position.z);
+						minionTeamOne.RemoveAt(0);
+					}
+					else
+					{
+						CreatMinionPoint(teamOnePointPrefab).transform.position =
+							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
+							            mapHight, minion.transform.position.z);
+					}
+				}
+				else
+				{
+					if (minionTeamTwo.Count > 0)
+					{
+						minionTeamTwo[0].transform.position =
+							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
+							            mapHight, minion.transform.position.z);
+						minionTeamTwo.RemoveAt(0);
+					}
+					else
+					{
+						CreatMinionPoint(teamTwoPointPrefab).transform.position =
+							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
+							            mapHight, minion.transform.position.z);
+					}
+				}
+			}
+		}
+
+		foreach (GameObject bluePoint in minionTeamOne)
+		{
+			bluePoint.transform.position = new Vector3(500, 0, 0);
+		}
+
+		foreach (GameObject greenPoint in minionTeamTwo)
+		{
+			greenPoint.transform.position = new Vector3(500, 0, 0);
+		}
+	}
+
+	private 
+
+	// Update is called once per frame
+	void Update ()
+	{
+		SearchPlayer();
+		PlaceMinions();
 		AdjustMap();
 	}
 }
