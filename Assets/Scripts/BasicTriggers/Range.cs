@@ -167,6 +167,8 @@ public class Range : MonoBehaviour
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
+        if (gameObject.name == "attentionrange_minion")
+            gameObject.transform.parent.transform.FindChild("looserange_minion").GetComponent<Range>().addSpecificTarget(target);
     }
 
     void OnTriggerExit(Collider other)
@@ -226,6 +228,11 @@ public class Range : MonoBehaviour
     public void SetActive(bool value)
     {
         gameObject.SetActive(value);
+    }
+
+    public void addSpecificTarget(Target target)
+    {
+        objectsInRange.Add(target);
     }
 
     public void deleteSpecificTarget(Target target)
