@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class PostProcessBuilder : MonoBehaviour
 {
-    [MenuItem("Build Project/Build % ")]
+
+    [MenuItem("Trash Clash/Build % ")]
     public static void BuildGame()
     {
         EditorApplication.SaveCurrentSceneIfUserWantsTo();
@@ -41,6 +42,22 @@ public class PostProcessBuilder : MonoBehaviour
         EditorApplication.isPlaying = true;
     }
 
+    [MenuItem("Trash Clash/Switch to Level %w")]
+    public static void SwitchScene()
+    {
+        string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
+        EditorApplication.SaveCurrentSceneIfUserWantsTo();
+        EditorApplication.OpenScene(scenes[1]);
+    }
+
+    [MenuItem("Trash Clash/Switch to Lobby %e")]
+    public static void SwitchScene2()
+    {
+        string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
+        EditorApplication.SaveCurrentSceneIfUserWantsTo();
+        EditorApplication.OpenScene(scenes[0]);
+    }
+
     private static void saveIPXML(string dataPath)
     {
         XmlDocument document = new XMLReader(dataPath).GetXML();
@@ -56,5 +73,11 @@ public class PostProcessBuilder : MonoBehaviour
 
         element.AppendChild(ipElement);
         document.Save(Application.dataPath + "/XML/" + dataPath);
+    }
+
+    public void OnApplicationQuit()
+    {
+        string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
+        EditorApplication.OpenScene(scenes[1]);
     }
 }
