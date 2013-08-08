@@ -94,8 +94,7 @@ public class MinionAgent : MonoBehaviour
         else
         {
             //if target out of range
-            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf
-                && !looseAttentionRange.isInRange(_target))
+            if (!looseAttentionRange.isInRange(_target))
             {
                 _target = null;
                 return;
@@ -134,7 +133,7 @@ public class MinionAgent : MonoBehaviour
             return;
         }
 
-        if (target.type == TargetType.Valve)
+        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
             _target = target;
     }
 
