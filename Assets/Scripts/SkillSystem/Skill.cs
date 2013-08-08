@@ -108,7 +108,7 @@ public class Skill : MonoBehaviour
         if (networkView.isMine)
             gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.TeamLight);
         else
-            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight);
+            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight,false);
         //+++++++++
         return true;
     }

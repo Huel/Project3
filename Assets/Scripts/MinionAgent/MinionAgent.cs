@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Team))]
 public class MinionAgent : MonoBehaviour
 {
     public enum LaneIdentifier { Lane1, Lane2, Lane3 };
@@ -10,16 +9,17 @@ public class MinionAgent : MonoBehaviour
     private NavMeshAgent _agent;
     public Skill basicAttack;
 
-    private Target _destination;    // default target
+    public Target _destination;    // default target
     private Target _origin;         // came from here
     public Target _target;         // current target
+    private Target _targetSaved;         // current target (Saved for overwritting processces)
     private float _destinationOffset = 1f;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 2f;
+    public float productivity = 1f;
 
     //public Skill basicSkill;
 
@@ -57,7 +57,6 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
-            return;
         }
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
@@ -84,19 +83,19 @@ public class MinionAgent : MonoBehaviour
                     else
                         SetDestination(null);
                 }
+
             }
             else  //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
-            {
                 SelectTarget();
-            }
         }
         // already has target
         else
         {
             //if target out of range
-            if (!looseAttentionRange.isInRange(_target))
+            if (looseAttentionRange != null && looseAttentionRange.gameObject.activeSelf
+                && !looseAttentionRange.isInRange(_target))
             {
                 _target = null;
                 return;
@@ -104,23 +103,14 @@ public class MinionAgent : MonoBehaviour
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
 
-            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
-            {
-                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
-                _target = null;
-            }
         }
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
             _agent.enabled = true;
-            //contact.RemoveListener(_target, OnEnemyContact);
         }
         if (_target != null && contact.Contact(_target))
         {
-            if (_target.type == TargetType.Hero ||  _target.type == TargetType.Minion)
-                basicAttack.Execute();
-            else if (_target.type == TargetType.Valve)
-               _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            basicAttack.Execute();
         }
         if (_target != null && _target.type == TargetType.Dead)
         {
@@ -130,16 +120,19 @@ public class MinionAgent : MonoBehaviour
 
     void SelectTarget()
     {
-        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve }, GetComponent<Team>());
+        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
         if (target == null) return;
-        if ((target.type == TargetType.Minion || target.type == TargetType.Hero))
+        if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
             _target = target;
-            //contact.AddListener(target, OnEnemyContact);
             return;
         }
-        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
+
+        if (target.type == TargetType.Valve)
+        {
             _target = target;
+            return;
+        }
     }
 
     public void SetDestination(Target destination)
@@ -150,5 +143,57 @@ public class MinionAgent : MonoBehaviour
     public void SetOrigin(Target origin)
     {
         _origin = origin;
+    }
+
+    public Target GetDestination()
+    {
+        return _destination;
+    }
+
+    public Target GetOrigin()
+    {
+        return _origin;
+    }
+
+    public void Manipulate(string effect, string value="", Target aim=null)
+    {
+        switch (effect)
+        {
+            case "Target":
+                _targetSaved = _target;
+                _target = aim;
+                break;
+
+            case "ResetTarget":
+                _target = _targetSaved;
+                break;
+
+            case "CanMove":
+                _agent.enabled = bool.Parse(value);
+                break;
+
+            case "CanAttack":
+                basicAttack.enabled = bool.Parse(value);
+                break;
+
+            case "Productivity":
+                productivity = float.Parse(value);
+                break;
+
+            case "RelevantTargetTypes":
+                List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
+                List<TargetType> types = new List<TargetType>();
+                string[] splitedString = value.Split(new string[] { ", " }, System.StringSplitOptions.None);
+                foreach (string type in splitedString)
+                    foreach (TargetType compareType in compareTypes)
+                        if (compareType.ToString() == type)
+                            types.Add(compareType);
+                attentionRange.SetRelevantTargetTypes(types);
+                break;
+
+            case "Revive":
+                gameObject.GetComponent<Health>().SetHealth(gameObject.GetComponent<Health>().MaxHealth * float.Parse(value));
+                break;
+        }
     }
 }
