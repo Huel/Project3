@@ -67,6 +67,12 @@ public class Valve : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        for (int i = _localMinions.Count - 1; i > 0; i--)
+        {
+            if (!_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
+                RemoveMinion(_localMinions[i]);
+        }
+
         if(_localPlayerID == -1)
             FindLocalPlayerID();
 	    currentState = GetValveState();
@@ -77,7 +83,7 @@ public class Valve : MonoBehaviour
 				_state += _productivity * Time.deltaTime;
             else if (_valveTeam.isEnemy(_occupant))
                 _state -= _productivity * Time.deltaTime;
-            Mathf.Clamp(_state, 0, _openValve);
+            Mathf.Clamp(_state, 0f, _openValve);
 		}
         float tempProductivity = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
         if (tempProductivity != _localProductivity)
@@ -93,11 +99,7 @@ public class Valve : MonoBehaviour
 			}
 		}
 
-        for (int i = _localMinions.Count-1; i > 0; i--)
-	    {
-            if (!_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
-                RemoveMinion(_localMinions[i]);
-	    }
+        
 	}
 
     public bool stateComplete(MinionAgent minion)
