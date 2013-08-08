@@ -18,26 +18,17 @@ public class Bomb : MonoBehaviour
 
 	private float ForceA
 	{
-		get
-		{
-			return (valvesA.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier);
-		}
+		get { return (valvesA.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier); }
 	}
 
 	private float ForceB
 	{
-		get
-		{
-			return (valvesB.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier);
-		}
+		get { return (valvesB.Sum(valve => valve.GetComponent<Valve>().State) * forceMultiplier); }
 	}
 
 	private float Speed
 	{
-		get
-		{
-			return movementSpeed*Time.deltaTime*(ForceA < ForceB ? ForceB-ForceA : ForceA-ForceB);
-		}
+		get { return movementSpeed*Time.deltaTime*(ForceA < ForceB ? ForceB-ForceA : ForceA-ForceB); }
 	}
 
 
@@ -60,7 +51,7 @@ public class Bomb : MonoBehaviour
 
 	void Update()
 	{
-		if (!Network.isServer || ForceA - ForceB == 0f || gameOver) return;
+        if (!networkView.isMine || ForceA - ForceB == 0f || gameOver) return;
 
 		if (ForceA > ForceB)
 		{
@@ -74,12 +65,11 @@ public class Bomb : MonoBehaviour
 			}
 			else
 			{
-				WaypointA = WaypointB;
+                WaypointA = WaypointB;
 				WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
 				if (WaypointB == null)
 				{
-					networkView.RPC("GameOver", RPCMode.OthersBuffered);
-					GameOver();
+                    CountPoints((int)Team.TeamIdentifier.Team1);
 				}
 			}
 		}
@@ -95,22 +85,22 @@ public class Bomb : MonoBehaviour
 			}
 			else
 			{
-				WaypointB = WaypointA;
+                WaypointB = WaypointA;
 				WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
 				if (WaypointA == null)
 				{
-					networkView.RPC("GameOver", RPCMode.OthersBuffered);
-					GameOver();
+                    CountPoints((int)Team.TeamIdentifier.Team2);
 				}
 			}
 		}
 	}
 
-	[RPC]
-	private void GameOver()
+	private void CountPoints(int team)
 	{
 	    gameOver = true;
-		throw new System.NotImplementedException();
+        GameController gameController = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>();
+        gameController.networkView.RPC("IncreaseTeamPoints", RPCMode.AllBuffered, team);
+        Debug.Log("Punkte für" + ((Team.TeamIdentifier)team).ToString());
 	}
 
 	private bool HaveReached(GameObject target)

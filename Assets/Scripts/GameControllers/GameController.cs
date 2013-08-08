@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour
     private float _spawnTime = 30f;
     private float _spawnTimer = 0f;
 
+    public int pointsTeam1 = 0;
+    public int pointsTeam2 = 0;
+
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
         foreach (NetworkPlayerController controller in _networkPlayerControllers)
@@ -110,5 +113,18 @@ public class GameController : MonoBehaviour
         {
             gameEndet = true;
         }
+    }
+
+    [RPC]
+    public void IncreaseTeamPoints(int teamID)
+    {
+        if (teamID == (int) Team.TeamIdentifier.Team1)
+            pointsTeam1++;
+        else
+            pointsTeam2++;
+
+        if (pointsTeam1 == 2 || pointsTeam2 == 2)
+            SetGameState(GameState.Ended);
+
     }
 }
