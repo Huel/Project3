@@ -189,7 +189,7 @@ public class Health : MonoBehaviour
     {
         if (IsAlive())
         {
-            if (HealthPoints <= 0)
+            if (HealthPoints <= 0 && !immortal)
             {
                 //debug Damage indicator
                 //+++++++++
@@ -202,6 +202,14 @@ public class Health : MonoBehaviour
         }
         else
         {
+            if (HealthPoints > 0)
+            {
+                _deadCounter = 0;
+                gameObject.GetComponent<DebugChangeColor>().networkView.RPC("SetColor", RPCMode.AllBuffered, ((int)DebugChangeColor.Colors.White));
+                SetAlive(true);
+                return;
+            }
+
             _deadCounter += Time.deltaTime;
 
             if (_deadCounter >= keepDeadUnitTime)
@@ -218,11 +226,14 @@ public class Health : MonoBehaviour
         {
             if (!alive)
             {
-                if (immortal)
-                    return;
                 _deadCounter = 0;
-                GetComponent<Target>().SwitchTargetType((int)TargetType.Dead);
+                if(GetComponent<Target>().type != TargetType.Dead)
+                    GetComponent<Target>().SwitchTargetType((int)TargetType.Dead);
             }
+
+            if (alive && gameObject.GetComponent<Target>().type == TargetType.Dead)
+                gameObject.GetComponent<Target>().RestoreOldType();
+
             networkView.RPC("SetAlive", RPCMode.OthersBuffered, alive);
         }
 

@@ -30,4 +30,19 @@ public class Target : MonoBehaviour
             networkView.RPC("SwitchTargetType", RPCMode.OthersBuffered, type);
         }
     }
+
+    [RPC]
+    public void RestoreOldType()
+    {
+        this.type = _oldType;
+        if (networkView.isMine)
+        {
+            networkView.RPC("RestoreOldType", RPCMode.OthersBuffered);
+        }
+    }
+
+    public bool IsMinion()
+    {
+        return (type == TargetType.Minion || _oldType == TargetType.Minion);
+    }
 }

@@ -4,14 +4,15 @@ using UnityEngine;
 public class Aura : MonoBehaviour
 {
     public Range aura = null;
-    private bool buffIsDebuff;
 
-    private Skill skill;
-    private string buffName;
-    private List<TargetType> types;
-    private List<Team.TeamIdentifier> IDs;
-    private float minValue = 1;
-    private float radius;
+    public bool buffIsDebuff;
+
+    public Skill skill;
+    public string buffName;
+    public List<TargetType> types;
+    public List<Team.TeamIdentifier> IDs;
+    public float minValue = 1;
+    public float radius;
 
     private List<Target> targets;
 
@@ -43,6 +44,15 @@ public class Aura : MonoBehaviour
         foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
             if (buff.buffID == buffName)
                 buff.Remove();
+    }
+
+    public void RemoveEffects()
+    {
+        targets = aura.GetTargetsByTypesAndTeam(types, IDs);
+        foreach (Target target in targets)
+            foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
+                if (buff.buffID == buffName)
+                    buff.Remove();
     }
 
     void Update()

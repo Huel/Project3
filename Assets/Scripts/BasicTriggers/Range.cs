@@ -7,8 +7,8 @@ public class Range : MonoBehaviour
 {
     public delegate void OnRangeEvent(Target target);
 
-    private List<Target> objectsInRange = new List<Target>();
-    private List<TargetType> relevantTargetTypes = new List<TargetType>();
+    public List<Target> objectsInRange = new List<Target>();
+    public List<TargetType> relevantTargetTypes = new List<TargetType>();
     private List<Team.TeamIdentifier> relevantTargetTeams = new List<Team.TeamIdentifier>();
     private List<OnRangeEvent> enterRangeListener = new List<OnRangeEvent>();
     private List<OnRangeEvent> exitRangeListener = new List<OnRangeEvent>();

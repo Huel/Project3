@@ -49,7 +49,7 @@ class SkillTrigger
     }
 }
 
-public enum SkillState { Ready, InExecution, Active, OnCooldown, AuraActive };
+public enum SkillState { Ready, InExecution, Active, OnCooldown, Channeling };
 
 public class Skill : MonoBehaviour
 {
@@ -66,6 +66,8 @@ public class Skill : MonoBehaviour
     private SkillState _state;
 
     private bool isAura;
+    private bool isSpot;
+    private bool isPassive;
 
     bool Enabled { get { return _enabled; } set { _enabled = value; } }
     SkillState State { get { return _state; } }
@@ -73,6 +75,8 @@ public class Skill : MonoBehaviour
     public void Start()
     {
         isAura = false;
+        isSpot = false;
+        isPassive = false;
 
         ConvertXML();
 
@@ -80,6 +84,11 @@ public class Skill : MonoBehaviour
         actualCastingTime = 0f;
         _enabled = true;
         _state = SkillState.Ready;
+
+        if (isPassive)
+        {
+            Execute();
+        }
     }
 
     public bool Execute()
@@ -87,7 +96,8 @@ public class Skill : MonoBehaviour
         if (gameObject == null) return false;
         if (!GetComponent<Health>().IsAlive()) return false;
         if (!_enabled) return false;
-        if (isAura && _state == SkillState.AuraActive) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
+        if (isAura && _state == SkillState.Channeling) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
+        if (isSpot && _state == SkillState.Channeling) { foreach (Modifier spot in modifiers) spot.deactivateSpot(); _state = SkillState.OnCooldown; return true; }
         if (_state != SkillState.Ready) return false;
         if (_skillTrigger != null && !_skillTrigger.check()) return false;
         actualCooldown = cooldown;
@@ -105,7 +115,7 @@ public class Skill : MonoBehaviour
 
     void Update()
     {
-        if (_state == SkillState.Ready || _state == SkillState.AuraActive) return;
+        if (_state == SkillState.Ready || _state == SkillState.Channeling) return;
 
         if (_state == SkillState.InExecution)
         {
@@ -118,7 +128,7 @@ public class Skill : MonoBehaviour
         {
             foreach (Modifier modifier in modifiers)
                 modifier.Execute();
-            _state = (isAura) ? SkillState.AuraActive : SkillState.OnCooldown;
+            _state = (isAura || isSpot) ? SkillState.Channeling : SkillState.OnCooldown;
         }
 
         if (_state == SkillState.OnCooldown)
@@ -127,6 +137,12 @@ public class Skill : MonoBehaviour
             if (actualCooldown <= 0)
                 _state = SkillState.Ready;
         }
+    }
+
+    public void DeactivateAura(string auraName)
+    {
+        foreach (Modifier aura in modifiers)
+            aura.deactivateAuraSensitive(auraName);
     }
 
     private void ConvertXML()
@@ -145,7 +161,7 @@ public class Skill : MonoBehaviour
             cooldown = ((cooldownList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(cooldownList[0].InnerText) : float.Parse(cooldownList[0].InnerText);
             castingTime = ((castingTimeList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(castingTimeList[0].InnerText) : float.Parse(castingTimeList[0].InnerText);
 
-            List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve };
+            List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
             List<TargetType> targetTypes;
             string[] fieldStrings;
             string field, target, valueType, targetType, parsedValue;
@@ -212,8 +228,16 @@ public class Skill : MonoBehaviour
                         targetType = skill.ChildNodes[3].InnerText;
                         modifiers.Add(new Modifier(this, field, targetTypes, targetType, skill.ChildNodes[4].InnerText, skill.ChildNodes[5].InnerText));
                         break;
+
+                    case "spot":
+                        isSpot = true;
+                        modifiers.Add(new Modifier(this, skill.ChildNodes[1].InnerText));
+                        break;
                 }
             }
+            if (typeList.Count > 1 && isAura) isAura = false;
+            if (skillNode.HasAttribute("passive") && skillNode.GetAttribute("passive") == "true")
+                isPassive = true;
         }
     }
 }

@@ -33,6 +33,7 @@ public class CharacterControllerLogic : MonoBehaviour
     public Skill skill2;
     public Skill skill3;
     public Skill skill4;
+    public Skill heroicAura;
 
     #region Variables (private)
 
