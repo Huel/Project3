@@ -41,7 +41,8 @@ public class Bomb : MonoBehaviour
 	}
 
 
-	internal struct State {
+	internal struct State 
+    {
 		internal double timestamp;
 		internal Vector3 pos;
 		internal Quaternion rot;
@@ -117,10 +118,12 @@ public class Bomb : MonoBehaviour
 		return Mathf.Abs((target.transform.position-transform.position).magnitude)<0.5f;
 	}
 
-	public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
+	public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) 
+    {
 		//GetComponent<ObjectInfo>().OnSerializeNetworkView(stream,info);
 		// Send data to server
-		if (stream.isWriting) {
+		if (stream.isWriting) 
+        {
 			Vector3 pos = transform.position;
 			Quaternion rot = transform.rotation;
 
@@ -132,7 +135,8 @@ public class Bomb : MonoBehaviour
 			//stream.Serialize(ref angularVelocity);
 		}
 			// Read data from remote client
-		else {
+		else 
+        {
 			Vector3 pos = Vector3.zero;
 
 			Quaternion rot = Quaternion.identity;
@@ -143,7 +147,8 @@ public class Bomb : MonoBehaviour
 			//stream.Serialize(ref angularVelocity);
 
 			// Shift the buffer sideways, deleting state 20
-			for (int i = m_BufferedState.Length - 1; i >= 1; i--) {
+			for (int i = m_BufferedState.Length - 1; i >= 1; i--) 
+            {
 				m_BufferedState[i] = m_BufferedState[i - 1];
 			}
 
@@ -163,14 +168,16 @@ public class Bomb : MonoBehaviour
 
 			// Check if states are in order, if it is inconsistent you could reshuffel or 
 			// drop the out-of-order state. Nothing is done here
-			for (int i = 0; i < m_TimestampCount - 1; i++) {
+			for (int i = 0; i < m_TimestampCount - 1; i++) 
+            {
 				if (m_BufferedState[i].timestamp < m_BufferedState[i + 1].timestamp)
 					Debug.Log("State inconsistent");
 			}
 		}
 	}
 
-	void LateUpdate() {
+	void LateUpdate() 
+    {
 		if (networkView.isMine)
 			return;
 
@@ -181,7 +188,8 @@ public class Bomb : MonoBehaviour
 		if (m_BufferedState[0].timestamp > interpolationTime) {
 			// Go through buffer and find correct state to play back
 			for (int i = 0; i < m_TimestampCount; i++) {
-				if (m_BufferedState[i].timestamp <= interpolationTime || i == m_TimestampCount - 1) {
+				if (m_BufferedState[i].timestamp <= interpolationTime || i == m_TimestampCount - 1) 
+                {
 					// The state one slot newer (<100ms) than the best playback state
 					State rhs = m_BufferedState[Mathf.Max(i - 1, 0)];
 					// The best playback state (closest to 100 ms old (default time))
@@ -207,12 +215,14 @@ public class Bomb : MonoBehaviour
 			}
 		}
 			// Use extrapolation
-		else {
+		else 
+        {
 			State latest = m_BufferedState[0];
 
 			float extrapolationLength = (float)(interpolationTime - latest.timestamp);
 			// Don't extrapolation for more than 500 ms, you would need to do that carefully
-			if (extrapolationLength < m_ExtrapolationLimit) {
+			if (extrapolationLength < m_ExtrapolationLimit) 
+            {
 				//float axisLength = extrapolationLength * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
 				//Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.angularVelocity);
 				Quaternion angularRotation = Quaternion.identity;

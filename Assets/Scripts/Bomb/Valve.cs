@@ -35,8 +35,7 @@ public class Valve : MonoBehaviour
     public int _localPlayerID = -1;
     public List<MinionAgent> _localMinions;
     public float _localProductivity = 0.0f;
-
-
+    public int _localMinionCount;
     
 
 	public float State 
@@ -69,6 +68,12 @@ public class Valve : MonoBehaviour
 	{
         for (int i = _localMinions.Count - 1; i > 0; i--)
         {
+            if (_localMinions[i] == null)
+            {
+                RemoveMinion(_localMinions[i]);
+                continue;
+            }
+                
             if (!_localMinions[i].gameObject.GetComponent<Health>().IsAlive())
                 RemoveMinion(_localMinions[i]);
         }
@@ -98,8 +103,20 @@ public class Valve : MonoBehaviour
                 networkView.RPC("SubmitLocalProductivity", networkView.owner, _localProductivity, _localPlayerID);
 			}
 		}
+        if (_localMinionCount != _localMinions.Count)
+        {
+            _localMinionCount = _localMinions.Count;
+            if (networkView.isMine)
+            {
+                SubmitLocalMinionCount(_localMinionCount, _localProductivity, _localPlayerID, (int)_occupant);
+            }
+            else
+            {
+                networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinionCount, _localProductivity, _localPlayerID, (int)_occupant);
+            }
+        }
 
-        
+
 	}
 
     public bool stateComplete(MinionAgent minion)
@@ -122,13 +139,14 @@ public class Valve : MonoBehaviour
         if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
 		_localMinions.Add(minion);
 		_localProductivity = _localMinions.Sum(mini => mini.productivity);
+	    _localMinionCount = _localMinions.Count;
         if (networkView.isMine)
         {
-            SubmitLocalMinionCount(_localMinions.Count, _localProductivity, _localPlayerID, (int) minion.GetComponent<Team>().ID);
+            SubmitLocalMinionCount(_localMinionCount, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
         }
         else
         {
-            networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+            networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinionCount, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
         }	
 	}
 
@@ -140,13 +158,14 @@ public class Valve : MonoBehaviour
 			{
                 _localMinions.Remove(_localMinions[i]);
                 _localProductivity = _localMinions.Sum(mini => mini.productivity);
+                _localMinionCount = _localMinions.Count;
                 if (networkView.isMine)
                 {
-                    SubmitLocalMinionCount(_localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+                    SubmitLocalMinionCount(_localMinionCount, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
                 }
                 else
                 {
-                    networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinions.Count, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
+                    networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinionCount, _localProductivity, _localPlayerID, (int)minion.GetComponent<Team>().ID);
                 }
 				return true;
 			}

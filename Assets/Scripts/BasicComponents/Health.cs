@@ -197,7 +197,7 @@ public class Health : MonoBehaviour
                 //+++++++++
                 SetAlive(false);
             }
-            if (HealthPoints <= MaxHealth)
+            else if (HealthPoints <= MaxHealth)
                 IncHealth(Time.deltaTime * HealthRegeneration);
         }
         else
