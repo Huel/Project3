@@ -116,7 +116,7 @@ public class MinionAgent : MonoBehaviour
         {
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
                 basicAttack.Execute();
-            else if (_target.type == TargetType.Valve)
+            else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable())
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
         if (_target != null && _target.type == TargetType.Dead)
