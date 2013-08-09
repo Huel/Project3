@@ -70,8 +70,6 @@ public class LocalPlayerController : MonoBehaviour
             }
 
         }
-
-
     }
 
     public void setMinionDeployment(int identifier, int value)
