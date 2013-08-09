@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public enum GameState { Starting, Running, Ended };
+    public enum GameState { Starting, Running, Ended, Disconnected };
 
     private float _startTime;
     public GameState state;
-    private bool gameEndet;
+    private bool gameOver;
     private float passedTime = 0f;
     private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
 
@@ -49,30 +49,48 @@ public class GameController : MonoBehaviour
 
     void OnPlayerDisconnected()
     {
-        SetGameState(GameState.Ended);
+        SetGameState(GameState.Disconnected);
     }
 
     void OnDisconnectedFromServer()
     {
-        SetGameState(GameState.Ended);
+        SetGameState(GameState.Disconnected);
     }
 
     void OnGUI()
     {
-        if (gameEndet)
+        if (state == GameState.Disconnected)
         {
             GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
                          "A player has been disconnected from the Game");
+        }
+        else if(gameOver)
+        {
+            if (pointsTeam1 > pointsTeam2)
+                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
+                        "Team 1 won the Round");
+            else
+                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
+                        "Team 2 won the Round");
         }
     }
 
     void Update()
     {
-        if (gameEndet)
+        if (state == GameState.Disconnected)
         {
             passedTime += Time.deltaTime;
 
             if (passedTime >= 3)
+            {
+                Application.Quit();
+            }
+        }
+        else if (gameOver)
+        {
+            passedTime += Time.deltaTime;
+
+            if (passedTime >= 15)
             {
                 Application.Quit();
             }
@@ -111,7 +129,7 @@ public class GameController : MonoBehaviour
 
         if (this.state == GameState.Ended)
         {
-            gameEndet = true;
+            gameOver = true;
         }
     }
 
