@@ -14,6 +14,7 @@ public class InputTags
     public const string target = "TriggersL";
     public const string menu = "Start";
     public const string manager = "Back";
+    public const string squadSelection = "DPad_XAxis";
+    public const string squadLane = "DPad_YAxis";
 
-    public const string squad = "DPad_XAxis";
 }

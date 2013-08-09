@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     public float FirstMinionSpawn
     {
         set { _currentMinionSpawn = value; }
-        get { return _currentMinionSpawn;  }
+        get { return _currentMinionSpawn; }
     }
 
     public float SpawnTime
@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
             GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
                          "A player has been disconnected from the Game");
         }
-        else if(gameOver)
+        else if (gameOver)
         {
             if (pointsTeam1 > pointsTeam2)
                 GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
         {
             _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
-            GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().SpawnMinions();
+            GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().SpawnMinions();
         }
     }
 
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
     [RPC]
     public void IncreaseTeamPoints(int teamID)
     {
-        if (teamID == (int) Team.TeamIdentifier.Team1)
+        if (teamID == (int)Team.TeamIdentifier.Team1)
             pointsTeam1++;
         else
             pointsTeam2++;
