@@ -42,7 +42,6 @@ public class MinionManager : MonoBehaviour
 
     //////////////// PUBLIC ////////////////
     public enum MinionManagerState { Visible, Invisible };
-    public int minionsPerPlayer; //{ private get; set; }
     public float SpawnJitter { private get; set; }
     public float minionViewLerpSpeed = 10f;
     public float minionViewScaleSpeed = 4f;
@@ -63,8 +62,14 @@ public class MinionManager : MonoBehaviour
     private int selectedCount = 0;
     private bool initialized;
     private bool buttonPushed;
+    private int minionsPerPlayer;
     ////////////////////////////////////////
 
+    public int MinionsPerPlayer
+    {
+        get { return minionsPerPlayer; }
+        set { minionsPerPlayer = value; }
+    }
 
     private static GameObject SpawnLocation
     {

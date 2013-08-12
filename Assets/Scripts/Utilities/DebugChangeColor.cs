@@ -36,7 +36,7 @@ public class DebugChangeColor : MonoBehaviour
 
         string meshName;
         if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-            meshName = "mesh_minion";
+            meshName = "mesh_hero01";
         else if (gameObject.GetComponent<Target>().type == TargetType.Hero)
             meshName = "mesh_hero01";
         else return;

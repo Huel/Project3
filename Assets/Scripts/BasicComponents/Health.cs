@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(NetworkView))]
 public class Health : MonoBehaviour
 {
-    private float _healthPoints = 10f;
+    public float _healthPoints = 10f;
     private float _maxHealth = 10f;
     private float _incMaxHealth;
     private float _minHealth = 0f;
@@ -226,7 +226,7 @@ public class Health : MonoBehaviour
             if (!alive)
             {
                 _deadCounter = 0;
-                if(GetComponent<Target>().type != TargetType.Dead)
+                if (GetComponent<Target>().type != TargetType.Dead)
                     GetComponent<Target>().SwitchTargetType((int)TargetType.Dead);
             }
 
