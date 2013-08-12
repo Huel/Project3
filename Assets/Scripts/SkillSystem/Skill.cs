@@ -57,7 +57,7 @@ public class Skill : MonoBehaviour
 
     private List<Modifier> modifiers = new List<Modifier>();
     private SkillTrigger _skillTrigger = null;
-    private float cooldown;
+    public float cooldown;
     private float castingTime;
 
     public float actualCooldown;

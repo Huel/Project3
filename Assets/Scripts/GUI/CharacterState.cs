@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterState : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class CharacterState : MonoBehaviour
 	private GameObject _trophy03;
 	private GameObject _freshMeat;
 	private GameObject _shieldwall;
+	private GameObject _kamikazeMission;
+	private GameObject _battlecry;
 	private Vector3 skill01Position = new Vector3(-131, 52, 0);
 	private Vector3 skill02Position = new Vector3(- 23, 52, 0);
 	private Vector3 skill03Position = new Vector3(  85, 52, 0);
 	private Vector3 skill04Position = new Vector3( 191, 52, 0);
+	public List<GameObject> skills = new List<GameObject>();
+
+	private bool init = false;
 
 	// Use this for initialization
 	void Awake()
@@ -27,6 +33,71 @@ public class CharacterState : MonoBehaviour
 		_trophy01 = transform.FindChild("trophy01").gameObject;
 		_trophy02 = transform.FindChild("trophy02").gameObject;
 		_trophy03 = transform.FindChild("trophy03").gameObject;
+		_freshMeat = transform.FindChild("Fresh Meat").gameObject;
+		skills.Add(_freshMeat);
+		_shieldwall = transform.FindChild("Shieldwall").gameObject;
+		skills.Add(_shieldwall);
+		_kamikazeMission = transform.FindChild("Kamikaze Mission").gameObject;
+		skills.Add(_kamikazeMission);
+		_battlecry = transform.FindChild("Battlecry").gameObject;
+		skills.Add(_battlecry);
+
+		
+	}
+
+	private void SetSkillPosiotion(int position, string skillName)
+	{
+		switch (position)
+		{
+			case 1:
+				{
+					foreach (GameObject skill in skills)
+					{
+						if (skill.name.Equals(skillName))
+						{
+							skill.transform.localPosition = skill01Position;
+							break;
+						}
+					}
+					break;
+				}
+			case 2:
+				{
+					foreach (GameObject skill in skills)
+					{
+						if (skill.name.Equals(skillName))
+						{
+							skill.transform.localPosition = skill02Position;
+							break;
+						}
+					}
+					break;
+				}
+			case 3:
+				{
+					foreach (GameObject skill in skills)
+					{
+						if (skill.name.Equals(skillName))
+						{
+							skill.transform.localPosition = skill03Position;
+							break;
+						}
+					}
+					break;
+				}
+			case 4:
+				{
+					foreach (GameObject skill in skills)
+					{
+						if (skill.name.Equals(skillName))
+						{
+							skill.transform.localPosition = skill04Position;
+							break;
+						}
+					}
+					break;
+				}
+		}
 	}
 
 	// Update is called once per frame
@@ -40,6 +111,25 @@ public class CharacterState : MonoBehaviour
 
 	private void UpdateSkills()
 	{
+		if (FindPlayer() && !init)
+		{
+			SetSkillPosiotion(1, _player.GetComponent<CharacterControllerLogic>().skill1.skillName);
+			SetSkillPosiotion(2, _player.GetComponent<CharacterControllerLogic>().skill2.skillName);
+			SetSkillPosiotion(3, _player.GetComponent<CharacterControllerLogic>().skill3.skillName);
+			SetSkillPosiotion(4, _player.GetComponent<CharacterControllerLogic>().skill4.skillName);
+			init = true;
+		}
+
+		foreach (Skill skill in _player.GetComponents<Skill>())
+		{
+			foreach (GameObject skillSprite in skills)
+			{
+				if (skill.actualCooldown > 0 && skillSprite.name.Equals(skill.skillName))
+				{
+					skillSprite.GetComponent<UISprite>().fillAmount = -(skill.actualCooldown/skill.cooldown - 1);
+				}
+			}
+		}
 	}
 
 	private bool FindPlayer()
