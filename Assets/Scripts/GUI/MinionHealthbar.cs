@@ -8,11 +8,14 @@ public class MinionHealthbar : MonoBehaviour
     private float curHealth = 0;
     private Health health;
     private UISprite healthbar;
+    private GameObject healthObj;
     
     void Start()
     {
         health = GetComponent<Health>();
-        healthbar = transform.FindChild("sprite_healthbar").GetComponent<UISprite>();
+        healthObj = transform.FindChild("sprite_healthbar").gameObject;
+        healthbar = healthObj.GetComponent<UISprite>();
+        
     }
 
     // Update is called once per frame
@@ -21,16 +24,12 @@ public class MinionHealthbar : MonoBehaviour
         curHealth = health.HealthPoints;
         maxHealth = health.MaxHealth;
 
-        if (curHealth / maxHealth == 1f)
+        if (curHealth / maxHealth == 1f || curHealth <= 0)
         {
-            healthbar.alpha = 0;
+            healthObj.SetActive(false);
             return;
         }
-        if (curHealth <= 0)
-        {
-            healthbar.alpha = 0;
-            return;
-        }
+        healthObj.SetActive(true);
         healthbar.transform.LookAt(Camera.main.transform);
         healthbar.alpha = 1;
         healthbar.fillAmount = curHealth/maxHealth;
