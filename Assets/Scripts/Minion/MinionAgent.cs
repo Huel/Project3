@@ -10,16 +10,22 @@ public class MinionAgent : MonoBehaviour
     public Skill basicAttack;
 
     public Target _destination;    // default target
+    public Target _destinationSaved;    // default target (Saved for overwritting processces)
     private Target _origin;         // came from here
     public Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
     private float _destinationOffset = 1f;
+    private bool fixedTarget = false;
+    public bool atRallyPoint = false;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
     public float productivity = 2f;
+
+    private float life;
+    private float oldLife;
 
     //public Skill basicSkill;
 
@@ -30,6 +36,8 @@ public class MinionAgent : MonoBehaviour
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
+
+        life = gameObject.GetComponent<Health>().HealthPoints;
 
         // only works when Minion is creatd by network.instansiate !!!
         // ***********************************************************
@@ -59,12 +67,17 @@ public class MinionAgent : MonoBehaviour
             _agent.enabled = false;
             return;
         }
+        oldLife = life;
+        life = gameObject.GetComponent<Health>().HealthPoints;
+
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
 
         _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
 
+        CheckRallyPoint();
+        CheckAttacked();
         // no target
         if (_target == null)
         {
@@ -94,7 +107,7 @@ public class MinionAgent : MonoBehaviour
         else
         {
             //if target out of range
-            if (!looseAttentionRange.isInRange(_target))
+            if (!looseAttentionRange.isInRange(_target) && !fixedTarget)
             {
                 _target = null;
                 return;
@@ -125,7 +138,7 @@ public class MinionAgent : MonoBehaviour
 
     void SelectTarget()
     {
-        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve, TargetType.Checkpoint }, GetComponent<Team>());
+        var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero, TargetType.Valve }, gameObject.GetComponent<Team>());
         if (target == null) return;
         if (target.type == TargetType.Minion || target.type == TargetType.Hero)
         {
@@ -135,6 +148,30 @@ public class MinionAgent : MonoBehaviour
 
         if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
             _target = target;
+
+        
+    }
+
+    void CheckAttacked()
+    {
+        if (oldLife > life && (_target == null || _target.type == TargetType.Spot || _target.type == TargetType.Valve) && !fixedTarget)
+            SelectTarget();
+    }
+
+    void CheckRallyPoint()
+    {
+        var target = attentionRange.GetNearestTargetByTypeAndTeam(TargetType.Spot, gameObject.GetComponent<Team>());
+        atRallyPoint = (target != null);
+        if (atRallyPoint && _destination != null)
+        {
+            _destinationSaved = _destination;
+            _destination = null;
+        }
+        if (!atRallyPoint && _destinationSaved != null)
+        {
+            _destination = _destinationSaved;
+            _destinationSaved = null;
+        }
     }
 
     public void SetDestination(Target destination)
@@ -164,10 +201,12 @@ public class MinionAgent : MonoBehaviour
             case "Target":
                 _targetSaved = _target;
                 _target = aim;
+                fixedTarget = true;
                 break;
 
             case "ResetTarget":
                 _target = _targetSaved;
+                fixedTarget = false;
                 break;
 
             case "CanMove":
