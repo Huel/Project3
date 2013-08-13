@@ -1,7 +1,7 @@
 using UnityEngine;
-using System.Collections;
 
-public class CustomInput {
+public class CustomInput
+{
 
     private static bool triggerOneDown = false;
     private static string triggerOneTag;
