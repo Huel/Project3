@@ -155,7 +155,10 @@ public class MinionAgent : MonoBehaviour
     void CheckAttacked()
     {
         if (oldLife > life && (_target == null || _target.type == TargetType.Spot || _target.type == TargetType.Valve) && !fixedTarget)
-            SelectTarget();
+        {
+            var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero }, gameObject.GetComponent<Team>());
+            if (target != null) _target = target;
+        }
     }
 
     void CheckRallyPoint()
