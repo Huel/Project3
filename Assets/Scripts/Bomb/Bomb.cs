@@ -224,4 +224,19 @@ public class Bomb : MonoBehaviour
 			}
 		}
 	}
+
+	public int BombDirection()
+	{
+		if (ForceA > ForceB)
+		{
+			return (int)Team.TeamIdentifier.Team1;
+		}
+
+		if (ForceA < ForceB)
+		{
+			return (int)Team.TeamIdentifier.Team2;
+		}
+
+		return -1;
+	}
 }
