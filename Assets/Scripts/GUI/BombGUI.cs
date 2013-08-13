@@ -84,6 +84,8 @@ public class BombGUI : MonoBehaviour
 		}
 		else
 		{
+			gui._arrowBlue.gameObject.SetActive(false);
+			gui._arrowRed.gameObject.SetActive(false);
 			bombs.Remove(bomb);
 			guiLanes.Remove(gui);
 		}
