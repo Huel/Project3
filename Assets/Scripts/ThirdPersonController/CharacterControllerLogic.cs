@@ -52,8 +52,6 @@ public class CharacterControllerLogic : MonoBehaviour
     private float speedDampTime = 0.05f;
     [SerializeField]
     private float fovDampTime = 3f;
-    [SerializeField]
-    private CapsuleCollider capCollider;
 
 
     // Private global only
@@ -66,7 +64,6 @@ public class CharacterControllerLogic : MonoBehaviour
     private float charAngle = 0f;
     private const float SPRINT_FOV = 75.0f;
     private const float NORMAL_FOV = 60.0f;
-    private float capsuleHeight;
     private Vector3 stickDirection;
 
 
@@ -130,9 +127,7 @@ public class CharacterControllerLogic : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         animator = GetComponent<Animator>();
-        capCollider = GetComponent<CapsuleCollider>();
-        capsuleHeight = capCollider.height;
-
+        gamecam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera>();
         if (animator.layerCount >= 2)
         {
             animator.SetLayerWeight(1, 1);
@@ -151,8 +146,8 @@ public class CharacterControllerLogic : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (!GetComponent<NetworkView>().isMine)
-            return;
+        //if (!networkView.isMine)
+        //    return;
         bool alive = GetComponent<Health>().IsAlive();
 
         if (alive)

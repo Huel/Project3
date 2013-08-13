@@ -187,12 +187,12 @@ public class ThirdPersonCamera : MonoBehaviour
         GameObject[] playerList = GameObject.FindGameObjectsWithTag(Tags.player);
         foreach (GameObject p in playerList)
         {
-            if (p.networkView.isMine)
-            {
-                follow = p.GetComponent<CharacterControllerLogic>();
-                followXform = p.transform;
-                break;
-            }
+            //if (p.networkView.isMine)
+            //{
+            follow = p.GetComponent<CharacterControllerLogic>();
+            followXform = p.transform;
+            break;
+            //}
         }
 
         lookDir = followXform.forward;

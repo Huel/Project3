@@ -14,17 +14,8 @@ public class ComponentBuilder : MonoBehaviour
 
     void Update()
     {
-        if (!NetworkManager.isNetwork)
-            return;
-        if (networkView.isMine)
-        {
-            getDatafromXML(xmlFile + ".xml");
-        }
-        else
-        {
-            state = LoadingState.NotLoaded;
-            enabled = false;
-        }
+
+        getDatafromXML(xmlFile + ".xml");
     }
 
     private void getDatafromXML(string dataPath)
