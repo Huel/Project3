@@ -92,7 +92,7 @@ GameObject:
   - 136: {fileID: 13600000}
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400024}
-  - 114: {fileID: 11400012}
+  - 114: {fileID: 11400038}
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400030}
@@ -1092,6 +1092,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28594a87a21e752419841321eb3f1248, type: 3}
   m_Name: 
+  _healthPoints: 10
   keepDeadUnitTime: 5
   immortal: 0
   invulnerable: 0
@@ -1126,30 +1127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
   type: 0
---- !u!114 &11400012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b216def2ca252840817bbbae8b9f6bf, type: 3}
-  m_Name: 
-  basicAttack: {fileID: 11400026}
-  skill1: {fileID: 11400028}
-  skill2: {fileID: 11400030}
-  skill3: {fileID: 11400032}
-  skill4: {fileID: 11400036}
-  heroicAura: {fileID: 11400034}
-  animator: {fileID: 0}
-  gamecam: {fileID: 0}
-  rotationDegreePerSecond: 120
-  directionSpeed: 1.5
-  directionDampTime: .25
-  speedDampTime: .0500000007
-  fovDampTime: 3
-  capCollider: {fileID: 13600000}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1233,6 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Basic Attack
+  cooldown: 0
   actualCooldown: 0
 --- !u!114 &11400028
 MonoBehaviour:
@@ -1245,6 +1223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Shieldwall
+  cooldown: 0
   actualCooldown: 0
 --- !u!114 &11400030
 MonoBehaviour:
@@ -1257,6 +1236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Kamikaze Mission
+  cooldown: 0
   actualCooldown: 0
 --- !u!114 &11400032
 MonoBehaviour:
@@ -1269,6 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Fresh Meat
+  cooldown: 0
   actualCooldown: 0
 --- !u!114 &11400034
 MonoBehaviour:
@@ -1281,6 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Heroic Aura
+  cooldown: 0
   actualCooldown: 0
 --- !u!114 &11400036
 MonoBehaviour:
@@ -1293,7 +1275,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
   m_Name: 
   skillName: Battlecry
+  cooldown: 0
   actualCooldown: 0
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c406954b573d88843b4aa4f122f07155, type: 3}
+  m_Name: 
+  basicAttack: {fileID: 11400026}
+  skill1: {fileID: 11400028}
+  skill2: {fileID: 11400030}
+  skill3: {fileID: 11400032}
+  skill4: {fileID: 11400036}
+  heroicAura: {fileID: 11400034}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

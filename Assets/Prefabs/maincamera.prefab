@@ -27,11 +27,11 @@ GameObject:
   - 92: {fileID: 9200000}
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
-  - 114: {fileID: 11400006}
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: camera
   m_TagString: MainCamera
@@ -46,7 +46,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5.23669624, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a773099f140e846f7835d27351846623, type: 3}
   m_Name: 
@@ -182,24 +182,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59969cb0b132da4683696fcedac6864, type: 3}
+  m_Script: {fileID: 11500000, guid: c20993bb20bc14b439aa138075ca0438, type: 3}
   m_Name: 
-  parentRig: {fileID: 0}
-  distanceAway: 3.5
-  distanceAwayMultipler: 2
-  distanceUp: 1.14999998
-  distanceUpMultiplier: 2.5
-  follow: {fileID: 0}
-  followXform: {fileID: 0}
-  widescreen: .200000003
-  targetingTime: .5
-  firstPersonLookSpeed: 3
-  firstPersonThreshold: .5
-  freeThreshold: -.100000001
-  camMinDistFromChar: {x: 1, y: -.5}
-  rightStickThreshold: .300000012
-  camSmoothDampTime: .100000001
-  lookDirDampTime: .100000001
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
