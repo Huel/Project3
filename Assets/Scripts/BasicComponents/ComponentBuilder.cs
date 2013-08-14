@@ -84,12 +84,12 @@ public class ComponentBuilder : MonoBehaviour
                 skill = node;
              if (characterComp != null && skill != null)
              {
-                 characterComp.basicAttack.name = skill.GetElementsByTagName("skill0")[0].InnerText;
-                 characterComp.skill1.name = skill.GetElementsByTagName("skill1")[0].InnerText;
-                 characterComp.skill2.name = skill.GetElementsByTagName("skill2")[0].InnerText;
-                 characterComp.skill3.name = skill.GetElementsByTagName("skill3")[0].InnerText;
-                 characterComp.skill4.name = skill.GetElementsByTagName("skill4")[0].InnerText;
-                 characterComp.heroicAura.name = skill.GetElementsByTagName("skillAura")[0].InnerText;
+                 characterComp.basicAttack.skillName = skill.GetElementsByTagName("skill0")[0].InnerText;
+                 characterComp.skill1.skillName = skill.GetElementsByTagName("skill1")[0].InnerText;
+                 characterComp.skill2.skillName = skill.GetElementsByTagName("skill2")[0].InnerText;
+                 characterComp.skill3.skillName = skill.GetElementsByTagName("skill3")[0].InnerText;
+                 characterComp.skill4.skillName = skill.GetElementsByTagName("skill4")[0].InnerText;
+                 characterComp.heroicAura.skillName = skill.GetElementsByTagName("skillAura")[0].InnerText;
 
                  Debug.Log(skill.GetElementsByTagName("skill0")[0].InnerText + ", " +
                      skill.GetElementsByTagName("skill1")[0].InnerText + ", " +
@@ -97,12 +97,12 @@ public class ComponentBuilder : MonoBehaviour
                      skill.GetElementsByTagName("skill3")[0].InnerText + ", " +
                      skill.GetElementsByTagName("skill4")[0].InnerText + ", " +
                      skill.GetElementsByTagName("skillAura")[0].InnerText);
-                 Debug.Log(characterComp.basicAttack.name + ", " +
-                     characterComp.skill1.name + ", " +
-                     characterComp.skill2.name + ", " +
-                     characterComp.skill3.name + ", " +
-                     characterComp.skill4.name + ", " +
-                     characterComp.heroicAura.name);
+                 Debug.Log(characterComp.basicAttack.skillName + ", " +
+                     characterComp.skill1.skillName + ", " +
+                     characterComp.skill2.skillName + ", " +
+                     characterComp.skill3.skillName + ", " +
+                     characterComp.skill4.skillName + ", " +
+                     characterComp.heroicAura.skillName);
              }
         }
         state = LoadingState.Loaded;
