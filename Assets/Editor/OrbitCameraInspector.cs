@@ -1,13 +1,13 @@
 using UnityEditor;
 
 
-[CustomEditor(typeof(ThirdPersonCamera))]
-public class ThirdPersonCameraInspector : Editor
+[CustomEditor(typeof(OrbitCamera))]
+public class OrbitCameraInspector : Editor
 {
     private string[] states = new string[]{"Behind","Target","Free"};
     public override void OnInspectorGUI()
     {
-        ThirdPersonCamera component = (ThirdPersonCamera)target;
+        OrbitCamera component = (OrbitCamera)target;
         EditorGUILayout.LabelField("Camera State: " + states[(int)component.CamState]);
     }
 }

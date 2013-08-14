@@ -34,7 +34,7 @@ public class MinionVisualsController : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private ThirdPersonCamera gamecam;
+    private OrbitCamera gamecam;
     [SerializeField]
     private float rotationDegreePerSecond = 120f;
     [SerializeField]

@@ -4,7 +4,7 @@ public class CharController : MonoBehaviour {
 
 	private Animator animator;
 	private CharacterController controller;
-	private ThirdPersonCamera gamecam;
+	private OrbitCamera gamecam;
 	private Health health;
 	private Speed speed;
 
@@ -146,11 +146,6 @@ public class CharController : MonoBehaviour {
 
 		int axisSign = Vector3.Cross(moveDirection, charDirection).y >= 0 ? -1 : 1;
 
-		Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), moveDirection, Color.green);
-		Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), charDirection, Color.magenta);
-		Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), stickDirection, Color.blue);
-		Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Vector3.up, Color.red);
-
 		float angleRootToMove = Vector3.Angle(charDirection, moveDirection) * axisSign;
 		angleOut = angleRootToMove;
 
@@ -163,6 +158,6 @@ public class CharController : MonoBehaviour {
 	private void FindCamera()
 	{
 		if (gamecam == null)
-			gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<ThirdPersonCamera>();
+			gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<OrbitCamera>();
 	}
 }

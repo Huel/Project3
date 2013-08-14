@@ -41,7 +41,7 @@ public class CharacterControllerLogic : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private ThirdPersonCamera gamecam;
+    private OrbitCamera gamecam;
     [SerializeField]
     private float rotationDegreePerSecond = 120f;
     [SerializeField]
@@ -127,7 +127,7 @@ public class CharacterControllerLogic : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         animator = GetComponent<Animator>();
-        gamecam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera>();
+        gamecam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
         if (animator.layerCount >= 2)
         {
             animator.SetLayerWeight(1, 1);
@@ -155,7 +155,7 @@ public class CharacterControllerLogic : MonoBehaviour
 
         if (gamecam == null)
         {
-            gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<ThirdPersonCamera>();
+            gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<OrbitCamera>();
         }
         if (animator)
         {
@@ -264,7 +264,7 @@ public class CharacterControllerLogic : MonoBehaviour
         if (!GetComponent<NetworkView>().isMine || !GetComponent<Health>().IsAlive())
             return;
         // Rotate character model if stick is tilted right or left, but only if character is moving in that direction
-        if (IsInLocomotion() && gamecam.CamState != ThirdPersonCamera.CamStates.Free && !IsInPivot() && ((direction >= 0 && leftX >= 0) || (direction < 0 && leftX < 0)))
+        if (IsInLocomotion() && gamecam.CamState != OrbitCamera.CamStates.Free && !IsInPivot() && ((direction >= 0 && leftX >= 0) || (direction < 0 && leftX < 0)))
         {
             Vector3 rotationAmount = Vector3.Lerp(Vector3.zero, new Vector3(0f, rotationDegreePerSecond * (leftX < 0f ? -1f : 1f), 0f), Mathf.Abs(leftX));
             Quaternion deltaRotation = Quaternion.Euler(rotationAmount * Time.deltaTime);

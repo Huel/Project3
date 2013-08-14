@@ -25,7 +25,7 @@ using UnityEngine;
 /// #DESCRIPTION OF CLASS#
 /// </summary>
 [RequireComponent(typeof(BarsEffect))]
-public class ThirdPersonCamera : MonoBehaviour
+public class OrbitCamera : MonoBehaviour
 {
     private Transform parentRig;
     private float distanceAway = 3.5f;
@@ -39,7 +39,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private float firstPersonThreshold = 0.5f;
     private float freeThreshold = 0.1f;
-    private Vector2 camMinDistFromChar = new Vector2(1f, -0.5f);
+    private Vector2 camMinDistFromChar = new Vector2(3f, 0f);
     private float rightStickThreshold = 0.3f;
     private const float freeRotationDegreePerSecond = -5f;
 
@@ -143,10 +143,12 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, 0f, targetingTime);
 
-            if (Mathf.Abs(cameraX) >= freeThreshold || Mathf.Abs(cameraY) >= freeThreshold)
+            if (camState != CamStates.Free && (Mathf.Abs(cameraX) >= freeThreshold || Mathf.Abs(cameraY) >= freeThreshold))
             {
                 camState = CamStates.Free;
                 savedRigToGoal = Vector3.zero;
+                distanceAwayFree = distanceAway;
+                distanceUpFree = distanceUp;
             }
 
             // * Behind the back *
@@ -190,7 +192,6 @@ public class ThirdPersonCamera : MonoBehaviour
 
                 break;
             case CamStates.Free:
-
                 // Move height and distance from character in separate parentRig transform since RotateAround has control of both position and rotation
                 Vector3 rigToGoalDirection = Vector3.Normalize(characterOffset - transform.position);
                 // Can't calculate distanceAway from a vector with Y axis rotation in it; zero it out
@@ -218,7 +219,6 @@ public class ThirdPersonCamera : MonoBehaviour
 
                     targetPosition = characterOffset + player.transform.up * distanceUpFree - rigToGoalDirection * distanceAwayFree;
                 }
-
                 // Store direction only if right stick inactive
                 if (cameraX != 0 || cameraY != 0)
                 {
@@ -241,14 +241,10 @@ public class ThirdPersonCamera : MonoBehaviour
         }
 
 
-        if (camState != CamStates.Free)
-        {
-            CompensateForWalls(characterOffset, ref targetPosition);
 
-            SmoothPosition(parentRig.position, targetPosition);
-
-            transform.LookAt(lookAt);
-        }
+        CompensateForWalls(characterOffset, ref targetPosition);
+        SmoothPosition(parentRig.position, targetPosition);
+        transform.LookAt(lookAt);
 
         rightStickPrevFrame = new Vector2(cameraX, cameraY);
     }
@@ -262,14 +258,16 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void CompensateForWalls(Vector3 fromObject, ref Vector3 toTarget)
     {
-        Debug.DrawLine(fromObject, toTarget, Color.cyan);
+
         // Compensate for walls between camera
         RaycastHit wallHit = new RaycastHit();
-        if (Physics.Linecast(fromObject, toTarget, out wallHit))
+        int layerMask = 1 << Layers.environment;
+        if (Physics.Linecast(fromObject, toTarget, out wallHit, layerMask))
         {
             Debug.DrawRay(wallHit.point, wallHit.normal, Color.red);
             toTarget = new Vector3(wallHit.point.x, toTarget.y, wallHit.point.z);
         }
+        Debug.DrawLine(fromObject, toTarget, Color.cyan);
     }
 
 
