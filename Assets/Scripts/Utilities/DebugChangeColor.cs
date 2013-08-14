@@ -36,12 +36,11 @@ public class DebugChangeColor : MonoBehaviour
 
         string meshName;
         if (gameObject.GetComponent<Target>().type == TargetType.Minion)
-            meshName = "mesh_hero01";
+            gameObject.transform.FindChild("Minion").FindChild("Bommel").renderer.material.color = debugColors[_team][color];
         else if (gameObject.GetComponent<Target>().type == TargetType.Hero)
-            meshName = "mesh_hero01";
+            gameObject.transform.FindChild("mesh_hero01").renderer.material.color = debugColors[_team][color];
         else return;
 
-        gameObject.transform.FindChild(meshName).renderer.material.color = debugColors[_team][color];
 
         if (networkView.isMine)
         {

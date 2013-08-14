@@ -70,7 +70,7 @@ public class Skill : MonoBehaviour
     private bool isPassive;
 
     bool Enabled { get { return _enabled; } set { _enabled = value; } }
-    SkillState State { get { return _state; } }
+    public SkillState State { get { return _state; } }
 
     public void Start()
     {
@@ -108,7 +108,7 @@ public class Skill : MonoBehaviour
         if (networkView.isMine)
             gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.TeamLight);
         else
-            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight,false);
+            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight, false);
         //+++++++++
         return true;
     }
