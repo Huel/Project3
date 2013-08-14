@@ -35,6 +35,7 @@ public class ComponentBuilder : MonoBehaviour
         Health healthComp = GetComponent<Health>();
         Speed speedComp = GetComponent<Speed>();
         Damage damageComp = GetComponent<Damage>();
+        CharacterControllerLogic characterComp = GetComponent<CharacterControllerLogic>();
 
         XmlDocument document = new XMLReader(dataPath).GetXML();
 
@@ -78,7 +79,18 @@ public class ComponentBuilder : MonoBehaviour
             GetComponent<MinionAgent>().productivity = float.Parse(document.GetElementsByTagName("productivity")[0].InnerText);
         if (xmlFile == "Hero01")
         {
-            
+            XmlElement skill = null;
+            foreach (XmlElement node in document.GetElementsByTagName("skills"))
+                skill = node;
+             if (characterComp != null && skill != null)
+             {
+                 characterComp.basicAttack.name = skill.GetElementsByTagName("skill0")[0].InnerText;
+                 characterComp.skill1.name = skill.GetElementsByTagName("skill1")[0].InnerText;
+                 characterComp.skill2.name = skill.GetElementsByTagName("skill2")[0].InnerText;
+                 characterComp.skill3.name = skill.GetElementsByTagName("skill3")[0].InnerText;
+                 characterComp.skill4.name = skill.GetElementsByTagName("skill4")[0].InnerText;
+                 characterComp.heroicAura.name = skill.GetElementsByTagName("skillAura")[0].InnerText; 
+             }
         }
         state = LoadingState.Loaded;
         enabled = false;
