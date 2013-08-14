@@ -28,12 +28,12 @@ using UnityEngine;
 public class CharacterControllerLogic : MonoBehaviour
 {
 
-    public Skill basicAttack = new Skill();
-    public Skill skill1 = new Skill();
-    public Skill skill2 = new Skill();
-    public Skill skill3 = new Skill();
-    public Skill skill4 = new Skill();
-    public Skill heroicAura = new Skill();
+    public Skill basicAttack;   //= new Skill();
+    public Skill skill1;        //= new Skill();
+    public Skill skill2;        //= new Skill();
+    public Skill skill3;        //= new Skill();
+    public Skill skill4;        //= new Skill();
+    public Skill heroicAura;    //= new Skill();
 
     #region Variables (private)
 
@@ -151,7 +151,7 @@ public class CharacterControllerLogic : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Debug.Log(basicAttack +", "+ skill1 +", "+ skill2 +", "+ skill3 +", "+ skill4 +", "+ heroicAura);
+        //Debug.Log(basicAttack +", "+ skill1 +", "+ skill2 +", "+ skill3 +", "+ skill4 +", "+ heroicAura);
         if (!GetComponent<NetworkView>().isMine)
             return;
         bool alive = GetComponent<Health>().IsAlive();

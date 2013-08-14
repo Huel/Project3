@@ -89,7 +89,20 @@ public class ComponentBuilder : MonoBehaviour
                  characterComp.skill2.name = skill.GetElementsByTagName("skill2")[0].InnerText;
                  characterComp.skill3.name = skill.GetElementsByTagName("skill3")[0].InnerText;
                  characterComp.skill4.name = skill.GetElementsByTagName("skill4")[0].InnerText;
-                 characterComp.heroicAura.name = skill.GetElementsByTagName("skillAura")[0].InnerText; 
+                 characterComp.heroicAura.name = skill.GetElementsByTagName("skillAura")[0].InnerText;
+
+                 Debug.Log(skill.GetElementsByTagName("skill0")[0].InnerText + ", " +
+                     skill.GetElementsByTagName("skill1")[0].InnerText + ", " +
+                     skill.GetElementsByTagName("skill2")[0].InnerText + ", " +
+                     skill.GetElementsByTagName("skill3")[0].InnerText + ", " +
+                     skill.GetElementsByTagName("skill4")[0].InnerText + ", " +
+                     skill.GetElementsByTagName("skillAura")[0].InnerText);
+                 Debug.Log(characterComp.basicAttack.name + ", " +
+                     characterComp.skill1.name + ", " +
+                     characterComp.skill2.name + ", " +
+                     characterComp.skill3.name + ", " +
+                     characterComp.skill4.name + ", " +
+                     characterComp.heroicAura.name);
              }
         }
         state = LoadingState.Loaded;
