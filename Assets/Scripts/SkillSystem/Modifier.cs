@@ -244,15 +244,21 @@ public class Modifier
     {
         if (sourceObject == null)
             sourceObject = skill.gameObject;
+        GameObject _targetObject;
         if (targetObject == null)
-            targetObject = SearchForObject(skill, target, targetTeams);
+            _targetObject = SearchForObject(skill, target, targetTeams);
+        else
+            _targetObject = targetObject;
 
-        if (targetObject == null) return;
+        if (_targetObject == null) return;
+
+        if (sourceObject.gameObject.GetComponent<Target>().type == TargetType.Hero)
+            Debug.Log(target + " " + targetTeams + " " + _targetObject.ToString() + " " + _targetObject.gameObject.GetComponent<Target>().type.ToString() + " " + _targetObject.gameObject.GetComponent<Health>().HealthPoints.ToString());
 
         switch (field)
         {
             case "Health":
-                Health comp = targetObject.GetComponent<Health>();
+                Health comp = _targetObject.GetComponent<Health>();
                 if (valueType == "setInvulnerable") comp.invulnerable = bool.Parse(value);
                 if (valueType == "setImmortal") comp.immortal = bool.Parse(value);
                 if (valueType == "setHealthMultiplier") comp.SetMaxHealthMultiplier(float.Parse(value));
@@ -262,20 +268,20 @@ public class Modifier
                 if (valueType == "decrease")
                 {
                     comp.DecHealth(sourceObject.GetComponent<Damage>().DefaultDamage * float.Parse(value));
-                    if (targetObject.GetComponent<Target>().type == TargetType.Hero && sourceObject.GetComponent<Target>().type == TargetType.Hero)
-                        targetObject.GetComponent<LastHeroDamage>().SetSource(sourceObject.networkView.viewID);
+                    if (_targetObject.GetComponent<Target>().type == TargetType.Hero && sourceObject.GetComponent<Target>().type == TargetType.Hero)
+                        _targetObject.GetComponent<LastHeroDamage>().SetSource(sourceObject.networkView.viewID);
                 }
                 break;
 
             case "Speed":
-                Speed speedComp = targetObject.GetComponent<Speed>();
+                Speed speedComp = _targetObject.GetComponent<Speed>();
                 if (valueType == "setSpeedMultiplier") speedComp.SetSpeedMultiplier(float.Parse(value));
                 if (valueType == "multiplyDefaultSpeed") speedComp.SetDefaultSpeed(speedComp.DefaultSpeed*float.Parse(value));
                 if (valueType == "multiplySprintSpeed") speedComp.SetSprintSpeed(speedComp.SprintSpeed * float.Parse(value));
                 break;
 
             case "Damage":
-                Damage damageComp = targetObject.GetComponent<Damage>();
+                Damage damageComp = _targetObject.GetComponent<Damage>();
                 if (valueType == "setDamageMultiplier") damageComp.SetDamageMultiplier(float.Parse(value));
                 break;
 
@@ -284,9 +290,9 @@ public class Modifier
                 break;
 
             case "Manipulation":
-                if (!targetObject.GetComponent<Target>().IsMinion()) return;
+                if (!_targetObject.GetComponent<Target>().IsMinion()) return;
                 GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
-                targetObject.GetComponent<MinionAgent>().Manipulate(valueType, value, (aim==null)?null:aim.GetComponent<Target>());
+                _targetObject.GetComponent<MinionAgent>().Manipulate(valueType, value, (aim == null) ? null : aim.GetComponent<Target>());
                 break;
         }
     }
