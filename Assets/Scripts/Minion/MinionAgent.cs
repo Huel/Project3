@@ -17,6 +17,7 @@ public class MinionAgent : MonoBehaviour
     private float _destinationOffset = 1f;
     private bool fixedTarget = false;
     public bool atRallyPoint = false;
+    public bool partOfSquad = false;
 
     public Range attentionRange;
     public Range looseAttentionRange;
@@ -85,6 +86,7 @@ public class MinionAgent : MonoBehaviour
             if (_destination != null)
             {
                 _agent.destination = _destination.Position;
+                if (partOfSquad) return;
                 if (_destination.GetDistance(transform.position) <= _destinationOffset)
                 {
                     CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
@@ -163,6 +165,7 @@ public class MinionAgent : MonoBehaviour
 
     void CheckRallyPoint()
     {
+        if (partOfSquad) return;
         var target = attentionRange.GetNearestTargetByTypeAndTeam(TargetType.Spot, gameObject.GetComponent<Team>());
         atRallyPoint = (target != null);
         if (atRallyPoint && _destination != null)
@@ -237,6 +240,21 @@ public class MinionAgent : MonoBehaviour
 
             case "Revive":
                 gameObject.GetComponent<Health>().SetHealth(gameObject.GetComponent<Health>().MaxHealth * float.Parse(value));
+                break;
+
+            case "AddSquad":
+                if (atRallyPoint)
+                    atRallyPoint = false;
+                else
+                    _destinationSaved = _destination;
+                _destination = aim;
+                partOfSquad = true;
+                break;
+
+            case "RemoveSquad":
+                _destination = _destinationSaved;
+                _destinationSaved = null;
+                partOfSquad = false;
                 break;
         }
     }

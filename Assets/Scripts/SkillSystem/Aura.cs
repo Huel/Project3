@@ -13,10 +13,12 @@ public class Aura : MonoBehaviour
     public List<Team.TeamIdentifier> IDs;
     public float minValue = 1;
     public float radius;
+    public bool once;
+    public int counters = 0;
 
     private List<Target> targets;
 
-    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float radius)
+    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float radius, bool once)
     {
         this.skill = skill;
         this.buffName = buffName;
@@ -24,6 +26,7 @@ public class Aura : MonoBehaviour
         this.IDs = IDs;
         this.minValue = minValue;
         this.radius = radius;
+        this.once = once;
 
         buffIsDebuff = !IDs.Contains(skill.gameObject.GetComponent<Team>().ID);
 
@@ -35,6 +38,9 @@ public class Aura : MonoBehaviour
 
     private void onEnter(Target target)
     {
+        if (once && counters > 0) return;
+        if (once && target.gameObject.GetComponent<MinionAgent>().partOfSquad) return;
+        counters++;
         BuffBehaviour buff = target.gameObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, buffName, buffIsDebuff, true);
     }

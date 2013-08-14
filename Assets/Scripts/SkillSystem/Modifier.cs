@@ -98,8 +98,9 @@ public class Modifier
     private string buffName;
     private float minValue, range;
     private UnityEngine.Object aura = null;
+    private bool once;
 
-    public Modifier(Skill skill, string buffName, List<TargetType> targetTypes, string targetTeam, string range, string minValue)
+    public Modifier(Skill skill, string buffName, List<TargetType> targetTypes, string targetTeam, string range, string minValue, bool once)
     {
         this.skill = skill;
         type = modifierType.aura;
@@ -108,6 +109,7 @@ public class Modifier
 
         this.range = float.Parse(range);
         this.minValue = float.Parse(minValue);
+        this.once = once;
 
         targetTeams = new List<Team.TeamIdentifier>();
         switch (targetTeam)
@@ -158,7 +160,7 @@ public class Modifier
             case modifierType.aura:
                 aura = Network.Instantiate(Resources.Load("aurabuff"), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
                 (aura as GameObject).transform.parent = skill.gameObject.transform;
-                (aura as GameObject).GetComponent<Aura>().Init(skill, buffName, targetTypes, targetTeams, minValue, range);
+                (aura as GameObject).GetComponent<Aura>().Init(skill, buffName, targetTypes, targetTeams, minValue, range, once);
                 (aura as GameObject).GetComponent<SphereCollider>().radius = range;
                 break;
 

@@ -194,4 +194,48 @@
         <removeModifier><field>Health</field><value type="setHealthMultiplier">1.0</value></removeModifier>
       </buff>
     </skill>
+
+    <skill name="AddSquad" auraOnce="true">
+      <type>aura<buff>AddSquad</buff><allowedTypes>Minion</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue></type>
+      <type>buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam></type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>0.0</cooldown>
+
+      <buff id="AddSquad">
+        <addModifier><field>AddSquad</field><value>Self</value></addModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>0.1</duration>
+        <removeModifier><field>Aura</field><value type="removeAura">AddSquad</value></removeModifier>
+      </buff>
+    </skill>
+
+    <skill name="RemoveSquad" auraOnce="true">
+      <type>
+        aura<buff>RemoveSquad</buff><allowedTypes>Minion</allowedTypes><targetTeam>Ally</targetTeam><range>5.0</range><minValue>1.0</minValue>
+      </type>
+      <type>
+        buff<component>AuraRemover</component><target>Self</target><targetTeam>All</targetTeam>
+      </type>
+
+      <trigger>instant</trigger>
+
+      <castingTime>0.0</castingTime>
+
+      <cooldown>0.0</cooldown>
+
+      <buff id="RemoveSquad">
+        <addModifier><field>RemoveSquad</field><value></value></addModifier>
+      </buff>
+
+      <buff id="AuraRemover">
+        <duration>0.1</duration>
+        <removeModifier><field>Aura</field><value type="removeAura">RemoveSquad</value></removeModifier>
+      </buff>
+    </skill>
 </Skills>
