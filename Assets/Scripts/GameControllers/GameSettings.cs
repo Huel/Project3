@@ -19,7 +19,7 @@ public class GameSettings : MonoBehaviour
         gameController.FirstMinionSpawn = float.Parse(document.GetElementsByTagName("FirstMinionspawn")[0].InnerText);
         gameController.SpawnTime = float.Parse(document.GetElementsByTagName("Minionspawn")[0].InnerText);
         minionManager.SpawnJitter = float.Parse(document.GetElementsByTagName("SpawnJitter")[0].InnerText);
-        minionManager.MinionsPerPlayer = int.Parse(new XMLReader("Minion.xml").GetXML().GetElementsByTagName("countPerPlayer")[0].InnerText);
+        minionManager.MinionsPerPlayer = int.Parse(document.GetElementsByTagName("MaxMinions")[0].InnerText);
         minionManager.Init();
     }
 }

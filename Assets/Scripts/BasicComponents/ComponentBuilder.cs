@@ -26,7 +26,10 @@ public class ComponentBuilder : MonoBehaviour
             enabled = false;
         }
     }
-
+    /// <summary>
+    ///     gets information from xml file for Hero and Minion
+    /// </summary>
+    /// <param name="dataPath">the name of the xml file without ending (.xml)</param>
     private void getDatafromXML(string dataPath)
     {
         Health healthComp = GetComponent<Health>();
@@ -70,6 +73,12 @@ public class ComponentBuilder : MonoBehaviour
             damageComp.SetDefaultDamage(float.Parse(damage.GetElementsByTagName("defaultDamage")[0].InnerText));
             damageComp.SetHitSpeed(float.Parse(damage.GetElementsByTagName("hitSpeed")[0].InnerText));
             damageParsed = true;
+        }
+        if (xmlFile == "Minion")
+            GetComponent<MinionAgent>().productivity = float.Parse(document.GetElementsByTagName("productivity")[0].InnerText);
+        if (xmlFile == "Hero01")
+        {
+            
         }
         state = LoadingState.Loaded;
         enabled = false;
