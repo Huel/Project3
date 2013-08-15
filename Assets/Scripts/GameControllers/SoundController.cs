@@ -65,7 +65,7 @@ public class SoundController : MonoBehaviour
             if (AnyBombTriggered)
             {
                 Debug.Log("A Bomb triggered");
-                sounds[2].Play();
+                sounds[1].Play();
             }
             else
             {
@@ -79,12 +79,12 @@ public class SoundController : MonoBehaviour
             if (AnyBombTriggered)
             {
                 Debug.Log("A Bomb triggered");
-                sounds[2].Play();
+                sounds[1].Play();
             }
             else
             {
                 Debug.Log("No Bomb Triggered");
-                sounds[1].Play();
+                sounds[2].Play();
             }
         }
         Debug.Log(Random.Range(0f, 100000f));
