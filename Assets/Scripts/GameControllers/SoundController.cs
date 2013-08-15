@@ -27,12 +27,7 @@ public class SoundController : MonoBehaviour
     {
         get 
         { 
-            bool check = false;
-            foreach (bool triggeredLane in triggeredLanes)
-            {
-                check = triggeredLane;
-            }
-            return check;
+            return (triggeredLanes[0]||triggeredLanes[1]||triggeredLanes[2]);
         }
     }
 
@@ -40,15 +35,7 @@ public class SoundController : MonoBehaviour
     {
         get
         {
-            bool check = false;
-            foreach (AudioSource triggeredLane in sounds)
-            {
-                if (triggeredLane.isPlaying)
-                {
-                    check = triggeredLane.isPlaying;
-                }
-            }
-            return check;
+            return (sounds[0].isPlaying || sounds[1].isPlaying || sounds[2].isPlaying);
         }
     }
 
@@ -107,11 +94,13 @@ public class SoundController : MonoBehaviour
 
     public void TryToPlaySound(SoundEvent.Lane lane)
     {
+        Debug.Log("playsound in soundcontroller used");
         triggeredLanes[(int) lane] = true;
     }
 
     public void TryToStopSound(SoundEvent.Lane lane)
     {
+        Debug.Log("stopsound in soundcontroller used");
         triggeredLanes[(int)lane] = false;
     }
 }
