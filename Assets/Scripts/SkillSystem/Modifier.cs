@@ -166,8 +166,18 @@ public class Modifier
 
             case modifierType.minionAgentManupulation:
                 if (!targetObject.GetComponent<Target>().IsMinion()) return;
+                if (modificator == "AddSquad")
+                {
+                    skill.gameObject.GetComponent<Squad>().AddSquadMember(targetObject);
+                    break;
+                }
+                if (modificator == "RemoveSquad")
+                {
+                    skill.gameObject.GetComponent<Squad>().RemoveSquadMember(targetObject);
+                    break;
+                }
                 GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
-                targetObject.GetComponent<MinionAgent>().Manipulate(modificator, value, (aim==null)?null:aim.GetComponent<Target>());
+                targetObject.GetComponent<MinionAgent>().Manipulate(modificator, value, (aim == null) ? null : aim.GetComponent<Target>());
                 break;
 
             case modifierType.spot:
@@ -254,9 +264,6 @@ public class Modifier
 
         if (_targetObject == null) return;
 
-        if (sourceObject.gameObject.GetComponent<Target>().type == TargetType.Hero)
-            Debug.Log(target + " " + targetTeams + " " + _targetObject.ToString() + " " + _targetObject.gameObject.GetComponent<Target>().type.ToString() + " " + _targetObject.gameObject.GetComponent<Health>().HealthPoints.ToString());
-
         switch (field)
         {
             case "Health":
@@ -293,6 +300,16 @@ public class Modifier
 
             case "Manipulation":
                 if (!_targetObject.GetComponent<Target>().IsMinion()) return;
+                if (valueType == "AddSquad")
+                {
+                    skill.gameObject.GetComponent<Squad>().AddSquadMember(_targetObject);
+                    break;
+                }
+                if (valueType == "RemoveSquad")
+                {
+                    skill.gameObject.GetComponent<Squad>().RemoveSquadMember(_targetObject);
+                    break;
+                }
                 GameObject aim = SearchForObject(skill, value, new List<Team.TeamIdentifier>());
                 _targetObject.GetComponent<MinionAgent>().Manipulate(valueType, value, (aim == null) ? null : aim.GetComponent<Target>());
                 break;
@@ -301,12 +318,15 @@ public class Modifier
 
     private void Buff()
     {
+        GameObject _targetObject;
         if (targetObject == null)
-            targetObject = SearchForObject(skill, target, targetTeams);
+            _targetObject = SearchForObject(skill, target, targetTeams);
+        else
+            _targetObject = targetObject;
 
-        if (targetObject == null) return;
+        if (_targetObject == null) return;
 
-        BuffBehaviour buff = targetObject.AddComponent<BuffBehaviour>();
+        BuffBehaviour buff = _targetObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, componentName, (type == modifierType.debuff));
     }
 }

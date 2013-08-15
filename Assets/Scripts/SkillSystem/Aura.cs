@@ -38,9 +38,9 @@ public class Aura : MonoBehaviour
 
     private void onEnter(Target target)
     {
-        if (once && counters > 0) return;
-        if (once && target.gameObject.GetComponent<MinionAgent>().partOfSquad) return;
-        counters++;
+        if (onceCheck()) return;
+        if (squadCheck(target)) return;
+        counters++; 
         BuffBehaviour buff = target.gameObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, buffName, buffIsDebuff, true);
     }
@@ -73,5 +73,21 @@ public class Aura : MonoBehaviour
                 if (buff.buffID == buffName)
                     buff.ChangeAuraValue(value);
         }
+    }
+
+    private bool onceCheck()
+    {
+        if (!once) return false;
+        if (counters < 1) return false;
+        return true;
+    }
+
+    private bool squadCheck(Target target)
+    {
+        if (buffName == "AddSquad")
+            if(skill.gameObject.GetComponent<Squad>().CanAdd() && !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+        if (buffName == "RemoveSquad")
+            if(skill.gameObject.GetComponent<Squad>().CanRemove() && skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+        return true;
     }
 }

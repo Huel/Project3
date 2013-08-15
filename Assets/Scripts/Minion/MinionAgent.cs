@@ -86,8 +86,7 @@ public class MinionAgent : MonoBehaviour
             if (_destination != null)
             {
                 _agent.destination = _destination.Position;
-                if (partOfSquad) return;
-                if (_destination.GetDistance(transform.position) <= _destinationOffset)
+                if (_destination.GetDistance(transform.position) <= _destinationOffset && !partOfSquad)
                 {
                     CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
                     if (checkPoint != null)
@@ -252,10 +251,47 @@ public class MinionAgent : MonoBehaviour
                 break;
 
             case "RemoveSquad":
-                _destination = _destinationSaved;
+                _destination = CheckLine(_destinationSaved);
                 _destinationSaved = null;
                 partOfSquad = false;
                 break;
         }
+    }
+
+    private Target CheckLine(Target oldLine)
+    {
+        List<GameObject> checkpoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Checkpoint"));
+
+        Target target;
+        float distance = float.MaxValue;
+        int position = -1;
+        for (int i = 0; i < checkpoints.Count; i++)
+            if ((checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude <= distance)
+            {
+                position = i;
+                distance = (checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude;
+            }
+
+        if (position != -1)
+        {
+            target = checkpoints[position].GetComponent<Target>();
+            Team.TeamIdentifier id = GetComponent<Team>().ID;
+            int number = int.Parse(target.name.Substring(target.name.Length-1));
+            if((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
+            {
+                foreach (GameObject baseObject in GameObject.FindGameObjectsWithTag("Base"))
+                    if (baseObject.GetComponent<Team>().ID == id)
+                        SetOrigin(baseObject.GetComponent<Target>());
+            }
+            number = (id==Team.TeamIdentifier.Team1)?number-1:number+1;
+
+            foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+                if (checkpoint.name == (target.name.Substring(0, target.name.Length-1)+number))
+                    SetOrigin(checkpoint.GetComponent<Target>());
+        }
+        else
+            target = oldLine;
+
+        return target;
     }
 }
