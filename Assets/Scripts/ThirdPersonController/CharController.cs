@@ -92,6 +92,7 @@ public class CharController : MonoBehaviour
             animator.SetFloat(AnimatorTags.angle, 0f);
         }
 
+        controller.Move(Physics.gravity);
         animator.SetFloat(AnimatorTags.speed, _speed);
 
 
