@@ -180,12 +180,23 @@ public class MinionManager : MonoBehaviour
 
     void Update()
     {
+        if (!initialized && GameObject.Find("minion_manager_view") != null)
+        {
+            isVisible = false;
+            GameObject.Find("minion_manager_view").GetComponent<UISprite>().alpha = 0;
+            for (int i = 0; i < 15; i++)
+            {
+                GameObject.Find("minion_small_" + (i + 1)).GetComponent<UISprite>().alpha = 0;
+                GameObject.Find("pointer_minion_" + (i + 1)).GetComponent<UISprite>().alpha = 0;
+            }
+        }
+
         if (!initialized) return;
 
         UpdatePointers(); //Turns pointers visible on selected minions and invisible on not selected ones
         UpdateMinionPositions(); //Goes through the lanes and fills all the holes by changing MinionFullInfo.occupant and MinionView.x and y
 
-        if (Input.GetButtonDown(InputTags.manager))
+        if (Input.GetButtonDown(InputTags.manager) || Input.GetKeyDown(KeyCode.A))
         {
             if (GetMinionManagerState() == MinionManagerState.Visible)
             {
@@ -513,17 +524,11 @@ public class MinionManager : MonoBehaviour
     {
         if (!isVisible) return;
         isVisible = false;
-        backgroundView.position += zOffset;
+        backgroundView.GetComponent<UISprite>().alpha = 0;
         foreach (MinionView local in minionViews)
         {
-            local.minionView.position += zOffset;
-        }
-        foreach (List<MinionFullInfo> minionFullInfos in viewPositions)
-        {
-            foreach (MinionFullInfo minionFullInfo in minionFullInfos)
-            {
-                minionFullInfo.pos += zOffset;
-            }
+            local.minionView.GetComponent<UISprite>().alpha = 0;
+            local.minionPointer.GetComponent<UISprite>().alpha = 0;
         }
     }
 
@@ -531,17 +536,11 @@ public class MinionManager : MonoBehaviour
     {
         if (isVisible) return;
         isVisible = true;
-        backgroundView.position -= zOffset;
+        backgroundView.GetComponent<UISprite>().alpha = 1;
         foreach (MinionView local in minionViews)
         {
-            local.minionView.position -= zOffset;
-        }
-        foreach (List<MinionFullInfo> minionFullInfos in viewPositions)
-        {
-            foreach (MinionFullInfo minionFullInfo in minionFullInfos)
-            {
-                minionFullInfo.pos -= zOffset;
-            }
+            local.minionView.GetComponent<UISprite>().alpha = 1;
+            local.minionPointer.GetComponent<UISprite>().alpha = 1;
         }
     }
 }

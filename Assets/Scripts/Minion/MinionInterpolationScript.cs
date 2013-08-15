@@ -36,13 +36,13 @@ public class MinionInterpolationScript : MonoBehaviour
         // Send data to server
         if (stream.isWriting)
         {
-            float speed = GetComponent<Animator>().GetFloat("Speed");
-            float direction = GetComponent<Animator>().GetFloat("Direction");
-            float angle = GetComponent<Animator>().GetFloat("Angle");
+            //    float speed = GetComponent<Animator>().GetFloat("Speed");
+            //    float direction = GetComponent<Animator>().GetFloat("Direction");
+            //    float angle = GetComponent<Animator>().GetFloat("Angle");
 
-            stream.Serialize(ref speed);
-            stream.Serialize(ref direction);
-            stream.Serialize(ref angle);
+            //    stream.Serialize(ref speed);
+            //    stream.Serialize(ref direction);
+            //    stream.Serialize(ref angle);
 
             Vector3 pos = transform.position;
             Quaternion rot = transform.rotation;
@@ -60,17 +60,17 @@ public class MinionInterpolationScript : MonoBehaviour
 
 
 
-            float speed = 0.0f;
-            float direction = 0.0f;
-            float angle = 0.0f;
+            //float speed = 0.0f;
+            //float direction = 0.0f;
+            //float angle = 0.0f;
 
-            stream.Serialize(ref speed);
-            stream.Serialize(ref direction);
-            stream.Serialize(ref angle);
+            //stream.Serialize(ref speed);
+            //stream.Serialize(ref direction);
+            //stream.Serialize(ref angle);
 
-            GetComponent<Animator>().SetFloat("Speed", speed);
-            GetComponent<Animator>().SetFloat("Direction", direction);
-            GetComponent<Animator>().SetFloat("Angle", angle);
+            //GetComponent<Animator>().SetFloat("Speed", speed);
+            //GetComponent<Animator>().SetFloat("Direction", direction);
+            //GetComponent<Animator>().SetFloat("Angle", angle);
 
             Vector3 pos = Vector3.zero;
             Vector3 velocity = Vector3.zero;
@@ -120,7 +120,7 @@ public class MinionInterpolationScript : MonoBehaviour
         if (networkView.isMine)// || )
             return;
 
-        if (GetComponent<Animator>().GetFloat("Speed") < 0.0001f)
+        if (!GetComponent<Animator>().GetBool("Run"))
         {
             transform.position = rightPos;
         }

@@ -75,7 +75,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400008}
-  - 114: {fileID: 11400128}
   m_Layer: 13
   m_Name: lane03
   m_TagString: Untagged
@@ -267,7 +266,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400032}
-  - 114: {fileID: 11400034}
   m_Layer: 13
   m_Name: lane02
   m_TagString: Untagged
@@ -349,7 +347,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400042}
-  - 114: {fileID: 11400050}
   m_Layer: 13
   m_Name: lane01
   m_TagString: Untagged
@@ -3633,21 +3630,6 @@ MonoBehaviour:
   halfPixelOffset: 1
   runOnlyOnce: 0
   relativeOffset: {x: 0, y: 0}
---- !u!114 &11400034
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
-  _bomb: {fileID: 0}
-  _bombLaneBlue: {fileID: 0}
-  _bombLaneRed: {fileID: 0}
-  _arrowBlue: {fileID: 0}
-  _arrowRed: {fileID: 0}
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3791,21 +3773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f5c62eb79ebe848a4dbe8006cff284, type: 3}
   m_Name: 
   skills: []
---- !u!114 &11400050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
-  _bomb: {fileID: 0}
-  _bombLaneBlue: {fileID: 0}
-  _bombLaneRed: {fileID: 0}
-  _arrowBlue: {fileID: 0}
-  _arrowRed: {fileID: 0}
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4626,21 +4593,8 @@ MonoBehaviour:
   bombLane01: {fileID: 0}
   bombLane02: {fileID: 0}
   bombLane03: {fileID: 0}
---- !u!114 &11400128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
-  _bomb: {fileID: 0}
-  _bombLaneBlue: {fileID: 0}
-  _bombLaneRed: {fileID: 0}
-  _arrowBlue: {fileID: 0}
-  _arrowRed: {fileID: 0}
+  bombs: []
+  guiLanes: []
 --- !u!114 &11400130
 MonoBehaviour:
   m_ObjectHideFlags: 1
