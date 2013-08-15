@@ -19,12 +19,16 @@ public class CharController : MonoBehaviour
     public Skill skill2;
     public Skill skill3;
     public Skill skill4;
+    public Skill addSquad;
+    public Skill removeSquad;
     public Skill heroicAura;
 
     public const float speedThreshold = 0.1f;
     private const float sprintFOV = 75.0f;
     private const float normalFOV = 60.0f;
     private const float fovDampTime = 3f;
+
+    private bool buttonPushed;
 
     public float Speed
     {
@@ -133,6 +137,30 @@ public class CharController : MonoBehaviour
         {
             if (skill4)
                 skill4.Execute();
+        }
+
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        if (!buttonPushed)
+        {
+            if (Input.GetAxisRaw(InputTags.squadLane) != 0 || Input.GetAxisRaw(InputTags.squadSelection) != 0)
+            {
+                buttonPushed = true;
+            }
+            if(Input.GetAxisRaw(InputTags.squadSelection) > 0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
+                addSquad.Execute();
+            if(Input.GetAxisRaw(InputTags.squadSelection) < -0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
+                removeSquad.Execute();
+        }
+        else
+        {
+            if (Input.GetAxisRaw(InputTags.squadLane) == 0 && Input.GetAxisRaw(InputTags.squadSelection) == 0)
+            {
+                buttonPushed = false;
+            }
         }
     }
 

@@ -93,6 +93,9 @@ GameObject:
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400036}
   - 114: {fileID: 11400034}
+  - 114: {fileID: 11400040}
+  - 114: {fileID: 11400042}
+  - 114: {fileID: 11400012}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -2599,6 +2602,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
   type: 0
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568d47f8c8cabe5428a7d91a3312011c, type: 3}
+  m_Name: 
+  squadMembers: []
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2764,7 +2778,35 @@ MonoBehaviour:
   skill2: {fileID: 11400030}
   skill3: {fileID: 11400032}
   skill4: {fileID: 11400036}
+  addSquad: {fileID: 11400040}
+  removeSquad: {fileID: 11400042}
   heroicAura: {fileID: 11400034}
+--- !u!114 &11400040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Name: 
+  skillName: AddSquad
+  cooldown: 0
+  actualCooldown: 0
+--- !u!114 &11400042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Name: 
+  skillName: RemoveSquad
+  cooldown: 0
+  actualCooldown: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

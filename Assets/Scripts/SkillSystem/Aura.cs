@@ -13,10 +13,12 @@ public class Aura : MonoBehaviour
     public List<Team.TeamIdentifier> IDs;
     public float minValue = 1;
     public float radius;
+    public bool once;
+    public int counters = 0;
 
     private List<Target> targets;
 
-    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float radius)
+    public void Init(Skill skill, string buffName, List<TargetType> types, List<Team.TeamIdentifier> IDs, float minValue, float radius, bool once)
     {
         this.skill = skill;
         this.buffName = buffName;
@@ -24,6 +26,7 @@ public class Aura : MonoBehaviour
         this.IDs = IDs;
         this.minValue = minValue;
         this.radius = radius;
+        this.once = once;
 
         buffIsDebuff = !IDs.Contains(skill.gameObject.GetComponent<Team>().ID);
 
@@ -35,6 +38,9 @@ public class Aura : MonoBehaviour
 
     private void onEnter(Target target)
     {
+        if (onceCheck()) return;
+        if (squadCheck(target)) return;
+        counters++; 
         BuffBehaviour buff = target.gameObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, buffName, buffIsDebuff, true);
     }
@@ -67,5 +73,21 @@ public class Aura : MonoBehaviour
                 if (buff.buffID == buffName)
                     buff.ChangeAuraValue(value);
         }
+    }
+
+    private bool onceCheck()
+    {
+        if (!once) return false;
+        if (counters < 1) return false;
+        return true;
+    }
+
+    private bool squadCheck(Target target)
+    {
+        if (buffName == "AddSquad")
+            if(skill.gameObject.GetComponent<Squad>().CanAdd() && !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+        if (buffName == "RemoveSquad")
+            if(skill.gameObject.GetComponent<Squad>().CanRemove() && skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+        return true;
     }
 }

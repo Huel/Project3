@@ -226,7 +226,7 @@ public class Skill : MonoBehaviour
                                 if (compareType.ToString() == type)
                                     targetTypes.Add(compareType);
                         targetType = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, targetTypes, targetType, skill.ChildNodes[4].InnerText, skill.ChildNodes[5].InnerText));
+                        modifiers.Add(new Modifier(this, field, targetTypes, targetType, skill.ChildNodes[4].InnerText, skill.ChildNodes[5].InnerText, (skillNode.HasAttribute("auraOnce") && skillNode.GetAttribute("auraOnce") == "true")));
                         break;
 
                     case "spot":

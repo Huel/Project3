@@ -76,6 +76,15 @@ public class Range : MonoBehaviour
         return null;
     }
 
+    public Target GetNearestTargetByTypeAndTeam(TargetType type, Team team)
+    {
+        order();
+        for (int i = 0; i < objectsInRange.Count; i++)
+            if (objectsInRange[i].type == type && objectsInRange[i].gameObject.GetComponent<Team>().ID == team.ID)
+                return objectsInRange[i];
+        return null;
+    }
+
     public Target GetNearestTargetByPriority(List<TargetType> types, Team team)
     {
         order();
@@ -161,9 +170,10 @@ public class Range : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {   
         if (other.GetComponent<Target>() == null) return;
-        if (objectsInRange.IndexOf(other.GetComponent<Target>()) != -1 ) return;  
         Target target = other.gameObject.GetComponent<Target>();
-        objectsInRange.Add(other.gameObject.GetComponent<Target>());
+        if (!relevantTargetTypes.Contains(target.type)) return;
+        if (objectsInRange.IndexOf(target) != -1) return;
+        objectsInRange.Add(target);
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in enterRangeListener)
                 if (listener != null) listener(target);
@@ -177,9 +187,9 @@ public class Range : MonoBehaviour
         Target target = other.gameObject.GetComponent<Target>();
         if (relevantTargetTypes.Contains(target.type) && relevantTargetTeams.Contains(other.GetComponent<Team>().ID))
             foreach (OnRangeEvent listener in exitRangeListener)
-                if (listener != null) 
-                    listener(other.gameObject.GetComponent<Target>());   
-        objectsInRange.Remove(target);
+                if (listener != null)
+                    listener(target);
+        if (objectsInRange.IndexOf(target) != -1) objectsInRange.Remove(target);
         // attentionRange is deactivated, so OnTriggerExit will not be triggered
         if (gameObject.name == "looserange_minion")
             gameObject.transform.parent.transform.FindChild("attentionrange_minion").GetComponent<Range>().deleteSpecificTarget(target);

@@ -89,6 +89,8 @@ public class ComponentBuilder : MonoBehaviour
                  characterComp.skill2.skillName = skill.GetElementsByTagName("skill2")[0].InnerText;
                  characterComp.skill3.skillName = skill.GetElementsByTagName("skill3")[0].InnerText;
                  characterComp.skill4.skillName = skill.GetElementsByTagName("skill4")[0].InnerText;
+                 characterComp.addSquad.skillName = skill.GetElementsByTagName("addSquad")[0].InnerText;
+                 characterComp.removeSquad.skillName = skill.GetElementsByTagName("removeSquad")[0].InnerText;
                  characterComp.heroicAura.skillName = skill.GetElementsByTagName("skillAura")[0].InnerText;
              }
         }
