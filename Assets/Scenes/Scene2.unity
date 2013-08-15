@@ -2216,7 +2216,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 161853625}
-  - 114: {fileID: 161853626}
   - 114: {fileID: 161853627}
   m_Layer: 13
   m_Name: lane03
@@ -2241,17 +2240,6 @@ Transform:
   - {fileID: 1462328962}
   - {fileID: 520451283}
   m_Father: {fileID: 1708643472}
---- !u!114 &161853626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400128, guid: f155ffa4e45437d428bba86f3eb33a00,
-    type: 2}
-  m_PrefabInternal: {fileID: 1855473889}
-  m_GameObject: {fileID: 161853624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
 --- !u!114 &161853627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18610,7 +18598,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1380937024}
-  - 114: {fileID: 1945077976}
   - 114: {fileID: 1380937026}
   m_Layer: 13
   m_Name: lane02
@@ -23109,7 +23096,7 @@ Transform:
   m_PrefabInternal: {fileID: 1855473889}
   m_GameObject: {fileID: 1708643471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1261.03357, y: 646.44043, z: 0}
+  m_LocalPosition: {x: 1344.30542, y: 646.44043, z: 0}
   m_LocalScale: {x: 1.00044799, y: 1.00044799, z: 1.00044799}
   m_Children:
   - {fileID: 1929143115}
@@ -25579,7 +25566,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1261.03357
+      value: 1344.30542
       objectReference: {fileID: 0}
     - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mType
@@ -26065,7 +26052,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400050, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
+    - {fileID: 11400034, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
+    - {fileID: 11400128, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
   m_RootGameObject: {fileID: 40225877}
   m_IsPrefabParent: 0
@@ -26776,7 +26766,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1929143115}
-  - 114: {fileID: 1929143116}
   - 114: {fileID: 1929143117}
   m_Layer: 13
   m_Name: lane01
@@ -26801,17 +26790,6 @@ Transform:
   - {fileID: 423967151}
   - {fileID: 1668227618}
   m_Father: {fileID: 1708643472}
---- !u!114 &1929143116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400050, guid: f155ffa4e45437d428bba86f3eb33a00,
-    type: 2}
-  m_PrefabInternal: {fileID: 1855473889}
-  m_GameObject: {fileID: 1929143114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
 --- !u!114 &1929143117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27007,17 +26985,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1929143115}
---- !u!114 &1945077976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400034, guid: f155ffa4e45437d428bba86f3eb33a00,
-    type: 2}
-  m_PrefabInternal: {fileID: 1855473889}
-  m_GameObject: {fileID: 1380937023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc773f207e647dd4390466cc784ff3d6, type: 3}
-  m_Name: 
 --- !u!114 &1945077977
 MonoBehaviour:
   m_ObjectHideFlags: 0

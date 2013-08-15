@@ -82,15 +82,18 @@ public class CharController : MonoBehaviour
         if (_targeting)
         {
             controller.Move(moveDir * 0.1f);
+            animator.SetFloat(AnimatorTags.angle, charAngle);
         }
         else
         {
             controller.Move(transform.forward * _speed * 0.1f);
             if (_speed > speedThreshold)
                 transform.Rotate(Vector3.up, charAngle);
+            animator.SetFloat(AnimatorTags.angle, 0f);
         }
 
         animator.SetFloat(AnimatorTags.speed, _speed);
+
 
     }
 
@@ -140,8 +143,9 @@ public class CharController : MonoBehaviour
         if (_targeting)
             cameraDirection = transform.forward;
         else
-            cameraDirection = Vector3.Normalize(gamecam.transform.forward);
+            cameraDirection = gamecam.transform.forward;
         cameraDirection.y = 0.0f;
+        cameraDirection.Normalize();
 
         speedOut = stickDirection.magnitude;
 
@@ -152,7 +156,10 @@ public class CharController : MonoBehaviour
         int axisSign = Vector3.Cross(moveDirection, charDirection).y >= 0 ? -1 : 1;
 
         float angleRootToMove = Vector3.Angle(charDirection, moveDirection) * axisSign;
+
         angleOut = angleRootToMove;
+        if (stickDirection.magnitude == 0)
+            angleOut = 0;
 
         angleRootToMove /= 180f;
         directionOut = angleRootToMove;
