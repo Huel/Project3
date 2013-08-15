@@ -106,11 +106,11 @@ public class OrbitCamera : MonoBehaviour
         GameObject[] playerList = GameObject.FindGameObjectsWithTag(Tags.player);
         foreach (GameObject p in playerList)
         {
-            //if (p.networkView.isMine)
-            //{
-            player = p.GetComponent<CharController>();
-            break;
-            //}
+            if (p.networkView.isMine)
+            {
+                player = p.GetComponent<CharController>();
+                break;
+            }
         }
 
         lookDir = player.transform.forward;
