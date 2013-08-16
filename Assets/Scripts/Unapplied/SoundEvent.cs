@@ -12,7 +12,7 @@ public class SoundEvent : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        manager = GameObject.Find("sound_manager").GetComponent<SoundController>();
+        manager = GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>();
     }
 
     void OnTriggerEnter(Collider other)

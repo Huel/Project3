@@ -13,4 +13,5 @@ public class Tags
     public const string blueDot = "BlueDot";
     public const string greenDot = "GreenDot";
     public const string minionManager = "MinionManager";
+    public const string soundManager = "SoundManager";
 }
