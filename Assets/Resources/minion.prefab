@@ -578,7 +578,7 @@ GameObject:
   - 4: {fileID: 400072}
   - 137: {fileID: 13700000}
   m_Layer: 0
-  m_Name: Weapon001
+  m_Name: weapon_reduced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -594,7 +594,7 @@ GameObject:
   - 4: {fileID: 400074}
   - 137: {fileID: 13700002}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,7 +610,7 @@ GameObject:
   - 4: {fileID: 400076}
   - 137: {fileID: 13700004}
   m_Layer: 0
-  m_Name: Teeth_02
+  m_Name: teeth_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ GameObject:
   - 4: {fileID: 400078}
   - 137: {fileID: 13700006}
   m_Layer: 0
-  m_Name: Teeth_01
+  m_Name: teeth_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,7 +657,7 @@ GameObject:
   - 4: {fileID: 400082}
   - 137: {fileID: 13700008}
   m_Layer: 0
-  m_Name: HeadLow001
+  m_Name: head_reduced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,8 +672,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 400084}
   - 137: {fileID: 13700010}
+  - 114: {fileID: 11400038}
   m_Layer: 0
-  m_Name: HeadLow
+  m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +690,7 @@ GameObject:
   - 4: {fileID: 400086}
   - 137: {fileID: 13700012}
   m_Layer: 0
-  m_Name: Eyes001
+  m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -705,7 +706,7 @@ GameObject:
   - 4: {fileID: 400088}
   - 137: {fileID: 13700014}
   m_Layer: 0
-  m_Name: Eyes
+  m_Name: eyes_reduced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,7 +722,7 @@ GameObject:
   - 4: {fileID: 400090}
   - 137: {fileID: 13700016}
   m_Layer: 0
-  m_Name: Bommel001
+  m_Name: lamp_reduced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -737,7 +738,7 @@ GameObject:
   - 4: {fileID: 400092}
   - 137: {fileID: 13700018}
   m_Layer: 0
-  m_Name: Bommel
+  m_Name: lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +754,7 @@ GameObject:
   - 4: {fileID: 400094}
   - 137: {fileID: 13700020}
   m_Layer: 0
-  m_Name: BodyLow001
+  m_Name: body_reduced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,8 +769,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 400096}
   - 137: {fileID: 13700022}
+  - 114: {fileID: 11400036}
   m_Layer: 0
-  m_Name: BodyLow
+  m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +786,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400098}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: mesh_minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -797,7 +799,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.436566353, y: -.915930986, z: 3.22554731}
+  m_LocalPosition: {x: -25.3959866, y: 5.18895721, z: 17.8875446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -1619,15 +1621,15 @@ MonoBehaviour:
     e00: 1
     e01: 0
     e02: 0
-    e03: .436566353
+    e03: 25.3959866
     e10: 0
     e11: 1
     e12: 0
-    e13: .915930986
+    e13: -5.18895721
     e20: 0
     e21: 0
     e22: 1
-    e23: -3.22554731
+    e23: -17.8875446
     e30: 0
     e31: 0
     e32: 0
@@ -1669,6 +1671,30 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68280cff969c7674b8ab580746275d29, type: 3}
   m_Name: 
+--- !u!114 &11400036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0991606aee4e7224c8654c691a294022, type: 3}
+  m_Name: 
+  texture1: {fileID: 2800000, guid: 637ae1fe9bb88474b9461e33d4e32749, type: 3}
+  texture2: {fileID: 2800000, guid: 26943a44f98e4c34db52d9f634284ada, type: 3}
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0991606aee4e7224c8654c691a294022, type: 3}
+  m_Name: 
+  texture1: {fileID: 2800000, guid: 637ae1fe9bb88474b9461e33d4e32749, type: 3}
+  texture2: {fileID: 2800000, guid: 26943a44f98e4c34db52d9f634284ada, type: 3}
 --- !u!132 &13200000
 GUIText:
   m_ObjectHideFlags: 1
