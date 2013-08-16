@@ -20,12 +20,10 @@ public class SoundEvent : MonoBehaviour
 
         if (myJob == SoundFunction.PlayMusic)
         {
-            Debug.Log("A trigger just entered a playmusic field on lane " + ((int)myLane + 1));
             manager.TryToPlaySound(myLane);
         }
         else
         {
-            Debug.Log("A trigger just entered a stopmusic field on lane " + ((int)myLane + 1));
             manager.TryToStopSound(myLane);
         }
     }

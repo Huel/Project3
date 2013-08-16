@@ -31,14 +31,6 @@ public class SoundController : MonoBehaviour
         }
     }
 
-    private bool AnySoundPlaying
-    {
-        get
-        {
-            return (sounds[0].isPlaying || sounds[1].isPlaying || sounds[2].isPlaying);
-        }
-    }
-
 	// Use this for initialization
 	void Start () 
     {
@@ -47,7 +39,6 @@ public class SoundController : MonoBehaviour
         {
             sounds[i] = GameObject.Find("soundplayer_"+(i+1)).GetComponent<AudioSource>();
 	    }
-        sounds[0].Play();
 
 	    for (int i = 0; i < 3; i++)
 	    {
@@ -57,37 +48,17 @@ public class SoundController : MonoBehaviour
 
     void Update()
     {
-        if (AnySoundPlaying) return;
 
         if (!AnyBombExploded)
         {
-            Debug.Log("No Bomb exploded");
-            if (AnyBombTriggered)
-            {
-                Debug.Log("A Bomb triggered");
-                sounds[1].Play();
-            }
-            else
-            {
-                Debug.Log("No Bomb triggered");
-                sounds[0].Play();
-            }
+            sounds[1].mute = !AnyBombTriggered;
+            sounds[2].mute = !AnyBombTriggered;
         }
         else
         {
-            Debug.Log("A Bomb exploded");
-            if (AnyBombTriggered)
-            {
-                Debug.Log("A Bomb triggered");
-                sounds[1].Play();
-            }
-            else
-            {
-                Debug.Log("No Bomb Triggered");
-                sounds[2].Play();
-            }
+            sounds[1].mute = false;
+            sounds[2].mute = !AnyBombTriggered;
         }
-        Debug.Log(Random.Range(0f, 100000f));
     }
 
 
