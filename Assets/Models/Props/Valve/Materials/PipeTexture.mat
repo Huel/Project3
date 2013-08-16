@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PipeTexture
-  m_Shader: {fileID: 2, guid: 0000000000000000e000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: cd9b8d5c726117e4a9ea3ec5bab70c67, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -26,9 +26,49 @@ Material:
           m_Texture: {fileID: 2800000, guid: feef4ea9af5742344bd9de859a149a45, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+      data:
+        first:
+          name: _Lightcookie
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Valve_Specular
+        second:
+          m_Texture: {fileID: 2800000, guid: b2cf11db34f4e774f8c0252a6b71bb3e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Valve_Diffuse
+        second:
+          m_Texture: {fileID: 2800000, guid: ad6ebb318c5938b4bb71d0d5cfc26d9a, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Valve_Normal
+        second:
+          m_Texture: {fileID: 2800000, guid: feef4ea9af5742344bd9de859a149a45, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Shininess
+        second: .589503169
+      data:
+        first:
+          name: _cookiespeed
+        second: 0
     m_Colors:
       data:
         first:
           name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _MainColor
         second: {r: 1, g: 1, b: 1, a: 1}

@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: LevelBase_Diffuse
-  m_Shader: {fileID: 2, guid: 0000000000000000e000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: dbe8c995800f1a14aae9308a91b9022a, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -26,11 +26,36 @@ Material:
           m_Texture: {fileID: 2800000, guid: 77db8a6f5d7f7c14c9ba76c67c1b09bc, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Level_Diffuse
+        second:
+          m_Texture: {fileID: 2800000, guid: 01e2819148d987e48ab9a590d90a952a, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Level_Normal
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Lightcookie
+        second:
+          m_Texture: {fileID: 2800000, guid: c9f9b5cc9a9c6f049a261c2dcdf97383, type: 3}
+          m_Scale: {x: 2, y: 2}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Shininess
         second: .078125
+      data:
+        first:
+          name: _cookiespeed
+        second: .879999995
     m_Colors:
       data:
         first:
