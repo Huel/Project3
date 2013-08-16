@@ -65,13 +65,11 @@ public class SoundController : MonoBehaviour
 
     public void TryToPlaySound(SoundEvent.Lane lane)
     {
-        Debug.Log("playsound in soundcontroller used");
         triggeredLanes[(int) lane] = true;
     }
 
     public void TryToStopSound(SoundEvent.Lane lane)
     {
-        Debug.Log("stopsound in soundcontroller used");
         triggeredLanes[(int)lane] = false;
     }
 }
