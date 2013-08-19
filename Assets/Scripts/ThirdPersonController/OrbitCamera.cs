@@ -28,9 +28,9 @@ using UnityEngine;
 public class OrbitCamera : MonoBehaviour
 {
     private Transform parentRig;
-    private float distanceAway = 3.5f;
+    private float distanceAway = 5f;
     private float distanceAwayMultipler = 2f;
-    private float distanceUp = 1.15f;
+    private float distanceUp = 1.5f;
     private float distanceUpMultiplier = 2.5f;
     private CharController player;
     private float widescreen = 0.2f;

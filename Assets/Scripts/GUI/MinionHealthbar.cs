@@ -26,9 +26,9 @@ public class MinionHealthbar : MonoBehaviour
         healthbarBG = healthObjBG.GetComponent<UISprite>();
 
         if (GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-            healthObj.GetComponent<UISprite>().color = new Color(0, 0, 1);
-        else  if (GetComponent<Team>().ID == Team.TeamIdentifier.Team2)
             healthObj.GetComponent<UISprite>().color = new Color(0, 1, 0);
+        else  if (GetComponent<Team>().ID == Team.TeamIdentifier.Team2)
+            healthObj.GetComponent<UISprite>().color = new Color(1, 1, 0);
         else
             healthObj.GetComponent<UISprite>().color = new Color(1, 1, 1);
     }

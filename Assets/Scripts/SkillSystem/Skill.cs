@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -103,6 +104,12 @@ public class Skill : MonoBehaviour
         actualCooldown = cooldown;
         actualCastingTime = castingTime;
         _state = SkillState.InExecution;
+
+        if (GetComponent<CharController>()!=null)
+        {
+            StartCoroutine(PlayAnimation(skillName)); 
+        }
+
         //debug Damage indicator
         //+++++++++
         if (networkView.isMine)
@@ -135,8 +142,17 @@ public class Skill : MonoBehaviour
         {
             actualCooldown -= Time.deltaTime;
             if (actualCooldown <= 0)
+            {
                 _state = SkillState.Ready;
+            }
         }
+    }
+
+    IEnumerator PlayAnimation(string animBoolName)
+    {
+        GetComponent<Animator>().SetBool(animBoolName,true);
+        yield return null;
+        GetComponent<Animator>().SetBool(animBoolName, false);
     }
 
     public void DeactivateAura(string auraName)
