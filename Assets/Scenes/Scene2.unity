@@ -110,9 +110,9 @@ AudioSource:
   m_GameObject: {fileID: 4906521}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 4cbbbe5643df4c94eb78271e82986bee, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9695e772bc3f9d046a7112b934507808, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: .200000003
+  m_Volume: .349999994
   m_Pitch: 1
   Loop: 1
   Mute: 1
@@ -1588,6 +1588,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1315701020}
   WaypointB: {fileID: 0}
+  BombStopper: {fileID: 0}
 --- !u!1 &93256191
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,6 +2959,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 2017101526}
+  BombStopper: {fileID: 0}
 --- !u!1001 &222844294
 Prefab:
   m_ObjectHideFlags: 0
@@ -3806,6 +3808,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1392052241}
   WaypointB: {fileID: 1276995768}
+  BombStopper: {fileID: 0}
 --- !u!1 &285747112
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5423,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1276995768}
   WaypointB: {fileID: 1479869833}
+  BombStopper: {fileID: 0}
 --- !u!1 &400338921
 GameObject:
   m_ObjectHideFlags: 0
@@ -7404,6 +7408,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1286925821}
   WaypointB: {fileID: 0}
+  BombStopper: {fileID: 0}
 --- !u!1 &528145540
 GameObject:
   m_ObjectHideFlags: 0
@@ -8463,6 +8468,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 1973595705}
+  BombStopper: {fileID: 0}
 --- !u!1 &582452344
 GameObject:
   m_ObjectHideFlags: 0
@@ -9468,6 +9474,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 845014598}
   WaypointB: {fileID: 1315701020}
+  BombStopper: {fileID: 0}
 --- !u!1001 &680672993
 Prefab:
   m_ObjectHideFlags: 0
@@ -10774,7 +10781,7 @@ GameObject:
   - 114: {fileID: 792565066}
   m_Layer: 0
   m_Name: sound_manager
-  m_TagString: Untagged
+  m_TagString: SoundManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11336,6 +11343,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 988309519}
   WaypointB: {fileID: 680550973}
+  BombStopper: {fileID: 0}
 --- !u!1 &859834348
 GameObject:
   m_ObjectHideFlags: 0
@@ -13756,6 +13764,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 2020371673}
   WaypointB: {fileID: 845014598}
+  BombStopper: {fileID: 0}
 --- !u!1 &988606384
 GameObject:
   m_ObjectHideFlags: 0
@@ -16078,6 +16087,7 @@ MonoBehaviour:
   - {fileID: 1796192423}
   - {fileID: 367835012}
   - {fileID: 482879270}
+  testForceA: 3
 --- !u!148 &1116216138
 NetworkView:
   m_ObjectHideFlags: 0
@@ -16507,6 +16517,69 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: e705361c68108da449c64d4595db0fc5, type: 3}
+--- !u!1 &1150814642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100008, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1150814643}
+  - 108: {fileID: 1150814644}
+  m_Layer: 0
+  m_Name: pointlight_camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1150814643
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400008, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 1150814642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1973901210}
+--- !u!108 &1150814644
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 10800000, guid: e6e40eda5a3f31244baa1160274612a8,
+    type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 1150814642}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: .469999999
+  m_Range: 20.7700005
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 1
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 0
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
 --- !u!1 &1155079137
 GameObject:
   m_ObjectHideFlags: 0
@@ -19160,7 +19233,7 @@ Transform:
   m_PrefabInternal: {fileID: 1958097214}
   m_GameObject: {fileID: 1276995768}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -17.108551, y: 2.99824524, z: 3.95041728}
+  m_LocalPosition: {x: -49.3789673, y: 2.99824595, z: 3.95041847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1004684741}
@@ -19177,6 +19250,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 285073231}
   WaypointB: {fileID: 394133716}
+  BombStopper: {fileID: 1683648592}
 --- !u!1 &1277759841
 GameObject:
   m_ObjectHideFlags: 0
@@ -19231,6 +19305,7 @@ MonoBehaviour:
   - {fileID: 830886087}
   - {fileID: 1289127807}
   - {fileID: 357635919}
+  testForceA: 3
 --- !u!148 &1277759844
 NetworkView:
   m_ObjectHideFlags: 0
@@ -19368,6 +19443,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1765483496}
   WaypointB: {fileID: 527079880}
+  BombStopper: {fileID: 0}
 --- !u!1001 &1287865635
 Prefab:
   m_ObjectHideFlags: 0
@@ -20097,6 +20173,22 @@ Prefab:
       propertyPath: m_Name
       value: sewer_hole_l_lane01_02
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -51.1985245
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.99824595
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.95041752
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: BombStopper
+      value: 
+      objectReference: {fileID: 864411728}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 1576209204}
@@ -20142,6 +20234,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 680550973}
   WaypointB: {fileID: 91514927}
+  BombStopper: {fileID: 0}
 --- !u!1001 &1320518692
 Prefab:
   m_ObjectHideFlags: 0
@@ -20985,6 +21078,7 @@ MonoBehaviour:
   - {fileID: 864411728}
   - {fileID: 1982799427}
   - {fileID: 1926857121}
+  testForceA: 3
 --- !u!148 &1386567978
 NetworkView:
   m_ObjectHideFlags: 0
@@ -21123,6 +21217,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 2008023096}
   WaypointB: {fileID: 285073231}
+  BombStopper: {fileID: 0}
 --- !u!1 &1393093918
 GameObject:
   m_ObjectHideFlags: 0
@@ -21834,6 +21929,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2074133169}
+  - {fileID: 1907215843}
+  - {fileID: 2095891393}
   - {fileID: 1952439447}
   - {fileID: 2115671256}
   - {fileID: 4906522}
@@ -21962,6 +22060,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1973595705}
   WaypointB: {fileID: 1822119269}
+  BombStopper: {fileID: 0}
 --- !u!1 &1429432845
 GameObject:
   m_ObjectHideFlags: 0
@@ -22816,7 +22915,7 @@ Transform:
   m_PrefabInternal: {fileID: 1313742791}
   m_GameObject: {fileID: 1479869833}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -17.108551, y: 2.99824524, z: 3.95041728}
+  m_LocalPosition: {x: -51.1985245, y: 2.99824595, z: 3.95041752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1576209205}
@@ -22833,6 +22932,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 394133716}
   WaypointB: {fileID: 1659946512}
+  BombStopper: {fileID: 864411728}
 --- !u!1 &1493018491
 GameObject:
   m_ObjectHideFlags: 0
@@ -25034,6 +25134,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1479869833}
   WaypointB: {fileID: 1921179229}
+  BombStopper: {fileID: 0}
 --- !u!1 &1668227617
 GameObject:
   m_ObjectHideFlags: 0
@@ -25822,7 +25923,7 @@ Transform:
   m_PrefabInternal: {fileID: 1855473889}
   m_GameObject: {fileID: 1708643471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1181.02222, y: 646.44043, z: 0}
+  m_LocalPosition: {x: 861.922607, y: 646.44043, z: 0}
   m_LocalScale: {x: 1.00044799, y: 1.00044799, z: 1.00044799}
   m_Children:
   - {fileID: 1929143115}
@@ -26198,6 +26299,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 2017101526}
   WaypointB: {fileID: 2020371673}
+  BombStopper: {fileID: 0}
 --- !u!1001 &1726579333
 Prefab:
   m_ObjectHideFlags: 0
@@ -26902,6 +27004,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1822119269}
   WaypointB: {fileID: 1286925821}
+  BombStopper: {fileID: 0}
 --- !u!1001 &1769783803
 Prefab:
   m_ObjectHideFlags: 0
@@ -27886,6 +27989,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1424678387}
   WaypointB: {fileID: 1765483496}
+  BombStopper: {fileID: 0}
 --- !u!1 &1839858270
 GameObject:
   m_ObjectHideFlags: 0
@@ -28330,7 +28434,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1181.02222
+      value: 861.922607
       objectReference: {fileID: 0}
     - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mType
@@ -29122,6 +29226,90 @@ Prefab:
   m_RootGameObject: {fileID: 1788761181}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1907215842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100010, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1907215843}
+  - 82: {fileID: 1907215844}
+  m_Layer: 0
+  m_Name: soundplayer_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1907215843
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400010, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 1907215842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1414066141}
+--- !u!82 &1907215844
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200004, guid: e6e40eda5a3f31244baa1160274612a8,
+    type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 1907215842}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: f4826a8a02e9e954f8425aefc587e5e2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .200000003
+  m_Pitch: 1
+  Loop: 1
+  Mute: 1
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &1912357320
 GameObject:
   m_ObjectHideFlags: 0
@@ -29437,6 +29625,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1659946512}
   WaypointB: {fileID: 2035593285}
+  BombStopper: {fileID: 0}
 --- !u!1 &1926857121
 GameObject:
   m_ObjectHideFlags: 0
@@ -30026,7 +30215,7 @@ AudioSource:
   m_GameObject: {fileID: 1952439446}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 9d6c2272d72037447905b99a0ccd7c4b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b688421a4544bf84ebba85c0a7d87072, type: 3}
   m_PlayOnAwake: 1
   m_Volume: .200000003
   m_Pitch: 1
@@ -30129,6 +30318,22 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -49.3789673
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.99824595
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.95041847
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
+      propertyPath: BombStopper
+      value: 
+      objectReference: {fileID: 1683648592}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd70fa35c142394cbca039e9acd345c, type: 2}
   m_RootGameObject: {fileID: 1004684736}
@@ -30328,6 +30533,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 581310376}
   WaypointB: {fileID: 1424678387}
+  BombStopper: {fileID: 0}
 --- !u!1 &1973901209
 GameObject:
   m_ObjectHideFlags: 0
@@ -30354,6 +30560,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1414066141}
+  - {fileID: 1150814643}
   m_Father: {fileID: 0}
 --- !u!1 &1979381106
 GameObject:
@@ -30768,6 +30975,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 1392052241}
+  BombStopper: {fileID: 0}
 --- !u!1 &2008784064
 GameObject:
   m_ObjectHideFlags: 0
@@ -30953,6 +31161,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 220986639}
   WaypointB: {fileID: 1723589250}
+  BombStopper: {fileID: 0}
 --- !u!1 &2019037907
 GameObject:
   m_ObjectHideFlags: 0
@@ -31062,6 +31271,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1723589250}
   WaypointB: {fileID: 988309519}
+  BombStopper: {fileID: 0}
 --- !u!1 &2024504545
 GameObject:
   m_ObjectHideFlags: 0
@@ -31221,6 +31431,7 @@ MonoBehaviour:
   m_Name: 
   WaypointA: {fileID: 1921179229}
   WaypointB: {fileID: 0}
+  BombStopper: {fileID: 0}
 --- !u!1 &2039020972
 GameObject:
   m_ObjectHideFlags: 0
@@ -31648,6 +31859,90 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1390184591}
+--- !u!1 &2074133168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2074133169}
+  - 82: {fileID: 2074133170}
+  m_Layer: 0
+  m_Name: soundplayer_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074133169
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 2074133168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1414066141}
+--- !u!82 &2074133170
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200002, guid: e6e40eda5a3f31244baa1160274612a8,
+    type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 2074133168}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: b688421a4544bf84ebba85c0a7d87072, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .200000003
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &2075811605
 GameObject:
   m_ObjectHideFlags: 0
@@ -32053,6 +32348,90 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1442559120}
   m_GameObject: {fileID: 2088323523}
   m_Mesh: {fileID: 4300000, guid: 80fa3dc04fbc2874d9d701ea674de2b5, type: 3}
+--- !u!1 &2095891392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2095891393}
+  - 82: {fileID: 2095891394}
+  m_Layer: 0
+  m_Name: soundplayer_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2095891393
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: e6e40eda5a3f31244baa1160274612a8, type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 2095891392}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1414066141}
+--- !u!82 &2095891394
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: e6e40eda5a3f31244baa1160274612a8,
+    type: 2}
+  m_PrefabInternal: {fileID: 2105828034}
+  m_GameObject: {fileID: 2095891392}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 9695e772bc3f9d046a7112b934507808, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .349999994
+  m_Pitch: 1
+  Loop: 1
+  Mute: 1
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &2105828034
 Prefab:
   m_ObjectHideFlags: 0
@@ -32183,7 +32562,7 @@ AudioSource:
   m_GameObject: {fileID: 2115671255}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: e25bb27842ce9c247a7727831deb3fcb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f4826a8a02e9e954f8425aefc587e5e2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: .200000003
   m_Pitch: 1
