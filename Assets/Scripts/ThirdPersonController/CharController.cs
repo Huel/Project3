@@ -39,14 +39,11 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
-        if (animator && animator.GetBool("Dying"))
-            animator.SetBool("Dying", false);
 
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
         speed = GetComponent<Speed>();
         controller = GetComponent<CharacterController>();
-        animator.SetLayerWeight(1,1f);
     }
 
     void Update()
@@ -58,8 +55,6 @@ public class CharController : MonoBehaviour
         float vertical = 0f;
         if (health.IsAlive())
             HandleInput(ref horizontal, ref vertical);
-        else
-            StartCoroutine(PlayAnimation("Dying"));
 
         Vector3 stickDirection = new Vector3(horizontal, 0, vertical);
         float charDirection = 0f;

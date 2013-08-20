@@ -191,10 +191,14 @@ public class Health : MonoBehaviour
         {
             if (HealthPoints <= 0 && !immortal)
             {
-                //debug Damage indicator
-                //+++++++++
-                GetComponent<DebugChangeColor>().SetEffect(DebugColor.Dead, true);
-                //+++++++++
+                Animator animator = GetComponent<Animator>();
+                NetworkAnimator networkAnimator = GetComponent<NetworkAnimator>();
+                if (animator && networkAnimator)
+                {
+                    animator.SetLayerWeight(0, 1f);
+                    networkAnimator.PlayAnimation("Dying"); 
+                }
+                
                 SetAlive(false);
             }
             else if (HealthPoints <= MaxHealth)

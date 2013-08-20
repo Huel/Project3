@@ -70,6 +70,8 @@ public class Skill : MonoBehaviour
     private bool isSpot;
     private bool isPassive;
 
+    private NetworkAnimator networkAnimator;
+
     bool Enabled { get { return _enabled; } set { _enabled = value; } }
     public SkillState State { get { return _state; } }
 
@@ -80,6 +82,8 @@ public class Skill : MonoBehaviour
         isPassive = false;
 
         ConvertXML();
+
+        networkAnimator = GetComponent<NetworkAnimator>();
 
         actualCooldown = 0f;
         actualCastingTime = 0f;
@@ -107,7 +111,7 @@ public class Skill : MonoBehaviour
 
         if (GetComponent<CharController>()!=null)
         {
-            StartCoroutine(PlayAnimation(skillName)); 
+            networkAnimator.PlayAnimation(skillName); 
         }
 
         //debug Damage indicator
@@ -146,13 +150,6 @@ public class Skill : MonoBehaviour
                 _state = SkillState.Ready;
             }
         }
-    }
-
-    IEnumerator PlayAnimation(string animBoolName)
-    {
-        GetComponent<Animator>().SetBool(animBoolName,true);
-        yield return null;
-        GetComponent<Animator>().SetBool(animBoolName, false);
     }
 
     public void DeactivateAura(string auraName)

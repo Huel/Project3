@@ -182,7 +182,8 @@ ModelImporter:
     4300000: Hero01_Body
     4300002: Hero01_Head
     4300004: Cylinder001
-    7400000: Player_Dying
+    7400000: Dying
+    7400002: Dead
     9500000: //RootNode
     13700000: Cylinder001
     13700002: Hero01_Body
@@ -200,7 +201,7 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     clipAnimations:
-    - name: Player_Dying
+    - name: Dying
       takeName: Take 001
       firstFrame: 0
       lastFrame: 150
@@ -215,8 +216,29 @@ ModelImporter:
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Dead
+      takeName: Take 001
+      firstFrame: 96
+      lastFrame: 133
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

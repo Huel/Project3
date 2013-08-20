@@ -9,6 +9,8 @@ public class NetworkAnimator : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        _animator.SetLayerWeight(1, 1f);
+        
     }
 
     public void PlayAnimation(string anim, bool forward = true)
@@ -30,15 +32,23 @@ public class NetworkAnimator : MonoBehaviour
             transform.animation.Play(anim);
             return;
         }
+        StartMecanimClip(anim);
+    }
+
+    private void StartMecanimClip(string anim)
+    {
         StartCoroutine(MecanimClip(anim));
+        
     }
 
     IEnumerator MecanimClip(string animBoolName)
     {
+        
         if (_animator)
             _animator.SetBool(animBoolName, true);
         yield return null;
+        yield return null;
         if (_animator)
-            _animator.SetBool(animBoolName, false);
+            _animator.SetBool(animBoolName, false);    
     }
 }
