@@ -189,7 +189,7 @@ public class Health : MonoBehaviour
     /// <returns>value is never lower than minHealth</returns>
     public float DecHealth(float healthValue)
     {
-        if (HealthPoints == MinHealth)
+        if (HealthPoints == MinHealth || Invulnerable || immortal)
             return 0;
         //debug Damage indicator
         //+++++++++
