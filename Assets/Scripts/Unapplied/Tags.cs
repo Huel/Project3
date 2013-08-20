@@ -14,4 +14,6 @@ public class Tags
     public const string greenDot = "GreenDot";
     public const string minionManager = "MinionManager";
     public const string soundManager = "SoundManager";
+	public const string map = "Map";
+	public const string cameraMinimap = "CameraMinimap";
 }

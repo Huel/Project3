@@ -9,7 +9,7 @@ public class Minimap : MonoBehaviour
 	public GameObject heroTeamOnePointPrefab;
 	public GameObject heroTeamTwoPointPrefab;
 
-	private const float scale = 13.8f;
+	//private const float scale = 13.8f;
 	private const float mapHight = 116;
 
 	private GameObject heroTeamOnePoint;
@@ -31,8 +31,6 @@ public class Minimap : MonoBehaviour
 	private void AdjustHeroPoint(GameObject point)
 	{
 		point.transform.parent = gameObject.transform;
-		point.transform.localScale = new Vector3(scale, scale);
-		point.transform.localEulerAngles = new Vector3(90, 0, 0);
 	}
 
 	private GameObject CreatMinionPoint(GameObject prefab)
@@ -40,7 +38,6 @@ public class Minimap : MonoBehaviour
 		GameObject point;
 		point = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 		point.transform.parent = gameObject.transform;
-		point.transform.localEulerAngles = new Vector3(90, 0, 0);
 		return point;
 	}
 
@@ -70,25 +67,29 @@ public class Minimap : MonoBehaviour
 
 				if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
 				{
-					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 100),
+					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
+					heroTeamOnePoint.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
+					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 90, 0);
 				}
 				else
 				{
-					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 100),
+					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
+					heroTeamTwoPoint.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
+					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 270, 0);
 				}
 			}
 			else
 			{
 				if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
 				{
-					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 100),
+					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
 				}
 				else
 				{
-					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 100),
+					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
 				}
 			}
