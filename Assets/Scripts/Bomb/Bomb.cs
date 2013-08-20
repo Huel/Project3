@@ -14,6 +14,7 @@ public class Bomb : MonoBehaviour
     private GameObject towardsDestination;
     public List<GameObject> valvesA = new List<GameObject>();
     public List<GameObject> valvesB = new List<GameObject>();
+    //public float testForceA = 3;
 
     private float ForceA
     {
@@ -69,11 +70,14 @@ public class Bomb : MonoBehaviour
             }
             else
             {
-                WaypointA = WaypointB;
-                WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
-                if (WaypointB == null)
+                if (WaypointB.GetComponent<BombWaypoint>().GetAllowPassage() || WaypointB.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
                 {
-                    CountPoints((int)Team.TeamIdentifier.Team1);
+                    WaypointA = WaypointB;
+                    WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
+                    if (WaypointB == null)
+                    {
+                        CountPoints((int)Team.TeamIdentifier.Team1);
+                    }
                 }
             }
         }
@@ -89,11 +93,16 @@ public class Bomb : MonoBehaviour
             }
             else
             {
-                WaypointB = WaypointA;
-                WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
-                if (WaypointA == null)
+                if (WaypointA.GetComponent<BombWaypoint>().GetAllowPassage() ||
+                    WaypointA.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID ==
+                    Team.TeamIdentifier.Team2)
                 {
-                    CountPoints((int)Team.TeamIdentifier.Team2);
+                    WaypointB = WaypointA;
+                    WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
+                    if (WaypointA == null)
+                    {
+                        CountPoints((int)Team.TeamIdentifier.Team2);
+                    }
                 }
             }
         }
