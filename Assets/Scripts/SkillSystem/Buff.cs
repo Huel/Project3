@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using UnityEngine;
 using System.Xml;
+using UnityEngine;
 
 public class BuffBehaviour : MonoBehaviour
 {
@@ -35,7 +33,7 @@ public class BuffBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(!initializated || auraPart) return;
+        if (!initializated || auraPart) return;
         if (duration > 0)
         {
             duration -= Time.deltaTime;
@@ -64,16 +62,14 @@ public class BuffBehaviour : MonoBehaviour
     {
         XmlDocument document = new XMLReader("Skills.xml").GetXML();
         XmlElement skillNode = null;
-        foreach (XmlElement node in document.GetElementsByTagName("skill"))
-            if (node.GetAttribute("name") == skill.skillName)
-                skillNode = node;
+        foreach (XmlElement node in document.GetElementsByTagName("skill").Cast<XmlElement>().Where(node => node.GetAttribute("name") == skill.skillName))
+            skillNode = node;
 
         buffID = buffName;
 
         XmlElement buffNode = null;
-        foreach (XmlElement node in skillNode.GetElementsByTagName((isDebuff)?"debuff":"buff"))
-            if (node.GetAttribute("id") == buffID)
-                buffNode = node;
+        foreach (XmlElement node in skillNode.GetElementsByTagName((isDebuff) ? "debuff" : "buff").Cast<XmlElement>().Where(node => node.GetAttribute("id") == buffID))
+            buffNode = node;
 
         if (buffNode.HasAttribute("randomEffect") && buffNode.GetAttribute("randomEffect") == "true")
         {
@@ -87,25 +83,16 @@ public class BuffBehaviour : MonoBehaviour
 
         XmlNodeList addModifierList = buffNode.GetElementsByTagName("addModifier");
         XmlNodeList removeModifierList = buffNode.GetElementsByTagName("removeModifier");
-        List<Modifier> adders = new List<Modifier>();
-        List<Modifier> removers = new List<Modifier>();
 
-        foreach (XmlNode addModifier in addModifierList)
-        {
-            if ((addModifier.ChildNodes[1] as XmlElement).HasAttribute("type"))
-                adders.Add(new Modifier(skill, skill.gameObject, gameObject, addModifier.ChildNodes[0].InnerText, addModifier.ChildNodes[1].InnerText, (addModifier.ChildNodes[1] as XmlElement).GetAttribute("type")));
-            else
-                adders.Add(new Modifier(skill, skill.gameObject, gameObject, addModifier.ChildNodes[0].InnerText, addModifier.ChildNodes[1].InnerText));
-        }
+        List<Modifier> adders = (from XmlNode addModifier in addModifierList
+                                 select (addModifier.ChildNodes[1] as XmlElement).HasAttribute("type")
+                                     ? new Modifier(skill, skill.gameObject, gameObject, addModifier.ChildNodes[0].InnerText, addModifier.ChildNodes[1].InnerText,
+                                     (addModifier.ChildNodes[1] as XmlElement).GetAttribute("type"))
+                                     : new Modifier(skill, skill.gameObject, gameObject,
+                                     addModifier.ChildNodes[0].InnerText, addModifier.ChildNodes[1].InnerText)).ToList();
 
-        foreach (XmlNode removeModifier in removeModifierList)
-        {
-            if ((removeModifier.ChildNodes[1] as XmlElement).HasAttribute("type"))
-                removers.Add(new Modifier(skill, skill.gameObject, gameObject, removeModifier.ChildNodes[0].InnerText, removeModifier.ChildNodes[1].InnerText, (removeModifier.ChildNodes[1] as XmlElement).GetAttribute("type")));
-            else
-                removers.Add(new Modifier(skill, skill.gameObject, gameObject, removeModifier.ChildNodes[0].InnerText, removeModifier.ChildNodes[1].InnerText));
-        }
-        
+        List<Modifier> removers = (from XmlNode removeModifier in removeModifierList select (removeModifier.ChildNodes[1] as XmlElement).HasAttribute("type") ? new Modifier(skill, skill.gameObject, gameObject, removeModifier.ChildNodes[0].InnerText, removeModifier.ChildNodes[1].InnerText, (removeModifier.ChildNodes[1] as XmlElement).GetAttribute("type")) : new Modifier(skill, skill.gameObject, gameObject, removeModifier.ChildNodes[0].InnerText, removeModifier.ChildNodes[1].InnerText)).ToList();
+
         this.auraPart = auraPart;
 
         if (!auraPart)

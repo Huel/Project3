@@ -15,8 +15,20 @@ public class Health : MonoBehaviour
     public float keepDeadUnitTime = 5f;
 
     public bool immortal;
-    public bool invulnerable;
+    private bool _invulnerable;
     private bool _alive = true;
+
+    public bool Invulnerable
+    {
+        get
+        {
+            return _invulnerable;
+        }
+        set
+        {
+            networkView.RPC("SetInvulnerability", RPCMode.AllBuffered, value);
+        }
+    }
 
     public float HealthPoints
     {
@@ -38,6 +50,17 @@ public class Health : MonoBehaviour
     {
         return _alive;
     }
+
+
+    /// <summary>
+    /// Do not use this method, use setter Invulnerable instead.
+    /// </summary>
+    [RPC]
+    public void SetInvulnerability(bool value)
+    {
+        _invulnerable = value;
+    }
+
     /// <summary>
     ///     set the maximum health
     /// </summary>
@@ -47,13 +70,12 @@ public class Health : MonoBehaviour
     public void SetMaxHealth(float maxHealth, bool incHealth)
     {
         _maxHealth = maxHealth;
-        if (networkView.isMine)
-        {
-            networkView.RPC("SetMaxHealth", RPCMode.OthersBuffered, maxHealth, incHealth);
-            if (incHealth)
-                SetToMaxHealth();
-        }
 
+        if (!networkView.isMine) return;
+
+        networkView.RPC("SetMaxHealth", RPCMode.OthersBuffered, maxHealth, incHealth);
+        if (incHealth)
+            SetToMaxHealth();
     }
     /// <summary>
     ///     set the minimum health
@@ -196,9 +218,9 @@ public class Health : MonoBehaviour
                 if (animator && networkAnimator)
                 {
                     animator.SetLayerWeight(0, 1f);
-                    networkAnimator.PlayAnimation("Dying"); 
+                    networkAnimator.PlayAnimation("Dying");
                 }
-                
+
                 SetAlive(false);
             }
             else if (HealthPoints <= MaxHealth)
