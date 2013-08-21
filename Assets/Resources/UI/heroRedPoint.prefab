@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 14
-  m_Name: hero_green_team
-  m_TagString: Untagged
+  m_Name: heroRedPoint
+  m_TagString: HeroDot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22,9 +22,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.5999985, y: 14.7399998, z: 34.5282211}
-  m_LocalScale: {x: 13.8000002, y: 13.8000002, z: 1}
+  m_LocalRotation: {x: .707106888, y: -6.18172464e-08, z: 0, w: .707106769}
+  m_LocalPosition: {x: 43, y: -0, z: -15.0900002}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!114 &11400000
@@ -43,7 +43,7 @@ MonoBehaviour:
   mPivot: 4
   mDepth: 2
   mAtlas: {fileID: 11400000, guid: 44e7e2e1614bb8d4ba2ef758fab7ff84, type: 2}
-  mSpriteName: Interface_green_team
+  mSpriteName: HeroPointerCircleRed
   mFillCenter: 1
   mType: 0
   mFillDirection: 4

@@ -7,7 +7,6 @@ public class SoundEvent : MonoBehaviour
     public SoundFunction myJob = SoundFunction.PlayMusic;
     public Lane myLane = Lane.Lane1;
     private SoundController manager;
-    private int count = 0;
 
     // Use this for initialization
     void Start()
