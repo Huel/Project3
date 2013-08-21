@@ -18,6 +18,14 @@ public class GameController : MonoBehaviour
     public int pointsTeam1 = 0;
     public int pointsTeam2 = 0;
 
+    [SerializeField]
+    public Color[] teamColors = new Color[3];
+
+    void Awake()
+    {
+        Team.teamColors = teamColors;
+    }
+
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
         foreach (NetworkPlayerController controller in _networkPlayerControllers)

@@ -3,8 +3,8 @@ using UnityEngine;
 public class Team : MonoBehaviour
 {
 
-
-    public enum TeamIdentifier {NoTeam, Team1, Team2 }
+    public static Color[] teamColors;
+    public enum TeamIdentifier { NoTeam, Team1, Team2 }
     public TeamIdentifier ID;
 
 
@@ -54,10 +54,10 @@ public class Team : MonoBehaviour
 
         switch (ID)
         {
-                case TeamIdentifier.Team1:
-                    return TeamIdentifier.Team2;
-                case TeamIdentifier.Team2:
-                    return TeamIdentifier.Team1;
+            case TeamIdentifier.Team1:
+                return TeamIdentifier.Team2;
+            case TeamIdentifier.Team2:
+                return TeamIdentifier.Team1;
         }
         return TeamIdentifier.Team1;
 
