@@ -74,10 +74,10 @@ public class BombGUI : MonoBehaviour
 	{
 		if (bomb.transform.position.x <= team01X && bomb.transform.position.x >= team02X)
 		{
-			float ratio = (bomb.transform.position.x - team02X) / (team01X - team02X);
+			float ratio = 1 - (bomb.transform.position.x - team02X) / (team01X - team02X);
 
 			lane.fillAmount = ratio;
-			guiBomb.transform.localPosition = new Vector3((bomb.transform.localPosition.x - 147), guiBomb.transform.localPosition.y, (bomb.transform.localPosition.z - 14));
+			guiBomb.transform.localPosition = new Vector3(((ratio * 416)- 208 - 20), guiBomb.transform.localPosition.y, (bomb.transform.localPosition.z - 14));
 		}
 		else
 		{
