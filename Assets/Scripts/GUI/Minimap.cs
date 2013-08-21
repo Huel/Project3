@@ -6,13 +6,17 @@ public class Minimap : MonoBehaviour
 {
 	public GameObject teamOnePointPrefab;
 	public GameObject teamTwoPointPrefab;
+	public GameObject heroTeamOneArrowPrefab;
+	public GameObject heroTeamTwoArrowPrefab;
 	public GameObject heroTeamOnePointPrefab;
 	public GameObject heroTeamTwoPointPrefab;
 
 	//private const float scale = 13.8f;
 	private const float mapHight = 116;
 
+	private GameObject heroTeamOneArrow;
 	private GameObject heroTeamOnePoint;
+	private GameObject heroTeamTwoArrow;
 	private GameObject heroTeamTwoPoint;
 
 	public List<GameObject> players = new List<GameObject>();
@@ -21,22 +25,24 @@ public class Minimap : MonoBehaviour
 
 	void Awake()
 	{
+		heroTeamOneArrow = (GameObject)Instantiate(heroTeamOneArrowPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamOneArrow.transform.parent = gameObject.transform;
 		heroTeamOnePoint = (GameObject)Instantiate(heroTeamOnePointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-		AdjustHeroPoint(heroTeamOnePoint);
+		heroTeamOnePoint.transform.localEulerAngles = new Vector3(90, 0, 0);
+		heroTeamOnePoint.transform.parent = gameObject.transform;
 
+		heroTeamTwoArrow = (GameObject)Instantiate(heroTeamTwoArrowPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamTwoArrow.transform.parent = gameObject.transform;
 		heroTeamTwoPoint = (GameObject)Instantiate(heroTeamTwoPointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-		AdjustHeroPoint(heroTeamTwoPoint);
-	}
-
-	private void AdjustHeroPoint(GameObject point)
-	{
-		point.transform.parent = gameObject.transform;
+		heroTeamTwoPoint.transform.localEulerAngles = new Vector3(90, 0, 0);
+		heroTeamTwoPoint.transform.parent = gameObject.transform;
 	}
 
 	private GameObject CreatMinionPoint(GameObject prefab)
 	{
 		GameObject point;
 		point = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+		point.transform.localEulerAngles = new Vector3(90, 0, 0);
 		point.transform.parent = gameObject.transform;
 		return point;
 	}
@@ -67,16 +73,16 @@ public class Minimap : MonoBehaviour
 
 				if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
 				{
-					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
+					heroTeamOneArrow.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
-					heroTeamOnePoint.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
+					heroTeamOneArrow.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
 					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 90, 0);
 				}
 				else
 				{
-					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
+					heroTeamTwoArrow.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
-					heroTeamTwoPoint.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
+					heroTeamTwoArrow.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
 					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 270, 0);
 				}
 			}
@@ -86,6 +92,7 @@ public class Minimap : MonoBehaviour
 				{
 					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
 						mapHight, player.transform.position.z);
+
 				}
 				else
 				{
@@ -125,7 +132,7 @@ public class Minimap : MonoBehaviour
 	private void PlaceMinions()
 	{
 		minionTeamOne = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.blueDot));
-		minionTeamTwo = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.greenDot));
+		minionTeamTwo = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.redDot));
 
 		foreach (GameObject minion in GameObject.FindGameObjectsWithTag(Tags.minion))
 		{
@@ -176,8 +183,6 @@ public class Minimap : MonoBehaviour
 			greenPoint.transform.position = new Vector3(500, 0, 0);
 		}
 	}
-
-	private 
 
 	// Update is called once per frame
 	void Update ()
