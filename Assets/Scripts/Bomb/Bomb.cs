@@ -14,7 +14,8 @@ public class Bomb : MonoBehaviour
     private GameObject towardsDestination;
     public List<GameObject> valvesA = new List<GameObject>();
     public List<GameObject> valvesB = new List<GameObject>();
-    //public float testForceA = 3;
+    private GameObject target;
+
 
     private float ForceA
     {
@@ -29,6 +30,11 @@ public class Bomb : MonoBehaviour
     private float Speed
     {
         get { return movementSpeed * Time.deltaTime * (ForceA < ForceB ? ForceB - ForceA : ForceA - ForceB); }
+    }
+
+    private bool BombDoesntMove
+    {
+        get { return ForceA - ForceB == 0f; }
     }
 
 
@@ -56,56 +62,68 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        if (!networkView.isMine || ForceA - ForceB == 0f || gameOver) return;
-
-        if (ForceA > ForceB)
+        if (!networkView.isMine)
         {
-            if (!HaveReached(WaypointB))
+            SmoothNetworkMovement();
+            return;
+        }
+        if (BombDoesntMove || gameOver) return;
+
+        target = WaypointA;
+        if (ForceA > ForceB) target = WaypointB;
+
+        if (!HaveReached(target)) { MoveTowards(target); }
+        else
+        {
+            if (CanIPassValve(target)) SwitchStatus(target);
+        }
+    }
+
+    private void SwitchStatus(GameObject waypoint)
+    {
+        if (!CanIPassValve(waypoint)) return;
+
+        if (waypoint == WaypointB)
+        {
+            WaypointA = WaypointB;
+            WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
+            if (WaypointB == null)
             {
-                WaypointB.transform.position = new Vector3(WaypointB.transform.position.x, transform.position.y, WaypointB.transform.position.z);
-                transform.position += Vector3.ClampMagnitude(WaypointB.transform.position - transform.position, Speed);
-                towardsDestination.transform.position = transform.position;
-                towardsDestination.transform.LookAt(transform.position + transform.position - WaypointB.transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, towardsDestination.transform.rotation, 0.01f);
-            }
-            else
-            {
-                if (WaypointB.GetComponent<BombWaypoint>().GetAllowPassage() || WaypointB.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-                {
-                    WaypointA = WaypointB;
-                    WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
-                    if (WaypointB == null)
-                    {
-                        CountPoints((int)Team.TeamIdentifier.Team1);
-                    }
-                }
+                CountPoints((int)Team.TeamIdentifier.Team1);
             }
         }
         else
         {
-            if (!HaveReached(WaypointA))
+            WaypointB = WaypointA;
+            WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
+            if (WaypointA == null)
             {
-                WaypointA.transform.position = new Vector3(WaypointA.transform.position.x, transform.position.y, WaypointA.transform.position.z);
-                transform.position += Vector3.ClampMagnitude(WaypointA.transform.position - transform.position, Speed);
-                towardsDestination.transform.position = transform.position;
-                towardsDestination.transform.LookAt(WaypointA.transform);
-                transform.rotation = Quaternion.Slerp(transform.rotation, towardsDestination.transform.rotation, 0.01f);
-            }
-            else
-            {
-                if (WaypointA.GetComponent<BombWaypoint>().GetAllowPassage() ||
-                    WaypointA.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID ==
-                    Team.TeamIdentifier.Team2)
-                {
-                    WaypointB = WaypointA;
-                    WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
-                    if (WaypointA == null)
-                    {
-                        CountPoints((int)Team.TeamIdentifier.Team2);
-                    }
-                }
+                CountPoints((int)Team.TeamIdentifier.Team2);
             }
         }
+    }
+
+    private bool CanIPassValve(GameObject target)
+    {
+        if (target == WaypointB) return WaypointB.GetComponent<BombWaypoint>().GetAllowPassage() || WaypointB.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID == Team.TeamIdentifier.Team1;
+        return WaypointA.GetComponent<BombWaypoint>().GetAllowPassage() || WaypointA.GetComponent<BombWaypoint>().BombStopper.GetComponent<Team>().ID == Team.TeamIdentifier.Team2;
+    }
+
+    private void MoveTowards(GameObject target)
+    {
+
+        target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        transform.position += Vector3.ClampMagnitude(target.transform.position - transform.position, Speed);
+        towardsDestination.transform.position = transform.position;
+        if (target == WaypointB)
+        {
+            towardsDestination.transform.LookAt(transform.position + transform.position - target.transform.position);
+        }
+        else
+        {
+            towardsDestination.transform.LookAt(target.transform);
+        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, towardsDestination.transform.rotation, 0.01f);
     }
 
     private void CountPoints(int team)
@@ -123,54 +141,37 @@ public class Bomb : MonoBehaviour
 
     public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
     {
-        //GetComponent<ObjectInfo>().OnSerializeNetworkView(stream,info);
-        // Send data to server
         if (stream.isWriting)
         {
             Vector3 pos = transform.position;
             Quaternion rot = transform.rotation;
 
-            //Vector3 angularVelocity = rigidbody.angularVelocity;
-
             stream.Serialize(ref pos);
-
             stream.Serialize(ref rot);
-            //stream.Serialize(ref angularVelocity);
         }
-        // Read data from remote client
         else
         {
             Vector3 pos = Vector3.zero;
 
             Quaternion rot = Quaternion.identity;
-            //Vector3 angularVelocity = Vector3.zero;
+
             stream.Serialize(ref pos);
-
             stream.Serialize(ref rot);
-            //stream.Serialize(ref angularVelocity);
 
-            // Shift the buffer sideways, deleting state 20
             for (int i = m_BufferedState.Length - 1; i >= 1; i--)
             {
                 m_BufferedState[i] = m_BufferedState[i - 1];
             }
 
-            // Record current state in slot 0
             State state = new State();
             state.timestamp = info.timestamp;
             state.pos = pos;
-
             state.rot = rot;
-            //state.angularVelocity = angularVelocity;
+
             m_BufferedState[0] = state;
 
-            // Update used slot count, however never exceed the buffer size
-            // Slots aren't actually freed so this just makes sure the buffer is
-            // filled up and that uninitalized slots aren't used.
             m_TimestampCount = Mathf.Min(m_TimestampCount + 1, m_BufferedState.Length);
 
-            // Check if states are in order, if it is inconsistent you could reshuffel or 
-            // drop the out-of-order state. Nothing is done here
             for (int i = 0; i < m_TimestampCount - 1; i++)
             {
                 if (m_BufferedState[i].timestamp < m_BufferedState[i + 1].timestamp)
@@ -179,63 +180,46 @@ public class Bomb : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    private void SmoothNetworkMovement()
     {
         if (networkView.isMine)
             return;
 
-        // This is the target playback time of the rigid body
         double interpolationTime = Network.time - m_InterpolationBackTime;
 
-        // Use interpolation if the target playback time is present in the buffer
         if (m_BufferedState[0].timestamp > interpolationTime)
         {
-            // Go through buffer and find correct state to play back
             for (int i = 0; i < m_TimestampCount; i++)
             {
-                if (m_BufferedState[i].timestamp <= interpolationTime || i == m_TimestampCount - 1)
-                {
-                    // The state one slot newer (<100ms) than the best playback state
-                    State rhs = m_BufferedState[Mathf.Max(i - 1, 0)];
-                    // The best playback state (closest to 100 ms old (default time))
-                    State lhs = m_BufferedState[i];
+                if (!(m_BufferedState[i].timestamp <= interpolationTime) && i != m_TimestampCount - 1) continue;
 
-                    // Use the time between the two slots to determine if interpolation is necessary
-                    double length = rhs.timestamp - lhs.timestamp;
-                    float t = 0.0F;
-                    // As the time difference gets closer to 100 ms t gets closer to 1 in 
-                    // which case rhs is only used
-                    // Example:
-                    // Time is 10.000, so sampleTime is 9.900 
-                    // lhs.time is 9.910 rhs.time is 9.980 length is 0.070
-                    // t is 9.900 - 9.910 / 0.070 = 0.14. So it uses 14% of rhs, 86% of lhs
-                    if (length > 0.0001)
-                        t = (float)((interpolationTime - lhs.timestamp) / length);
+                State rhs = m_BufferedState[Mathf.Max(i - 1, 0)];
 
-                    // if t=0 => lhs is used directly
-                    transform.localPosition = Vector3.Lerp(lhs.pos, rhs.pos, t);
-                    transform.localRotation = Quaternion.Slerp(lhs.rot, rhs.rot, t);
-                    return;
-                }
+                State lhs = m_BufferedState[i];
+
+                double length = rhs.timestamp - lhs.timestamp;
+                float t = 0.0F;
+
+                if (length > 0.0001)
+                    t = (float)((interpolationTime - lhs.timestamp) / length);
+
+                transform.localPosition = Vector3.Lerp(lhs.pos, rhs.pos, t);
+                transform.localRotation = Quaternion.Slerp(lhs.rot, rhs.rot, t);
+                return;
             }
         }
-        // Use extrapolation
         else
         {
             State latest = m_BufferedState[0];
 
             float extrapolationLength = (float)(interpolationTime - latest.timestamp);
-            // Don't extrapolation for more than 500 ms, you would need to do that carefully
+
             if (extrapolationLength < m_ExtrapolationLimit)
             {
-                //float axisLength = extrapolationLength * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
-                //Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.angularVelocity);
                 Quaternion angularRotation = Quaternion.identity;
 
                 transform.localPosition = latest.pos + new Vector3(0f, 0f, extrapolationLength);
                 transform.localRotation = angularRotation * latest.rot;
-                //charctrl.velocity = latest.velocity;
-                //rigidbody.angularVelocity = latest.angularVelocity;
             }
         }
     }

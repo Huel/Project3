@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum RangeEvent { EnterRange, ExitRange };
@@ -12,6 +13,16 @@ public class Range : MonoBehaviour
     private List<Team.TeamIdentifier> relevantTargetTeams = new List<Team.TeamIdentifier>();
     private List<OnRangeEvent> enterRangeListener = new List<OnRangeEvent>();
     private List<OnRangeEvent> exitRangeListener = new List<OnRangeEvent>();
+
+    void Update()
+    {
+        foreach (Target target in objectsInRange.Where(target => target == null))
+            objectsInRange.Remove(target);
+        foreach (OnRangeEvent onRangeEvent in enterRangeListener.Where(onRangeEvent => onRangeEvent == null))
+            enterRangeListener.Remove(onRangeEvent);
+        foreach (OnRangeEvent onRangeEvent in exitRangeListener.Where(onRangeEvent => onRangeEvent == null))
+            exitRangeListener.Remove(onRangeEvent);
+    }
 
     float Radius
     {
@@ -149,7 +160,7 @@ public class Range : MonoBehaviour
 
         List<Target> targets = new List<Target>();
         for (int i = 0; i < objectsInRange.Count; i++)
-            if (types.Contains(objectsInRange[i].type)) 
+            if (types.Contains(objectsInRange[i].type))
                 targets.Add(objectsInRange[i]);
 
         return targets;
@@ -168,7 +179,7 @@ public class Range : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {   
+    {
         if (other.GetComponent<Target>() == null) return;
         Target target = other.gameObject.GetComponent<Target>();
         if (!relevantTargetTypes.Contains(target.type)) return;
