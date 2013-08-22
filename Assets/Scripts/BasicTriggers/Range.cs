@@ -16,12 +16,9 @@ public class Range : MonoBehaviour
 
     void Update()
     {
-        foreach (Target target in objectsInRange.Where(target => target == null))
-            objectsInRange.Remove(target);
-        foreach (OnRangeEvent onRangeEvent in enterRangeListener.Where(onRangeEvent => onRangeEvent == null))
-            enterRangeListener.Remove(onRangeEvent);
-        foreach (OnRangeEvent onRangeEvent in exitRangeListener.Where(onRangeEvent => onRangeEvent == null))
-            exitRangeListener.Remove(onRangeEvent);
+        objectsInRange.RemoveAll(target => target == null);
+        enterRangeListener.RemoveAll(onRangeEvent => onRangeEvent == null);
+        exitRangeListener.RemoveAll(onRangeEvent => onRangeEvent == null);
     }
 
     float Radius
