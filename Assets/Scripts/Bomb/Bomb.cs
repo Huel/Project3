@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkView))]
@@ -48,6 +49,8 @@ public class Bomb : MonoBehaviour
     State[] m_BufferedState = new State[20];
     int m_TimestampCount;
     private bool gameOver = false;
+    private XmlDocument document;
+    private AudioLibrary soundLibrary;
 
     public bool GameOver
     {
@@ -56,6 +59,8 @@ public class Bomb : MonoBehaviour
 
     void Start()
     {
+        soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
+        document = new XMLReader("GameSettings.xml").GetXML();
         movementSpeed = float.Parse(new XMLReader("Bomb.xml").GetXML().GetElementsByTagName("speed")[0].InnerText);
         towardsDestination = new GameObject();
     }
@@ -82,8 +87,6 @@ public class Bomb : MonoBehaviour
 
     private void SwitchStatus(GameObject waypoint)
     {
-        if (!CanIPassValve(waypoint)) return;
-
         if (waypoint == WaypointB)
         {
             WaypointA = WaypointB;
@@ -91,6 +94,7 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team1);
+                PlayExplosionSound();
             }
         }
         else
@@ -238,5 +242,36 @@ public class Bomb : MonoBehaviour
         }
 
         return -1;
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlayExplosionSound()
+    {
+        networkView.RPC("ExplosionSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void ExplosionSound()
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player))
+        {
+            if (player.networkView.isMine && player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+            {
+                soundLibrary.StartSound(
+                    WaypointB == null
+                        ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                        : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+            }
+            else
+            {
+                soundLibrary.StartSound(
+                    WaypointA == null
+                        ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                        : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+            }
+        }
     }
 }

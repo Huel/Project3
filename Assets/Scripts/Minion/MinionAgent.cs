@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class MinionAgent : MonoBehaviour
@@ -27,11 +28,15 @@ public class MinionAgent : MonoBehaviour
 
     private float life;
     private float oldLife;
+    private AudioLibrary soundLibrary;
+    private XmlDocument document;
 
     //public Skill basicSkill;
 
     void Start()
     {
+        soundLibrary = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
+        document = new XMLReader("Minion.xml").GetXML();
         _agent = gameObject.GetComponent<NavMeshAgent>();
 
         attentionRange.SetActive(_target == null);
@@ -51,6 +56,7 @@ public class MinionAgent : MonoBehaviour
             contact.SetActive(false);
         }
         // ***********************************************************
+        PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
     }
 
     void Update()
@@ -150,7 +156,7 @@ public class MinionAgent : MonoBehaviour
         if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
             _target = target;
 
-        
+
     }
 
     void CheckAttacked()
@@ -199,7 +205,7 @@ public class MinionAgent : MonoBehaviour
         return _origin;
     }
 
-    public void Manipulate(string effect, string value="", Target aim=null)
+    public void Manipulate(string effect, string value = "", Target aim = null)
     {
         switch (effect)
         {
@@ -276,22 +282,37 @@ public class MinionAgent : MonoBehaviour
         {
             target = checkpoints[position].GetComponent<Target>();
             Team.TeamIdentifier id = GetComponent<Team>().ID;
-            int number = int.Parse(target.name.Substring(target.name.Length-1));
-            if((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
+            int number = int.Parse(target.name.Substring(target.name.Length - 1));
+            if ((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
             {
                 foreach (GameObject baseObject in GameObject.FindGameObjectsWithTag("Base"))
                     if (baseObject.GetComponent<Team>().ID == id)
                         SetOrigin(baseObject.GetComponent<Target>());
             }
-            number = (id==Team.TeamIdentifier.Team1)?number-1:number+1;
+            number = (id == Team.TeamIdentifier.Team1) ? number - 1 : number + 1;
 
             foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
-                if (checkpoint.name == (target.name.Substring(0, target.name.Length-1)+number))
+                if (checkpoint.name == (target.name.Substring(0, target.name.Length - 1) + number))
                     SetOrigin(checkpoint.GetComponent<Target>());
         }
         else
             target = oldLine;
 
         return target;
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        soundLibrary.StartSound(name, delay);
     }
 }

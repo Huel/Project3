@@ -46,6 +46,7 @@ public class CharController : MonoBehaviour
         health = GetComponent<Health>();
         speed = GetComponent<Speed>();
         controller = GetComponent<CharacterController>();
+        PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
     }
 
     void Update()
@@ -100,7 +101,7 @@ public class CharController : MonoBehaviour
             animator.SetFloat(AnimatorTags.angle, 0f);
         }
 
-        if (soundLibrary != null && soundLibrary.aSources != null && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)
+        if (_speed > 0.1f && soundLibrary != null && soundLibrary.aSources != null && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)
         {
             PlaySound(document.GetElementsByTagName("run")[0].InnerText);
         }
