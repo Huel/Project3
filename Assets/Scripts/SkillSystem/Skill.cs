@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -109,18 +108,10 @@ public class Skill : MonoBehaviour
         actualCastingTime = castingTime;
         _state = SkillState.InExecution;
 
-        if (GetComponent<CharController>()!=null)
+        if (GetComponent<CharController>() != null)
         {
-            networkAnimator.PlayAnimation(skillName); 
+            networkAnimator.PlayAnimation(skillName);
         }
-
-        //debug Damage indicator
-        //+++++++++
-        if (networkView.isMine)
-            gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.TeamLight);
-        else
-            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.TeamLight, false);
-        //+++++++++
         return true;
     }
 
