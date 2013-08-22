@@ -2,15 +2,16 @@ Shader "Team"
 {
 	Properties 
 	{
-_MainColor("_MainColor", Color) = (1,1,1,1)
-_Shininess("_Shininess", Range(0,8) ) = 0.5
-_Valve_Specular("_Valve_Specular", 2D) = "black" {}
-_Valve_Diffuse("_Valve_Diffuse", 2D) = "black" {}
-_Valve_Normal("_Valve_Normal", 2D) = "black" {}
-_Lightcookie("_Lightcookie", 2D) = "black" {}
-_cookiespeed("_cookiespeed", Float) = 0
-_TeamMask("_TeamMask", 2D) = "black" {}
-_Team("_Team", Color) = (1,1,1,1)
+_Color("Main Color", Color) = (1,1,1,1)
+_Shininess("Shininess", Range(0,8) ) = 0.5
+_Specular("Specular", 2D) = "black" {}
+_Diffuse("Diffuse", 2D) = "black" {}
+_Normal("Normal", 2D) = "black" {}
+_Mask("Team Mask", 2D) = "black" {}
+_Team("Team Color", Color) = (1,1,1,1)
+_TeamBrightness("Brightness Team Color", Range(0,1) ) = 0
+_Lightcookie("Lightcookie", 2D) = "black" {}
+_Cookiespeed("Cokkiespeed", Float) = 0
 
 	}
 	
@@ -38,15 +39,16 @@ Fog{
 #pragma target 2.0
 
 
-float4 _MainColor;
+float4 _Color;
 float _Shininess;
-sampler2D _Valve_Specular;
-sampler2D _Valve_Diffuse;
-sampler2D _Valve_Normal;
-sampler2D _Lightcookie;
-float _cookiespeed;
-sampler2D _TeamMask;
+sampler2D _Specular;
+sampler2D _Diffuse;
+sampler2D _Normal;
+sampler2D _Mask;
 float4 _Team;
+float _TeamBrightness;
+sampler2D _Lightcookie;
+float _Cookiespeed;
 
 			struct EditorSurfaceOutput {
 				half3 Albedo;
@@ -107,10 +109,10 @@ return c;
 			}
 			
 			struct Input {
-				float2 uv_Valve_Diffuse;
-float2 uv_TeamMask;
-float2 uv_Valve_Normal;
-float2 uv_Valve_Specular;
+				float2 uv_Mask;
+float2 uv_Diffuse;
+float2 uv_Normal;
+float2 uv_Specular;
 
 			};
 
@@ -133,13 +135,17 @@ float4 VertexOutputMaster0_3_NoInput = float4(0,0,0,0);
 				o.Specular = 0.0;
 				o.Custom = 0.0;
 				
-float4 Tex2D0=tex2D(_Valve_Diffuse,(IN.uv_Valve_Diffuse.xyxy).xy);
-float4 Multiply0=_MainColor * Tex2D0;
-float4 Tex2D2=tex2D(_TeamMask,(IN.uv_TeamMask.xyxy).xy);
+float4 Tex2D2=tex2D(_Mask,(IN.uv_Mask.xyxy).xy);
+float4 Invert0= float4(1.0, 1.0, 1.0, 1.0) - Tex2D2;
+float4 Tex2D0=tex2D(_Diffuse,(IN.uv_Diffuse.xyxy).xy);
+float4 Multiply0=_Color * Tex2D0;
+float4 Multiply3=Invert0 * Multiply0;
 float4 Multiply2=_Team * Tex2D2;
-float4 Add0=Multiply0 + Multiply2;
-float4 Tex2DNormal0=float4(UnpackNormal( tex2D(_Valve_Normal,(IN.uv_Valve_Normal.xyxy).xy)).xyz, 1.0 );
-float4 Tex2D1=tex2D(_Valve_Specular,(IN.uv_Valve_Specular.xyxy).xy);
+float4 Multiply4=Multiply0 * Multiply2;
+float4 Lerp0=lerp(Multiply4,Multiply2,_TeamBrightness.xxxx);
+float4 Add0=Multiply3 + Lerp0;
+float4 Tex2DNormal0=float4(UnpackNormal( tex2D(_Normal,(IN.uv_Normal.xyxy).xy)).xyz, 1.0 );
+float4 Tex2D1=tex2D(_Specular,(IN.uv_Specular.xyxy).xy);
 float4 Multiply1=_Shininess.xxxx * Tex2D1;
 float4 Master0_2_NoInput = float4(0,0,0,0);
 float4 Master0_5_NoInput = float4(1,1,1,1);
