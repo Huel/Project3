@@ -34,9 +34,11 @@ public class NetworkAnimator : MonoBehaviour
             return;
         if (obj.transform.animation != null && obj.transform.animation[anim] != null)
         {
+            if (obj.transform.animation.IsPlaying(anim))
+                return;
             AnimationState animState = obj.transform.animation[anim];
             obj.transform.animation.Stop();
-            animState.time = ((forward) ? 0 : animState.length);
+            //animState.time = ((forward) ? 0 : animState.length);
             animState.speed = ((forward) ? 1 : -1);
             obj.transform.animation.Play(anim);
             return;
