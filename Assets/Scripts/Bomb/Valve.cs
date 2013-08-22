@@ -85,11 +85,11 @@ public class Valve : MonoBehaviour
     {
         if (networkView.isMine)
         {
-            if (!_valveTeam.isEnemy(_occupant))
-                _state += _productivity * Time.deltaTime;
+            if (_valveTeam.isOwnTeam(_occupant))
+                _state = Mathf.Clamp(_state + (_productivity * Time.deltaTime), 0f, _openValve);
             else if (_valveTeam.isEnemy(_occupant))
-                _state -= _productivity * Time.deltaTime;
-            _state = Mathf.Clamp(_state, 0f, _openValve);
+                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);
+            
         }
     }
 
@@ -145,13 +145,14 @@ public class Valve : MonoBehaviour
 
     public void AddMinion(MinionAgent minion)
     {
-
+        DebugStreamer.message = "addMinion";
         if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
         _localMinions.Add(minion);
     }
 
     public void RemoveMinion(MinionAgent minion)
     {
+        DebugStreamer.message = "removeMinion";
         _localMinions.RemoveAll(minionAgent => minionAgent == minion);
     }
 
@@ -176,6 +177,16 @@ public class Valve : MonoBehaviour
             return ValveState.FullyOccupied;
         }
         return ValveState.NotOccupied;
+    }
+
+    public int GetRotationDirection()
+    {
+        ValveState state = GetValveState();
+        if (new[] {ValveState.Closed, ValveState.Opened, ValveState.NotOccupied}.Contains(state))
+            return 0;
+        if (_valveTeam.isOwnTeam(_occupant))
+            return 1;
+        return -1;
     }
 
     private bool DoesValveBelongTo(MinionAgent minion)
