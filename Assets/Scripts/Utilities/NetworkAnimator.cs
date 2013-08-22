@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class NetworkAnimator : MonoBehaviour
 {
-
+    public GameObject obj = null;
     private Animator _animator;
 
     void Awake()
     {
-        if (GetComponent<Animator>() == null)
+        if (!obj)
+            obj = gameObject;
+        if (obj.GetComponent<Animator>() == null)
             return;
-        _animator = GetComponent<Animator>();
+        _animator = obj.GetComponent<Animator>();
         _animator.SetLayerWeight(1, 1f);
-        
+
     }
 
     public void PlayAnimation(string anim, bool forward = true)
@@ -25,32 +27,32 @@ public class NetworkAnimator : MonoBehaviour
     {
         if (anim == null || anim.Length <= 0)
             return;
-        if (transform.animation != null && transform.animation[anim] != null)
+        if (obj.transform.animation != null && obj.transform.animation[anim] != null)
         {
-            AnimationState animState = transform.animation[anim];
-            transform.animation.Stop();
+            AnimationState animState = obj.transform.animation[anim];
+            obj.transform.animation.Stop();
             animState.time = ((forward) ? 0 : animState.length);
             animState.speed = ((forward) ? 1 : -1);
-            transform.animation.Play(anim);
+            obj.transform.animation.Play(anim);
             return;
         }
         StartMecanimClip(anim);
     }
 
     private void StartMecanimClip(string anim)
-    { 
+    {
         StartCoroutine(MecanimClip(anim));
-        
+
     }
 
     IEnumerator MecanimClip(string animBoolName)
     {
-        
+
         if (_animator)
             _animator.SetBool(animBoolName, true);
         yield return null;
         yield return null;
         if (_animator)
-            _animator.SetBool(animBoolName, false);    
+            _animator.SetBool(animBoolName, false);
     }
 }
