@@ -19,6 +19,8 @@ public class NetworkAnimator : MonoBehaviour
 
     public void PlayAnimation(string anim, bool forward = true)
     {
+        if (obj.transform.animation[anim] != null && obj.transform.animation.IsPlaying(anim))
+            return;
         networkView.RPC("StartAnimation", RPCMode.All, anim, forward);
     }
 
