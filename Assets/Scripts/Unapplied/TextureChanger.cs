@@ -4,7 +4,7 @@ public class TextureChanger : MonoBehaviour
 {
     public Texture defaultTexture;
     public Texture defaultTextureReduced;
-
+    
     public Texture textureTeam1_1;
     public Texture textureTeam1_1Reduced;
     public Texture textureTeam1_2;
@@ -17,15 +17,13 @@ public class TextureChanger : MonoBehaviour
 
     private Team team;
     private bool textureIsSet = false;
-    private GameObject reducedMesh;
+    public GameObject reducedMesh;
 
     // Use this for initialization
     void Start()
     {
         team = transform.parent.parent.GetComponent<Team>();
         renderer.material.SetTexture("_MainTex", defaultTexture);
-        if (gameObject.name != "weapon")
-            reducedMesh = gameObject.transform.parent.FindChild(gameObject.name + "_reduced").gameObject;
     }
 
     void Update()
@@ -55,12 +53,10 @@ public class TextureChanger : MonoBehaviour
                     case 1:
                         renderer.material.SetTexture("_MainTex", textureTeam2_1);
                         if (reducedMesh != null) reducedMesh.renderer.material.SetTexture("_MainTex", textureTeam2_1Reduced);
-
                         break;
                     default:
                         renderer.material.SetTexture("_MainTex", textureTeam2_2);
                         if (reducedMesh != null) reducedMesh.renderer.material.SetTexture("_MainTex", textureTeam2_2Reduced);
-
                         break;
                 }
                 break;

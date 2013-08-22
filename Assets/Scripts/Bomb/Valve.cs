@@ -145,14 +145,12 @@ public class Valve : MonoBehaviour
 
     public void AddMinion(MinionAgent minion)
     {
-        DebugStreamer.message = "addMinion";
         if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
         _localMinions.Add(minion);
     }
 
     public void RemoveMinion(MinionAgent minion)
     {
-        DebugStreamer.message = "removeMinion";
         _localMinions.RemoveAll(minionAgent => minionAgent == minion);
     }
 

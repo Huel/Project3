@@ -20,7 +20,6 @@ public class NetworkAnimator : MonoBehaviour
     {
         if (obj.transform.animation != null && obj.transform.animation[anim] != null && obj.transform.animation.IsPlaying(anim))
             return;
-        DebugStreamer.message = gameObject.name;
         networkView.RPC("StartAnimation", RPCMode.All, anim, forward);
     }
 
@@ -52,7 +51,6 @@ public class NetworkAnimator : MonoBehaviour
     public void StopPlaying()
     {
         obj.transform.animation.Stop();
-        DebugStreamer.message = gameObject.name + " Stop";
     }
 
     private void StartMecanimClip(string anim)

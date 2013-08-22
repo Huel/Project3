@@ -113,26 +113,34 @@ public class MinionAgent : MonoBehaviour
                 _target = null;
                 return;
             }
+            //move to target
             if (_agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
-
+            //if valve is fully opened or closed
             if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
             {
                 _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
                 _target = null;
             }
         }
-        if (contact.gameObject.activeSelf && !_agent.enabled)
+        //if (contact.gameObject.activeSelf && !_agent.enabled)
+        //{
+        //    _agent.enabled = true;
+        //}
+        if (contact.Contact(_target) && _target != null)
         {
-            _agent.enabled = true;
-        }
-        if (_target != null && contact.Contact(_target))
-        {
+            _agent.enabled = false;
+            transform.LookAt(_target.transform);
+            // Enemy
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
                 basicAttack.Execute();
+            // Valve
             else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
+        else
+            _agent.enabled = true;
+
         if (_target != null && _target.type == TargetType.Dead)
             _target = null;
     }
