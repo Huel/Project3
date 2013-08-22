@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Modifier
 {
-	private Skill skill;
-	private modifierType type;
-	enum modifierType { modify, buff, debuff, buffModification, aura, minionAgentManupulation, spot};
+    private Skill skill;
+    private modifierType type;
+    enum modifierType { modify, buff, debuff, buffModification, aura, minionAgentManupulation, spot };
 
-	private string field;
-	private string value;
+    private string field;
+    private string value;
     private float baseValue = -1;
-	private string valueType;
-	private string target;
-	private List<Team.TeamIdentifier> targetTeams;
+    private string valueType;
+    private string target;
+    private List<Team.TeamIdentifier> targetTeams;
 
-	public Modifier(Skill skill, string field, string value, string valueType, string target, string targetTeam)
-	{
-		this.skill = skill;
-		type = modifierType.modify;
-		this.field = field;
-		this.value = value;
-		this.valueType = valueType;
-		this.target = target;
+    public Modifier(Skill skill, string field, string value, string valueType, string target, string targetTeam)
+    {
+        this.skill = skill;
+        type = modifierType.modify;
+        this.field = field;
+        this.value = value;
+        this.valueType = valueType;
+        this.target = target;
 
-		targetTeams = new List<Team.TeamIdentifier>();
-		switch (targetTeam)
-		{
-			case "Ally":
-				targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
-				break;
-			case "Enemy":
-				targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
-				break;
-			case "All":
-				targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
-				targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
-				break;
-		}
-	}
+        targetTeams = new List<Team.TeamIdentifier>();
+        switch (targetTeam)
+        {
+            case "Ally":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                break;
+            case "Enemy":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+            case "All":
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
+                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
+                break;
+        }
+    }
 
     private string componentName;
     private string targetTeamString;
@@ -137,13 +134,13 @@ public class Modifier
         this.spotPrefabName = spotPrefabName;
     }
 
-	public void Execute()
-	{
-		switch (type)
-		{
-			case modifierType.modify:
-				Modificate();
-				break;
+    public void Execute()
+    {
+        switch (type)
+        {
+            case modifierType.modify:
+                Modificate();
+                break;
 
             case modifierType.buff:
                 Buff();
@@ -184,8 +181,8 @@ public class Modifier
                 spot = Network.Instantiate(Resources.Load(spotPrefabName), skill.gameObject.transform.position, skill.gameObject.transform.rotation, 1);
                 (spot as GameObject).GetComponent<Team>().ID = skill.gameObject.GetComponent<Team>().ID;
                 break;
-		}
-	}
+        }
+    }
 
     public void deactivateAura()
     {
@@ -231,7 +228,7 @@ public class Modifier
             foreach (GameObject baseObject in bases)
                 if (baseObject.GetComponent<Team>().ID != this.targetObject.GetComponent<Team>().ID)
                     targetObject = baseObject;
-                   
+
         }
         if (targetIdentifier == "OwnBase")
         {
@@ -254,7 +251,7 @@ public class Modifier
 
     private void Modificate()
     {
-        if (sourceObject == null)
+        if (sourceObject == null && skill)
             sourceObject = skill.gameObject;
         GameObject _targetObject;
         if (targetObject == null)
@@ -285,7 +282,7 @@ public class Modifier
             case "Speed":
                 Speed speedComp = _targetObject.GetComponent<Speed>();
                 if (valueType == "setSpeedMultiplier") speedComp.SetSpeedMultiplier(float.Parse(value));
-                if (valueType == "multiplyDefaultSpeed") speedComp.SetDefaultSpeed(speedComp.DefaultSpeed*float.Parse(value));
+                if (valueType == "multiplyDefaultSpeed") speedComp.SetDefaultSpeed(speedComp.DefaultSpeed * float.Parse(value));
                 if (valueType == "multiplySprintSpeed") speedComp.SetSprintSpeed(speedComp.SprintSpeed * float.Parse(value));
                 break;
 
