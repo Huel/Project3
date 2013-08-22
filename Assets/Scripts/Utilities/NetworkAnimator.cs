@@ -8,6 +8,8 @@ public class NetworkAnimator : MonoBehaviour
 
     void Awake()
     {
+        if (GetComponent<Animator>() == null)
+            return;
         _animator = GetComponent<Animator>();
         _animator.SetLayerWeight(1, 1f);
         
@@ -36,7 +38,7 @@ public class NetworkAnimator : MonoBehaviour
     }
 
     private void StartMecanimClip(string anim)
-    {
+    { 
         StartCoroutine(MecanimClip(anim));
         
     }
