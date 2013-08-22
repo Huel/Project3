@@ -253,11 +253,7 @@ public class Modifier
     {
         if (sourceObject == null && skill)
             sourceObject = skill.gameObject;
-        GameObject _targetObject;
-        if (targetObject == null)
-            _targetObject = SearchForObject(skill, target, targetTeams);
-        else
-            _targetObject = targetObject;
+        GameObject _targetObject = targetObject ?? SearchForObject(skill, target, targetTeams);
 
         if (_targetObject == null) return;
 
@@ -265,10 +261,34 @@ public class Modifier
         {
             case "Health":
                 Health comp = _targetObject.GetComponent<Health>();
-                if (valueType == "setInvulnerable") comp.invulnerable = bool.Parse(value);
+
+                ///// is now an RPC call since 20.8.13 15:00
+                if (valueType == "setInvulnerable")
+                    comp.Invulnerable = bool.Parse(value);
+                /////
+
+
                 if (valueType == "setImmortal") comp.immortal = bool.Parse(value);
                 if (valueType == "setHealthMultiplier") comp.SetMaxHealthMultiplier(float.Parse(value));
-                if (valueType == "set") comp.SetHealth(float.Parse(value));
+
+
+                ///// is now an RPC call since 20.8.13 15:00
+                if (valueType == "set")
+                {
+                    if (comp.networkView.isMine)
+                    {
+                        comp.SetHealth(float.Parse(value));
+                    }
+                    else
+                    {
+                        comp.networkView.RPC("SetHealth", comp.networkView.owner, float.Parse(value));
+                    }
+                }
+                /////
+
+
+
+
                 if (valueType == "heal") comp.IncHealth(comp.MaxHealth * float.Parse(value));
                 if (valueType == "increase") comp.IncHealth(sourceObject.GetComponent<Damage>().DefaultDamage * float.Parse(value));
                 if (valueType == "decrease")
@@ -315,11 +335,7 @@ public class Modifier
 
     private void Buff()
     {
-        GameObject _targetObject;
-        if (targetObject == null)
-            _targetObject = SearchForObject(skill, target, targetTeams);
-        else
-            _targetObject = targetObject;
+        GameObject _targetObject = targetObject ?? SearchForObject(skill, target, targetTeams);
 
         if (_targetObject == null) return;
 

@@ -112,7 +112,6 @@ public class Skill : MonoBehaviour
         {
             networkAnimator.PlayAnimation(skillName);
         }
-
         return true;
     }
 

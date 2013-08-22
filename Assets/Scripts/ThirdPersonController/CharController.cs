@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharController : MonoBehaviour
@@ -113,7 +112,7 @@ public class CharController : MonoBehaviour
 
     private void HandleInput(ref float horizontal, ref float vertical)
     {
-        
+
         horizontal = Input.GetAxis(InputTags.horizontal);
         vertical = Input.GetAxis(InputTags.vertical);
 
@@ -125,9 +124,9 @@ public class CharController : MonoBehaviour
         if (CustomInput.GetTriggerDown(InputTags.basicAttack))
         {
             if (basicAttack)
-                basicAttack.Execute();     
+                basicAttack.Execute();
         }
-        if (Input.GetButtonDown(InputTags.skill1))
+        if (Input.GetButtonDown(InputTags.skill1) || Input.GetKeyDown(KeyCode.A))
         {
             if (skill1)
                 skill1.Execute();
@@ -159,9 +158,9 @@ public class CharController : MonoBehaviour
             {
                 buttonPushed = true;
             }
-            if(Input.GetAxisRaw(InputTags.squadSelection) > 0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
+            if (Input.GetAxisRaw(InputTags.squadSelection) > 0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
                 addSquad.Execute();
-            if(Input.GetAxisRaw(InputTags.squadSelection) < -0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
+            if (Input.GetAxisRaw(InputTags.squadSelection) < -0.1 && !(Input.GetAxisRaw(InputTags.squadLane) < -0.1 || Input.GetAxisRaw(InputTags.squadLane) > 0.1))
                 removeSquad.Execute();
         }
         else
