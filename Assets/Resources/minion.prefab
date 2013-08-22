@@ -20,7 +20,6 @@ GameObject:
   - 136: {fileID: 13600000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400022}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400028}
   - 95: {fileID: 9500000}
@@ -29,6 +28,8 @@ GameObject:
   - 114: {fileID: 11400030}
   - 114: {fileID: 11400026}
   - 205: {fileID: 20500000}
+  - 114: {fileID: 11400038}
+  - 114: {fileID: 11400022}
   m_Layer: 9
   m_Name: minion
   m_TagString: Minion
@@ -1594,8 +1595,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2543e79ed310554fa8486821eec0106, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fb723e308cc96044a79d83499d0a4ea, type: 3}
   m_Name: 
+  remoteTransform: {fileID: 400024}
+  position: 0
+  rotation: 0
+  scaling: 0
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1726,6 +1731,20 @@ MonoBehaviour:
   textureTeam2_2: {fileID: 2800000, guid: ab01f53c5185f6c4ea56eb6fe27baf5f, type: 3}
   textureTeam2_2Reduced: {fileID: 2800000, guid: 11aa59c8e7c2b9f4fa5b3880558af51c,
     type: 3}
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6715e8f9fc3e23141a1c061be1a3cd40, type: 3}
+  m_Name: 
+  lamp:
+  - {fileID: 100090}
+  - {fileID: 100088}
+  maxFlare: .5
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2144,7 +2163,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 8a92f90ab703700499454150b0a8ce31, type: 2}
+  - {fileID: 2100000, guid: 2e3baa8fed0aada41bff51c0d81a80c2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2173,7 +2192,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 8a92f90ab703700499454150b0a8ce31, type: 2}
+  - {fileID: 2100000, guid: 2e3baa8fed0aada41bff51c0d81a80c2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

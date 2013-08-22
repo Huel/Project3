@@ -169,13 +169,6 @@ public class Health : MonoBehaviour
     {
         if (HealthPoints == MinHealth)
             return 0;
-        //debug Damage indicator
-        //+++++++++
-        if (networkView.isMine)
-            gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.Hit);
-        else
-            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.Hit, false);
-        //+++++++++
 
         return IncHealth(-healthValue);
     }
@@ -196,9 +189,9 @@ public class Health : MonoBehaviour
                 if (animator && networkAnimator)
                 {
                     animator.SetLayerWeight(0, 1f);
-                    networkAnimator.PlayAnimation("Dying"); 
+                    networkAnimator.PlayAnimation("Dying");
                 }
-                
+
                 SetAlive(false);
             }
             else if (HealthPoints <= MaxHealth)
