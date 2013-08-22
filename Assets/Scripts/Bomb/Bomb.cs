@@ -72,11 +72,12 @@ public class Bomb : MonoBehaviour
         target = WaypointA;
         if (ForceA > ForceB) target = WaypointB;
 
-        if (!HaveReached(target)) { MoveTowards(target); }
-        else
+        if (!HaveReached(target))
         {
-            if (CanIPassValve(target)) SwitchStatus(target);
+            MoveTowards(target);
+            return;
         }
+        if (CanIPassValve(target)) SwitchStatus(target);
     }
 
     private void SwitchStatus(GameObject waypoint)

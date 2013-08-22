@@ -60,7 +60,6 @@ public class SoundController : MonoBehaviour
     /// <param name="lane">The lane of the bomb, which triggered the enter-proximity warning.</param>
     public void TryToPlaySound(SoundEvent.Lane lane)
     {
-        Debug.Log("tryto play sound");
         triggeredLanes[(int)lane] = true;
     }
 
@@ -70,7 +69,6 @@ public class SoundController : MonoBehaviour
     /// <param name="lane">The lane of the bomb, which triggered the leave-proximity warning.</param>
     public void TryToStopSound(SoundEvent.Lane lane)
     {
-        Debug.Log("tryto stop sound");
         triggeredLanes[(int)lane] = false;
     }
 }

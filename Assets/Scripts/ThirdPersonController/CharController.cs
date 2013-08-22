@@ -9,6 +9,8 @@ public class CharController : MonoBehaviour
     private OrbitCamera gamecam;
     private Health health;
     private Speed speed;
+    private System.Xml.XmlDocument document;
+    private AudioLibrary soundLibrary;
 
     private float _speed = 0f;
     private const float _maxSideSpeed = 0.75f;
@@ -38,7 +40,8 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
-
+        soundLibrary = transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>();
+        document = new XMLReader("Hero01.xml").GetXML();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
         speed = GetComponent<Speed>();
@@ -97,6 +100,11 @@ public class CharController : MonoBehaviour
             animator.SetFloat(AnimatorTags.angle, 0f);
         }
 
+        if (soundLibrary != null && soundLibrary.aSources != null && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)
+        {
+            PlaySound(document.GetElementsByTagName("run")[0].InnerText);
+        }
+
         controller.Move(Physics.gravity);
         animator.SetFloat(AnimatorTags.speed, _speed);
 
@@ -124,29 +132,57 @@ public class CharController : MonoBehaviour
         if (CustomInput.GetTriggerDown(InputTags.basicAttack))
         {
             if (basicAttack)
-                basicAttack.Execute();
+            {
+                if (basicAttack.Execute())
+                {
+                    int rnd = Random.Range(1, 3);
+                    switch (rnd)
+                    {
+                        case 1:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation1")[0].InnerText);
+                            break;
+                        case 2:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation2")[0].InnerText);
+                            break;
+                        case 3:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation3")[0].InnerText);
+                            break;
+                    }
+                }
+            }
         }
         if (Input.GetButtonDown(InputTags.skill1) || Input.GetKeyDown(KeyCode.A))
         {
             if (skill1)
+            {
+                if (skill1.State == SkillState.Ready) PlaySound(document.GetElementsByTagName("shieldwall")[0].InnerText);
                 skill1.Execute();
+            }
         }
-        if (Input.GetButtonDown(InputTags.skill2))
+        if (Input.GetButtonDown(InputTags.skill2) || Input.GetKeyDown(KeyCode.S))
         {
             if (skill2)
+            {
+                if (skill2.State == SkillState.Ready) PlaySound(document.GetElementsByTagName("kamikazeMission")[0].InnerText);
                 skill2.Execute();
+            }
         }
-        if (Input.GetButtonDown(InputTags.skill3))
+        if (Input.GetButtonDown(InputTags.skill3) || Input.GetKeyDown(KeyCode.D))
         {
             if (skill3)
+            {
+                if (skill3.State == SkillState.Ready) PlaySound(document.GetElementsByTagName("freshMeat")[0].InnerText);
                 skill3.Execute();
+            }
         }
-        if (Input.GetButtonDown(InputTags.skill4))
+        if (Input.GetButtonDown(InputTags.skill4) || Input.GetKeyDown(KeyCode.F))
         {
             if (skill4)
+            {
+                if (skill4.State == SkillState.Ready) PlaySound(document.GetElementsByTagName("battlecry")[0].InnerText);
                 skill4.Execute();
+            }
         }
-
         HandleInput();
     }
 
@@ -208,5 +244,20 @@ public class CharController : MonoBehaviour
     {
         if (gamecam == null)
             gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<OrbitCamera>();
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        soundLibrary.StartSound(name, delay);
     }
 }
