@@ -40,7 +40,7 @@ public class Aura : MonoBehaviour
     {
         if (onceCheck()) return;
         if (squadCheck(target)) return;
-        counters++; 
+        counters++;
         BuffBehaviour buff = target.gameObject.AddComponent<BuffBehaviour>();
         buff.Load(skill, buffName, buffIsDebuff, true);
     }
@@ -68,7 +68,7 @@ public class Aura : MonoBehaviour
         float value;
         foreach (Target target in targets)
         {
-            value = minValue + ((1-(target.GetDistance(skill.gameObject.transform.position)/radius))* (1-minValue));
+            value = minValue + ((1 - (target.GetDistance(skill.gameObject.transform.position) / radius)) * (1 - minValue));
             foreach (BuffBehaviour buff in target.gameObject.GetComponents<BuffBehaviour>())
                 if (buff.buffID == buffName)
                     buff.ChangeAuraValue(value);
@@ -85,9 +85,17 @@ public class Aura : MonoBehaviour
     private bool squadCheck(Target target)
     {
         if (buffName == "AddSquad")
-            if(skill.gameObject.GetComponent<Squad>().CanAdd() && !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+        {
+            if (skill.gameObject.GetComponent<Squad>().CanAdd() &&
+                !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+            else return true;
+        }
         if (buffName == "RemoveSquad")
-            if(skill.gameObject.GetComponent<Squad>().CanRemove() && skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
-        return true;
+        {
+            if (skill.gameObject.GetComponent<Squad>().CanRemove() &&
+                skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+            else return true;
+        }
+        return false;
     }
 }

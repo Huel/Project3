@@ -24,8 +24,14 @@ public class MinionLamp : MonoBehaviour
     {
         if (_team)
             SetTeam();
-       // if (!_switchedOn && transform.parent.networkView.isMine && GetComponent<Bu>() == _trophy.trophyLevel)
-         //   transform.parent.networkView.RPC("TurnLightOn", RPCMode.AllBuffered, trophyLevel - 1);
+        if (!_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() != null)
+        {
+            networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
+        }
+        else if (_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() == null)
+        {
+            networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
+        }
     }
 
     private void SetTeam()
