@@ -11,6 +11,10 @@ public class Minimap : MonoBehaviour
 	public GameObject heroTeamOnePointPrefab;
 	public GameObject heroTeamTwoPointPrefab;
 
+	public GameObject mapArrowsLane01;
+	public GameObject mapArrowsLane02;
+	public GameObject mapArrowsLane03;
+
 	//private const float scale = 13.8f;
 	private const float mapHight = 116;
 
@@ -25,15 +29,15 @@ public class Minimap : MonoBehaviour
 
 	void Awake()
 	{
-		heroTeamOneArrow = (GameObject)Instantiate(heroTeamOneArrowPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamOneArrow = (GameObject)Instantiate(heroTeamOneArrowPrefab, new Vector3(2000, 0, 0), Quaternion.identity);
 		heroTeamOneArrow.transform.parent = gameObject.transform;
-		heroTeamOnePoint = (GameObject)Instantiate(heroTeamOnePointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamOnePoint = (GameObject)Instantiate(heroTeamOnePointPrefab, new Vector3(2000, 0, 0), Quaternion.identity);
 		heroTeamOnePoint.transform.localEulerAngles = new Vector3(90, 0, 0);
 		heroTeamOnePoint.transform.parent = gameObject.transform;
 
-		heroTeamTwoArrow = (GameObject)Instantiate(heroTeamTwoArrowPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamTwoArrow = (GameObject)Instantiate(heroTeamTwoArrowPrefab, new Vector3(2000, 0, 0), Quaternion.identity);
 		heroTeamTwoArrow.transform.parent = gameObject.transform;
-		heroTeamTwoPoint = (GameObject)Instantiate(heroTeamTwoPointPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+		heroTeamTwoPoint = (GameObject)Instantiate(heroTeamTwoPointPrefab, new Vector3(2000, 0, 0), Quaternion.identity);
 		heroTeamTwoPoint.transform.localEulerAngles = new Vector3(90, 0, 0);
 		heroTeamTwoPoint.transform.parent = gameObject.transform;
 	}
@@ -57,17 +61,28 @@ public class Minimap : MonoBehaviour
 
 				if (player.transform.position.x < 222 && player.transform.position.x > 70)
 				{
-					gameObject.transform.position = new Vector3(player.transform.position.x, 106, 16);
+					float xPosition = player.transform.position.x;
+					gameObject.transform.position = new Vector3(xPosition, 106, 16);
+					float ratio = 1 - (xPosition - 70) / (222 - 70);
+					mapArrowsLane01.transform.localPosition = new Vector3((ratio * 140) - 70, 0, -90);
+					mapArrowsLane02.transform.localPosition = new Vector3((ratio * 140) - 70, 0, 0);
+					mapArrowsLane03.transform.localPosition = new Vector3((ratio * 140) - 70, 0, 90);
 				}
 				
 				if (player.transform.position.x > 222)
 				{
 					gameObject.transform.position = new Vector3(222, 106, 16);
+					mapArrowsLane01.transform.localPosition = new Vector3(-70, 0, -90);
+					mapArrowsLane02.transform.localPosition = new Vector3(-70, 0,	0);
+					mapArrowsLane03.transform.localPosition = new Vector3(-70, 0,  90);
 				}
 
 				if (player.transform.position.x < 70)
 				{
 					gameObject.transform.position = new Vector3(70, 106, 16);
+					mapArrowsLane01.transform.localPosition = new Vector3(70, 0, -90);
+					mapArrowsLane02.transform.localPosition = new Vector3(70, 0,   0);
+					mapArrowsLane03.transform.localPosition = new Vector3(70, 0,  90);
 				}
 				#endregion
 
