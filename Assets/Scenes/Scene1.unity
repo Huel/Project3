@@ -199,6 +199,10 @@ MonoBehaviour:
   state: 0
   pointsTeam1: 0
   pointsTeam2: 0
+  teamColors:
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: .118122071, g: .327028692, b: .75373137, a: 0}
+  - {r: .365671635, g: .0463911816, b: .0463911816, a: 0}
 --- !u!4 &759433826
 Transform:
   m_ObjectHideFlags: 0
@@ -259,6 +263,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -298,6 +306,42 @@ Prefab:
     - target: {fileID: 100000, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
       propertyPath: m_Name
       value: controller_gamecontroller
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[0].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[0].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[1].r
+      value: .118122071
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[1].g
+      value: .327028692
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[1].b
+      value: .75373137
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[2].r
+      value: .365671635
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[2].g
+      value: .0463911816
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}
+      propertyPath: teamColors.Array.data[2].b
+      value: .0463911816
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: 4f2c26f176da2524f856f87918b55c73, type: 2}

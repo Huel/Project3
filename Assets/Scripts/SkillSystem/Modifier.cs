@@ -251,7 +251,7 @@ public class Modifier
 
     private void Modificate()
     {
-        if (sourceObject == null)
+        if (sourceObject == null && skill)
             sourceObject = skill.gameObject;
         GameObject _targetObject = targetObject ?? SearchForObject(skill, target, targetTeams);
 

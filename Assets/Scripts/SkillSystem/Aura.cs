@@ -84,9 +84,24 @@ public class Aura : MonoBehaviour
     private bool squadCheck(Target target)
     {
         if (buffName == "AddSquad")
+<<<<<<< HEAD
             if (skill.gameObject.GetComponent<Squad>().CanAdd() && !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
         if (buffName == "RemoveSquad")
             if (skill.gameObject.GetComponent<Squad>().CanRemove() && skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
         return true;
+=======
+        {
+            if (skill.gameObject.GetComponent<Squad>().CanAdd() &&
+                !skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+            else return true;
+        }
+        if (buffName == "RemoveSquad")
+        {
+            if (skill.gameObject.GetComponent<Squad>().CanRemove() &&
+                skill.gameObject.GetComponent<Squad>().HasSquadMember(target.gameObject)) return false;
+            else return true;
+        }
+        return false;
+>>>>>>> refs/remotes/origin/develop
     }
 }

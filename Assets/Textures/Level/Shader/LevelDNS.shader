@@ -2,10 +2,12 @@ Shader "Level_DiffuseBump"
 {
 	Properties 
 	{
-_Level_Diffuse("Level_Diffuse", 2D) = "black" {}
-_Level_Normal("Level_Normal", 2D) = "black" {}
-_Lightcookie("Lightcookie", 2D) = "black" {}
-_cookiespeed("cookiespeed", Float) = 0
+_Level_Diffuse("_Level_Diffuse", 2D) = "black" {}
+_Level_Normal("_Level_Normal", 2D) = "black" {}
+_Lightcookie("_Lightcookie", 2D) = "black" {}
+_cookiespeed("_cookiespeed", Float) = 0
+_Specular("Specular", 2D) = "black" {}
+_Shininess("Shininess", Range(0,1) ) = 0.5
 
 	}
 	
@@ -37,6 +39,8 @@ sampler2D _Level_Diffuse;
 sampler2D _Level_Normal;
 sampler2D _Lightcookie;
 float _cookiespeed;
+sampler2D _Specular;
+float _Shininess;
 
 			struct EditorSurfaceOutput {
 				half3 Albedo;
@@ -100,6 +104,7 @@ return c;
 				float2 uv_Level_Diffuse;
 float2 uv_Lightcookie;
 float2 uv_Level_Normal;
+float2 uv_Specular;
 
 			};
 
@@ -128,13 +133,15 @@ float4 UV_Pan0=float4((IN.uv_Lightcookie.xyxy).x + Multiply0.x,(IN.uv_Lightcooki
 float4 Tex2D1=tex2D(_Lightcookie,UV_Pan0.xy);
 float4 Multiply1=Tex2D0 * Tex2D1;
 float4 Tex2DNormal0=float4(UnpackNormal( tex2D(_Level_Normal,(IN.uv_Level_Normal.xyxy).xy)).xyz, 1.0 );
+float4 Tex2D2=tex2D(_Specular,(IN.uv_Specular.xyxy).xy);
+float4 Multiply2=Tex2D2 * _Shininess.xxxx;
 float4 Master0_2_NoInput = float4(0,0,0,0);
-float4 Master0_3_NoInput = float4(0,0,0,0);
-float4 Master0_4_NoInput = float4(0,0,0,0);
 float4 Master0_7_NoInput = float4(0,0,0,0);
 float4 Master0_6_NoInput = float4(1,1,1,1);
 o.Albedo = Multiply1;
 o.Normal = Tex2DNormal0;
+o.Specular = Multiply2;
+o.Gloss = Multiply2;
 o.Alpha = Tex2D1;
 
 				o.Normal = normalize(o.Normal);

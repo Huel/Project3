@@ -191,13 +191,6 @@ public class Health : MonoBehaviour
     {
         if (HealthPoints == MinHealth || Invulnerable || immortal)
             return 0;
-        //debug Damage indicator
-        //+++++++++
-        if (networkView.isMine)
-            gameObject.GetComponent<DebugChangeColor>().SetEffect(DebugColor.Hit);
-        else
-            networkView.RPC("SetEffect", networkView.owner, (int)DebugColor.Hit, false);
-        //+++++++++
 
         return IncHealth(-healthValue);
     }

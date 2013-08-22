@@ -11,7 +11,10 @@ public class Tags
     public const string debugstreamer = "DebugStreamer";
     public const string miniMap = "MiniMap";
     public const string blueDot = "BlueDot";
-    public const string greenDot = "GreenDot";
+    public const string redDot = "RedDot";
     public const string minionManager = "MinionManager";
     public const string soundManager = "SoundManager";
+	public const string map = "Map";
+	public const string cameraMinimap = "CameraMinimap";
+	public const string heroDot = "HeroDot";
 }
