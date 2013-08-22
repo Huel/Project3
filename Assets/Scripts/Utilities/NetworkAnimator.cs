@@ -22,6 +22,11 @@ public class NetworkAnimator : MonoBehaviour
         networkView.RPC("StartAnimation", RPCMode.All, anim, forward);
     }
 
+    public void StopAnimation()
+    {
+        networkView.RPC("StopPlaying", RPCMode.All);
+    }
+
     [RPC]
     public void StartAnimation(string anim, bool forward = true)
     {
@@ -37,6 +42,12 @@ public class NetworkAnimator : MonoBehaviour
             return;
         }
         StartMecanimClip(anim);
+    }
+
+    [RPC]
+    public void StopPlaying()
+    {
+        obj.transform.animation.Stop();
     }
 
     private void StartMecanimClip(string anim)
