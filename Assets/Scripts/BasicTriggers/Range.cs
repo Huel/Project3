@@ -93,14 +93,14 @@ public class Range : MonoBehaviour
         return null;
     }
 
-    public Target GetNearestTargetByPriority(List<TargetType> types, Team team)
+    public Target GetNearestTargetByPriority(List<TargetType> types, Team team ,bool ignoreValve = false)
     {
         order();
         foreach (TargetType type in types)
             for (int i = 0; i < objectsInRange.Count; i++)
                 if (objectsInRange[i].type == type
                     && (objectsInRange[i].gameObject.GetComponent<Team>().isEnemy(team)
-                    || objectsInRange[i].type == TargetType.Valve))
+                    || (!ignoreValve && objectsInRange[i].type == TargetType.Valve)))
                     return objectsInRange[i];
         return null;
     }

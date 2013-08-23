@@ -28,6 +28,8 @@ public class MinionAgent : MonoBehaviour
     private float life;
     private float oldLife;
 
+    private bool _moving;
+
     public Target getTarget() { return _target; }
 
     public TargetType getCurrentTargetType()
@@ -87,13 +89,40 @@ public class MinionAgent : MonoBehaviour
 
         CheckRallyPoint();
         CheckAttacked();
+        TargetBehavior();
+
+        if (contact.Contact(_target) && _target != null)
+        {
+            _agent.Stop(true);
+            _moving = false;
+            transform.LookAt(_target.transform);
+            // Enemy
+            if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
+                basicAttack.Execute();
+                // Valve
+            else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
+                _target.gameObject.GetComponent<Valve>().AddMinion(this);
+        }
+        else
+        {
+            _moving = true;
+            _agent.Resume();
+        }
+
+        if (_target != null && _target.type == TargetType.Dead)
+            _target = null;
+    }
+
+    void TargetBehavior()
+    {
         // no target
         if (_target == null)
         {
-            _agent.enabled = true;
+            _moving = true;
+            _agent.Resume();
             if (_destination != null)
             {
-                _agent.destination = _destination.Position;
+                if (_moving) _agent.destination = _destination.Position;
                 if (_destination.GetDistance(transform.position) <= _destinationOffset && !partOfSquad)
                 {
                     CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
@@ -107,7 +136,7 @@ public class MinionAgent : MonoBehaviour
                         SetDestination(null);
                 }
             }
-            else  //move to own position
+            else if (_moving) //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
                 SelectTarget();
@@ -122,8 +151,7 @@ public class MinionAgent : MonoBehaviour
                 return;
             }
             //move to target
-            if (_agent.enabled)
-                _agent.destination = _target.gameObject.transform.position;
+            if (_moving) _agent.destination = _target.gameObject.transform.position;
             //if valve is fully opened or closed
             if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
             {
@@ -131,26 +159,6 @@ public class MinionAgent : MonoBehaviour
                 _target = null;
             }
         }
-        //if (contact.gameObject.activeSelf && !_agent.enabled)
-        //{
-        //    _agent.enabled = true;
-        //}
-        if (contact.Contact(_target) && _target != null)
-        {
-            _agent.enabled = false;
-            transform.LookAt(_target.transform);
-            // Enemy
-            if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
-                basicAttack.Execute();
-            // Valve
-            else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
-                _target.gameObject.GetComponent<Valve>().AddMinion(this);
-        }
-        else
-            _agent.enabled = true;
-
-        if (_target != null && _target.type == TargetType.Dead)
-            _target = null;
     }
 
     void SelectTarget()
@@ -173,7 +181,7 @@ public class MinionAgent : MonoBehaviour
     {
         if (oldLife > life && (_target == null || _target.type == TargetType.Spot || _target.type == TargetType.Valve) && !fixedTarget)
         {
-            var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero }, gameObject.GetComponent<Team>());
+            var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero }, gameObject.GetComponent<Team>(), true);
             if (target != null) _target = target;
         }
     }
