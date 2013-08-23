@@ -40,6 +40,7 @@ public class Valve : MonoBehaviour
     public int _localMinionCount;
     private AudioLibrary soundLibrary;
     private XmlDocument document;
+    private ValveState lastState;
 
 
     public float State
@@ -51,7 +52,7 @@ public class Valve : MonoBehaviour
     }
 
     // Use this for initialization
-    void Awake()
+    private void Awake()
     {
         soundLibrary = transform.FindChild("sound_Valve").GetComponent<AudioLibrary>();
         _valveTeam = gameObject.GetComponent<Team>();
@@ -59,6 +60,7 @@ public class Valve : MonoBehaviour
         _localMinions = new List<MinionAgent>();
         _occupants = new List<ValveOccupant>();
         document = new XMLReader("Minion.xml").GetXML();
+        lastState = ValveState.Opened;
     }
 
     void FindLocalPlayerID()
@@ -82,6 +84,10 @@ public class Valve : MonoBehaviour
         UseValve();
 
         currentState = GetValveState();
+        if (!networkView.isMine || lastState == GetValveState()) return;
+        if (GetValveState() != ValveState.Opened && GetValveState() != ValveState.Closed) return;
+        PlayValveSound();
+        lastState = GetValveState();
     }
 
     private string XmlExtract(string key)
@@ -269,6 +275,45 @@ public class Valve : MonoBehaviour
     public void UpdateOccupant(int team)
     {
         _occupant = (Team.TeamIdentifier)team;
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlayValveSound()
+    {
+        networkView.RPC("StartValveSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void StartValveSound()
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+        {
+            if (player.GetComponent<Team>().ID != GetComponent<Team>().ID)
+            {
+                GameObject.Find("sounds_Vocal")
+                          .GetComponent<AudioLibrary>()
+                          .StartSound(
+                              GetValveState() == ValveState.Opened
+                                  ? new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("valveLost")[0]
+                                        .InnerText
+                                  : new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("valveConquered")[0]
+                                        .InnerText, 0f);
+            }
+            else
+            {
+                GameObject.Find("sounds_Vocal")
+                          .GetComponent<AudioLibrary>()
+                          .StartSound(
+                              GetValveState() == ValveState.Opened
+                                  ? new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("valveConquered")[0]
+                                        .InnerText
+                                  : new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("valveLost")[0]
+                                        .InnerText, 0f);
+            }
+        }
     }
 
     /// <summary>

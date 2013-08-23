@@ -16,6 +16,7 @@ public class Bomb : MonoBehaviour
     public List<GameObject> valvesA = new List<GameObject>();
     public List<GameObject> valvesB = new List<GameObject>();
     private GameObject target;
+    private bool[] checkTriggeredSound = new bool[3];
 
 
     private float ForceA
@@ -51,6 +52,7 @@ public class Bomb : MonoBehaviour
     private bool gameOver = false;
     private XmlDocument document;
     private AudioLibrary soundLibrary;
+    private AudioLibrary soundLibraryCamera;
 
     public bool GameOver
     {
@@ -61,6 +63,7 @@ public class Bomb : MonoBehaviour
     {
         soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
         document = new XMLReader("GameSettings.xml").GetXML();
+        soundLibraryCamera = GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>();
         movementSpeed = float.Parse(new XMLReader("Bomb.xml").GetXML().GetElementsByTagName("speed")[0].InnerText);
         towardsDestination = new GameObject();
     }
@@ -72,6 +75,7 @@ public class Bomb : MonoBehaviour
             SmoothNetworkMovement();
             return;
         }
+        if (CheckTriggeredPlaySound()) PlayTriggeredSound();
         if (BombDoesntMove || gameOver) return;
 
         target = WaypointA;
@@ -82,7 +86,7 @@ public class Bomb : MonoBehaviour
             MoveTowards(target);
             return;
         }
-        if (CanIPassValve(target)) SwitchStatus(target);
+        if (target.GetComponent<BombWaypoint>().BombStopper != null && CanIPassValve(target)) SwitchStatus(target);
     }
 
     private void SwitchStatus(GameObject waypoint)
@@ -104,6 +108,7 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team2);
+                PlayExplosionSound();
             }
         }
     }
@@ -244,6 +249,34 @@ public class Bomb : MonoBehaviour
         return -1;
     }
 
+    public void PlayTriggeredSound()
+    {
+        networkView.RPC("TriggerSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void TriggerSound()
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+        {
+            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+            {
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
+                                 ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
+                                 : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
+                return;
+            }
+            soundLibraryCamera
+                     .StartSound(
+                         GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
+                             ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
+                             : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
+            return;
+        }
+    }
+
     /// <summary>
     /// Tries to play sound.
     /// </summary>
@@ -256,22 +289,45 @@ public class Bomb : MonoBehaviour
     [RPC]
     public void ExplosionSound()
     {
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player))
+        soundLibrary.StartSound(document.GetElementsByTagName("explosion")[0].InnerText, 0f);
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
         {
-            if (player.networkView.isMine && player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
             {
-                soundLibrary.StartSound(
-                    WaypointB == null
-                        ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
-                        : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
+                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
             }
             else
             {
-                soundLibrary.StartSound(
-                    WaypointA == null
-                        ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
-                        : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
+                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
             }
         }
+    }
+
+    private float GetDistance(Vector3 from, Vector3 to)
+    {
+        return Mathf.Abs((from - to).magnitude);
+    }
+
+    private bool CheckTriggeredPlaySound()
+    {
+        if (gameObject.name != "bomb_lane01") return false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (checkTriggeredSound[i] ==
+                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i]) continue;
+            checkTriggeredSound[i] =
+                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i];
+            return !soundLibrary.aSources[document.GetElementsByTagName("explosion")[0].InnerText].isPlaying;
+        }
+        return false;
     }
 }

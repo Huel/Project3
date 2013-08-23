@@ -29,7 +29,7 @@ public class MinionAgent : MonoBehaviour
     private float life;
     private float oldLife;
     private AudioLibrary soundLibrary;
-    private XmlDocument document;
+    public XmlDocument document;
 
     //public Skill basicSkill;
 
@@ -158,6 +158,13 @@ public class MinionAgent : MonoBehaviour
         }
         if (_target != null && _target.type == TargetType.Dead)
             _target = null;
+        if ((_target == null || GetDistance(transform.position, _target.transform.position) < 0.5f) && GetComponent<Health>().IsAlive() && !transform.FindChild("sound_minion").GetComponent<AudioLibrary>().aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)
+            PlaySound(document.GetElementsByTagName("run")[0].InnerText);
+    }
+
+    private float GetDistance(Vector3 from, Vector3 to)
+    {
+        return Mathf.Abs((to - from).magnitude);
     }
 
     void SelectTarget()

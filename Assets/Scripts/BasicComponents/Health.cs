@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Health : MonoBehaviour
 {
     private XmlDocument heroInfo = new XMLReader("Hero01.xml").GetXML();
     private XmlDocument minionInfo = new XMLReader("Minion.xml").GetXML();
+    private XmlDocument settingsInfo = new XMLReader("GameSettings.xml").GetXML();
 
     public float _healthPoints = 10f;
     private float _maxHealth = 10f;
@@ -287,6 +289,14 @@ public class Health : MonoBehaviour
             if (GetComponent<CharController>() != null)
             {
                 transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("die")[0].InnerText, 0f);
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+                {
+                    if (player.GetComponent<Team>().ID != GetComponent<Team>().ID)
+                    {
+                        GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(settingsInfo.GetElementsByTagName("enemyHeroDead")[0].InnerText, 0f);
+                    }
+                    break;
+                }
             }
             if (GetComponentInChildren<MinionAgent>() != null)
             {

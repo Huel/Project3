@@ -12,7 +12,10 @@ public class MinionLamp : MonoBehaviour
     private bool _switchedOn = false;
     private Color _color;
 
-    public bool getSwitchOn() { return _switchedOn; }
+    public bool FlareLight
+    {
+        get { return _switchedOn; }
+    }
 
     void Awake()
     {
@@ -66,6 +69,9 @@ public class MinionLamp : MonoBehaviour
         }
 
         _switchedOn = true;
+        if (GetComponent<MinionAgent>().document == null)
+            GetComponent<MinionAgent>().document = new XMLReader("Minion.xml").GetXML();
+        GetComponent<MinionAgent>().PlaySound(GetComponent<MinionAgent>().document.GetElementsByTagName("auraBuff")[0].InnerText);
     }
 
     [RPC]

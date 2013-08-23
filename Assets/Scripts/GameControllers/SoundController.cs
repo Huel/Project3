@@ -6,6 +6,11 @@ public class SoundController : MonoBehaviour
     private AudioSource[] sounds = new AudioSource[3];
     private Bomb[] bombs = new Bomb[3];
 
+    public bool[] MySounds
+    {
+        get { return triggeredLanes; }
+    }
+
     private bool AnyBombExploded
     {
         get
