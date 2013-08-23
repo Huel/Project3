@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum TargetType { Hero, Minion, Valve, Spot, Checkpoint, Base, Dead };
+public enum TargetType { Hero, Minion, Valve, Spot, Checkpoint, Base, Dead, None };
 
 public class Target : MonoBehaviour
 {

@@ -129,6 +129,11 @@ public class Valve : MonoBehaviour
         }
     }
 
+    public bool isUsingValve(MinionAgent minion)
+    {
+        return _localMinions.Any(minionAgent => minionAgent == minion);
+    }
+
     public bool stateComplete(MinionAgent minion)
     {
         return ((DoesValveBelongTo(minion) && GetValveState() == ValveState.Opened)
@@ -138,7 +143,7 @@ public class Valve : MonoBehaviour
     public bool isAvailable(MinionAgent minion)
     {
         return !(stateComplete(minion)
-            || (_localMinions.Any(minionAgent => minionAgent == minion))
+            || isUsingValve(minion)
             || GetValveState() == ValveState.FullyOccupied
             || (_valveTeam.isEnemy(_occupant) && GetValveState() == ValveState.NotFullyOccupied));
     }

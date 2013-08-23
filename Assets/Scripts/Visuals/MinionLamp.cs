@@ -12,7 +12,7 @@ public class MinionLamp : MonoBehaviour
     private bool _switchedOn = false;
     private Color _color;
 
-
+    public bool getSwitchOn() { return _switchedOn; }
 
     void Awake()
     {

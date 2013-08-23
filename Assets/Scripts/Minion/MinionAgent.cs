@@ -28,6 +28,14 @@ public class MinionAgent : MonoBehaviour
     private float life;
     private float oldLife;
 
+    public Target getTarget() { return _target; }
+
+    public TargetType getCurrentTargetType()
+    {
+        if (_target != null) return _target.type;
+        return TargetType.None;
+    }
+
     //public Skill basicSkill;
 
     void Start()
