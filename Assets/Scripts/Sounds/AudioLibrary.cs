@@ -7,7 +7,12 @@ public class AudioLibrary : MonoBehaviour
     [HideInInspector]
     public Dictionary<string, AudioSource> aSources { get; private set; }
 
-    void Start()
+    void Awake()
+    {
+        Init();
+    }
+
+    private void Init()
     {
         aSources = new Dictionary<string, AudioSource>();
         foreach (AudioSource audioSource in GetComponents<AudioSource>())
@@ -16,9 +21,18 @@ public class AudioLibrary : MonoBehaviour
 
     public void StartSound(string name, float delay)
     {
+        if (aSources == null) Init();
         if (AbortMethod(name)) return;
 
         aSources[name].PlayDelayed(delay);
+    }
+
+    public void StopSound(string name)
+    {
+        if (aSources == null) Init();
+        if (AbortMethod(name)) return;
+
+        aSources[name].Stop();
     }
 
     private bool AbortMethod(string name)

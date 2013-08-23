@@ -259,6 +259,8 @@ public class CharController : MonoBehaviour
     [RPC]
     public void StartSound(string name, float delay)
     {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>();
         soundLibrary.StartSound(name, delay);
     }
 }

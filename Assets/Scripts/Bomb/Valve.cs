@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkView))]
@@ -37,6 +38,8 @@ public class Valve : MonoBehaviour
     public List<MinionAgent> _localMinions;
     public float _localProductivity = 0.0f;
     public int _localMinionCount;
+    private AudioLibrary soundLibrary;
+    private XmlDocument document;
 
 
     public float State
@@ -50,27 +53,27 @@ public class Valve : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        soundLibrary = transform.FindChild("sound_Valve").GetComponent<AudioLibrary>();
         _valveTeam = gameObject.GetComponent<Team>();
         _occupant = _valveTeam.ID;
         _localMinions = new List<MinionAgent>();
         _occupants = new List<ValveOccupant>();
-
+        document = new XMLReader("Minion.xml").GetXML();
     }
 
     void FindLocalPlayerID()
     {
         NetworkPlayerController netPlayer = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().networkPlayerController;
-        if (netPlayer != null)
-        {
-            _localPlayerID = netPlayer.playerID;
-            _localTeam = netPlayer.team;
-        }
-
+        if (netPlayer == null) return;
+        _localPlayerID = netPlayer.playerID;
+        _localTeam = netPlayer.team;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (networkView.isMine && _localMinions.Count > 0 && !soundLibrary.aSources[XmlExtract("valve")].isPlaying) PlaySound(XmlExtract("valve"));
+        if (networkView.isMine && _localMinions.Count == 0 && soundLibrary.aSources[XmlExtract("valve")].isPlaying) StopSound(XmlExtract("valve"));
         if (_localPlayerID == -1)
             FindLocalPlayerID();
         RemoveDeadMinions();
@@ -81,16 +84,18 @@ public class Valve : MonoBehaviour
         currentState = GetValveState();
     }
 
+    private string XmlExtract(string key)
+    {
+        return document.GetElementsByTagName(key)[0].InnerText;
+    }
+
     private void UseValve()
     {
-        if (networkView.isMine)
-        {
-            if (_valveTeam.isOwnTeam(_occupant))
-                _state = Mathf.Clamp(_state + (_productivity * Time.deltaTime), 0f, _openValve);
-            else if (_valveTeam.isEnemy(_occupant))
-                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);
-            
-        }
+        if (!networkView.isMine) return;
+        if (_valveTeam.isOwnTeam(_occupant))
+            _state = Mathf.Clamp(_state + (_productivity * Time.deltaTime), 0f, _openValve);
+        else if (_valveTeam.isEnemy(_occupant))
+            _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);
     }
 
     private void RemoveDeadMinions()
@@ -106,27 +111,23 @@ public class Valve : MonoBehaviour
 
     private void CheckLocalMinionCount()
     {
-        if (_localMinionCount != _localMinions.Count)
-        {
-            _localMinionCount = _localMinions.Count;
-            if (networkView.isMine)
-                SubmitLocalMinionCount(_localMinionCount, _localPlayerID, _localTeam);
-            else
-                networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinionCount, _localPlayerID, _localTeam);
-        }
+        if (_localMinionCount == _localMinions.Count) return;
+        _localMinionCount = _localMinions.Count;
+        if (networkView.isMine)
+            SubmitLocalMinionCount(_localMinionCount, _localPlayerID, _localTeam);
+        else
+            networkView.RPC("SubmitLocalMinionCount", networkView.owner, _localMinionCount, _localPlayerID, _localTeam);
     }
 
     private void CheckLocalProductivity()
     {
         float tempProductivity = _localMinions.Sum(minion => minion.productivity); //sum of all localminions productivities
-        if (tempProductivity != _localProductivity)
-        {
-            _localProductivity = tempProductivity;
-            if (networkView.isMine)
-                SubmitLocalProductivity(_localProductivity, _localPlayerID);
-            else
-                networkView.RPC("SubmitLocalProductivity", networkView.owner, _localProductivity, _localPlayerID);
-        }
+        if (tempProductivity == _localProductivity) return;
+        _localProductivity = tempProductivity;
+        if (networkView.isMine)
+            SubmitLocalProductivity(_localProductivity, _localPlayerID);
+        else
+            networkView.RPC("SubmitLocalProductivity", networkView.owner, _localProductivity, _localPlayerID);
     }
 
     public bool stateComplete(MinionAgent minion)
@@ -170,11 +171,7 @@ public class Valve : MonoBehaviour
 
         if (_minionCount > 0)
         {
-            if (_minionCount < _maxMinionCount)
-            {
-                return ValveState.NotFullyOccupied;
-            }
-            return ValveState.FullyOccupied;
+            return _minionCount < _maxMinionCount ? ValveState.NotFullyOccupied : ValveState.FullyOccupied;
         }
         return ValveState.NotOccupied;
     }
@@ -182,7 +179,7 @@ public class Valve : MonoBehaviour
     public int GetRotationDirection()
     {
         ValveState state = GetValveState();
-        if (new[] {ValveState.Closed, ValveState.Opened, ValveState.NotOccupied}.Contains(state))
+        if (new[] { ValveState.Closed, ValveState.Opened, ValveState.NotOccupied }.Contains(state))
             return 0;
         if (_valveTeam.isOwnTeam(_occupant))
             return 1;
@@ -272,5 +269,39 @@ public class Valve : MonoBehaviour
     public void UpdateOccupant(int team)
     {
         _occupant = (Team.TeamIdentifier)team;
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sound_Valve").GetComponent<AudioLibrary>();
+        soundLibrary.StartSound(name, delay);
+    }
+
+    /// <summary>
+    /// Tries to stop sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void StopSound(string name)
+    {
+        networkView.RPC("EndSound", RPCMode.All, name);
+    }
+
+    [RPC]
+    public void EndSound(string name)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sound_Valve").GetComponent<AudioLibrary>();
+        soundLibrary.StopSound(name);
     }
 }

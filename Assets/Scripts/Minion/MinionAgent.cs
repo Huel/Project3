@@ -135,7 +135,24 @@ public class MinionAgent : MonoBehaviour
         if (_target != null && contact.Contact(_target))
         {
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
-                basicAttack.Execute();
+            {
+                if (basicAttack.Execute())
+                {
+                    int rnd = Random.Range(1, 3);
+                    switch (rnd)
+                    {
+                        case 1:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation1")[0].InnerText);
+                            break;
+                        case 2:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation2")[0].InnerText);
+                            break;
+                        case 3:
+                            PlaySound(document.GetElementsByTagName("basicAttackVariation3")[0].InnerText);
+                            break;
+                    }
+                }
+            }
             else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
@@ -313,6 +330,8 @@ public class MinionAgent : MonoBehaviour
     [RPC]
     public void StartSound(string name, float delay)
     {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
         soundLibrary.StartSound(name, delay);
     }
 }
