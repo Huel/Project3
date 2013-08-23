@@ -10,12 +10,12 @@ public class ValveMotion : MonoBehaviour
 	{
         if (motionState != -1 && GetComponent<Valve>().GetRotationDirection() == -1)
         {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation", false);
+            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation");
             motionState = -1;
         }
         else if (motionState != 1 && GetComponent<Valve>().GetRotationDirection() == 1)
         {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation");
+            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation", false);
             motionState = 1;
         }
         else if (motionState != 0 && GetComponent<Valve>().GetRotationDirection() == 0)

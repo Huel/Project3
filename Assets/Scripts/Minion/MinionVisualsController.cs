@@ -34,7 +34,9 @@ public class MinionVisualsController : MonoBehaviour
     { 
         if (!networkView.isMine || gameObject == null)
             return;
-
+        // not sure if necessary
+        if (animator.GetBool(dead)) return;
+        // ---------------------
         if (!GetComponent<Health>().IsAlive())
             state = AnimStates.Dead;
 
