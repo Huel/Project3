@@ -1,12 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GUIText))]
-public class MinionHealthbar : MonoBehaviour
+public class Healthbar : MonoBehaviour
 {
     private float _maxHealth = 0;
     private float _curHealth = 0;
     private Health _health;
     public UISprite healthbar;
+    public bool enemyOnly = false;
     private GameObject _gameObject;
     private Team _team;
 
@@ -24,6 +25,15 @@ public class MinionHealthbar : MonoBehaviour
     {
         if (_team && _team.ID != Team.TeamIdentifier.NoTeam)
         {
+            if (enemyOnly &&
+                _team.isOwnTeam((Team.TeamIdentifier)
+                    GameObject.FindGameObjectWithTag(Tags.localPlayerController)
+                              .GetComponent<LocalPlayerController>()
+                              .networkPlayerController.team))
+            {
+                Destroy(_gameObject);
+                Destroy(this);
+            }
             healthbar.color = Team.teamColors[(int)_team.ID];
             _team = null;
         }
