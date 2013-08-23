@@ -136,7 +136,11 @@ public class Bomb : MonoBehaviour
 
     private bool HaveReached(GameObject target)
     {
-        return Mathf.Abs((target.transform.position - transform.position).magnitude) < 0.5f;
+        Vector3 a = transform.position;
+        Vector3 b = target.transform.position;
+        a.y = 0;
+        b.y = 0;
+        return Mathf.Abs((b - a).magnitude) < 0.5f;
     }
 
     public virtual void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
