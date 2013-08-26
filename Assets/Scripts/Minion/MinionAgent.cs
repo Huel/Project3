@@ -99,7 +99,7 @@ public class MinionAgent : MonoBehaviour
             // Enemy
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
                 basicAttack.Execute();
-                // Valve
+            // Valve
             else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
@@ -174,7 +174,7 @@ public class MinionAgent : MonoBehaviour
         if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
             _target = target;
 
-        
+
     }
 
     void CheckAttacked()
@@ -223,13 +223,32 @@ public class MinionAgent : MonoBehaviour
         return _origin;
     }
 
-    public void Manipulate(string effect, string value="", Target aim=null)
+
+    public void Manipulate(string effect, string value = "", Target target = null)
     {
+        NetworkViewID aim;
+        if (target == null)
+            aim = NetworkViewID.unassigned;
+        else
+            aim = target.networkView.viewID;
+        if (networkView.isMine)
+            ExecuteManipulation(effect, value, aim);
+        else
+            networkView.RPC("ExecuteManipulation", networkView.owner, effect, value, aim);
+    }
+
+    [RPC]
+    private void ExecuteManipulation(string effect, string value, NetworkViewID aim)
+    {
+        Target target = null;
+        if (aim != NetworkViewID.unassigned)
+            target = NetworkView.Find(aim).GetComponent<Target>();
+
         switch (effect)
         {
             case "Target":
                 _targetSaved = _target;
-                _target = aim;
+                _target = target;
                 fixedTarget = true;
                 break;
 
@@ -251,7 +270,14 @@ public class MinionAgent : MonoBehaviour
                 break;
 
             case "RelevantTargetTypes":
-                List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
+                List<TargetType> compareTypes = new List<TargetType>
+                    {
+                        TargetType.Hero,
+                        TargetType.Minion,
+                        TargetType.Spot,
+                        TargetType.Valve,
+                        TargetType.Dead
+                    };
                 List<TargetType> types = new List<TargetType>();
                 string[] splitedString = value.Split(new string[] { ", " }, System.StringSplitOptions.None);
                 foreach (string type in splitedString)
@@ -270,7 +296,7 @@ public class MinionAgent : MonoBehaviour
                     atRallyPoint = false;
                 else
                     _destinationSaved = _destination;
-                _destination = aim;
+                _destination = target;
                 partOfSquad = true;
                 break;
 
@@ -300,17 +326,17 @@ public class MinionAgent : MonoBehaviour
         {
             target = checkpoints[position].GetComponent<Target>();
             Team.TeamIdentifier id = GetComponent<Team>().ID;
-            int number = int.Parse(target.name.Substring(target.name.Length-1));
-            if((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
+            int number = int.Parse(target.name.Substring(target.name.Length - 1));
+            if ((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
             {
                 foreach (GameObject baseObject in GameObject.FindGameObjectsWithTag("Base"))
                     if (baseObject.GetComponent<Team>().ID == id)
                         SetOrigin(baseObject.GetComponent<Target>());
             }
-            number = (id==Team.TeamIdentifier.Team1)?number-1:number+1;
+            number = (id == Team.TeamIdentifier.Team1) ? number - 1 : number + 1;
 
             foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
-                if (checkpoint.name == (target.name.Substring(0, target.name.Length-1)+number))
+                if (checkpoint.name == (target.name.Substring(0, target.name.Length - 1) + number))
                     SetOrigin(checkpoint.GetComponent<Target>());
         }
         else
