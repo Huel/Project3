@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(NetworkView))]
 public class Valve : MonoBehaviour
 {
-
-
     public class ValveOccupant
     {
         public int player;
@@ -152,6 +150,7 @@ public class Valve : MonoBehaviour
     {
         if (_localMinions.Any(minionAgent => minionAgent == minion)) return;
         _localMinions.Add(minion);
+        GetComponent<WorkAnimation>().PrepareMinion(minion.gameObject);
     }
 
     public void RemoveMinion(MinionAgent minion)
