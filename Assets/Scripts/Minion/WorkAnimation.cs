@@ -5,11 +5,6 @@ public class WorkAnimation : MonoBehaviour
     [SerializeField]
     public Transform[] points;
 
-    public GameObject testObj;
-    public GameObject testObj2;
-    public GameObject testObj3;
-    public GameObject testObj4;
-
     public GameObject[] minions;
     private bool[] move;
     private int[] lastTargets;
@@ -17,21 +12,18 @@ public class WorkAnimation : MonoBehaviour
 
     public float _completeDistance;
     private float _distancePerSecond;
-    public float completeTime = 3f;
+    public float completeTime = 8f;
 
     public float _timeDistanceToToMinion;
     public float enqueueTimer;
 
     void Awake ()
     {
+        minions = new GameObject[] { null, null, null, null, null };
         move = new bool[] { false, false, false, false, false };
         lastTargets = new int[] { 0, 0, 0, 0, 0 };
         targetIDs = new int[] { 0, 0, 0, 0, 0 };
         TrackPath();
-        PrepareMinion(testObj);
-        PrepareMinion(testObj2);
-        PrepareMinion(testObj3);
-        PrepareMinion(testObj4);
     }
 
     public void PrepareMinion(GameObject minion)
@@ -43,6 +35,7 @@ public class WorkAnimation : MonoBehaviour
                 move[i] = false;
                 lastTargets[i] = 0;
                 targetIDs[i] = 1;
+                minions[i].GetComponent<NavMeshAgent>().enabled = false;
                 break;
             }
     }
@@ -115,5 +108,21 @@ public class WorkAnimation : MonoBehaviour
         Quaternion rotB = points[targetIDs[id]].rotation;
         float distanceFromLastTarget = (minions[id].transform.position - points[lastTargets[id]].position).magnitude;
         minions[id].transform.rotation = Quaternion.Lerp(rotA, rotB, distanceFromLastTarget / direction.magnitude);
+    }
+
+    public void RemoveMinion(GameObject minion)
+    {
+        for (int i = minions.Length-1; i >= 0; i--)
+        {
+            if (minion == minions[i])
+            {
+                move[i] = false;
+                lastTargets[i] = 0;
+                targetIDs[i] = 0;
+                minions[i].GetComponent<NavMeshAgent>().enabled = true;
+                minions[i] = null;
+                break;
+            }
+        }
     }
 }

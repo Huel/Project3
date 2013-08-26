@@ -63,7 +63,6 @@ public class Valve : MonoBehaviour
             _localPlayerID = netPlayer.playerID;
             _localTeam = netPlayer.team;
         }
-
     }
 
     // Update is called once per frame
@@ -86,8 +85,7 @@ public class Valve : MonoBehaviour
             if (_valveTeam.isOwnTeam(_occupant))
                 _state = Mathf.Clamp(_state + (_productivity * Time.deltaTime), 0f, _openValve);
             else if (_valveTeam.isEnemy(_occupant))
-                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);
-            
+                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);     
         }
     }
 
@@ -96,9 +94,15 @@ public class Valve : MonoBehaviour
         for (int i = _localMinions.Count - 1; i >= 0; i--)
         {
             if (_localMinions[i] == null)
+            {
                 _localMinions.RemoveAt(i);
+                GetComponent<WorkAnimation>().RemoveMinion(_localMinions[i].gameObject);
+            }
             else if (!_localMinions[i].GetComponent<Health>().IsAlive())
+            {
                 _localMinions.RemoveAt(i);
+                GetComponent<WorkAnimation>().RemoveMinion(_localMinions[i].gameObject);
+            }
         }
     }
 
@@ -140,10 +144,10 @@ public class Valve : MonoBehaviour
 
     public bool isAvailable(MinionAgent minion)
     {
-        return !(stateComplete(minion)
-            || isUsingValve(minion)
-            || GetValveState() == ValveState.FullyOccupied
-            || (_valveTeam.isEnemy(_occupant) && GetValveState() == ValveState.NotFullyOccupied));
+        return (!stateComplete(minion)
+            && !isUsingValve(minion)
+            && (GetValveState() != ValveState.FullyOccupied
+            || !(_valveTeam.isEnemy(_occupant) && GetValveState() == ValveState.NotFullyOccupied)));
     }
 
     public void AddMinion(MinionAgent minion)
@@ -156,6 +160,7 @@ public class Valve : MonoBehaviour
     public void RemoveMinion(MinionAgent minion)
     {
         _localMinions.RemoveAll(minionAgent => minionAgent == minion);
+         GetComponent<WorkAnimation>().RemoveMinion(minion.gameObject);
     }
 
 
@@ -200,8 +205,6 @@ public class Valve : MonoBehaviour
     {
         stream.Serialize(ref _state);
     }
-
-
 
     //Only called on Server
     [RPC]

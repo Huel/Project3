@@ -15,6 +15,7 @@ public class MinionAgent : MonoBehaviour
     public Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
     private float _destinationOffset = 1f;
+
     private bool fixedTarget = false;
     public bool atRallyPoint = false;
     public bool partOfSquad = false;
@@ -28,7 +29,7 @@ public class MinionAgent : MonoBehaviour
     private float life;
     private float oldLife;
 
-    private bool _moving;
+    public bool _moving;
 
     public Target getTarget() { return _target; }
 
@@ -78,6 +79,7 @@ public class MinionAgent : MonoBehaviour
             _agent.enabled = false;
             return;
         }
+
         oldLife = life;
         life = gameObject.GetComponent<Health>().HealthPoints;
 
@@ -90,27 +92,7 @@ public class MinionAgent : MonoBehaviour
         CheckRallyPoint();
         CheckAttacked();
         TargetBehavior();
-
-        if (contact.Contact(_target) && _target != null)
-        {
-            _agent.Stop(true);
-            _moving = false;
-            transform.LookAt(_target.transform);
-            // Enemy
-            if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
-                basicAttack.Execute();
-            // Valve
-            else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
-                _target.gameObject.GetComponent<Valve>().AddMinion(this);
-        }
-        else
-        {
-            _moving = true;
-            _agent.Resume();
-        }
-
-        if (_target != null && _target.type == TargetType.Dead)
-            _target = null;
+        
     }
 
     void TargetBehavior()
@@ -119,10 +101,10 @@ public class MinionAgent : MonoBehaviour
         if (_target == null)
         {
             _moving = true;
-            _agent.Resume();
+            if (_agent.enabled) _agent.Resume();
             if (_destination != null)
             {
-                if (_moving) _agent.destination = _destination.Position;
+                if (_moving && _agent.enabled) _agent.destination = _destination.Position;
                 if (_destination.GetDistance(transform.position) <= _destinationOffset && !partOfSquad)
                 {
                     CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
@@ -136,7 +118,7 @@ public class MinionAgent : MonoBehaviour
                         SetDestination(null);
                 }
             }
-            else if (_moving) //move to own position
+            else if (_moving && _agent.enabled) //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
                 SelectTarget();
@@ -151,14 +133,20 @@ public class MinionAgent : MonoBehaviour
                 return;
             }
             //move to target
-            if (_moving) _agent.destination = _target.gameObject.transform.position;
+            if (_moving && _agent.enabled) 
+                _agent.destination = _target.gameObject.transform.position;
             //if valve is fully opened or closed
             if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
             {
                 _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
+                _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
                 _target = null;
             }
+            ContactBehavior();
         }
+
+        if (_target != null && _target.type == TargetType.Dead)
+            _target = null;
     }
 
     void SelectTarget()
@@ -170,11 +158,31 @@ public class MinionAgent : MonoBehaviour
             _target = target;
             return;
         }
-
         if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
             _target = target;
+    }
 
-
+    void ContactBehavior()
+    {
+        if (contact.Contact(_target) && _target != null)
+        {
+            if (_agent.enabled) _agent.Stop(true);
+            transform.LookAt(_target.transform);
+            // Enemy
+            if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
+                basicAttack.Execute();
+            // Valve
+            else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().isAvailable(this))
+                _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            else
+                return;
+            _moving = false;
+        }
+        else
+        {
+            _moving = true;
+            if (_agent.enabled) _agent.Resume();
+        }
     }
 
     void CheckAttacked()
