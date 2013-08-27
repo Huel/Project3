@@ -4,13 +4,15 @@ using System.Collections;
 [ExecuteInEditMode]
 public class InflowAnimation : MonoBehaviour
 {
-	public float value = 100f;
 	public bool mirrored = false;
 	public Valve valve;
 	public ParticleEmitter fountain;
 	public ParticleEmitter waterStream;
 	public ParticleAnimator waterStreamParticle;
 	public ParticleEmitter steam;
+
+    [SerializeField]
+    private int _currentState = 0;
 
     private Vector3 _fountainDirection;
 	private bool _mirrored;
@@ -35,10 +37,18 @@ public class InflowAnimation : MonoBehaviour
 	[ExecuteInEditMode]
 	void Update ()
 	{
+        
 		if (mirrored != _mirrored)
 			Mirror(mirrored);
+        if (!valve)
+            return;
 
-		SetAnimation(value);
+        if ((int)valve.State/10 != _currentState)
+        {
+            _currentState = (int)valve.State/10;
+            SetAnimation(_currentState/10);
+        }
+		
 	}
 
 	private void Mirror(bool m)
@@ -74,24 +84,24 @@ public class InflowAnimation : MonoBehaviour
 	        _fountainDirection.y = 0;
             _fountainDirection.Normalize();
 	    }
-		float emission = Mathf.Lerp(_minEmission, _maxEmission, value / 100f);
+		float emission = Mathf.Lerp(_minEmission, _maxEmission, value);
 		fountain.maxEmission = emission;
 		fountain.minEmission = emission;
 
-		fountain.minSize = Mathf.Lerp(_minSize, _maxSize, value / 100f);
+		fountain.minSize = Mathf.Lerp(_minSize, _maxSize, value);
 
-		Vector3 force = new Vector3(0f, Mathf.Lerp(_minForce, _maxForce, value / 100f));
+		Vector3 force = new Vector3(0f, Mathf.Lerp(_minForce, _maxForce, value));
 		fountain.localVelocity = force;
 
 		
 
-		Vector3 particleForce = _fountainDirection * Mathf.Lerp(_minParticleForce, _maxParticleForce, value / 100f);
+		Vector3 particleForce = _fountainDirection * Mathf.Lerp(_minParticleForce, _maxParticleForce, value);
 		waterStreamParticle.force = particleForce;
 
-		float steamEmission = Mathf.Lerp(_minSteam, _maxSteam, value / 100f);
+		float steamEmission = Mathf.Lerp(_minSteam, _maxSteam, value);
 		steam.minSize = steamEmission;
 		steam.maxSize = steamEmission;
 
-        steam.transform.position = transform.FindChild("rotation").FindChild("steamOrigin").position + _fountainDirection * Mathf.Lerp(0, _steamOffset, value / 100f);
+        steam.transform.position = transform.FindChild("rotation").FindChild("steamOrigin").position + _fountainDirection * Mathf.Lerp(0, _steamOffset, value);
 	}
 }
