@@ -74,6 +74,9 @@ public class MinionManager : MonoBehaviour
 	private const float smallPointerX = 15.2f;
 	private const float smallPointerY = 13.3f;
 	private const float snapScalingAt = 0.003f;
+	private Vector3 arrowPointerLane01 = new Vector3(-74, -118, 0);
+	private Vector3 arrowPointerLane02 = new Vector3(-74, - 40, 0);
+	private Vector3 arrowPointerLane03 = new Vector3(-74,   40, 0);
 	private int selectedLane = 1;
 	private bool selectionIsReset;
 	private int selectedCount = 0;
@@ -81,6 +84,7 @@ public class MinionManager : MonoBehaviour
 	private bool buttonPushed;
 	private int minionsPerPlayer;
 	private GameObject pointerArrow;
+	private GameObject sqaudManager;
 	////////////////////////////////////////
 
 	public int MinionsPerPlayer
@@ -130,6 +134,8 @@ public class MinionManager : MonoBehaviour
 		}
 
 		pointerArrow = GameObject.Find("PointerArrow").gameObject;
+		sqaudManager = GameObject.FindGameObjectWithTag("SqaudManager");
+
 		//from here on out basic Init is done, now placing initial minions evenly over the lanes
 
 		int minionCounter = 0;
@@ -200,6 +206,14 @@ public class MinionManager : MonoBehaviour
 			{
 				GameObject.Find("Head0" + (i + 1)).GetComponent<UISprite>().alpha = 0;
 				GameObject.Find("PointerBox0" + (i + 1)).GetComponent<UISprite>().alpha = 0;
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					GameObject.Find("Lane_" + (i + 1)).transform.FindChild("Background0" + (j + 1).ToString()).gameObject.GetComponent<UISprite>().alpha = 0;
+				}
 			}
 		}
 
@@ -432,6 +446,7 @@ public class MinionManager : MonoBehaviour
 				viewPositions[selectedLane - 1][GetEmptyIndex(selectedLane)].SetOccupant(GetSelectedMinions(previouslySelectedLane)[0].occupant);
 				GetSelectedMinions(previouslySelectedLane)[0].occupant = null;
 			}
+			SwitchArrow(selectedLane);
 			return;
 		}
 
@@ -446,6 +461,8 @@ public class MinionManager : MonoBehaviour
 		{
 			selectedLane--;
 		}
+
+		SwitchArrow(selectedLane);
 
 		//viewPositions[(viewPositions[selectedLane][0].occupant != null ? selectedLane : (selectedLane + 1))][0].occupant.selected = false;
 		//viewPositions[selectedLane - 1][0].occupant.selected = true;
@@ -464,6 +481,7 @@ public class MinionManager : MonoBehaviour
 				viewPositions[selectedLane - 1][GetEmptyIndex(selectedLane)].SetOccupant(GetSelectedMinions(previouslySelectedLane)[0].occupant);
 				GetSelectedMinions(previouslySelectedLane)[0].occupant = null;
 			}
+			SwitchArrow(selectedLane);
 			return;
 		}
 
@@ -492,7 +510,17 @@ public class MinionManager : MonoBehaviour
 		{
 			case 1:
 				{
-
+					pointerArrow.transform.localPosition = arrowPointerLane01;
+					break;
+				}
+			case 2:
+				{
+					pointerArrow.transform.localPosition = arrowPointerLane02;
+					break;
+				}
+			case 3:
+				{
+					pointerArrow.transform.localPosition = arrowPointerLane03;
 					break;
 				}
 		}
@@ -574,6 +602,8 @@ public class MinionManager : MonoBehaviour
 		miniMap.transform.localEulerAngles = new Vector3(0, 0, 0);
 		miniMap.transform.localScale = new Vector3(1, 1, 1);
 
+		sqaudManager.SetActive(true);
+
 		foreach (MinionView local in minionViews)
 		{
 			local.minionView.GetComponent<UISprite>().alpha = 0;
@@ -602,6 +632,8 @@ public class MinionManager : MonoBehaviour
 		miniMap.transform.localPosition = new Vector3(-1000f, -458f, 249f);
 		miniMap.transform.localEulerAngles = new Vector3(90, 0, 0);
 		miniMap.transform.localScale = new Vector3(3.8f, 1, 3.8f);
+
+		sqaudManager.SetActive(false);
 
 		foreach (MinionView local in minionViews)
 		{
