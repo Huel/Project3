@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Inflow
   m_TagString: Untagged
@@ -27,7 +28,7 @@ GameObject:
   - 12: {fileID: 1200000}
   - 26: {fileID: 2600000}
   m_Layer: 0
-  m_Name: Fluffy Smoke Large
+  m_Name: steam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +61,7 @@ GameObject:
   - 12: {fileID: 1200002}
   - 26: {fileID: 2600002}
   m_Layer: 0
-  m_Name: Water Surface Splash
+  m_Name: stream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,8 +78,9 @@ GameObject:
   - 15: {fileID: 1500004}
   - 12: {fileID: 1200004}
   - 26: {fileID: 2600004}
+  - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Water Fountain
+  m_Name: fountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +98,22 @@ GameObject:
   - 23: {fileID: 2300000}
   - 95: {fileID: 9500000}
   m_Layer: 0
-  m_Name: sewer_inflow-lan03_06
+  m_Name: mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100012
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400012}
+  m_Layer: 0
+  m_Name: steamOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,8 +138,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.9628793, y: -9.45798206, z: 19.8336811}
-  m_LocalScale: {x: 1, y: 1, z: -.738377571}
+  m_LocalPosition: {x: .478546143, y: -9.5724659, z: 19.3977604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
 --- !u!4 &400004
@@ -138,6 +155,7 @@ Transform:
   - {fileID: 400002}
   - {fileID: 400010}
   - {fileID: 400008}
+  - {fileID: 400012}
   - {fileID: 400006}
   m_Father: {fileID: 400000}
 --- !u!4 &400006
@@ -157,8 +175,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: .487884343, y: .510027349, z: .508211792, w: .493519813}
-  m_LocalPosition: {x: .190242961, y: .657009125, z: 8.40777206}
+  m_LocalRotation: {x: .5, y: .5, z: .5, w: .5}
+  m_LocalPosition: {x: .190245748, y: .657009244, z: 8.40777493}
   m_LocalScale: {x: -.704092801, y: 1, z: 3.78905606}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -171,6 +189,17 @@ Transform:
   m_LocalRotation: {x: -.88719523, y: .0241128895, z: .458394229, w: .0466689952}
   m_LocalPosition: {x: -.382411808, y: .238418579, z: 11.8588238}
   m_LocalScale: {x: .800000012, y: .800000012, z: .799999952}
+  m_Children: []
+  m_Father: {fileID: 400004}
+--- !u!4 &400012
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .478546143, y: -9.5724659, z: 19.3977604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
 --- !u!12 &1200000
@@ -229,7 +258,7 @@ ParticleAnimator:
   localRotationAxis: {x: 0, y: 0, z: 0}
   sizeGrow: 1.10999978
   rndForce: {x: .432426393, y: 0, z: .494113624}
-  force: {x: 7, y: 0, z: -3}
+  force: {x: 2.4468627, y: 0, z: -1.73576009}
   damping: 1
   stopSimulation: 0
   autodestruct: 0
@@ -272,8 +301,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 10
-  maxSize: 10
+  minSize: 3
+  maxSize: 3
   minEnergy: 2
   maxEnergy: 2
   minEmission: 2
@@ -303,8 +332,8 @@ EllipsoidParticleEmitter:
   maxSize: 10
   minEnergy: 3
   maxEnergy: 3
-  minEmission: 30
-  maxEmission: 75
+  minEmission: 3
+  maxEmission: 3
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
@@ -330,10 +359,10 @@ EllipsoidParticleEmitter:
   maxSize: 3
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 100
-  maxEmission: 100
+  minEmission: 10
+  maxEmission: 10
   worldVelocity: {x: 0, y: 0, z: 0}
-  localVelocity: {x: 0, y: 11.7113466, z: 0}
+  localVelocity: {x: 0, y: 11, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
   emitterVelocityScale: .0500000007
   tangentVelocity: {x: .179999992, y: .904263914, z: -.0697162449}
@@ -465,6 +494,35 @@ Animator:
   m_CullingMode: 1
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
+  m_Name: 
+  mirrored: 0
+  _originalRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
+  m_Name: 
+  value: 0
+  mirrored: 0
+  valve: {fileID: 0}
+  fountain: {fileID: 1500004}
+  waterStream: {fileID: 1500002}
+  waterStreamParticle: {fileID: 1200002}
+  steam: {fileID: 1500000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
