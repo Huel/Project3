@@ -11,7 +11,7 @@ public class InflowAnimation : MonoBehaviour
     public ParticleEmitter steam;
 
     [SerializeField]
-    private int _currentState = 0;
+    private float _currentState = 0f;
 
     private Vector3 _fountainDirection;
     private bool _mirrored;
@@ -42,11 +42,11 @@ public class InflowAnimation : MonoBehaviour
         if (!valve)
             return;
 
-        int state = (int)Mathf.Ceil(valve.State / 10f);
-        if (state != _currentState)
+
+        if (valve.State != _currentState)
         {
-            _currentState = state;
-            SetAnimation(_currentState / 10f);
+            _currentState = valve.State;
+            SetAnimation(_currentState / 100f);
         }
 
     }
