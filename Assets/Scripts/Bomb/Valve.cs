@@ -95,13 +95,13 @@ public class Valve : MonoBehaviour
         {
             if (_localMinions[i] == null)
             {
-                _localMinions.RemoveAt(i);
                 GetComponent<WorkAnimation>().RemoveMinion(_localMinions[i].gameObject);
+                _localMinions.RemoveAt(i);
             }
             else if (!_localMinions[i].GetComponent<Health>().IsAlive())
             {
-                _localMinions.RemoveAt(i);
                 GetComponent<WorkAnimation>().RemoveMinion(_localMinions[i].gameObject);
+                _localMinions.RemoveAt(i);
             }
         }
     }

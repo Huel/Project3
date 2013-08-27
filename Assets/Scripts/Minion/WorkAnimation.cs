@@ -12,10 +12,25 @@ public class WorkAnimation : MonoBehaviour
 
     public float _completeDistance;
     private float _distancePerSecond;
-    public float completeTime = 8f;
-
+    // ++++++++++++++++++++++++++
+    private float completeTime = 10f;
+    // ++++++++++++++++++++++++++
     public float _timeDistanceToToMinion;
     public float enqueueTimer;
+    private bool _pointsSnapped = false;
+
+    public float getCompleteTime() { return completeTime; }
+
+    public bool Move(GameObject minion)
+    {
+        for (int i = 0; i < minions.Length; i++)
+        {
+            if (minion == minions[i])
+                return move[i];
+        }
+        //DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
+        return false;
+    }
 
     void Awake ()
     {
@@ -33,8 +48,16 @@ public class WorkAnimation : MonoBehaviour
             {
                 minions[i] = minion;
                 move[i] = false;
-                lastTargets[i] = 0;
-                targetIDs[i] = 1;
+                if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+                {
+                    lastTargets[i] = 0;
+                    targetIDs[i] = 1;
+                }
+                else
+                {
+                    lastTargets[i] = 1;
+                    targetIDs[i] = 0;   
+                }
                 minions[i].GetComponent<NavMeshAgent>().enabled = false;
                 break;
             }
@@ -56,6 +79,16 @@ public class WorkAnimation : MonoBehaviour
 
     private void SnapMinion(int id)
     {
+        if (!_pointsSnapped)
+        {
+            float minionY = minions[id].transform.position.y; 
+            foreach (Transform point in points)
+            {
+                Vector3 newY = point.position;
+                newY.y = minionY;
+                point.position = newY;
+            }
+        }
         move[id] = true;
         Vector3 newPosition = points[0].position;
         newPosition.y = minions[id].transform.position.y;
@@ -93,21 +126,38 @@ public class WorkAnimation : MonoBehaviour
     {
         float distance = Time.deltaTime*_distancePerSecond;
         Vector3 direction = points[targetIDs[id]].position - minions[id].transform.position;
-           
+
         while (direction.magnitude < distance)
         {
             distance -= direction.magnitude;
             lastTargets[id] = targetIDs[id];
-            targetIDs[id] = (targetIDs[id] + 1) % points.Length;
+            if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+                targetIDs[id] = (targetIDs[id] + 1) % points.Length;
+            else
+                targetIDs[id] = (targetIDs[id] - 1 + points.Length) % points.Length;
+
             direction = points[targetIDs[id]].position - points[lastTargets[id]].position;
             minions[id].transform.position = points[lastTargets[id]].position;
         }
-        minions[id].transform.position += direction.normalized * distance;
+        minions[id].transform.position += direction.normalized*distance;
+        Vector3 dirA = new Vector3();
+        Vector3 dirB = new Vector3();
 
-        Quaternion rotA = points[lastTargets[id]].rotation;
-        Quaternion rotB = points[targetIDs[id]].rotation;
+        if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+        {
+            dirA = points[lastTargets[id]].forward;
+            dirB = points[targetIDs[id]].forward;
+        }
+        else
+        {
+            dirA = -points[lastTargets[id]].forward;
+            dirB = -points[targetIDs[id]].forward;
+        }
+        
         float distanceFromLastTarget = (minions[id].transform.position - points[lastTargets[id]].position).magnitude;
-        minions[id].transform.rotation = Quaternion.Lerp(rotA, rotB, distanceFromLastTarget / direction.magnitude);
+        Vector3 lookDirection = Vector3.Lerp(dirA, dirB, distanceFromLastTarget/direction.magnitude);
+        lookDirection.y = 0;
+        minions[id].transform.rotation = Quaternion.LookRotation(lookDirection);
     }
 
     public void RemoveMinion(GameObject minion)

@@ -3,25 +3,25 @@ using System.Collections;
 
 public class ValveMotion : MonoBehaviour
 {
+    public GameObject display;
 
-    private int motionState = 0;
+    public float currentRotation;
+
+    private float rotFactor;
+
+    void Awake()
+    {
+        rotFactor = GetComponent<WorkAnimation>().getCompleteTime()*4.5f;
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{
-        if (motionState != -1 && GetComponent<Valve>().GetRotationDirection() == -1)
-        {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation");
-            motionState = -1;
-        }
-        else if (motionState != 1 && GetComponent<Valve>().GetRotationDirection() == 1)
-        {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation", false);
-            motionState = 1;
-        }
-        else if (motionState != 0 && GetComponent<Valve>().GetRotationDirection() == 0)
-        {
-            GetComponent<NetworkAnimator>().StopAnimation();
-            motionState = 0;
-        }
+	    if (GetComponent<Valve>().GetRotationDirection() == -1)
+            currentRotation += rotFactor*Time.deltaTime;
+        else if (GetComponent<Valve>().GetRotationDirection() == 1)
+            currentRotation -= rotFactor * Time.deltaTime;
+
+	    display.transform.localEulerAngles = new Vector3(0, 0, currentRotation);
 	}
 }
