@@ -23,10 +23,7 @@ public class ValveMotion : MonoBehaviour
         if (currentRotation <= lastRotation + rotPerMinion 
             && GetComponent<WorkAnimation>().EnqueueTimer() <= GetComponent<WorkAnimation>().TimeDistance())
 	    {
-	         if (GetComponent<Valve>().GetRotationDirection() == -1)
-                currentRotation += rotFactor*Time.deltaTime;
-            else if (GetComponent<Valve>().GetRotationDirection() == 1)
-                currentRotation -= rotFactor * Time.deltaTime;
+            currentRotation += -GetComponent<Valve>().GetRotationDirection()*rotFactor*Time.deltaTime;
 	    }
 
 	    display.transform.localEulerAngles = new Vector3(0, 0, currentRotation);
@@ -36,7 +33,7 @@ public class ValveMotion : MonoBehaviour
     {
         if (currentRotation >= lastRotation + rotPerMinion)
         {
-            lastRotation += rotPerMinion;
+            lastRotation += -GetComponent<Valve>().GetRotationDirection()*rotPerMinion;
             currentRotation = lastRotation;
         }
     }
