@@ -18,7 +18,17 @@ public class MinionManager : MonoBehaviour
 		{
 			minionView = view;
 			minionPointer = pointer;
-			pointer.position = new Vector3(0f, 0f, -1000000f);
+		}
+
+		public void ShowPointer(Vector3 position)
+		{
+			minionPointer.gameObject.SetActive(true);
+			minionPointer.localPosition = position;
+		}
+
+		public void HidePointer()
+		{
+			minionPointer.gameObject.SetActive(false);
 		}
 	}
 
@@ -55,9 +65,14 @@ public class MinionManager : MonoBehaviour
 	private List<List<MinionFullInfo>> viewPositions; // pos the minions should be lerped to when moving as well as which minion is now at this pos
 	private Transform backgroundView;
 	private bool isVisible = true;
-	private Vector3 zOffset = new Vector3(0f, 0f, -1000000f);
-	private const float bigMinion = 0.063f;
-	private const float smallMinion = 0.03f;
+	private const float bigMinionX = 25f;
+	private const float bigMinionY = 20.7f;
+	private const float smallMinionX = 13f;
+	private const float smallMinionY = 11f;
+	private const float bigPointerX = 30f;
+	private const float bigPointerY = 26f;
+	private const float smallPointerX = 15.2f;
+	private const float smallPointerY = 13.3f;
 	private const float snapScalingAt = 0.003f;
 	private int selectedLane = 1;
 	private bool selectionIsReset;
@@ -65,6 +80,7 @@ public class MinionManager : MonoBehaviour
 	private bool initialized;
 	private bool buttonPushed;
 	private int minionsPerPlayer;
+	private GameObject pointerArrow;
 	////////////////////////////////////////
 
 	public int MinionsPerPlayer
@@ -95,31 +111,25 @@ public class MinionManager : MonoBehaviour
 		backgroundView = GameObject.Find("minion_manager_view").transform;  //background, need it to set it invisible
 		minionViews = new List<MinionView>();
 
-		minionsPerPlayer = Mathf.Clamp(minionsPerPlayer, 1, 15); //Players can't have less than one minion, and no more than 15 since there are only that many white spots to place them on
-		for (int i = 0; i < 15; i++)
+		minionsPerPlayer = Mathf.Clamp(minionsPerPlayer, 1, 9); //Players can't have less than one minion, and no more than 15 since there are only that many white spots to place them on
+		for (int i = 0; i < 9; i++)
 		{
-			if (i < minionsPerPlayer)
-			{   //Assemble List with all necessary minion and pointer representations
-				minionViews.Add(new MinionView(GameObject.Find("minion_small_" + (i + 1)).transform, GameObject.Find("pointer_minion_" + (i + 1)).transform));
-			}
-			else
-			{   //Make the redundant ones invisible
-				GameObject.Find("minion_small_" + (i + 1)).transform.position += zOffset;
-				GameObject.Find("pointer_minion_" + (i + 1)).transform.position += zOffset;
-			}
+			//Assemble List with all necessary minion and pointer representations
+			minionViews.Add(new MinionView(GameObject.Find("Head0" + (i + 1)).transform, GameObject.Find("PointerBox0" + (i + 1)).transform));
 		}
-		minionViews[0].selected = true;
+		//minionViews[0].selected = true;
 
 		viewPositions = new List<List<MinionFullInfo>>();
 		for (int i = 0; i < 3; i++)
 		{
 			viewPositions.Add(new List<MinionFullInfo>());
-			for (int j = 0; j < 15; j++)
+			for (int j = 0; j < 9; j++)
 			{   //Assemble all the View Positions, i.e. all the spots the minions can be placed on top of
-				viewPositions[i].Add(new MinionFullInfo(GameObject.Find("Lane_" + (i + 1)).transform.FindChild((j + 1).ToString()).position));
+				viewPositions[i].Add(new MinionFullInfo(GameObject.Find("Lane_" + (i + 1)).transform.FindChild("Background0" + (j + 1).ToString()).localPosition));
 			}
 		}
 
+		pointerArrow = GameObject.Find("PointerArrow").gameObject;
 		//from here on out basic Init is done, now placing initial minions evenly over the lanes
 
 		int minionCounter = 0;
@@ -185,18 +195,18 @@ public class MinionManager : MonoBehaviour
 		if (!initialized && GameObject.Find("minion_manager_view") != null)
 		{
 			isVisible = false;
-			GameObject.Find("minion_manager_view").GetComponent<UISprite>().alpha = 0;
-			for (int i = 0; i < 15; i++)
+			SetInvisible();
+			for (int i = 0; i < 9; i++)
 			{
-				GameObject.Find("minion_small_" + (i + 1)).GetComponent<UISprite>().alpha = 0;
-				GameObject.Find("pointer_minion_" + (i + 1)).GetComponent<UISprite>().alpha = 0;
+				GameObject.Find("Head0" + (i + 1)).GetComponent<UISprite>().alpha = 0;
+				GameObject.Find("PointerBox0" + (i + 1)).GetComponent<UISprite>().alpha = 0;
 			}
 		}
 
 		if (!initialized) return;
 
-		UpdatePointers(); //Turns pointers visible on selected minions and invisible on not selected ones
 		UpdateMinionPositions(); //Goes through the lanes and fills all the holes by changing MinionFullInfo.occupant and MinionView.x and y
+		UpdatePointers(); //Turns pointers visible on selected minions and invisible on not selected ones
 
 		if (Input.GetButtonDown(InputTags.manager) || Input.GetKeyDown(KeyCode.A))
 		{
@@ -228,7 +238,26 @@ public class MinionManager : MonoBehaviour
 	{
 		foreach (MinionView minionView in minionViews)
 		{
-			minionView.minionPointer.position = minionView.selected ? minionView.minionView.position : new Vector3(0f, 0f, -1000000f);
+			if (minionView.selected)
+			{
+				minionView.ShowPointer(minionView.minionView.localPosition);
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 9; j++)
+					{
+						if (viewPositions[i][j].occupant == minionView)
+						{
+							minionView.minionPointer.localScale = new Vector3(j == 0 ? bigPointerX : smallPointerX,
+																			  j == 0 ? bigPointerY : smallPointerY,
+							                                                  minionView.minionPointer.localScale.z);
+						}
+					}
+				}
+			}
+			else
+			{
+				minionView.HidePointer();
+			}
 		}
 	}
 
@@ -238,7 +267,7 @@ public class MinionManager : MonoBehaviour
 		{
 			while (GetHole(i))
 			{
-				for (int j = 0; j < 14; j++)
+				for (int j = 0; j < 8; j++)
 				{
 					if (viewPositions[i][j].occupant != null || viewPositions[i][j + 1].occupant == null) continue;
 					viewPositions[i][j].occupant = viewPositions[i][j + 1].occupant;
@@ -278,18 +307,18 @@ public class MinionManager : MonoBehaviour
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			for (int j = 0; j < 15; j++)
+			for (int j = 0; j < 9; j++)
 			{
 				if (viewPositions[i][j].occupant == null) break;
 				viewPositions[i][j].occupant.minionView.localScale = GetFinalScaling(j, viewPositions[i][j].occupant);
-				viewPositions[i][j].occupant.minionView.position = viewPositions[i][j].pos;
+				viewPositions[i][j].occupant.minionView.localPosition = viewPositions[i][j].pos;
 			}
 		}
 	}
 
 	private static Vector3 GetFinalScaling(int x, MinionView content)
 	{
-		return new Vector3(x == 0 ? bigMinion : smallMinion, x == 0 ? bigMinion : smallMinion, content.minionView.localScale.z);
+		return new Vector3(x == 0 ? bigMinionX : smallMinionX, x == 0 ? bigMinionY : smallMinionY, content.minionView.localScale.z);
 	}
 
 	private void SlideMinions()
@@ -298,13 +327,13 @@ public class MinionManager : MonoBehaviour
 			.SelectMany(minionFullInfos => minionFullInfos.TakeWhile(minionFullInfo => minionFullInfo.occupant != null))
 			.Where(minionFullInfo => minionFullInfo.occupant.minionView.position != minionFullInfo.pos))
 		{
-			if (GetMagnitude(minionFullInfo.occupant.minionView.position, minionFullInfo.pos) < 0.001f) //this if lerps positions
+			if (GetMagnitude(minionFullInfo.occupant.minionView.localPosition, minionFullInfo.pos) < 0.001f) //this if lerps positions
 			{
-				minionFullInfo.occupant.minionView.position = minionFullInfo.pos;
+				minionFullInfo.occupant.minionView.localPosition = minionFullInfo.pos;
 			}
 			else
 			{
-				minionFullInfo.occupant.minionView.position = Vector3.Lerp(minionFullInfo.occupant.minionView.position,
+				minionFullInfo.occupant.minionView.localPosition = Vector3.Lerp(minionFullInfo.occupant.minionView.localPosition,
 																		   minionFullInfo.pos,
 																		   minionViewLerpSpeed * Time.deltaTime);
 			}
@@ -342,7 +371,7 @@ public class MinionManager : MonoBehaviour
 
 	private int GetEmptyIndex(int lane)
 	{
-		for (int index = 0; index < 15; index++)
+		for (int index = 0; index < 9; index++)
 		{
 			if (viewPositions[lane - 1][index].occupant == null)
 			{
@@ -356,7 +385,7 @@ public class MinionManager : MonoBehaviour
 	private List<MinionFullInfo> GetSelectedMinions(int lane)
 	{
 		List<MinionFullInfo> selectedMinions = new List<MinionFullInfo>();
-		for (int index = 0; index < 15; index++)
+		for (int index = 0; index < 9; index++)
 		{
 			if (viewPositions[lane - 1][index].occupant != null && viewPositions[lane - 1][index].occupant.selected)
 			{
@@ -377,7 +406,7 @@ public class MinionManager : MonoBehaviour
 			minionFullInfo.occupant.selected = false;
 		}
 
-		viewPositions[selectedLane - 1][0].occupant.selected = true;
+		//viewPositions[selectedLane - 1][0].occupant.selected = true;
 	}
 
 	private void SelectOneMoreMinionIf(bool value)
@@ -386,10 +415,8 @@ public class MinionManager : MonoBehaviour
 		if (viewPositions[selectedLane - 1][selectedCount].occupant == null) return;
 
 		selectedCount++;
-		if (selectedCount > 1)
-		{
+		//if (selectedCount > 1)
 			viewPositions[selectedLane - 1][selectedCount - 1].occupant.selected = true;
-		}
 	}
 
 	private void HandleUpInputIf(bool value)
@@ -411,7 +438,6 @@ public class MinionManager : MonoBehaviour
 		if (viewPositions[0][0].occupant == null && viewPositions[1][0].occupant == null) return;
 		if (selectedLane == 2 && viewPositions[0][0].occupant == null) return;
 
-
 		if (selectedLane == 3 && viewPositions[1][0].occupant == null)
 		{
 			selectedLane -= 2;
@@ -421,8 +447,8 @@ public class MinionManager : MonoBehaviour
 			selectedLane--;
 		}
 
-		viewPositions[(viewPositions[selectedLane][0].occupant != null ? selectedLane : (selectedLane + 1))][0].occupant.selected = false;
-		viewPositions[selectedLane - 1][0].occupant.selected = true;
+		//viewPositions[(viewPositions[selectedLane][0].occupant != null ? selectedLane : (selectedLane + 1))][0].occupant.selected = false;
+		//viewPositions[selectedLane - 1][0].occupant.selected = true;
 	}
 
 	private void HandleDownInputIf(bool value)
@@ -454,9 +480,22 @@ public class MinionManager : MonoBehaviour
 			selectedLane++;
 		}
 
+		SwitchArrow(selectedLane);
 
-		viewPositions[(viewPositions[selectedLane - 2][0].occupant != null ? selectedLane - 2 : (selectedLane - 3))][0].occupant.selected = false;
-		viewPositions[selectedLane - 1][0].occupant.selected = true;
+		//viewPositions[(viewPositions[selectedLane - 2][0].occupant != null ? selectedLane - 2 : (selectedLane - 3))][0].occupant.selected = false;
+		//viewPositions[selectedLane - 1][0].occupant.selected = true;
+	}
+
+	private void SwitchArrow(int lane)
+	{
+		switch (lane)
+		{
+			case 1:
+				{
+
+					break;
+				}
+		}
 	}
 
 	private void ResetIf(bool value)
@@ -472,26 +511,26 @@ public class MinionManager : MonoBehaviour
 			minionFullInfo.occupant.selected = false;
 		}
 
-		if (viewPositions[0][0].occupant != null)
-		{
-			viewPositions[0][0].occupant.selected = true;
-		}
-		else
-		{
-			if (viewPositions[1][0].occupant != null)
-			{
-				viewPositions[1][0].occupant.selected = true;
-			}
-			else
-			{
-				viewPositions[2][0].occupant.selected = true;
-			}
-		}
+		//if (viewPositions[0][0].occupant != null)
+		//{
+		//	viewPositions[0][0].occupant.selected = true;
+		//}
+		//else
+		//{
+		//	if (viewPositions[1][0].occupant != null)
+		//	{
+		//		viewPositions[1][0].occupant.selected = true;
+		//	}
+		//	else
+		//	{
+		//		viewPositions[2][0].occupant.selected = true;
+		//	}
+		//}
 	}
 
 	private bool GetHole(int lane)
 	{
-		for (int i = 0; i < 14; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			if (viewPositions[lane][i].occupant == null && viewPositions[lane][i + 1].occupant != null)
 			{
@@ -510,7 +549,7 @@ public class MinionManager : MonoBehaviour
 				if (minionFullInfo.occupant == null) continue;
 
 
-				Vector3 pos = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().MyBase.transform.position;
+				Vector3 pos = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>().MyBase.transform.localPosition;
 				pos.x += Random.Range(-SpawnJitter, SpawnJitter);
 				pos.y += Random.Range(-SpawnJitter, SpawnJitter);
 				Object minion = Resources.Load("minion");
@@ -535,11 +574,17 @@ public class MinionManager : MonoBehaviour
 		miniMap.transform.localEulerAngles = new Vector3(0, 0, 0);
 		miniMap.transform.localScale = new Vector3(1, 1, 1);
 
-		backgroundView.GetComponent<UISprite>().alpha = 0;
 		foreach (MinionView local in minionViews)
 		{
 			local.minionView.GetComponent<UISprite>().alpha = 0;
 			local.minionPointer.GetComponent<UISprite>().alpha = 0;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				GameObject.Find("Lane_" + (i + 1)).transform.FindChild("Background0" + (j + 1).ToString()).gameObject.GetComponent<UISprite>().alpha = 0;
+			}
 		}
 	}
 
@@ -554,15 +599,21 @@ public class MinionManager : MonoBehaviour
 		//guiMiniMap.transform.localScale = new Vector3(32.5f, 0, 32.5f);
 		GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 180, 0);
 		miniMap.transform.parent = guiMiniMap.transform.parent;
-		miniMap.transform.localPosition = new Vector3(-1190f, -567f, 249f);
+		miniMap.transform.localPosition = new Vector3(-1000f, -458f, 249f);
 		miniMap.transform.localEulerAngles = new Vector3(90, 0, 0);
-		miniMap.transform.localScale = new Vector3(4.8f, 1, 4.8f);
+		miniMap.transform.localScale = new Vector3(3.8f, 1, 3.8f);
 
-		backgroundView.GetComponent<UISprite>().alpha = 1;
 		foreach (MinionView local in minionViews)
 		{
 			local.minionView.GetComponent<UISprite>().alpha = 1;
 			local.minionPointer.GetComponent<UISprite>().alpha = 1;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				GameObject.Find("Lane_" + (i + 1)).transform.FindChild("Background0" + (j + 1).ToString()).gameObject.GetComponent<UISprite>().alpha = 1;
+			}
 		}
 	}
 }
