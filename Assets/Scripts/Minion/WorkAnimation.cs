@@ -16,7 +16,7 @@ public class WorkAnimation : MonoBehaviour
     private float completeTime = 10f;
     // ++++++++++++++++++++++++++
     public float _timeDistanceToToMinion;
-    public float enqueueTimer;
+    private float _enqueueTimer;
     private bool _pointsSnapped = false;
 
     public float getCompleteTime() { return completeTime; }
@@ -31,6 +31,9 @@ public class WorkAnimation : MonoBehaviour
         //DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
         return false;
     }
+
+    public float EnqueueTimer() { return _enqueueTimer; }
+    public float TimeDistance() { return _timeDistanceToToMinion; }
 
     void Awake ()
     {
@@ -109,16 +112,22 @@ public class WorkAnimation : MonoBehaviour
 
     private void Enqueue()
     {       
-        enqueueTimer += Time.deltaTime;
-        if (enqueueTimer >= _timeDistanceToToMinion)
+        _enqueueTimer += Time.deltaTime;
+        if (_enqueueTimer >= _timeDistanceToToMinion)
         {
             for (int i = 0; i < minions.Length; i++)
-                if (minions[i] != null && !move[i])
+                if (minions[i] != null)
                 {
-                    SnapMinion(i);
-                    break;
+                    if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant) && targetIDs[i] == 1
+                        || GetComponent<Team>().isOwnTeam(GetComponent<Valve>()._occupant) && targetIDs[i] == 2)
+                        GetComponent<ValveMotion>().Motion();
+                    if (!move[i])
+                    {
+                        SnapMinion(i);
+                        break;
+                    }
                 }
-            enqueueTimer -= _timeDistanceToToMinion;
+            _enqueueTimer -= _timeDistanceToToMinion;
         }
     }
 
