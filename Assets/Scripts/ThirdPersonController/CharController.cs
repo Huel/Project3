@@ -113,44 +113,47 @@ public class CharController : MonoBehaviour
     private void HandleInput(ref float horizontal, ref float vertical)
     {
 
-        horizontal = Input.GetAxis(InputTags.horizontal);
-        vertical = Input.GetAxis(InputTags.vertical);
+	    if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().GetMinionManagerState() == MinionManager.MinionManagerState.Invisible)
+	    {
+		    horizontal = Input.GetAxis(InputTags.horizontal);
+		    vertical = Input.GetAxis(InputTags.vertical);
 
-        _targeting = CustomInput.GetTrigger(InputTags.target);
+		    _targeting = CustomInput.GetTrigger(InputTags.target);
 
-        if (Input.GetButtonDown(InputTags.sprint) && !(_targeting && vertical < 0))
-            GetComponent<Speed>().IsSprinting = true;
+		    if (Input.GetButtonDown(InputTags.sprint) && !(_targeting && vertical < 0))
+			    GetComponent<Speed>().IsSprinting = true;
 
-        if (CustomInput.GetTriggerDown(InputTags.basicAttack))
-        {
-            if (basicAttack)
-                basicAttack.Execute();
-        }
-        if (Input.GetButtonDown(InputTags.skill1) || Input.GetKeyDown(KeyCode.A))
-        {
-            if (skill1)
-                skill1.Execute();
-        }
-        if (Input.GetButtonDown(InputTags.skill2))
-        {
-            if (skill2)
-                skill2.Execute();
-        }
-        if (Input.GetButtonDown(InputTags.skill3))
-        {
-            if (skill3)
-                skill3.Execute();
-        }
-        if (Input.GetButtonDown(InputTags.skill4))
-        {
-            if (skill4)
-                skill4.Execute();
-        }
+		    if (CustomInput.GetTriggerDown(InputTags.basicAttack))
+		    {
+			    if (basicAttack)
+				    basicAttack.Execute();
+		    }
+		    if (Input.GetButtonDown(InputTags.skill1) || Input.GetKeyDown(KeyCode.A))
+		    {
+			    if (skill1)
+				    skill1.Execute();
+		    }
+		    if (Input.GetButtonDown(InputTags.skill2))
+		    {
+			    if (skill2)
+				    skill2.Execute();
+		    }
+		    if (Input.GetButtonDown(InputTags.skill3))
+		    {
+			    if (skill3)
+				    skill3.Execute();
+		    }
+		    if (Input.GetButtonDown(InputTags.skill4))
+		    {
+			    if (skill4)
+				    skill4.Execute();
+		    }
 
-        HandleInput();
+		    HandleSquadInput();
+	    }
     }
 
-    private void HandleInput()
+    private void HandleSquadInput()
     {
         if (!buttonPushed)
         {
