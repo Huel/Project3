@@ -85,7 +85,7 @@ public class Valve : MonoBehaviour
             if (_valveTeam.isOwnTeam(_occupant))
                 _state = Mathf.Clamp(_state + (_productivity * Time.deltaTime), 0f, _openValve);
             else if (_valveTeam.isEnemy(_occupant))
-                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);     
+                _state = Mathf.Clamp(_state - (_productivity * Time.deltaTime), 0f, _openValve);
         }
     }
 
@@ -108,7 +108,7 @@ public class Valve : MonoBehaviour
 
     private void CheckLocalMinionCount()
     {
-        if (_localMinionCount != _localMinions.Count)
+        if (_localMinionCount != _localMinions.Count || (_localTeam != (int)_occupant && _localMinionCount > 0))
         {
             _localMinionCount = _localMinions.Count;
             if (networkView.isMine)
@@ -160,7 +160,7 @@ public class Valve : MonoBehaviour
     public void RemoveMinion(MinionAgent minion)
     {
         _localMinions.RemoveAll(minionAgent => minionAgent == minion);
-         GetComponent<WorkAnimation>().RemoveMinion(minion.gameObject);
+        GetComponent<WorkAnimation>().RemoveMinion(minion.gameObject);
     }
 
 
@@ -189,7 +189,7 @@ public class Valve : MonoBehaviour
     public int GetRotationDirection()
     {
         ValveState state = GetValveState();
-        if (new[] {ValveState.Closed, ValveState.Opened, ValveState.NotOccupied}.Contains(state))
+        if (new[] { ValveState.Closed, ValveState.Opened, ValveState.NotOccupied }.Contains(state))
             return 0;
         if (_valveTeam.isOwnTeam(_occupant))
             return 1;
@@ -236,11 +236,10 @@ public class Valve : MonoBehaviour
             submittedOccupant.player = playerID;
             submittedOccupant.team = team;
             _occupants.Add(submittedOccupant);
-            if (_occupants.Count == 1)
-            {
-                UpdateOccupant(team);
-                networkView.RPC("UpdateOccupant", RPCMode.OthersBuffered, team);
-            }
+
+            UpdateOccupant(team);
+            networkView.RPC("UpdateOccupant", RPCMode.OthersBuffered, team);
+
         }
         else
             return;

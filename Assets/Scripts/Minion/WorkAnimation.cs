@@ -35,7 +35,7 @@ public class WorkAnimation : MonoBehaviour
     public float EnqueueTimer() { return _enqueueTimer; }
     public float TimeDistance() { return _timeDistanceToToMinion; }
 
-    void Awake ()
+    void Awake()
     {
         minions = new GameObject[] { null, null, null, null, null };
         move = new bool[] { false, false, false, false, false };
@@ -59,9 +59,12 @@ public class WorkAnimation : MonoBehaviour
                 else
                 {
                     lastTargets[i] = 1;
-                    targetIDs[i] = 0;   
+                    targetIDs[i] = 0;
                 }
-                minions[i].GetComponent<NavMeshAgent>().enabled = false;
+                if (minions[i].networkView.isMine)
+                    minions[i].GetComponent<MinionAgent>().SetNavMeshAgent(false);
+                else
+                    minions[i].networkView.RPC("SetNavMeshAgent", minions[i].networkView.owner, false);
                 break;
             }
     }
@@ -84,7 +87,7 @@ public class WorkAnimation : MonoBehaviour
     {
         if (!_pointsSnapped)
         {
-            float minionY = minions[id].transform.position.y; 
+            float minionY = minions[id].transform.position.y;
             foreach (Transform point in points)
             {
                 Vector3 newY = point.position;
@@ -96,22 +99,27 @@ public class WorkAnimation : MonoBehaviour
         Vector3 newPosition = points[0].position;
         newPosition.y = minions[id].transform.position.y;
         minions[id].transform.position = newPosition;
-        minions[id].transform.rotation = points[0].rotation;  
+        minions[id].transform.rotation = points[0].rotation;
     }
-	
+
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         Enqueue();
         for (int i = 0; i < minions.Length; i++)
         {
+            if (minions[i] != null && minions[i].GetComponent<MinionAgent>().getTarget() != GetComponent<Target>())
+            {
+                RemoveMinion(minions[i]);
+                continue;
+            }
             if (minions[i] != null && move[i])
                 MoveMinion(i);
         }
     }
 
     private void Enqueue()
-    {       
+    {
         _enqueueTimer += Time.deltaTime;
         if (_enqueueTimer >= _timeDistanceToToMinion)
         {
@@ -133,7 +141,7 @@ public class WorkAnimation : MonoBehaviour
 
     private void MoveMinion(int id)
     {
-        float distance = Time.deltaTime*_distancePerSecond;
+        float distance = Time.deltaTime * _distancePerSecond;
         Vector3 direction = points[targetIDs[id]].position - minions[id].transform.position;
 
         while (direction.magnitude < distance)
@@ -148,7 +156,7 @@ public class WorkAnimation : MonoBehaviour
             direction = points[targetIDs[id]].position - points[lastTargets[id]].position;
             minions[id].transform.position = points[lastTargets[id]].position;
         }
-        minions[id].transform.position += direction.normalized*distance;
+        minions[id].transform.position += direction.normalized * distance;
         Vector3 dirA = new Vector3();
         Vector3 dirB = new Vector3();
 
@@ -162,23 +170,26 @@ public class WorkAnimation : MonoBehaviour
             dirA = -points[lastTargets[id]].forward;
             dirB = -points[targetIDs[id]].forward;
         }
-        
+
         float distanceFromLastTarget = (minions[id].transform.position - points[lastTargets[id]].position).magnitude;
-        Vector3 lookDirection = Vector3.Lerp(dirA, dirB, distanceFromLastTarget/direction.magnitude);
+        Vector3 lookDirection = Vector3.Lerp(dirA, dirB, distanceFromLastTarget / direction.magnitude);
         lookDirection.y = 0;
         minions[id].transform.rotation = Quaternion.LookRotation(lookDirection);
     }
 
     public void RemoveMinion(GameObject minion)
     {
-        for (int i = minions.Length-1; i >= 0; i--)
+        for (int i = minions.Length - 1; i >= 0; i--)
         {
             if (minion == minions[i])
             {
                 move[i] = false;
                 lastTargets[i] = 0;
                 targetIDs[i] = 0;
-                minions[i].GetComponent<NavMeshAgent>().enabled = true;
+                if (minions[i].networkView.isMine)
+                    minions[i].GetComponent<MinionAgent>().SetNavMeshAgent(true);
+                else
+                    minions[i].networkView.RPC("SetNavMeshAgent", minions[i].networkView.owner, true);
                 minions[i] = null;
                 break;
             }

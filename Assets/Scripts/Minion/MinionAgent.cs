@@ -92,7 +92,7 @@ public class MinionAgent : MonoBehaviour
         CheckRallyPoint();
         CheckAttacked();
         TargetBehavior();
-        
+
     }
 
     void TargetBehavior()
@@ -133,12 +133,12 @@ public class MinionAgent : MonoBehaviour
                 return;
             }
             //move to target
-            if (_moving && _agent.enabled) 
+            if (_moving && _agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
             //if valve is fully opened or closed
             if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
             {
-                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
+                _target.GetComponent<Valve>().RemoveMinion(this);
                 _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
                 _target = null;
             }
@@ -351,5 +351,11 @@ public class MinionAgent : MonoBehaviour
             target = oldLine;
 
         return target;
+    }
+
+    [RPC]
+    public void SetNavMeshAgent(bool active)
+    {
+        GetComponent<NavMeshAgent>().enabled = active;
     }
 }
