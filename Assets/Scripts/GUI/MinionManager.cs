@@ -629,9 +629,9 @@ public class MinionManager : MonoBehaviour
 		//guiMiniMap.transform.localScale = new Vector3(32.5f, 0, 32.5f);
 		GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 180, 0);
 		miniMap.transform.parent = guiMiniMap.transform.parent;
-		miniMap.transform.localPosition = new Vector3(-1000f, -458f, 249f);
+		miniMap.transform.localPosition = new Vector3(-1218f, -576f, 249f);
 		miniMap.transform.localEulerAngles = new Vector3(90, 0, 0);
-		miniMap.transform.localScale = new Vector3(3.8f, 1, 3.8f);
+		miniMap.transform.localScale = new Vector3(4.5f, 1, 4.5f);
 
 		sqaudManager.SetActive(false);
 
