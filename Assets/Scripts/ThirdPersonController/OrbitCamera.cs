@@ -121,11 +121,10 @@ public class OrbitCamera : MonoBehaviour
     {
         if (player == null)
             return;
-        // Pull values from controller/keyboard
+
+        //Get Inputs
         float cameraX = Input.GetAxis(InputTags.cameraX);
         float cameraY = Input.GetAxis(InputTags.cameraY);
-        float horizontal = Input.GetAxis(InputTags.horizontal);
-        float vertical = Input.GetAxis(InputTags.vertical);
 
         Vector3 characterOffset = player.transform.position + new Vector3(0f, distanceUp, 0f);
         Vector3 lookAt = characterOffset;
