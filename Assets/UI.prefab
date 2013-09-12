@@ -1,0 +1,938 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f932d426897c863498e2d3724f22d837, type: 3}
+  m_Name: 
+  material: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
+  sprites:
+  - name: ausdauer_forground
+    outer:
+      serializedVersion: 2
+      x: 3055
+      y: 2035
+      width: 410
+      height: 13
+    inner:
+      serializedVersion: 2
+      x: 3055
+      y: 2035
+      width: 410
+      height: 13
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_b_button
+    outer:
+      serializedVersion: 2
+      x: 999
+      y: 277
+      width: 21
+      height: 21
+    inner:
+      serializedVersion: 2
+      x: 999
+      y: 277
+      width: 21
+      height: 21
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_schildwall
+    outer:
+      serializedVersion: 2
+      x: 2098
+      y: 968
+      width: 93
+      height: 98
+    inner:
+      serializedVersion: 2
+      x: 2098
+      y: 968
+      width: 93
+      height: 98
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionSpawnHeadBlack
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 1550
+      width: 298
+      height: 246
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 1550
+      width: 298
+      height: 246
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_blue
+    outer:
+      serializedVersion: 2
+      x: 1287
+      y: 109
+      width: 312
+      height: 34
+    inner:
+      serializedVersion: 2
+      x: 1287
+      y: 109
+      width: 312
+      height: 34
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionPointerBlue
+    outer:
+      serializedVersion: 2
+      x: 1666
+      y: 672
+      width: 133
+      height: 133
+    inner:
+      serializedVersion: 2
+      x: 1666
+      y: 672
+      width: 133
+      height: 133
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_green_team
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 346
+      width: 47
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 346
+      width: 47
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_kamikaze_minion
+    outer:
+      serializedVersion: 2
+      x: 1821
+      y: 347
+      width: 93
+      height: 98
+    inner:
+      serializedVersion: 2
+      x: 1821
+      y: 347
+      width: 93
+      height: 98
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BlackRectangle
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 968
+      width: 1920
+      height: 1080
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 968
+      width: 1920
+      height: 1080
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minion_lifebar_forground
+    outer:
+      serializedVersion: 2
+      x: 493
+      y: 4
+      width: 81
+      height: 9
+    inner:
+      serializedVersion: 2
+      x: 493
+      y: 4
+      width: 81
+      height: 9
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BackButton
+    outer:
+      serializedVersion: 2
+      x: 1666
+      y: 806
+      width: 245
+      height: 161
+    inner:
+      serializedVersion: 2
+      x: 1666
+      y: 806
+      width: 245
+      height: 161
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_green
+    outer:
+      serializedVersion: 2
+      x: 1287
+      y: 74
+      width: 312
+      height: 34
+    inner:
+      serializedVersion: 2
+      x: 1287
+      y: 74
+      width: 312
+      height: 34
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MapNew
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 494
+      width: 1024
+      height: 473
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 494
+      width: 1024
+      height: 473
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: HeroPointerBlue
+    outer:
+      serializedVersion: 2
+      x: 1665
+      y: 418
+      width: 155
+      height: 225
+    inner:
+      serializedVersion: 2
+      x: 1665
+      y: 418
+      width: 155
+      height: 225
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: .00444444455
+  - name: MinionHeadBlackManager
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 1797
+      width: 313
+      height: 251
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 1797
+      width: 313
+      height: 251
+    rotated: 0
+    paddingLeft: .00319488812
+    paddingRight: .00319488812
+    paddingTop: 0
+    paddingBottom: .00398406386
+  - name: map_bomb
+    outer:
+      serializedVersion: 2
+      x: 1159
+      y: 41
+      width: 127
+      height: 102
+    inner:
+      serializedVersion: 2
+      x: 1159
+      y: 41
+      width: 127
+      height: 102
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_endurance
+    outer:
+      serializedVersion: 2
+      x: 3466
+      y: 2037
+      width: 408
+      height: 11
+    inner:
+      serializedVersion: 2
+      x: 3466
+      y: 2037
+      width: 408
+      height: 11
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_blue_team
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 393
+      width: 47
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 393
+      width: 47
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: health_forground
+    outer:
+      serializedVersion: 2
+      x: 2235
+      y: 2024
+      width: 410
+      height: 24
+    inner:
+      serializedVersion: 2
+      x: 2235
+      y: 2024
+      width: 410
+      height: 24
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_hero_background
+    outer:
+      serializedVersion: 2
+      x: 1025
+      y: 144
+      width: 613
+      height: 177
+    inner:
+      serializedVersion: 2
+      x: 1025
+      y: 144
+      width: 613
+      height: 177
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionSquadViewer
+    outer:
+      serializedVersion: 2
+      x: 493
+      y: 14
+      width: 328
+      height: 219
+    inner:
+      serializedVersion: 2
+      x: 493
+      y: 14
+      width: 328
+      height: 219
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: .00456620986
+  - name: Interface_map_background
+    outer:
+      serializedVersion: 2
+      x: 1025
+      y: 644
+      width: 640
+      height: 323
+    inner:
+      serializedVersion: 2
+      x: 1025
+      y: 644
+      width: 640
+      height: 323
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_y_button
+    outer:
+      serializedVersion: 2
+      x: 999
+      y: 214
+      width: 20
+      height: 19
+    inner:
+      serializedVersion: 2
+      x: 999
+      y: 214
+      width: 20
+      height: 19
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_MinionManager_Arrow
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 1067
+      width: 262
+      height: 244
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 1067
+      width: 262
+      height: 244
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionManagerBox
+    outer:
+      serializedVersion: 2
+      x: 493
+      y: 234
+      width: 305
+      height: 259
+    inner:
+      serializedVersion: 2
+      x: 493
+      y: 234
+      width: 305
+      height: 259
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: .00327868853
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionSpawnHead
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 1312
+      width: 277
+      height: 237
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 1312
+      width: 277
+      height: 237
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_pfeil
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 269
+      width: 40
+      height: 29
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 269
+      width: 40
+      height: 29
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Icon_Kamikaze
+    outer:
+      serializedVersion: 2
+      x: 1800
+      y: 707
+      width: 93
+      height: 98
+    inner:
+      serializedVersion: 2
+      x: 1800
+      y: 707
+      width: 93
+      height: 98
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: trophy_icon
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 440
+      width: 64
+      height: 53
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 440
+      width: 64
+      height: 53
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_a_button
+    outer:
+      serializedVersion: 2
+      x: 985
+      y: 248
+      width: 20
+      height: 20
+    inner:
+      serializedVersion: 2
+      x: 985
+      y: 248
+      width: 20
+      height: 20
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_x_button
+    outer:
+      serializedVersion: 2
+      x: 978
+      y: 213
+      width: 20
+      height: 20
+    inner:
+      serializedVersion: 2
+      x: 978
+      y: 213
+      width: 20
+      height: 20
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minion_lifebar_white
+    outer:
+      serializedVersion: 2
+      x: 575
+      y: 6
+      width: 79
+      height: 7
+    inner:
+      serializedVersion: 2
+      x: 575
+      y: 6
+      width: 79
+      height: 7
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minion_lifebar_background
+    outer:
+      serializedVersion: 2
+      x: 799
+      y: 239
+      width: 81
+      height: 9
+    inner:
+      serializedVersion: 2
+      x: 799
+      y: 239
+      width: 81
+      height: 9
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: icon_frischfleisch
+    outer:
+      serializedVersion: 2
+      x: 1821
+      y: 545
+      width: 93
+      height: 98
+    inner:
+      serializedVersion: 2
+      x: 1821
+      y: 545
+      width: 93
+      height: 98
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_red
+    outer:
+      serializedVersion: 2
+      x: 1287
+      y: 4
+      width: 312
+      height: 34
+    inner:
+      serializedVersion: 2
+      x: 1287
+      y: 4
+      width: 312
+      height: 34
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_bomblane_yellow
+    outer:
+      serializedVersion: 2
+      x: 1287
+      y: 39
+      width: 312
+      height: 34
+    inner:
+      serializedVersion: 2
+      x: 1287
+      y: 39
+      width: 312
+      height: 34
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: HeroPointerRed
+    outer:
+      serializedVersion: 2
+      x: 822
+      y: 8
+      width: 155
+      height: 225
+    inner:
+      serializedVersion: 2
+      x: 822
+      y: 8
+      width: 155
+      height: 225
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: .00444444455
+  - name: Interface_bomb
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 299
+      width: 47
+      height: 46
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 299
+      width: 47
+      height: 46
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_map_background_black
+    outer:
+      serializedVersion: 2
+      x: 1025
+      y: 322
+      width: 639
+      height: 321
+    inner:
+      serializedVersion: 2
+      x: 1025
+      y: 322
+      width: 639
+      height: 321
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Icon_Battlecry
+    outer:
+      serializedVersion: 2
+      x: 1821
+      y: 446
+      width: 93
+      height: 98
+    inner:
+      serializedVersion: 2
+      x: 1821
+      y: 446
+      width: 93
+      height: 98
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionHeadManager
+    outer:
+      serializedVersion: 2
+      x: 1639
+      y: 84
+      width: 277
+      height: 237
+    inner:
+      serializedVersion: 2
+      x: 1639
+      y: 84
+      width: 277
+      height: 237
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Interface_Arrow
+    outer:
+      serializedVersion: 2
+      x: 799
+      y: 249
+      width: 158
+      height: 244
+    inner:
+      serializedVersion: 2
+      x: 799
+      y: 249
+      width: 158
+      height: 244
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: HeroPointerCircleRed
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 890
+      width: 176
+      height: 176
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 890
+      width: 176
+      height: 176
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: .00568181835
+  - name: Health_bar
+    outer:
+      serializedVersion: 2
+      x: 2646
+      y: 2026
+      width: 408
+      height: 22
+    inner:
+      serializedVersion: 2
+      x: 2646
+      y: 2026
+      width: 408
+      height: 22
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ControllerDPad
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 1
+      width: 492
+      height: 492
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 1
+      width: 492
+      height: 492
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: .00203252025
+    paddingTop: 0
+    paddingBottom: 0
+  - name: HeroPointerCircleBlue
+    outer:
+      serializedVersion: 2
+      x: 1921
+      y: 713
+      width: 176
+      height: 176
+    inner:
+      serializedVersion: 2
+      x: 1921
+      y: 713
+      width: 176
+      height: 176
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: .00568181835
+  - name: MinionHeadSquad
+    outer:
+      serializedVersion: 2
+      x: 1665
+      y: 354
+      width: 73
+      height: 63
+    inner:
+      serializedVersion: 2
+      x: 1665
+      y: 354
+      width: 73
+      height: 63
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionHeadBlackSmall
+    outer:
+      serializedVersion: 2
+      x: 958
+      y: 246
+      width: 26
+      height: 22
+    inner:
+      serializedVersion: 2
+      x: 958
+      y: 246
+      width: 26
+      height: 22
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MinionPointerRed
+    outer:
+      serializedVersion: 2
+      x: 1025
+      y: 10
+      width: 133
+      height: 133
+    inner:
+      serializedVersion: 2
+      x: 1025
+      y: 10
+      width: 133
+      height: 133
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  mCoordinates: 0
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
