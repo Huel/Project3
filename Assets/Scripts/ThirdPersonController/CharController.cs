@@ -98,7 +98,7 @@ public class CharController : MonoBehaviour
         if (_targeting && _speed >= speedThreshold)
         {
             //In target-mode just use the calculated move direction related to world space because the character shall not rotate.
-            _controller.Move(moveDir * Time.deltaTime);
+            _controller.Move(moveDir * _speed * Time.deltaTime);
             //Send the angle between character-forward-vector and move direction to the animator for the right animation.
             _animator.SetFloat(AnimatorTags.angle, charAngle);
         }
