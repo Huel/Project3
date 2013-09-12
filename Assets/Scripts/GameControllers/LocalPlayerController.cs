@@ -23,7 +23,7 @@ public class LocalPlayerController : MonoBehaviour
 
         GetComponent<Team>().ID = (Team.TeamIdentifier)networkPlayerController.team;
 
-        foreach (GameObject spawnPoint in GameObject.FindGameObjectsWithTag(Tags.baseArea).Where(spawnPoint => spawnPoint.GetComponent<Team>().isOwnTeam(GetComponent<Team>())))
+        foreach (GameObject spawnPoint in GameObject.FindGameObjectsWithTag(Tags.baseArea).Where(spawnPoint => spawnPoint.GetComponent<Team>().IsOwnTeam(GetComponent<Team>())))
         {
             MyBase = spawnPoint;
         }

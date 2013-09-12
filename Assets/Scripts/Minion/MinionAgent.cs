@@ -136,7 +136,7 @@ public class MinionAgent : MonoBehaviour
             if (_moving && _agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
             //if valve is fully opened or closed
-            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
+            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().IsCompleted(this))
             {
                 _target.GetComponent<Valve>().RemoveMinion(this);
                 _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
@@ -158,7 +158,7 @@ public class MinionAgent : MonoBehaviour
             _target = target;
             return;
         }
-        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
+        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().IsAvailable(this))
             _target = target;
     }
 
@@ -172,7 +172,7 @@ public class MinionAgent : MonoBehaviour
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
                 basicAttack.Execute();
             // Valve
-            else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().isAvailable(this))
+            else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
             else
                 return;

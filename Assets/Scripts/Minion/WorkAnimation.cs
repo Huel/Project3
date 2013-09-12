@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WorkAnimation : MonoBehaviour
@@ -51,7 +52,7 @@ public class WorkAnimation : MonoBehaviour
             {
                 minions[i] = minion;
                 move[i] = false;
-                if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+                if (GetComponent<Team>().IsEnemy(GetComponent<Valve>().Occupant))
                 {
                     lastTargets[i] = 0;
                     targetIDs[i] = 1;
@@ -126,8 +127,8 @@ public class WorkAnimation : MonoBehaviour
             for (int i = 0; i < minions.Length; i++)
                 if (minions[i] != null)
                 {
-                    if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant) && targetIDs[i] == 1
-                        || GetComponent<Team>().isOwnTeam(GetComponent<Valve>()._occupant) && targetIDs[i] == 2)
+                    if (GetComponent<Team>().IsEnemy(GetComponent<Valve>().Occupant) && targetIDs[i] == 1
+                        || GetComponent<Team>().IsOwnTeam(GetComponent<Valve>().Occupant) && targetIDs[i] == 2)
                         GetComponent<ValveMotion>().Motion();
                     if (!move[i])
                     {
@@ -148,7 +149,7 @@ public class WorkAnimation : MonoBehaviour
         {
             distance -= direction.magnitude;
             lastTargets[id] = targetIDs[id];
-            if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+            if (GetComponent<Team>().IsEnemy(GetComponent<Valve>().Occupant))
                 targetIDs[id] = (targetIDs[id] + 1) % points.Length;
             else
                 targetIDs[id] = (targetIDs[id] - 1 + points.Length) % points.Length;
@@ -160,7 +161,7 @@ public class WorkAnimation : MonoBehaviour
         Vector3 dirA = new Vector3();
         Vector3 dirB = new Vector3();
 
-        if (GetComponent<Team>().isEnemy(GetComponent<Valve>()._occupant))
+        if (GetComponent<Team>().IsEnemy(GetComponent<Valve>().Occupant))
         {
             dirA = points[lastTargets[id]].forward;
             dirB = points[targetIDs[id]].forward;
@@ -192,6 +193,18 @@ public class WorkAnimation : MonoBehaviour
                     minions[i].networkView.RPC("SetNavMeshAgent", minions[i].networkView.owner, true);
                 minions[i] = null;
                 break;
+            }
+        }
+    }
+
+    public void CheckMinions(List<MinionAgent> minionList)
+    {
+
+        foreach (GameObject minion in minions)
+        {
+            if (minion != null && minionList.IndexOf(minion.GetComponent<MinionAgent>()) == -1)
+            {
+                RemoveMinion(minion);
             }
         }
     }
