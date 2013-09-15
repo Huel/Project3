@@ -106,31 +106,31 @@ public class CharacterState : MonoBehaviour
         UpdateHealth();
         UpdateStamina();
         UpdateTrophies();
-        UpdateSkills();
+        //UpdateSkills();
     }
 
-    private void UpdateSkills()
-    {
-        if (FindPlayer() && !init)
-        {
-            SetSkillPosiotion(1, _player.GetComponent<CharController>().skill1.skillName);
-            SetSkillPosiotion(2, _player.GetComponent<CharController>().skill2.skillName);
-            SetSkillPosiotion(3, _player.GetComponent<CharController>().skill3.skillName);
-            SetSkillPosiotion(4, _player.GetComponent<CharController>().skill4.skillName);
-            init = true;
-        }
+    //private void UpdateSkills()
+    //{
+    //    if (FindPlayer() && !init)
+    //    {
+    //        SetSkillPosiotion(1, _player.GetComponent<CharController>().skill1.skillName);
+    //        SetSkillPosiotion(2, _player.GetComponent<CharController>().skill2.skillName);
+    //        SetSkillPosiotion(3, _player.GetComponent<CharController>().skill3.skillName);
+    //        SetSkillPosiotion(4, _player.GetComponent<CharController>().skill4.skillName);
+    //        init = true;
+    //    }
 
-        foreach (Skill skill in _player.GetComponents<Skill>())
-        {
-            foreach (GameObject skillSprite in skills)
-            {
-                if (skill.actualCooldown > 0 && skillSprite.name.Equals(skill.skillName))
-                {
-                    skillSprite.GetComponent<UISprite>().fillAmount = -(skill.actualCooldown / skill.cooldown - 1);
-                }
-            }
-        }
-    }
+    //    foreach (Skill skill in _player.GetComponents<Skill>())
+    //    {
+    //        foreach (GameObject skillSprite in skills)
+    //        {
+    //            if (skill.actualCooldown > 0 && skillSprite.name.Equals(skill.skillName))
+    //            {
+    //                skillSprite.GetComponent<UISprite>().fillAmount = -(skill.actualCooldown / skill.cooldown - 1);
+    //            }
+    //        }
+    //    }
+    //}
 
     private bool FindPlayer()
     {

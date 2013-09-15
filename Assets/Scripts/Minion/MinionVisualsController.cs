@@ -4,7 +4,7 @@ public class MinionVisualsController : MonoBehaviour
 {
     private Animator animator;
 
-    public enum AnimStates{ Run, Dead, Attack, Push, Buff };
+    public enum AnimStates { Run, Dead, Attack, Push, Buff };
     private AnimStates state;
 
     private string run = "Run";
@@ -31,7 +31,7 @@ public class MinionVisualsController : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
         if (!networkView.isMine || gameObject == null)
             return;
         // not sure if necessary
@@ -40,11 +40,11 @@ public class MinionVisualsController : MonoBehaviour
         if (!GetComponent<Health>().IsAlive())
             state = AnimStates.Dead;
 
-        else if (GetComponent<Skill>().State == SkillState.InExecution)
-        {
-            randomAttack = Random.Range(1, 4);
-            state = AnimStates.Attack;
-        }
+        //else if (GetComponent<Skill>().State == SkillState.InExecution)
+        //{
+        //    randomAttack = Random.Range(1, 4);
+        //    state = AnimStates.Attack;
+        //}
 
         else if (GetComponent<MinionAgent>().getCurrentTargetType() == TargetType.Valve
             && GetComponent<MinionAgent>().getTarget().GetComponent<WorkAnimation>().Move(gameObject))
@@ -136,6 +136,6 @@ public class MinionVisualsController : MonoBehaviour
             animator.SetBool(buff, fifth);
             animator.SetInteger(attackType, type);
         }
-       
+
     }
 }
