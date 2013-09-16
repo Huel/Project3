@@ -167,10 +167,13 @@ public class MinionAgent : MonoBehaviour
         if (contact.Contact(_target) && _target != null)
         {
             if (_agent.enabled) _agent.Stop(true);
-            transform.LookAt(_target.transform);
+           
             // Enemy
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
+            {
                 basicAttack.Execute();
+                transform.LookAt(_target.transform);
+            }
             // Valve
             else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
