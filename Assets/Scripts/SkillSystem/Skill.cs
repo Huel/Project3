@@ -5,16 +5,16 @@ using UnityEngine;
 public abstract class Skill : MonoBehaviour
 {
     public enum SkillState { Ready, InExecution, Active, CoolingDown }
-    protected delegate void OnState();
 
-    private SkillState _state = SkillState.Ready;
+
     private float _stateTime;
-    private readonly float[] _stateDuration = { 0f, 0f, 0f, 0f };
-    private SkillState _nextState;
+    private float[] _stateDuration = { 0f, 0f, 0f, 0f };
+    private SkillState[] _stateCycle = { SkillState.Ready, SkillState.InExecution, SkillState.Active, SkillState.CoolingDown };
+    private SkillState _state = SkillState.Ready;
+    private SkillState _nextState = SkillState.Ready;
 
-
-
-    protected SkillState[] _stateCycle = { SkillState.Ready, SkillState.InExecution, SkillState.CoolingDown };
+    protected string skillName = "Skill";
+    protected bool debug;
 
 
     public SkillState State
@@ -32,12 +32,12 @@ public abstract class Skill : MonoBehaviour
 
     protected bool Executable
     {
-        get { return (State == SkillState.Ready) && (!ExecutingSkill()); }
-    }
-
-    void Start()
-    {
-        _nextState = State;
+        get
+        {
+            if (debug && !((State == SkillState.Ready) && (!ExecutingSkill())))
+                DebugStreamer.message = skillName + " is not executable!";
+            return (State == SkillState.Ready) && (!ExecutingSkill());
+        }
     }
 
     private void UpdateStateTime(float deltaTime)
@@ -75,6 +75,10 @@ public abstract class Skill : MonoBehaviour
     {
         return _stateDuration[(int)state];
     }
+    protected void SetStateCycle(SkillState[] states)
+    {
+        _stateCycle = states;
+    }
 
     public abstract bool Execute();
 
@@ -97,15 +101,23 @@ public abstract class Skill : MonoBehaviour
         switch (State)
         {
             case SkillState.Ready:
+                if (debug)
+                    DebugStreamer.message = skillName + ": Ready";
                 OnReady();
                 break;
             case SkillState.InExecution:
+                if (debug)
+                    DebugStreamer.message = skillName + ": InExecution";
                 OnExecute();
                 break;
             case SkillState.Active:
+                if (debug)
+                    DebugStreamer.message = skillName + ": Active";
                 OnActive();
                 break;
             case SkillState.CoolingDown:
+                if (debug)
+                    DebugStreamer.message = skillName + ": CoolingDown";
                 OnCoolDown();
                 break;
         }
