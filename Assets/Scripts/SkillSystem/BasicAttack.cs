@@ -18,7 +18,7 @@ public class BasicAttack : Skill
 
     public void Awake()
     {
-        debug = true;
+        //debug = true;
         skillName = "Basic Attack";
         SetDuration(SkillState.InExecution, _castTime);
         SetDuration(SkillState.CoolingDown, _cooldownTime);

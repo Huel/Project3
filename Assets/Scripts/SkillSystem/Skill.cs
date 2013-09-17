@@ -56,7 +56,7 @@ public abstract class Skill : MonoBehaviour
         Skill[] skills = GetComponents<Skill>();
         foreach (Skill skill in skills)
         {
-            if (skill.State == SkillState.InExecution)
+            if (skill.State == SkillState.InExecution || skill.State == SkillState.Active)
                 return true;
         }
         return false;
@@ -101,27 +101,24 @@ public abstract class Skill : MonoBehaviour
         switch (State)
         {
             case SkillState.Ready:
-                if (debug)
-                    DebugStreamer.message = skillName + ": Ready";
                 OnReady();
                 break;
             case SkillState.InExecution:
-                if (debug)
-                    DebugStreamer.message = skillName + ": InExecution";
                 OnExecute();
                 break;
             case SkillState.Active:
-                if (debug)
-                    DebugStreamer.message = skillName + ": Active";
                 OnActive();
                 break;
             case SkillState.CoolingDown:
-                if (debug)
-                    DebugStreamer.message = skillName + ": CoolingDown";
                 OnCoolDown();
                 break;
         }
-        State = _nextState;
+        if (State != _nextState)
+        {
+            State = _nextState;
+            if (debug)
+                DebugStreamer.message = skillName + ": " + State;
+        }
     }
 
 }

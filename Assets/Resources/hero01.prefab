@@ -91,6 +91,8 @@ GameObject:
   - 132: {fileID: 13200000}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400012}
+  - 114: {fileID: 11400026}
+  - 114: {fileID: 11400028}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -2982,6 +2984,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthbar: {fileID: 11400064}
   enemyOnly: 1
+--- !u!114 &11400026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c54791e8b92664f8ea074ad65de526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldownTime: 90
+  _eatOwnMinions: 0
+  _eatEnemyMinions: 1
+  contactTrigger: {fileID: 11400000}
+--- !u!114 &11400028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328d13ef42afb5a44bd506e7ac029b9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 5
+  _cooldownTime: 30
+  _deactivatable: 0
+  _speedMultiplier: .5
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2994,9 +3026,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAttack: {fileID: 11400012}
-  skill1: {fileID: 0}
+  skill1: {fileID: 11400028}
   skill2: {fileID: 0}
-  skill3: {fileID: 0}
+  skill3: {fileID: 11400026}
   skill4: {fileID: 0}
   addSquad: {fileID: 0}
   removeSquad: {fileID: 0}
