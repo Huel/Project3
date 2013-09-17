@@ -117,7 +117,7 @@ public class CharController : MonoBehaviour
         //Use gravity.
         _controller.Move(Physics.gravity);
         //Send the character speed (related to his default speed) to the animator to blend the animation
-        _animator.SetFloat(AnimatorTags.speed, _speed / _speedComponent.DefaultSpeed);
+        _animator.SetFloat(AnimatorTags.speed, _speed / 5.5f);
     }
 
     private void HandleInput(ref float horizontal, ref float vertical)

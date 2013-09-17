@@ -288,6 +288,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -349,6 +350,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -439,16 +442,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &5263908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +454,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &5263909
 MonoBehaviour:
@@ -472,6 +467,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &5263910
 NetworkView:
@@ -526,6 +522,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 940885846}
   currentRotation: 0
 --- !u!114 &5263915
@@ -539,6 +536,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 628510858}
   currentRotation: 0
   lastRotation: 0
@@ -554,6 +552,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1056252236}
   - {fileID: 904803549}
@@ -889,6 +888,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &14503362
@@ -2129,6 +2129,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -2246,6 +2247,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2352,6 +2354,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 2035593285}
   WaypointB: {fileID: 630742724}
   BombStopper: {fileID: 0}
@@ -2393,6 +2396,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2444,13 +2448,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 830886088}
   fountain: {fileID: 1940153576}
   waterStream: {fileID: 1444669658}
   waterStreamParticle: {fileID: 1444669657}
   steam: {fileID: 639201161}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &36080320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2601,6 +2606,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bdc19516dceeab4b9c65f8df28be70d, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   scalingStyle: 1
   automatic: 0
   manualHeight: 2048
@@ -2854,6 +2860,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &49494935
 MonoBehaviour:
@@ -2866,6 +2873,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 472607579}
   checkPointB: {fileID: 1016253738}
 --- !u!4 &49494937
@@ -3418,6 +3426,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3518,6 +3527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d02ee7857fc524bbc30c8aad57f0f1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &81480997
 Transform:
   m_ObjectHideFlags: 0
@@ -3540,6 +3550,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 0
 --- !u!1 &88039331
 GameObject:
@@ -3579,6 +3590,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -4766,6 +4778,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -4865,6 +4878,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c29e5ad42bc78149a8caa3319861f63, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   debug: 1
   useMouse: 0
   useTouch: 0
@@ -4957,6 +4971,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 258378175}
   WaypointB: {fileID: 0}
   BombStopper: {fileID: 0}
@@ -4998,6 +5013,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -5267,6 +5283,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6091,16 +6109,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &135746183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6112,6 +6121,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &135746184
 MonoBehaviour:
@@ -6124,6 +6134,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &135746185
 NetworkView:
@@ -6198,6 +6209,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 308471549}
   currentRotation: 0
 --- !u!114 &135746191
@@ -6211,6 +6223,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1851802233}
   currentRotation: 0
   lastRotation: 0
@@ -6226,6 +6239,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 688010935}
   - {fileID: 428826392}
@@ -6519,6 +6533,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28f7634e90e51d740b8024a1b8638098, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   minionViewLerpSpeed: 10
   minionViewScaleSpeed: 4
   guiMiniMap: {fileID: 11347793}
@@ -6625,6 +6640,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -6970,6 +6986,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 337806020}
   WaypointB: {fileID: 527079880}
   BombStopper: {fileID: 357635919}
@@ -7052,6 +7069,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7162,7 +7180,7 @@ EllipsoidParticleEmitter:
   m_GameObject: {fileID: 185314548}
   serializedVersion: 2
   m_Enabled: 1
-  m_Emit: 1
+  m_Emit: 0
   minSize: 10
   maxSize: 10
   minEnergy: 2
@@ -7220,13 +7238,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 910857336}
   fountain: {fileID: 12081371}
   waterStream: {fileID: 1435092223}
   waterStreamParticle: {fileID: 1435092222}
   steam: {fileID: 1983928576}
-  _currentState: 100
+  _currentState: 0
 --- !u!1001 &194890340
 Prefab:
   m_ObjectHideFlags: 0
@@ -8382,6 +8401,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -8940,6 +8960,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &215397916
@@ -9171,6 +9192,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -9221,6 +9243,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 1590311173}
   BombStopper: {fileID: 0}
@@ -9479,6 +9502,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -9771,6 +9795,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &232216756
@@ -10135,6 +10160,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -10369,6 +10395,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbf13d80e698ac847818a5b52a3b0e91, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   blueArrows: []
   redArrows: []
 --- !u!1001 &253655171
@@ -10577,16 +10604,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &255041096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10598,6 +10616,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &255041097
 MonoBehaviour:
@@ -10610,6 +10629,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &255041098
 NetworkView:
@@ -10684,6 +10704,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1487957949}
   currentRotation: 0
 --- !u!114 &255041104
@@ -10697,6 +10718,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 648675500}
   currentRotation: 0
   lastRotation: 0
@@ -10712,6 +10734,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 535588238}
   - {fileID: 1677514557}
@@ -10836,6 +10859,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 958687629}
   WaypointB: {fileID: 91514927}
   BombStopper: {fileID: 0}
@@ -11186,6 +11210,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1392052241}
   WaypointB: {fileID: 1276995768}
   BombStopper: {fileID: 135746181}
@@ -11478,6 +11503,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -11670,6 +11696,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -11978,6 +12005,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -12242,6 +12270,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -12527,6 +12556,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1286925821}
   WaypointB: {fileID: 169181334}
   BombStopper: {fileID: 1289127807}
@@ -12569,13 +12599,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 1004790283}
   fountain: {fileID: 1813447896}
   waterStream: {fileID: 1737988753}
   waterStreamParticle: {fileID: 1737988752}
   steam: {fileID: 1366775443}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &341290459
 GameObject:
   m_ObjectHideFlags: 0
@@ -12672,6 +12703,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 5
 --- !u!114 &345872004
 MonoBehaviour:
@@ -12684,6 +12716,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &345872005
 MonoBehaviour:
@@ -12696,6 +12729,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3e53b6c60181894faf146a78f931c93, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   lane01: {fileID: 472607579}
   lane02: {fileID: 1739275921}
   lane03: {fileID: 614986022}
@@ -12743,6 +12777,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &352207554
 MonoBehaviour:
@@ -12755,6 +12790,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 5
 --- !u!135 &352207555
 SphereCollider:
@@ -12791,6 +12827,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3e53b6c60181894faf146a78f931c93, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   lane01: {fileID: 1016253738}
   lane02: {fileID: 1162213683}
   lane03: {fileID: 2048891153}
@@ -13025,16 +13062,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &357635921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13046,6 +13074,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &357635922
 MonoBehaviour:
@@ -13058,6 +13087,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &357635923
 NetworkView:
@@ -13132,6 +13162,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1965137241}
   currentRotation: 0
 --- !u!114 &357635929
@@ -13145,6 +13176,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 37166113}
   currentRotation: 0
   lastRotation: 0
@@ -13160,6 +13192,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 446604966}
   - {fileID: 764153212}
@@ -13329,16 +13362,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &367835015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13350,6 +13374,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &367835016
 MonoBehaviour:
@@ -13362,6 +13387,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &367835017
 NetworkView:
@@ -13416,6 +13442,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 278434641}
   currentRotation: 0
 --- !u!114 &367835022
@@ -13429,6 +13456,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 253992699}
   currentRotation: 0
   lastRotation: 0
@@ -13444,6 +13472,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1977141399}
   - {fileID: 985910844}
@@ -13492,6 +13521,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -13542,6 +13572,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -14772,6 +14803,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -15064,6 +15096,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1276995768}
   WaypointB: {fileID: 1479869833}
   BombStopper: {fileID: 0}
@@ -15105,6 +15138,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -15306,6 +15340,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -15539,6 +15574,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -15589,6 +15625,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -15852,6 +15889,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 0
 --- !u!135 &433504741
@@ -16579,13 +16617,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 567232657}
   fountain: {fileID: 655774996}
   waterStream: {fileID: 132971375}
   waterStreamParticle: {fileID: 132971374}
   steam: {fileID: 583656032}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &455408087
 GameObject:
   m_ObjectHideFlags: 0
@@ -16768,6 +16807,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -17149,13 +17189,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 864411730}
   fountain: {fileID: 518973219}
   waterStream: {fileID: 1632344202}
   waterStreamParticle: {fileID: 1632344201}
   steam: {fileID: 523656503}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &471972561
 GameObject:
   m_ObjectHideFlags: 0
@@ -17240,6 +17281,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 345872003}
   checkPointB: {fileID: 49494934}
 --- !u!114 &472607579
@@ -17253,6 +17295,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!4 &472607581
 Transform:
@@ -17303,6 +17346,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -17353,6 +17397,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -17568,6 +17613,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!114 &482879276
 MonoBehaviour:
@@ -17580,6 +17626,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &482879277
 MonoBehaviour:
@@ -17592,16 +17639,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &482879278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17613,6 +17651,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 336004935}
   currentRotation: 0
 --- !u!114 &482879280
@@ -17626,6 +17665,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 538352384}
   currentRotation: 0
   lastRotation: 0
@@ -17641,6 +17681,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 796925810}
   - {fileID: 246099505}
@@ -18135,6 +18176,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &494773106
@@ -18230,6 +18272,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -18306,6 +18349,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -18956,6 +19000,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &520264510
@@ -19157,6 +19202,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1286925821}
   WaypointB: {fileID: 0}
   BombStopper: {fileID: 0}
@@ -19198,6 +19244,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -19485,6 +19532,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbf13d80e698ac847818a5b52a3b0e91, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   blueArrows: []
   redArrows: []
 --- !u!1 &546593920
@@ -19815,6 +19863,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -20047,16 +20096,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &567232658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20068,6 +20108,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &567232659
 MonoBehaviour:
@@ -20080,6 +20121,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &567232660
 NetworkView:
@@ -20134,6 +20176,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1372747282}
   currentRotation: 0
 --- !u!114 &567232665
@@ -20147,6 +20190,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1112390453}
   currentRotation: 0
   lastRotation: 0
@@ -20162,6 +20206,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1351154053}
   - {fileID: 1737214308}
@@ -20521,6 +20566,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 1973595705}
   BombStopper: {fileID: 0}
@@ -20632,13 +20678,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 1912357322}
   fountain: {fileID: 2000666945}
   waterStream: {fileID: 1243646128}
   waterStreamParticle: {fileID: 1243646127}
   steam: {fileID: 1718461777}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &583656028
 GameObject:
   m_ObjectHideFlags: 0
@@ -21183,6 +21230,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -21479,6 +21527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &614986023
 MonoBehaviour:
@@ -21491,6 +21540,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 345872003}
   checkPointB: {fileID: 1031776513}
 --- !u!4 &614986025
@@ -21881,6 +21931,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 32116239}
   WaypointB: {fileID: 2035593285}
   BombStopper: {fileID: 0}
@@ -21991,6 +22042,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -22448,13 +22500,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 255041095}
   fountain: {fileID: 1100103360}
   waterStream: {fileID: 683623688}
   waterStreamParticle: {fileID: 683623687}
   steam: {fileID: 185314552}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &654769293
 GameObject:
   m_ObjectHideFlags: 0
@@ -22590,6 +22643,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -22731,6 +22785,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &672053653
@@ -23175,6 +23230,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 845014598}
   WaypointB: {fileID: 1315701020}
   BombStopper: {fileID: 367835012}
@@ -23276,7 +23332,7 @@ EllipsoidParticleEmitter:
   m_GameObject: {fileID: 683623684}
   serializedVersion: 2
   m_Enabled: 1
-  m_Emit: 1
+  m_Emit: 0
   minSize: 10.1700001
   maxSize: 10
   minEnergy: 3
@@ -23496,6 +23552,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -24668,6 +24725,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -24801,6 +24859,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -24949,13 +25008,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 1926857122}
   fountain: {fileID: 787610336}
   waterStream: {fileID: 1882216285}
   waterStreamParticle: {fileID: 1882216284}
   steam: {fileID: 955474606}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &723466958
 GameObject:
   m_ObjectHideFlags: 0
@@ -25146,6 +25206,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -25427,6 +25488,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -25599,6 +25661,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &755749434
@@ -25720,6 +25783,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 0
 --- !u!135 &757298567
@@ -26245,6 +26309,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -26521,6 +26586,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &790119381
@@ -26668,6 +26734,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb563ca6bae682042a11e1d592c22954, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &792565067
 Transform:
   m_ObjectHideFlags: 0
@@ -26905,6 +26972,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -27158,16 +27226,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &830886089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27179,6 +27238,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &830886090
 MonoBehaviour:
@@ -27191,6 +27251,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &830886091
 NetworkView:
@@ -27265,6 +27326,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1333253550}
   currentRotation: 0
 --- !u!114 &830886097
@@ -27278,6 +27340,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1458137913}
   currentRotation: 0
   lastRotation: 0
@@ -27293,6 +27356,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1573921783}
   - {fileID: 1284507239}
@@ -27737,6 +27801,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 988309519}
   WaypointB: {fileID: 680550973}
   BombStopper: {fileID: 1796192423}
@@ -27834,6 +27899,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 2008023096}
   WaypointB: {fileID: 992757371}
   BombStopper: {fileID: 0}
@@ -27989,16 +28055,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &864411731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28010,6 +28067,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &864411732
 MonoBehaviour:
@@ -28022,6 +28080,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &864411733
 NetworkView:
@@ -28076,6 +28135,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1724063800}
   currentRotation: 0
 --- !u!114 &864411738
@@ -28089,6 +28149,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1933025339}
   currentRotation: 0
   lastRotation: 0
@@ -28104,6 +28165,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1967215446}
   - {fileID: 1726696112}
@@ -28152,6 +28214,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -28438,6 +28501,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaea71a71f5194341908396eb3df86f1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   showInPanelTool: 1
   generateNormals: 0
   depthPass: 0
@@ -29944,6 +30008,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -30182,16 +30247,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &910857337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30203,6 +30259,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &910857338
 MonoBehaviour:
@@ -30215,6 +30272,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &910857339
 NetworkView:
@@ -30289,6 +30347,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 948251283}
   currentRotation: 0
 --- !u!114 &910857345
@@ -30302,6 +30361,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 205786873}
   currentRotation: 0
   lastRotation: 0
@@ -30317,6 +30377,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 923011173}
   - {fileID: 787069509}
@@ -30366,13 +30427,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 1289127809}
   fountain: {fileID: 1312104021}
   waterStream: {fileID: 1297131673}
   waterStreamParticle: {fileID: 1297131672}
   steam: {fileID: 1222925401}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &922800635
 GameObject:
   m_ObjectHideFlags: 0
@@ -31221,6 +31283,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1315701020}
   WaypointB: {fileID: 258378175}
   BombStopper: {fileID: 0}
@@ -31332,6 +31395,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -31800,6 +31864,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -32080,6 +32145,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 2020371673}
   WaypointB: {fileID: 845014598}
   BombStopper: {fileID: 0}
@@ -32496,13 +32562,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 1982799429}
   fountain: {fileID: 232101537}
   waterStream: {fileID: 59856374}
   waterStreamParticle: {fileID: 59856373}
   steam: {fileID: 331892024}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &992757371
 GameObject:
   m_ObjectHideFlags: 0
@@ -32541,6 +32608,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 848064037}
   WaypointB: {fileID: 1392052241}
   BombStopper: {fileID: 0}
@@ -32745,16 +32813,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1004790284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32766,6 +32825,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &1004790285
 MonoBehaviour:
@@ -32778,6 +32838,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1004790286
 NetworkView:
@@ -32852,6 +32913,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 206835068}
   currentRotation: 0
 --- !u!114 &1004790292
@@ -32865,6 +32927,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 2050627749}
   currentRotation: 0
   lastRotation: 0
@@ -32880,6 +32943,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 943968688}
   - {fileID: 96509526}
@@ -32928,6 +32992,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -32997,6 +33062,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &1016253739
 MonoBehaviour:
@@ -33009,6 +33075,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 49494934}
   checkPointB: {fileID: 352207554}
 --- !u!4 &1016253741
@@ -33234,6 +33301,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &1031776514
 MonoBehaviour:
@@ -33246,6 +33314,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 614986022}
   checkPointB: {fileID: 2048891153}
 --- !u!4 &1031776516
@@ -34236,6 +34305,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -34309,6 +34380,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -34615,7 +34687,7 @@ EllipsoidParticleEmitter:
   m_GameObject: {fileID: 1100103356}
   serializedVersion: 2
   m_Enabled: 1
-  m_Emit: 1
+  m_Emit: 0
   minSize: 6
   maxSize: 3
   minEnergy: 2
@@ -34645,6 +34717,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1100847704
@@ -34805,7 +34878,7 @@ Transform:
   m_PrefabInternal: {fileID: 1855473889}
   m_GameObject: {fileID: 1106318916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1604.51868, y: 525.233887, z: .00048828125}
+  m_LocalPosition: {x: 1134.29639, y: 525.233887, z: .00048828125}
   m_LocalScale: {x: 1.00044799, y: 1.00044799, z: 1.00044799}
   m_Children:
   - {fileID: 11347794}
@@ -34821,6 +34894,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe7bfb42855de945ad64ca027fbb183, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   uiCamera: {fileID: 91059841}
   widgetContainer: {fileID: 0}
   panelContainer: {fileID: 0}
@@ -34985,6 +35059,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_InterpolationBackTime: .10000000000000001
   m_ExtrapolationLimit: .5
   WaypointA: {fileID: 2020371673}
@@ -35103,6 +35178,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -35390,6 +35466,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1136606361
@@ -35448,6 +35525,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 2
 --- !u!135 &1136606365
@@ -36018,13 +36096,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mDepth: 6
   mAtlas: {fileID: 11400000, guid: 4925fad89b072874d84292a992ea1fc7, type: 2}
-  mSpriteName: Icon_Battlecry
+  mSpriteName: Icon_null
   mFillCenter: 1
   mType: 3
   mFillDirection: 1
@@ -36319,6 +36398,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 1251385511}
   checkPointB: {fileID: 352207554}
 --- !u!114 &1162213683
@@ -36332,6 +36412,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!4 &1162213685
 Transform:
@@ -36382,6 +36463,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -36432,6 +36514,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -36561,16 +36644,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1174663717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36582,6 +36656,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &1174663718
 MonoBehaviour:
@@ -36594,6 +36669,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1174663719
 NetworkView:
@@ -36648,6 +36724,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1872070659}
   currentRotation: 0
 --- !u!114 &1174663724
@@ -36661,6 +36738,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1154796970}
   currentRotation: 0
   lastRotation: 0
@@ -36675,6 +36753,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 136705463}
   - {fileID: 785113124}
@@ -36696,6 +36775,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 333977821}
   - {fileID: 463047082}
@@ -36824,6 +36904,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 1
 --- !u!135 &1181040879
@@ -37001,6 +37082,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -37052,13 +37134,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 357635920}
   fountain: {fileID: 1133694793}
   waterStream: {fileID: 1388422301}
   waterStreamParticle: {fileID: 1388422300}
   steam: {fileID: 1824877459}
-  _currentState: 100
+  _currentState: 0
 --- !u!1001 &1201482938
 Prefab:
   m_ObjectHideFlags: 0
@@ -37501,6 +37584,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38174,6 +38258,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38288,13 +38373,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 482879277}
   fountain: {fileID: 493855028}
   waterStream: {fileID: 1498137042}
   waterStreamParticle: {fileID: 1498137041}
   steam: {fileID: 620648556}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &1240055255
 GameObject:
   m_ObjectHideFlags: 0
@@ -38587,6 +38673,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38627,6 +38714,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &1251385512
 MonoBehaviour:
@@ -38639,6 +38727,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 1739275921}
   checkPointB: {fileID: 2048891153}
 --- !u!4 &1251385514
@@ -38773,6 +38862,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38823,6 +38913,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38873,6 +38964,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -38939,6 +39031,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6899a55879a6dd8499cc22d840386c46, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   teamOnePointPrefab: {fileID: 100000, guid: 4ba7e950db1eb634694ace41632dbc35, type: 2}
   teamTwoPointPrefab: {fileID: 100000, guid: cfc0c68ef8dcefc4aa9fe60cace42451, type: 2}
   heroTeamOneArrowPrefab: {fileID: 100000, guid: aa49025e48dde294aa58317ef672784d,
@@ -38967,6 +39060,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaea71a71f5194341908396eb3df86f1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   showInPanelTool: 1
   generateNormals: 0
   depthPass: 0
@@ -39005,6 +39099,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 569c5831f8b71ec44a6c082553a2e320, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   bombLane01: {fileID: 1386567976}
   bombLane02: {fileID: 1277759841}
   bombLane03: {fileID: 1116216135}
@@ -39264,6 +39359,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 285073231}
   WaypointB: {fileID: 394133716}
   BombStopper: {fileID: 1683648592}
@@ -39309,6 +39405,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_InterpolationBackTime: .10000000000000001
   m_ExtrapolationLimit: .5
   WaypointA: {fileID: 1822119269}
@@ -39624,6 +39721,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1765483496}
   WaypointB: {fileID: 337806020}
   BombStopper: {fileID: 830886087}
@@ -39842,16 +39940,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1289127810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39863,6 +39952,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &1289127811
 MonoBehaviour:
@@ -39875,6 +39965,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1289127812
 NetworkView:
@@ -39929,6 +40020,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 515826911}
   currentRotation: 0
 --- !u!114 &1289127817
@@ -39942,6 +40034,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 2125992008}
   currentRotation: 0
   lastRotation: 0
@@ -39957,6 +40050,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 366089899}
   - {fileID: 1853475044}
@@ -40267,6 +40361,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -40711,6 +40806,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1313386419
@@ -40846,6 +40942,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 680550973}
   WaypointB: {fileID: 958687629}
   BombStopper: {fileID: 482879270}
@@ -41194,13 +41291,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 367835014}
   fountain: {fileID: 2105241563}
   waterStream: {fileID: 125427559}
   waterStreamParticle: {fileID: 125427558}
   steam: {fileID: 429550328}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &1333253550
 GameObject:
   m_ObjectHideFlags: 0
@@ -41568,6 +41666,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -41842,6 +41941,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -42230,6 +42330,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -43345,6 +43446,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -43383,6 +43485,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd62d3eeb5679748acf13576848994b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_InterpolationBackTime: .10000000000000001
   m_ExtrapolationLimit: .5
   WaypointA: {fileID: 1276995768}
@@ -43699,6 +43802,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 992757371}
   WaypointB: {fileID: 285073231}
   BombStopper: {fileID: 910857335}
@@ -43819,6 +43923,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 0
 --- !u!135 &1393875179
@@ -44049,6 +44154,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -44202,6 +44308,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -44468,6 +44575,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -44611,6 +44719,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c20993bb20bc14b439aa138075ca0438, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1414066132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44622,6 +44731,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0923359e9e352a4b9b11c7b7161ad67, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_Radius: .400000006
   m_SampleCount: 1
   m_OcclusionIntensity: 1.5
@@ -44642,6 +44752,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a773099f140e846f7835d27351846623, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   tweakMode: 0
   screenBlendMode: 1
   hdr: 0
@@ -44681,6 +44792,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8891d133b6d44045a6e76cf5894e931, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: d843cea39eb53424b9eb9981ace48fe7, type: 3}
   coverage: 0
   barTexture: {fileID: 2800000, guid: 12a43dc41561f6a44bed4047aedd1e9f, type: 3}
@@ -44695,6 +44807,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9aaa3f5f2d574f228e4a21aa38b61e4, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mode: 2
   showGeneratedNormals: 0
   offsetScale: .200000003
@@ -46025,6 +46138,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -46070,6 +46184,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1973595705}
   WaypointB: {fileID: 1822119269}
   BombStopper: {fileID: 5263905}
@@ -47176,6 +47291,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -48287,6 +48403,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -48333,6 +48450,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -48946,6 +49064,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 1
 --- !u!135 &1446806350
@@ -49133,6 +49252,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe7bfb42855de945ad64ca027fbb183, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   uiCamera: {fileID: 91059841}
   widgetContainer: {fileID: 0}
   panelContainer: {fileID: 0}
@@ -49151,6 +49271,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9f5c62eb79ebe848a4dbe8006cff284, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   skills: []
 --- !u!1 &1457376987
 GameObject:
@@ -50418,6 +50539,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -50506,6 +50628,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3d3ef1a5bbfb4e0a910fbbe5830b1f9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_WaterMode: 1
   m_DisablePixelLights: 1
   m_TextureSize: 256
@@ -50593,13 +50716,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 135746182}
   fountain: {fileID: 214150112}
   waterStream: {fileID: 1157305332}
   waterStreamParticle: {fileID: 1157305331}
   steam: {fileID: 1457376991}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &1478015159
 GameObject:
   m_ObjectHideFlags: 0
@@ -51703,6 +51827,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -51748,6 +51873,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 394133716}
   WaypointB: {fileID: 1659946512}
   BombStopper: {fileID: 864411728}
@@ -52189,6 +52315,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -52546,6 +52673,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1503065962
@@ -52734,6 +52862,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -52938,6 +53067,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -53195,6 +53325,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 1
 --- !u!135 &1536392015
@@ -53309,13 +53440,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 1174663716}
   fountain: {fileID: 1859033742}
   waterStream: {fileID: 225570724}
   waterStreamParticle: {fileID: 225570723}
   steam: {fileID: 832066323}
-  _currentState: 100
+  _currentState: 0
 --- !u!1001 &1545679172
 Prefab:
   m_ObjectHideFlags: 0
@@ -54139,6 +54271,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c69515494f946514e9d6e5889250fe94, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1590311173
 GameObject:
   m_ObjectHideFlags: 0
@@ -54177,6 +54310,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 220986639}
   WaypointB: {fileID: 1760532713}
   BombStopper: {fileID: 0}
@@ -54249,6 +54383,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -54563,6 +54698,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 2
 --- !u!135 &1607366378
@@ -54616,6 +54752,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -55824,6 +55961,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -55922,6 +56060,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -56369,6 +56508,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbf13d80e698ac847818a5b52a3b0e91, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   blueArrows: []
   redArrows: []
 --- !u!1 &1648325312
@@ -56409,6 +56549,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -56459,6 +56600,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -56539,6 +56681,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1479869833}
   WaypointB: {fileID: 1921179229}
   BombStopper: {fileID: 1982799427}
@@ -56707,6 +56850,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -57005,6 +57149,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -58120,6 +58265,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -58209,16 +58355,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1683648595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58230,6 +58367,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &1683648596
 MonoBehaviour:
@@ -58242,6 +58380,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1683648597
 NetworkView:
@@ -58296,6 +58435,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1845757015}
   currentRotation: 0
 --- !u!114 &1683648602
@@ -58309,6 +58449,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1096538259}
   currentRotation: 0
   lastRotation: 0
@@ -58324,6 +58465,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 2132064438}
   - {fileID: 362486898}
@@ -58832,7 +58974,7 @@ Transform:
   m_PrefabInternal: {fileID: 1855473889}
   m_GameObject: {fileID: 1708643471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1604.51807, y: -525.234375, z: 0}
+  m_LocalPosition: {x: -1134.29602, y: -525.234375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1679570502}
@@ -58853,6 +58995,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe7bfb42855de945ad64ca027fbb183, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   uiCamera: {fileID: 91059841}
   widgetContainer: {fileID: 0}
   panelContainer: {fileID: 0}
@@ -58871,6 +59014,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8605bbbcca425f64f9185c7b3acab210, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   sqaudIcons: []
 --- !u!1 &1712973800
 GameObject:
@@ -59226,6 +59370,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 2017101526}
   WaypointB: {fileID: 2020371673}
   BombStopper: {fileID: 1912357320}
@@ -59823,6 +59968,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!114 &1739275922
 MonoBehaviour:
@@ -59835,6 +59981,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 345872003}
   checkPointB: {fileID: 1251385511}
 --- !u!4 &1739275924
@@ -59886,6 +60033,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -59936,6 +60084,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -60156,6 +60305,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 2
 --- !u!135 &1751083190
@@ -60210,13 +60360,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 1796192425}
   fountain: {fileID: 754882265}
   waterStream: {fileID: 337475644}
   waterStreamParticle: {fileID: 337475643}
   steam: {fileID: 769507939}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &1758146575
 GameObject:
   m_ObjectHideFlags: 0
@@ -60337,6 +60488,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1590311173}
   WaypointB: {fileID: 2017101526}
   BombStopper: {fileID: 0}
@@ -60404,6 +60556,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -60505,6 +60658,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1822119269}
   WaypointB: {fileID: 1286925821}
   BombStopper: {fileID: 0}
@@ -60648,6 +60802,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 1
   myLane: 0
 --- !u!135 &1770067091
@@ -61818,6 +61973,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -61908,6 +62064,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -62154,6 +62311,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -62285,16 +62443,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1796192426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62306,6 +62455,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &1796192427
 MonoBehaviour:
@@ -62318,6 +62468,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1796192428
 NetworkView:
@@ -62372,6 +62523,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1928352448}
   currentRotation: 0
 --- !u!114 &1796192433
@@ -62385,6 +62537,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 504558298}
   currentRotation: 0
   lastRotation: 0
@@ -62400,6 +62553,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1117133955}
   - {fileID: 1588027740}
@@ -62483,6 +62637,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -62668,6 +62823,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -62872,6 +63028,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1815516049
@@ -62913,13 +63070,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   valve: {fileID: 1683648594}
   fountain: {fileID: 1834190098}
   waterStream: {fileID: 2029997140}
   waterStreamParticle: {fileID: 2029997139}
   steam: {fileID: 197441801}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &1817082062
 GameObject:
   m_ObjectHideFlags: 0
@@ -62983,6 +63141,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1424678387}
   WaypointB: {fileID: 1765483496}
   BombStopper: {fileID: 1174663714}
@@ -63197,6 +63356,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -63369,6 +63529,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1837577009
@@ -63541,6 +63702,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -63692,6 +63854,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 2
 --- !u!135 &1851070352
@@ -63881,83 +64044,83 @@ Prefab:
     - target: {fileID: 11400004, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400004, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400006, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400006, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400008, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400008, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400010, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400010, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400014, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400014, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400012, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400012, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400016, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400016, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400022, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400022, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400028, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400028, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400018, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400018, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400020, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
@@ -63977,11 +64140,11 @@ Prefab:
     - target: {fileID: 11400042, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400042, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400034, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
@@ -63993,14 +64156,14 @@ Prefab:
     - target: {fileID: 11400046, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400046, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 400040, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1604.51807
+      value: -1134.29602
       objectReference: {fileID: 0}
     - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mType
@@ -64021,19 +64184,19 @@ Prefab:
     - target: {fileID: 11400132, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400132, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400130, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400130, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400124, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
@@ -64325,27 +64488,27 @@ Prefab:
     - target: {fileID: 11400038, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400038, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400044, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400044, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400040, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
@@ -64501,42 +64664,46 @@ Prefab:
     - target: {fileID: 11400138, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400138, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400134, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400134, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400136, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400136, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400140, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400140, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 400022, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1604.51868
+      value: 1134.29639
       objectReference: {fileID: 0}
     - target: {fileID: 11400040, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
       propertyPath: mSpriteName
-      value: Icon_Kamikaze
+      value: Icon_null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400036, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
+      propertyPath: mSpriteName
+      value: Icon_null
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400050, guid: f155ffa4e45437d428bba86f3eb33a00, type: 2}
@@ -64584,6 +64751,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -64725,6 +64893,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1861687304
@@ -65830,6 +65999,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -65876,6 +66046,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -66593,11 +66764,11 @@ Prefab:
     - target: {fileID: 11400004, guid: bc547d4afd53d4e41a39c4d4060cdcfb, type: 2}
       propertyPath: mMat
       value: 
-      objectReference: {fileID: 2100000, guid: 6b8fc775f68c6c54e9fc9fbf85a5a89f, type: 2}
+      objectReference: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
     - target: {fileID: 11400004, guid: bc547d4afd53d4e41a39c4d4060cdcfb, type: 2}
       propertyPath: mTex
       value: 
-      objectReference: {fileID: 2800000, guid: dc415ea4dcce51d4d97f4a7a37fbcc81, type: 3}
+      objectReference: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
     - target: {fileID: 11400040, guid: bc547d4afd53d4e41a39c4d4060cdcfb, type: 2}
       propertyPath: bombLane01
       value: 
@@ -66729,6 +66900,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -66999,6 +67171,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -67089,16 +67263,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1912357323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67110,6 +67275,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 1
 --- !u!114 &1912357324
 MonoBehaviour:
@@ -67122,6 +67288,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1912357325
 NetworkView:
@@ -67176,6 +67343,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 373819012}
   currentRotation: 0
 --- !u!114 &1912357330
@@ -67189,6 +67357,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 905815791}
   currentRotation: 0
   lastRotation: 0
@@ -67204,6 +67373,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 1604893276}
   - {fileID: 618724302}
@@ -67501,6 +67671,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1659946512}
   WaypointB: {fileID: 32116239}
   BombStopper: {fileID: 1926857121}
@@ -67687,6 +67858,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -67734,16 +67906,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1926857123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67755,6 +67918,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &1926857124
 MonoBehaviour:
@@ -67767,6 +67931,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1926857125
 NetworkView:
@@ -67841,6 +68006,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 988435077}
   currentRotation: 0
 --- !u!114 &1926857131
@@ -67854,6 +68020,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1240055255}
   currentRotation: 0
   lastRotation: 0
@@ -67869,6 +68036,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 575069384}
   - {fileID: 1489657765}
@@ -68064,6 +68232,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -69206,6 +69375,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -69278,6 +69448,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -69419,6 +69590,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1940541261
@@ -69786,6 +69958,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -70011,6 +70185,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -70274,6 +70449,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 581310376}
   WaypointB: {fileID: 1424678387}
   BombStopper: {fileID: 1004790282}
@@ -70471,6 +70647,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -70630,6 +70808,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -70697,16 +70876,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _teamComponent: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &1982799430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70718,6 +70888,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 2
 --- !u!114 &1982799431
 MonoBehaviour:
@@ -70730,6 +70901,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!148 &1982799432
 NetworkView:
@@ -70784,6 +70956,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 47547636}
   currentRotation: 0
 --- !u!114 &1982799437
@@ -70797,6 +70970,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 1758146575}
   currentRotation: 0
   lastRotation: 0
@@ -70812,6 +70986,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 691770585}
   - {fileID: 1354497627}
@@ -71078,6 +71253,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -71219,6 +71395,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2002440382
@@ -71383,6 +71560,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 0}
   WaypointB: {fileID: 848064037}
   BombStopper: {fileID: 0}
@@ -71592,6 +71770,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -71760,6 +71939,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1760532713}
   WaypointB: {fileID: 1723589250}
   BombStopper: {fileID: 255041094}
@@ -71972,6 +72152,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 1723589250}
   WaypointB: {fileID: 988309519}
   BombStopper: {fileID: 567232655}
@@ -72182,13 +72363,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mDepth: 4
   mAtlas: {fileID: 11400000, guid: 4925fad89b072874d84292a992ea1fc7, type: 2}
-  mSpriteName: Icon_Kamikaze
+  mSpriteName: Icon_null
   mFillCenter: 1
   mType: 3
   mFillDirection: 1
@@ -72292,6 +72474,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1ef9d77d1231634cab85574da1930aa, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   WaypointA: {fileID: 630742724}
   WaypointB: {fileID: 0}
   BombStopper: {fileID: 0}
@@ -72432,6 +72615,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074ffdb78e8b014f85bc702e29a3cde, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   checkPointA: {fileID: 1031776513}
   checkPointB: {fileID: 352207554}
 --- !u!114 &2048891153
@@ -72445,6 +72629,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 4
 --- !u!4 &2048891155
 Transform:
@@ -73025,6 +73210,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -73155,13 +73342,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 1
   valve: {fileID: 5263907}
   fountain: {fileID: 1502899074}
   waterStream: {fileID: 2018306144}
   waterStreamParticle: {fileID: 2018306143}
   steam: {fileID: 1976309866}
-  _currentState: 100
+  _currentState: 0
 --- !u!1 &2080123722
 GameObject:
   m_ObjectHideFlags: 0
@@ -73287,6 +73475,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84435aa47e8540c429d4fe6e394ba36e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   myJob: 0
   myLane: 1
 --- !u!135 &2080700238
@@ -73876,6 +74065,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -74012,6 +74203,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -74269,6 +74461,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &2105828034
@@ -74357,6 +74550,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -74500,6 +74694,8 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -74855,6 +75051,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -75970,6 +76167,7 @@ ParticleSystem:
       m_Bits: 4294967295
     quality: 0
     voxelSize: .5
+    collisionMessages: 0
   SubModule:
     enabled: 0
     subEmitterBirth: {fileID: 0}
@@ -76042,6 +76240,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -76323,6 +76522,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}

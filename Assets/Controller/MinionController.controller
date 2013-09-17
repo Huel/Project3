@@ -6,65 +6,62 @@ AnimatorController:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MinionController
-  m_AnimatorEvents:
+  serializedVersion: 2
+  m_AnimatorParameters:
   - m_Name: Run
     m_Type: 4
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 4
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: Dead
     m_Type: 4
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: AttackType
     m_Type: 3
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: Push
     m_Type: 4
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: Buff
     m_Type: 4
-    m_Min: -1
-    m_Max: 1
     m_DefaultVector: {x: 0, y: 0, z: 0}
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-  m_Layers:
+    m_Controller: {fileID: 9100000}
+  m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
-    m_Type: 0
     m_StateMachine: {fileID: 110700000}
     m_Mask: {fileID: 0}
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_StateMachineMotionSetIndex: 0
-    m_IKPass: 1
+    m_DefaultWeight: 0
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
 --- !u!206 &20600000
 BlendTree:
   m_ObjectHideFlags: 1
@@ -100,8 +97,8 @@ BlendTree:
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  m_BlendEvent: Blend
-  m_BlendEventY: Blend
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
@@ -162,8 +159,8 @@ BlendTree:
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  m_BlendEvent: Blend
-  m_BlendEventY: Blend
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
   m_MinThreshold: -1
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
@@ -196,8 +193,8 @@ BlendTree:
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  m_BlendEvent: Blend
-  m_BlendEventY: Blend
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
   m_MinThreshold: -.300000012
   m_MaxThreshold: .300000012
   m_UseAutomaticThresholds: 0
@@ -244,8 +241,8 @@ BlendTree:
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  m_BlendEvent: Blend
-  m_BlendEventY: Blend
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
   m_MinThreshold: -.5
   m_MaxThreshold: .5
   m_UseAutomaticThresholds: 0
@@ -278,8 +275,8 @@ BlendTree:
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  m_BlendEvent: Blend
-  m_BlendEventY: Blend
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
   m_MinThreshold: -1
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
@@ -1393,69 +1390,6 @@ StateMachine:
   m_ChildStateMachinePosition:
   - {x: 708, y: -72, z: 0}
   - {x: 192, y: -72, z: 0}
-  m_LocalTransitions:
-    data:
-      first: {fileID: 0}
-      second: []
-    data:
-      first: {fileID: 110200000}
-      second:
-      - {fileID: 110166039}
-      - {fileID: 110124047}
-      - {fileID: 110189869}
-      - {fileID: 110180951}
-      - {fileID: 110183544}
-      - {fileID: 110107871}
-      - {fileID: 110130273}
-    data:
-      first: {fileID: 110210509}
-      second:
-      - {fileID: 110152801}
-      - {fileID: 110147611}
-      - {fileID: 110158081}
-      - {fileID: 110151249}
-    data:
-      first: {fileID: 110223901}
-      second:
-      - {fileID: 110136448}
-      - {fileID: 110119111}
-      - {fileID: 110132428}
-      - {fileID: 110160036}
-    data:
-      first: {fileID: 110254276}
-      second:
-      - {fileID: 110194514}
-      - {fileID: 110106750}
-      - {fileID: 110118477}
-      - {fileID: 110125253}
-    data:
-      first: {fileID: 110278431}
-      second:
-      - {fileID: 110100000}
-      - {fileID: 110131420}
-      - {fileID: 110147932}
-      - {fileID: 110147617}
-    data:
-      first: {fileID: 110285420}
-      second:
-      - {fileID: 110121036}
-      - {fileID: 110178587}
-      - {fileID: 110120259}
-      - {fileID: 110122983}
-    data:
-      first: {fileID: 110287395}
-      second:
-      - {fileID: 110157030}
-      - {fileID: 110160667}
-      - {fileID: 110178510}
-      - {fileID: 110106647}
-    data:
-      first: {fileID: 110252956}
-      second:
-      - {fileID: 110109474}
-      - {fileID: 110167290}
-      - {fileID: 110148105}
-      - {fileID: 110142279}
   m_OrderedTransitions:
     data:
       first: {fileID: 0}
@@ -1470,9 +1404,6 @@ StateMachine:
       - {fileID: 110183544}
       - {fileID: 110107871}
       - {fileID: 110130273}
-    data:
-      first: {fileID: 110255780}
-      second: []
     data:
       first: {fileID: 110210509}
       second:
@@ -1500,6 +1431,9 @@ StateMachine:
       - {fileID: 110125253}
       - {fileID: 110147863}
       - {fileID: 110114505}
+    data:
+      first: {fileID: 110255780}
+      second: []
     data:
       first: {fileID: 110278431}
       second:
@@ -1544,22 +1478,6 @@ StateMachine:
   - {fileID: 110285420}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
-  m_LocalTransitions:
-    data:
-      first: {fileID: 110223901}
-      second:
-      - {fileID: 110172075}
-      - {fileID: 110189811}
-    data:
-      first: {fileID: 110278431}
-      second:
-      - {fileID: 110193477}
-      - {fileID: 110142729}
-    data:
-      first: {fileID: 110285420}
-      second:
-      - {fileID: 110177269}
-      - {fileID: 110130614}
   m_OrderedTransitions:
     data:
       first: {fileID: 0}
@@ -1596,22 +1514,6 @@ StateMachine:
   - {fileID: 110287395}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
-  m_LocalTransitions:
-    data:
-      first: {fileID: 110210509}
-      second:
-      - {fileID: 110153733}
-      - {fileID: 110161261}
-    data:
-      first: {fileID: 110254276}
-      second:
-      - {fileID: 110147863}
-      - {fileID: 110114505}
-    data:
-      first: {fileID: 110287395}
-      second:
-      - {fileID: 110157748}
-      - {fileID: 110184402}
   m_OrderedTransitions:
     data:
       first: {fileID: 0}
