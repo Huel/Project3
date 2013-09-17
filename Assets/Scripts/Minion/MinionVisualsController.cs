@@ -40,12 +40,6 @@ public class MinionVisualsController : MonoBehaviour
         if (!GetComponent<Health>().IsAlive())
             state = AnimStates.Dead;
 
-        //else if (GetComponent<Skill>().State == SkillState.InExecution)
-        //{
-        //    randomAttack = Random.Range(1, 4);
-        //    state = AnimStates.Attack;
-        //}
-
         else if (GetComponent<MinionAgent>().getCurrentTargetType() == TargetType.Valve
             && GetComponent<MinionAgent>().getTarget().GetComponent<WorkAnimation>().Move(gameObject))
             state = AnimStates.Push;

@@ -20,10 +20,7 @@ public class Health : MonoBehaviour
 
     public bool Invulnerable
     {
-        get
-        {
-            return _invulnerable;
-        }
+        get { return _invulnerable; }
         set
         {
             networkView.RPC("SetInvulnerability", RPCMode.AllBuffered, value);
@@ -256,8 +253,6 @@ public class Health : MonoBehaviour
         }
 
         _alive = alive;
-
-
     }
 
     [RPC]
