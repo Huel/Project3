@@ -13,6 +13,7 @@ public class Attack : Skill
     private Damage _damageComponent;
     private NetworkAnimator _animator;
     public ContactTrigger contactTrigger;
+    private Target _contact;
 
 
 
@@ -33,17 +34,18 @@ public class Attack : Skill
     {
         if (!Executable)
             return false;
-        _animator.PlayAnimation(skillName);
+        _contact = contactTrigger.GetContactByTypesAndTeam(_targetTypes, _targetTeams);
+        if (_contact == null)
+            return false;
         SwitchState();
         return true;
     }
 
     protected override void OnActive()
     {
-        Target contact = contactTrigger.GetContactByTypesAndTeam(_targetTypes, _targetTeams);
-        if (contact != null)
+        if (_contact != null)
         {
-            Health enemyHealth = contact.GetComponent<Health>();
+            Health enemyHealth = _contact.GetComponent<Health>();
             enemyHealth.DecHealth(_damageComponent.DefaultDamage);
         }
         SwitchState();

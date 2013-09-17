@@ -29,7 +29,7 @@ public class WorkAnimation : MonoBehaviour
             if (minion == minions[i])
                 return move[i];
         }
-        //DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
+        DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
         return false;
     }
 
