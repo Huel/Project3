@@ -19,7 +19,7 @@ public class Attack : Skill
 
     public void Awake()
     {
-        debug = true;
+        debug = false;
         skillName = "Attack";
         SetDuration(SkillState.InExecution, _castTime);
         SetDuration(SkillState.CoolingDown, _cooldownTime);
@@ -37,6 +37,8 @@ public class Attack : Skill
         _contact = contactTrigger.GetContactByTypesAndTeam(_targetTypes, _targetTeams);
         if (_contact == null)
             return false;
+        _animator.PlayAnimation(skillName, true, Random.Range(1, 4));
+
         SwitchState();
         return true;
     }

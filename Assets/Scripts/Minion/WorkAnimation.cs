@@ -29,7 +29,7 @@ public class WorkAnimation : MonoBehaviour
             if (minion == minions[i])
                 return move[i];
         }
-        DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
+        //DebugStreamer.message = "minion" + minion.networkView.viewID + "not found";
         return false;
     }
 
@@ -171,7 +171,6 @@ public class WorkAnimation : MonoBehaviour
             dirA = -points[lastTargets[id]].forward;
             dirB = -points[targetIDs[id]].forward;
         }
-
         float distanceFromLastTarget = (minions[id].transform.position - points[lastTargets[id]].position).magnitude;
         Vector3 lookDirection = Vector3.Lerp(dirA, dirB, distanceFromLastTarget / direction.magnitude);
         lookDirection.y = 0;
