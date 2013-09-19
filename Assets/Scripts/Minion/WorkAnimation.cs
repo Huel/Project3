@@ -175,6 +175,10 @@ public class WorkAnimation : MonoBehaviour
         Vector3 lookDirection = Vector3.Lerp(dirA, dirB, distanceFromLastTarget / direction.magnitude);
         lookDirection.y = 0;
         minions[id].transform.rotation = Quaternion.LookRotation(lookDirection);
+        if (minions[id].networkView.isMine)
+            RotateMinion(id, lookDirection.x, lookDirection.y, lookDirection.z);
+        else
+            networkView.RPC("RotateMinion", RPCMode.Others, id, lookDirection.x, lookDirection.y, lookDirection.z);
     }
 
     public void RemoveMinion(GameObject minion)
@@ -194,6 +198,13 @@ public class WorkAnimation : MonoBehaviour
                 break;
             }
         }
+    }
+
+    [RPC]
+    public void RotateMinion(int id, float x, float y, float z)
+    {
+        Vector3 lookDirection = new Vector3(x, y, z);
+        minions[id].transform.rotation = Quaternion.LookRotation(lookDirection);
     }
 
     public void CheckMinions(List<MinionAgent> minionList)
