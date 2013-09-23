@@ -13,7 +13,7 @@ public class ValveMotion : MonoBehaviour
 
     void Awake()
     {
-        rotFactor = GetComponent<WorkAnimation>().getCompleteTime()*9;
+        rotFactor = GetComponent<WorkAnimation>().GetCompleteTime()*9;
         currentRotation = lastRotation = display.transform.localEulerAngles.z;
     }
 

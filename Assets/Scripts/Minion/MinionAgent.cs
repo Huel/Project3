@@ -73,6 +73,7 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
             return;
         }
 
@@ -167,7 +168,8 @@ public class MinionAgent : MonoBehaviour
                 basicAttack.Execute();
 
                 if (_target.type == TargetType.Minion)
-                    _target.GetComponent<MinionAgent>().getAttacked(gameObject);
+                    //_target.GetComponent<MinionAgent>().getAttacked(gameObject.networkView.viewID);
+                    _target.networkView.RPC("getAttacked", _target.networkView.owner, gameObject.networkView.viewID);
             }
             // Valve
             else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
@@ -183,10 +185,6 @@ public class MinionAgent : MonoBehaviour
         }
     }
 
-    public void getAttacked(GameObject minion)
-    {
-        _target = minion.GetComponent<Target>();
-    }
 
     void CheckRallyPoint()
     {
@@ -203,6 +201,12 @@ public class MinionAgent : MonoBehaviour
             _destination = _destinationSaved;
             _destinationSaved = null;
         }
+    }
+
+    [RPC]
+    public void getAttacked(NetworkViewID viewId)
+    {
+        _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }
 
     [RPC]
