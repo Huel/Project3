@@ -28,7 +28,7 @@ public class MinionAgent : MonoBehaviour
 
     public bool _moving;
 
-    public Target getTarget() { return _target; }
+    public Target GetTarget() { return _target; }
 
     public void SetDestination(Target destination) { _destination = destination; }
 
@@ -38,7 +38,7 @@ public class MinionAgent : MonoBehaviour
 
     public Target GetOrigin() { return _origin; }
 
-    public TargetType getCurrentTargetType()
+    public TargetType GetCurrentTargetType()
     {
         if (_target != null) return _target.type;
         return TargetType.None;
@@ -168,8 +168,7 @@ public class MinionAgent : MonoBehaviour
                 basicAttack.Execute();
 
                 if (_target.type == TargetType.Minion)
-                    //_target.GetComponent<MinionAgent>().getAttacked(gameObject.networkView.viewID);
-                    _target.networkView.RPC("getAttacked", _target.networkView.owner, gameObject.networkView.viewID);
+                    _target.networkView.RPC("GetAttacked", _target.networkView.owner, gameObject.networkView.viewID);
             }
             // Valve
             else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
@@ -204,7 +203,7 @@ public class MinionAgent : MonoBehaviour
     }
 
     [RPC]
-    public void getAttacked(NetworkViewID viewId)
+    public void GetAttacked(NetworkViewID viewId)
     {
         _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }

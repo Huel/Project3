@@ -119,7 +119,7 @@ public class WorkAnimation : MonoBehaviour
         Enqueue();
         for (int i = 0; i < minions.Length; i++)
         {
-            if (minions[i] != null && minions[i].GetComponent<MinionAgent>().getTarget() != GetComponent<Target>())
+            if (minions[i] != null && minions[i].GetComponent<MinionAgent>().GetTarget() != GetComponent<Target>())
             {
                 RemoveMinion(minions[i]);
                 continue;
@@ -182,8 +182,8 @@ public class WorkAnimation : MonoBehaviour
         // get the opposite diretion
         else
         {
-            dirA = points[_lastTargets[id]].forward * -1;
-            dirB = points[_targetIDs[id]].forward * -1;
+            dirA = -points[_lastTargets[id]].forward;
+            dirB = -points[_targetIDs[id]].forward;
         }
         // transform rotation from Minion
         float distanceFromLastTarget = (minions[id].transform.position - points[_lastTargets[id]].position).magnitude;
@@ -213,7 +213,6 @@ public class WorkAnimation : MonoBehaviour
 
     public void CheckMinions(List<MinionAgent> minionList)
     {
-
         foreach (GameObject minion in minions)
         {
             if (minion != null && minionList.IndexOf(minion.GetComponent<MinionAgent>()) == -1)

@@ -46,8 +46,8 @@ public class MinionVisualsController : MonoBehaviour
         //    state = AnimStates.Attack;
         //}
 
-        else if (GetComponent<MinionAgent>().getCurrentTargetType() == TargetType.Valve
-            && GetComponent<MinionAgent>().getTarget().GetComponent<WorkAnimation>().Move(gameObject))
+        else if (GetComponent<MinionAgent>().GetCurrentTargetType() == TargetType.Valve
+            && GetComponent<MinionAgent>().GetTarget().GetComponent<WorkAnimation>().Move(gameObject))
             state = AnimStates.Push;
 
         else if (GetComponent<MinionLamp>().getSwitchOn())
