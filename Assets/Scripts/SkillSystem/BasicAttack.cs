@@ -31,7 +31,7 @@ public class BasicAttack : Skill
 
     public override bool Execute()
     {
-        if(!Executable)
+        if(!Executable || !enabled)
             return false;
         _animator.PlayAnimation(skillName);
         SwitchState();

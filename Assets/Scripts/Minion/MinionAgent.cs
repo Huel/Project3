@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ManipulateStates { Target, ResetTarget, Movement }
+
 public class MinionAgent : MonoBehaviour
 {
     public enum LaneIdentifier { Lane1, Lane2, Lane3 };
@@ -24,7 +26,7 @@ public class MinionAgent : MonoBehaviour
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 2f;
+    public float productivity = 1f;
 
     public bool _moving;
 
@@ -184,7 +186,6 @@ public class MinionAgent : MonoBehaviour
         }
     }
 
-
     void CheckRallyPoint()
     {
         if (partOfSquad) return;
@@ -205,12 +206,58 @@ public class MinionAgent : MonoBehaviour
     [RPC]
     public void GetAttacked(NetworkViewID viewId)
     {
-        _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
+        if(!fixedTarget)
+            _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }
 
     [RPC]
     public void SetNavMeshAgent(bool active)
     {
         GetComponent<NavMeshAgent>().enabled = active;
+    }
+
+    [RPC]
+    public void Manipulate(int state, NetworkViewID id, string value)
+    {
+        if (networkView.isMine)
+        {
+            switch ((ManipulateStates)state)
+            {
+                case (ManipulateStates.Target):
+                    fixedTarget = true;
+                    _targetSaved = _target;
+                    if(value=="Base" || value=="Flee")
+                    {
+                        GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
+                        foreach (GameObject gameObj in objects)
+                        {
+                            if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                                _target = gameObj.GetComponent<Target>();
+                            if (value=="Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
+                                _target = gameObj.GetComponent<Target>();
+                        }
+                    }
+                    else
+                        _target = NetworkView.Find(id).GetComponent<Target>();
+                    break;
+
+                case (ManipulateStates.ResetTarget):
+                    if (!fixedTarget) return;
+                    fixedTarget = false;
+                    _target = _targetSaved;
+                    _targetSaved = null;
+                    break;
+
+                case (ManipulateStates.Movement):
+                    
+                    _agent.enabled = bool.Parse(value);
+                    basicAttack.enabled = bool.Parse(value);
+                    break;
+            }
+        }
+        else
+        {
+            networkView.RPC("Manipulate", networkView.owner, (int)state, id, (value == "") ? "" : value);
+        }
     }
 }
