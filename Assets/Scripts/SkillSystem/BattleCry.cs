@@ -1,49 +1,37 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldWall : Skill
+public class BattleCry : Skill
 {
     [SerializeField]
-    private float _duration = 5f;
+    private float _duration = 3f;
     [SerializeField]
-    private float _cooldownTime = 30f;
-    [SerializeField]
-    private bool _deactivatable;
-    [SerializeField]
-    private float _speedMultiplier = 0.5f;
+    private float _cooldownTime = 20f;
 
     private List<Target> _contacts;
     private List<TargetType> _targetTypes;
     private List<Team.TeamIdentifier> _targetTeams;
-    private Health _healthComponent;
-    private Speed _speedComponent;
     private NetworkAnimator _animator;
     public Range _range;
     private bool _activeEffect;
 
-
-
     public void Awake()
     {
         debug = true;
-        skillName = "Shieldwall";
+        skillName = "Battlecry";
         SetDuration(SkillState.CoolingDown, _cooldownTime);
         SetDuration(SkillState.Active, _duration);
         SetStateCycle(new[] { SkillState.Ready, SkillState.Active, SkillState.CoolingDown });
-        _healthComponent = GetComponent<Health>();
-        _speedComponent = GetComponent<Speed>();
-        _animator = GetComponent<NetworkAnimator>();
         _targetTypes = new List<TargetType>() { TargetType.Minion };
-        _targetTeams = new List<Team.TeamIdentifier>(){GetComponent<Team>().Other()};
+        _targetTeams = new List<Team.TeamIdentifier>() { GetComponent<Team>().Other() };
+        _animator = GetComponent<NetworkAnimator>();
     }
 
     public override bool Execute()
     {
-        if (_deactivatable && _activeEffect)
-        {
-            SwitchState();
-            return true;
-        }
+        if (_activeEffect)
+            return false;
+
         if (!Executable)
             return false;
 
@@ -55,33 +43,32 @@ public class ShieldWall : Skill
 
     protected override void OnActive()
     {
-        if(_activeEffect)
+        if (_activeEffect)
             return;
-        _healthComponent.SetInvulnerability(true);
-        _speedComponent.SetSpeedMultiplier(_speedMultiplier);
-        if (debug)
-            DebugStreamer.message = "Shield wall is active.";
         _activeEffect = true;
 
         if (_contacts.Count == 0) return;
         foreach (Target target in _contacts)
-            target.gameObject.GetComponent<MinionAgent>().Manipulate((int)ManipulateStates.Target, networkView.viewID, "Target");
+        {
+            if (Random.Range(0f, 1f) <= 0.5f)
+                target.gameObject.GetComponent<MinionAgent>().Manipulate((int)ManipulateStates.Target, networkView.viewID, "Flee");
+            else
+                target.gameObject.GetComponent<MinionAgent>().Manipulate((int)ManipulateStates.Movement, networkView.viewID, "false");
+        }
     }
 
     protected override void OnCoolDown()
-    {        
+    {
         if (!_activeEffect)
             return;
-        _healthComponent.SetInvulnerability(false);
-        _speedComponent.SetSpeedMultiplier(1.0f);
-        if (debug)
-            DebugStreamer.message = "Shield wall is inactive.";
         _activeEffect = false;
 
         if (_contacts.Count == 0) return;
         foreach (Target target in _contacts)
+        {
             target.gameObject.GetComponent<MinionAgent>().Manipulate((int)ManipulateStates.ResetTarget, networkView.viewID, "");
+            target.gameObject.GetComponent<MinionAgent>().Manipulate((int)ManipulateStates.Movement, networkView.viewID, "true");
+        }
         _contacts = null;
     }
-
 }

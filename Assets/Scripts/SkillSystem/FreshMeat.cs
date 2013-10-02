@@ -50,8 +50,8 @@ public class FreshMeat : Skill
     {
         _contact.GetComponent<Health>().SetToMinHealth();
         _healthComponent.IncHealth(_healthComponent.MaxHealth / 2f);
-        SwitchState();
         _contact = null;
+        SwitchState();
     }
 
 }

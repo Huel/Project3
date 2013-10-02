@@ -93,6 +93,8 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400028}
+  - 114: {fileID: 11400032}
+  - 114: {fileID: 11400034}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -1545,6 +1547,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400200}
+  - 114: {fileID: 11400030}
+  - 135: {fileID: 13500000}
+  m_Layer: 11
+  m_Name: aurabuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -1599,6 +1618,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 400200}
   - {fileID: 400194}
   - {fileID: 400002}
   - {fileID: 400178}
@@ -2744,6 +2764,17 @@ Transform:
   m_LocalScale: {x: 1.44003665, y: .137445018, z: 1}
   m_Children: []
   m_Father: {fileID: 400194}
+--- !u!4 &400200
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3014,6 +3045,47 @@ MonoBehaviour:
   _cooldownTime: 30
   _deactivatable: 0
   _speedMultiplier: .5
+  _range: {fileID: 11400030}
+--- !u!114 &11400030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsInRange: []
+  relevantTargetTypes: 010000000000000006000000
+--- !u!114 &11400032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001d0feecce88ea4289bf447c84de730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldownTime: 20
+  _range: {fileID: 11400030}
+--- !u!114 &11400034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4a31577abc1884d867dce21296843a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 3
+  _cooldownTime: 20
+  _range: {fileID: 11400030}
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3027,9 +3099,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicAttack: {fileID: 11400012}
   skill1: {fileID: 11400028}
-  skill2: {fileID: 0}
-  skill3: {fileID: 11400026}
-  skill4: {fileID: 0}
+  skill2: {fileID: 11400026}
+  skill3: {fileID: 11400032}
+  skill4: {fileID: 11400034}
   addSquad: {fileID: 0}
   removeSquad: {fileID: 0}
   heroicAura: {fileID: 0}
@@ -3270,6 +3342,18 @@ GUIText:
     rgba: 4294967295
   m_PixelCorrect: 1
   m_RichText: 1
+--- !u!135 &13500000
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
