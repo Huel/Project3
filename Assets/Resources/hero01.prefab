@@ -95,6 +95,7 @@ GameObject:
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400034}
+  - 114: {fileID: 11400036}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -2836,7 +2837,7 @@ Light:
     m_Softness: 4
     m_SoftnessFade: 1
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
+  m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -3086,6 +3087,28 @@ MonoBehaviour:
   _duration: 3
   _cooldownTime: 20
   _range: {fileID: 11400030}
+--- !u!114 &11400036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ccb6eefe840e544ad33c575ac20e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: 100178}
+  - {fileID: 100180}
+  - {fileID: 100176}
+  - {fileID: 100174}
+  - {fileID: 100190}
+  - {fileID: 100186}
+  - {fileID: 100188}
+  - {fileID: 100182}
+  - {fileID: 100184}
+  goRenderer: []
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1

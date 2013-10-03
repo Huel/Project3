@@ -16,6 +16,17 @@ public abstract class Skill : MonoBehaviour
     protected string skillName = "Skill";
     protected bool debug;
 
+    public float getCooldownInPercent()
+    {
+        if (State == SkillState.CoolingDown)
+            return _stateTime/_stateDuration[3];
+        return 1;
+    }
+
+    public string SkillName
+    {
+        get { return skillName; }
+    }
 
     public SkillState State
     {

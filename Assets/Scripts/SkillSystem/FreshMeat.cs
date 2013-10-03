@@ -21,7 +21,7 @@ public class FreshMeat : Skill
 
     public void Awake()
     {
-        debug = true;
+        debug = false;
         skillName = "Fresh Meat";
         SetDuration(SkillState.CoolingDown, _cooldownTime);
         SetStateCycle(new[] { SkillState.Ready, SkillState.Active, SkillState.CoolingDown });

@@ -11,18 +11,21 @@ public class CharacterState : MonoBehaviour
     private UISprite _staminaBar;
     private Trophy _trophyComp;
     public GameObject _trophy01;
-    //private GameObject _trophy02;
-    //private GameObject _trophy03;
+    public GameObject _trophy02;
+    public GameObject _trophy03;
+    #region bullshit
     //private GameObject _freshMeat;
     //private GameObject _shieldwall;
     //private GameObject _kamikazeMission;
     //private GameObject _battlecry;
-    private Vector3 skill01Position = new Vector3(-131, 52, 0);
-    private Vector3 skill02Position = new Vector3(-23, 52, 0);
-    private Vector3 skill03Position = new Vector3(85, 52, 0);
-    private Vector3 skill04Position = new Vector3(191, 52, 0);
+    //private Vector3 skill01Position = new Vector3(-131, 52, 0);
+    //private Vector3 skill02Position = new Vector3(-23, 52, 0);
+    //private Vector3 skill03Position = new Vector3(85, 52, 0);
+    //private Vector3 skill04Position = new Vector3(191, 52, 0);
+    #endregion
+    
     public List<GameObject> skills = new List<GameObject>();
-    private List<Vector3> skillPositions; 
+    private List<Vector3> skillPositions = new List<Vector3>(); 
 
     private bool init = false;
 
@@ -32,10 +35,10 @@ public class CharacterState : MonoBehaviour
         _healthBar = transform.FindChild("health").GetComponent<UISprite>();
         _staminaBar = transform.FindChild("stamina").GetComponent<UISprite>();
 
-        skillPositions.Add(skill01Position);
-        skillPositions.Add(skill02Position);
-        skillPositions.Add(skill01Position);
-        skillPositions.Add(skill02Position);
+        skillPositions.Add(new Vector3(-131, 52, 0));
+        skillPositions.Add(new Vector3(-23, 52, 0));
+        skillPositions.Add(new Vector3(85, 52, 0));
+        skillPositions.Add(new Vector3(191, 52, 0));
 
         #region bullshit
         //_trophy01 = transform.FindChild("trophy01").gameObject;
@@ -55,7 +58,7 @@ public class CharacterState : MonoBehaviour
 
     private void SetSkillPosiotion()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
             skills[i].transform.localPosition = skillPositions[i];
 
         #region bullshit
@@ -127,20 +130,28 @@ public class CharacterState : MonoBehaviour
     {
         if (FindPlayer() && !init)
         {
-            SetSkillPosiotion(/*1, _player.GetComponent<CharController>().skill1.skillName*/);
+            SetSkillPosiotion(); /*1, _player.GetComponent<CharController>().skill1.skillName*/
             init = true;
         }
 
-        //foreach (Skill skill in _player.GetComponents<Skill>())
-        //{
-        //    foreach (GameObject skillSprite in skills)
-        //    {
-        //        if (skill.actualCooldown > 0 && skillSprite.name.Equals(skill.skillName))
-        //        {
-        //            skillSprite.GetComponent<UISprite>().fillAmount = -(skill.actualCooldown / skill.cooldown - 1);
-        //        }
-        //    }
-        //}
+        foreach (Skill skill in _player.GetComponents<Skill>())
+        {
+            foreach (GameObject skillSprite in skills)
+            {
+                if (skill.SkillName == skillSprite.name)
+                {
+                    skillSprite.GetComponent<UISprite>().fillAmount = skill.getCooldownInPercent();
+
+                    if (skill.State == Skill.SkillState.InExecution || skill.State == Skill.SkillState.Active)
+                        skillSprite.GetComponent<UISprite>().color = new Color(0.5f, 1f, 0.5f);
+
+                    else if (skill.State != Skill.SkillState.Ready)
+                        skillSprite.GetComponent<UISprite>().color = new Color(0.5f,0.5f,0.5f);
+                    else
+                        skillSprite.GetComponent<UISprite>().color = new Color(1f, 1f, 1f);
+                }
+            }
+        }
     }
 
     private bool FindPlayer()
@@ -196,28 +207,33 @@ public class CharacterState : MonoBehaviour
             else
                 return;
         }
-        //switch (_trophyComp.trophyLevel)
-        //{
-        //    case 3:
-        //        _trophy03.SetActive(true);
-        //        _trophy02.SetActive(true);
-        //        _trophy01.SetActive(true);
-        //        break;
-        //    case 2:
-        //        _trophy03.SetActive(false);
-        //        _trophy02.SetActive(true);
-        //        _trophy01.SetActive(true);
-        //        break;
-        //    case 1:
-        //        _trophy03.SetActive(false);
-        //        _trophy02.SetActive(false);
-        //        _trophy01.SetActive(true);
-        //        break;
-        //    default:
-        //        _trophy03.SetActive(false);
-        //        _trophy02.SetActive(false);
-        //        _trophy01.SetActive(false);
-        //        break;
-        //}
+        switch (_trophyComp.trophyLevel)
+        {
+            case 0:
+                _trophy03.SetActive(false);
+                _trophy02.SetActive(false);
+                _trophy01.SetActive(false);
+                break;
+            case 1:
+                _trophy03.SetActive(false);
+                _trophy02.SetActive(false);
+                _trophy01.SetActive(true);
+                break;
+            case 2:
+                _trophy03.SetActive(false);
+                _trophy02.SetActive(true);
+                _trophy01.SetActive(true);
+                break;
+            case 3:
+                _trophy03.SetActive(true);
+                _trophy02.SetActive(true);
+                _trophy01.SetActive(true);
+                break;
+            default:
+                _trophy03.SetActive(true);
+                _trophy02.SetActive(true);
+                _trophy01.SetActive(true);
+                break;
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShieldWall : Skill
 {
     [SerializeField]
-    private float _duration = 5f;
+    private float _duration = 3f;
     [SerializeField]
     private float _cooldownTime = 30f;
     [SerializeField]
@@ -25,7 +25,7 @@ public class ShieldWall : Skill
 
     public void Awake()
     {
-        debug = true;
+        debug = false;
         skillName = "Shieldwall";
         SetDuration(SkillState.CoolingDown, _cooldownTime);
         SetDuration(SkillState.Active, _duration);

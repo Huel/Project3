@@ -17,7 +17,7 @@ public class BattleCry : Skill
 
     public void Awake()
     {
-        debug = true;
+        debug = false;
         skillName = "Battlecry";
         SetDuration(SkillState.CoolingDown, _cooldownTime);
         SetDuration(SkillState.Active, _duration);

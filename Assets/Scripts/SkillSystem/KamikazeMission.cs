@@ -14,7 +14,7 @@ public class KamikazeMission : Skill
 
     public void Awake()
     {
-        debug = true;
+        debug = false;
         skillName = "Kamikaze Mission";
         SetDuration(SkillState.CoolingDown, _cooldownTime);
         SetStateCycle(new[] { SkillState.Ready, SkillState.Active, SkillState.CoolingDown });

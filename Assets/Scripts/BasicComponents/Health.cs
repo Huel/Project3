@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
 
     public bool immortal;
     private bool _invulnerable;
-    private bool _alive = true;
+    private bool _alive = true; 
 
     public bool Invulnerable
     {
@@ -56,6 +56,9 @@ public class Health : MonoBehaviour
     public void SetInvulnerability(bool value)
     {
         _invulnerable = value;
+
+        if (!networkView.isMine) return;
+        networkView.RPC("SetInvulnerability", RPCMode.OthersBuffered, value);
     }
 
     /// <summary>
@@ -188,6 +191,8 @@ public class Health : MonoBehaviour
     {
         if (HealthPoints == MinHealth || Invulnerable || immortal)
             return 0;
+
+        GetComponent<DamageMaterial>().addDamageMaterial();
 
         return IncHealth(-healthValue);
     }
