@@ -9,13 +9,11 @@ public class ValveMotion : MonoBehaviour
     public float lastRotation;
 
     public float rotFactor;
-    private float rotPerMinion = 180;
-
-    private float rotSpeed = 9;
+    private float rotPerMinion = 90;
 
     void Awake()
     {
-        rotFactor = GetComponent<WorkAnimation>().getCompleteTime()*rotSpeed;
+        rotFactor = GetComponent<WorkAnimation>().GetCompleteTime()*9;
         currentRotation = lastRotation = display.transform.localEulerAngles.z;
     }
 

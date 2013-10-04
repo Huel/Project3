@@ -37,7 +37,7 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
-
+        name = "Hero(own)";
         _animator = GetComponent<Animator>();
         _healthComponent = GetComponent<Health>();
         _speedComponent = GetComponent<Speed>();
@@ -49,6 +49,7 @@ public class CharController : MonoBehaviour
         //If it's not my character the CharController should be disabled.
         if (!networkView.isMine)
         {
+            name = "Hero(enemy)";
             enabled = false;
             return;
         }
@@ -117,7 +118,7 @@ public class CharController : MonoBehaviour
         //Use gravity.
         _controller.Move(Physics.gravity);
         //Send the character speed (related to his default speed) to the animator to blend the animation
-        _animator.SetFloat(AnimatorTags.speed, _speed / 5.5f);
+        _animator.SetFloat(AnimatorTags.speed, _speed / _speedComponent.DefaultSpeed);
     }
 
     private void HandleInput(ref float horizontal, ref float vertical)

@@ -86,19 +86,16 @@ GameObject:
   - 114: {fileID: 11400022}
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400038}
-  - 114: {fileID: 11400026}
-  - 114: {fileID: 11400028}
-  - 114: {fileID: 11400030}
-  - 114: {fileID: 11400032}
-  - 114: {fileID: 11400036}
-  - 114: {fileID: 11400034}
-  - 114: {fileID: 11400040}
-  - 114: {fileID: 11400042}
-  - 114: {fileID: 11400012}
   - 114: {fileID: 11400044}
   - 114: {fileID: 11400054}
   - 132: {fileID: 13200000}
   - 114: {fileID: 11400024}
+  - 114: {fileID: 11400012}
+  - 114: {fileID: 11400026}
+  - 114: {fileID: 11400028}
+  - 114: {fileID: 11400032}
+  - 114: {fileID: 11400034}
+  - 114: {fileID: 11400036}
   m_Layer: 10
   m_Name: hero01
   m_TagString: Player
@@ -1551,6 +1548,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400200}
+  - 114: {fileID: 11400030}
+  - 135: {fileID: 13500000}
+  m_Layer: 11
+  m_Name: aurabuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -1605,6 +1619,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 400200}
   - {fileID: 400194}
   - {fileID: 400002}
   - {fileID: 400178}
@@ -2750,6 +2765,17 @@ Transform:
   m_LocalScale: {x: 1.44003665, y: .137445018, z: 1}
   m_Children: []
   m_Father: {fileID: 400194}
+--- !u!4 &400200
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2904,10 +2930,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 568d47f8c8cabe5428a7d91a3312011c, type: 3}
+  m_Script: {fileID: 11500000, guid: 441f4bfb74d655f4a87a9ce04c135153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadMembers: []
+  _castTime: .300000012
+  _cooldownTime: .200000003
+  contactTrigger: {fileID: 11400000}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2996,12 +3024,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 89c54791e8b92664f8ea074ad65de526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Basic Attack
-  cooldown: 0
-  actualCooldown: 0
+  _cooldownTime: 90
+  _eatOwnMinions: 0
+  _eatEnemyMinions: 1
+  contactTrigger: {fileID: 11400000}
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3010,26 +3039,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 328d13ef42afb5a44bd506e7ac029b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Shieldwall
-  cooldown: 0
-  actualCooldown: 0
+  _duration: 5
+  _cooldownTime: 30
+  _deactivatable: 0
+  _speedMultiplier: .5
+  _range: {fileID: 11400030}
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
+  m_GameObject: {fileID: 100200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Kamikaze Mission
-  cooldown: 0
-  actualCooldown: 0
+  objectsInRange: []
+  relevantTargetTypes: 010000000000000006000000
 --- !u!114 &11400032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3038,12 +3068,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 001d0feecce88ea4289bf447c84de730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Fresh Meat
-  cooldown: 0
-  actualCooldown: 0
+  _cooldownTime: 20
+  _range: {fileID: 11400030}
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3052,12 +3081,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: ba4a31577abc1884d867dce21296843a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Heroic Aura
-  cooldown: 0
-  actualCooldown: 0
+  _duration: 3
+  _cooldownTime: 20
+  _range: {fileID: 11400030}
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3066,12 +3095,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 83ccb6eefe840e544ad33c575ac20e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Battlecry
-  cooldown: 0
-  actualCooldown: 0
+  meshes:
+  - {fileID: 100178}
+  - {fileID: 100180}
+  - {fileID: 100176}
+  - {fileID: 100174}
+  - {fileID: 100190}
+  - {fileID: 100186}
+  - {fileID: 100188}
+  - {fileID: 100182}
+  - {fileID: 100184}
+  goRenderer: []
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3083,42 +3120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c406954b573d88843b4aa4f122f07155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttack: {fileID: 11400026}
+  basicAttack: {fileID: 11400012}
   skill1: {fileID: 11400028}
-  skill2: {fileID: 11400030}
+  skill2: {fileID: 11400026}
   skill3: {fileID: 11400032}
-  skill4: {fileID: 11400036}
-  addSquad: {fileID: 11400040}
-  removeSquad: {fileID: 11400042}
-  heroicAura: {fileID: 11400034}
---- !u!114 &11400040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillName: AddSquad
-  cooldown: 0
-  actualCooldown: 0
---- !u!114 &11400042
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillName: RemoveSquad
-  cooldown: 0
-  actualCooldown: 0
+  skill4: {fileID: 11400034}
+  addSquad: {fileID: 0}
+  removeSquad: {fileID: 0}
+  heroicAura: {fileID: 0}
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3356,6 +3365,18 @@ GUIText:
     rgba: 4294967295
   m_PixelCorrect: 1
   m_RichText: 1
+--- !u!135 &13500000
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

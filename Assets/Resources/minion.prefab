@@ -20,7 +20,6 @@ GameObject:
   - 136: {fileID: 13600000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400024}
   - 114: {fileID: 11400028}
   - 95: {fileID: 9500000}
   - 132: {fileID: 13200000}
@@ -30,6 +29,9 @@ GameObject:
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400034}
   - 114: {fileID: 11400030}
+  - 114: {fileID: 11400024}
+  - 114: {fileID: 11400036}
+  - 114: {fileID: 11400048}
   m_Layer: 9
   m_Name: minion
   m_TagString: Minion
@@ -1430,6 +1432,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78cbd7d2137ba6848a319b873cce4280, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   laneID: 0
   basicAttack: {fileID: 11400024}
   _destination: {fileID: 0}
@@ -1441,6 +1444,7 @@ MonoBehaviour:
   looseAttentionRange: {fileID: 11400002}
   contact: {fileID: 11400004}
   productivity: 2
+  _moving: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1451,6 +1455,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   objectsInRange: []
   relevantTargetTypes: 00000000010000000200000003000000
 --- !u!114 &11400004
@@ -1463,6 +1468,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 321e0c39376c9074680259cec2c61848, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   contacts: []
 --- !u!114 &11400006
 MonoBehaviour:
@@ -1474,6 +1480,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44fa8dc83d994cc45a7a70761da2d22e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   objectsInRange: []
   relevantTargetTypes: 00000000010000000200000003000000
 --- !u!114 &11400008
@@ -1486,6 +1493,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c934b70a4dd77d54c89c0d7c7fecc79a, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1496,6 +1504,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef1fb65232c3cb9459bca33461e55053, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1506,6 +1515,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 1
 --- !u!114 &11400014
 MonoBehaviour:
@@ -1517,6 +1527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   ID: 0
 --- !u!114 &11400016
 MonoBehaviour:
@@ -1528,6 +1539,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28594a87a21e752419841321eb3f1248, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   _healthPoints: 10
   keepDeadUnitTime: 5
   immortal: 0
@@ -1541,6 +1553,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fedbf751295cac44eb0820a2ebb9dab7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   trigger: {fileID: 11400004}
 --- !u!114 &11400020
 MonoBehaviour:
@@ -1552,6 +1565,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 414cc816d28198b4b81f123975c097b9, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   xmlFile: Minion
   state: 0
   healthParsed: 0
@@ -1567,6 +1581,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fb723e308cc96044a79d83499d0a4ea, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   remoteTransform: {fileID: 400022}
   position: 0
   rotation: 0
@@ -1579,11 +1594,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16f9f399b80bf42b91b4d564bf870e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e2d45f2cfa2b53469b5ade66970f9c9, type: 3}
   m_Name: 
-  skillName: Basic Attack
-  cooldown: 0
-  actualCooldown: 0
+  m_EditorClassIdentifier: 
+  _castTime: .300000012
+  _cooldownTime: .200000003
+  contactTrigger: {fileID: 11400004}
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1594,6 +1610,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 784638e2da06f214bb6a759804acfea3, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1604,6 +1621,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cadd0d1f81e12f4c959ac9f41769e78, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   m_InterpolationBackTime: .5
   m_ExtrapolationLimit: .10000000149011612
   displacementCoefficient: 1
@@ -1617,6 +1635,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaea71a71f5194341908396eb3df86f1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   showInPanelTool: 1
   generateNormals: 0
   depthPass: 0
@@ -1654,6 +1673,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1676,8 +1696,21 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68280cff969c7674b8ab580746275d29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   healthbar: {fileID: 11400042}
   enemyOnly: 0
+--- !u!114 &11400036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2913ce66bedcc214a8cfd81336f028e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 0}
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1688,6 +1721,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6715e8f9fc3e23141a1c061be1a3cd40, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   lamp:
   - {fileID: 100088}
   - {fileID: 100086}
@@ -1702,6 +1736,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1724,6 +1759,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f60482bba387a740afe9e56dd8c20d1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 2100000, guid: aa81606ffa8ffd641a4681416aee01eb, type: 2}
   mTex: {fileID: 2800000, guid: ff5a59cdad0e6eb409f43ab3fd99f33f, type: 3}
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1746,6 +1782,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaea71a71f5194341908396eb3df86f1, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   showInPanelTool: 1
   generateNormals: 0
   depthPass: 0
@@ -1783,6 +1820,26 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0991606aee4e7224c8654c691a294022, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ccb6eefe840e544ad33c575ac20e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: 100092}
+  - {fileID: 100084}
+  - {fileID: 100080}
+  - {fileID: 100088}
+  - {fileID: 100074}
+  - {fileID: 100072}
+  goRenderer: []
 --- !u!132 &13200000
 GUIText:
   m_ObjectHideFlags: 1
@@ -1801,6 +1858,9 @@ GUIText:
   m_Material: {fileID: 0}
   m_FontSize: 0
   m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
   m_PixelCorrect: 1
   m_RichText: 1
 --- !u!135 &13500000
