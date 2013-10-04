@@ -1,247 +1,135 @@
-using System.Collections.Generic;
-using System.Xml;
+using System;
 using UnityEngine;
 
-class SkillTrigger
+
+public abstract class Skill : MonoBehaviour
 {
-    private Skill skill;
-    private triggerType type;
-    enum triggerType { onContact, instant };
+    public enum SkillState { Ready, InExecution, Active, CoolingDown }
 
-    private float radius;
 
-    private List<TargetType> targetTypes;
-    private List<Team.TeamIdentifier> targetTeams;
+    private float _stateTime;
+    private float[] _stateDuration = { 0f, 0f, 0f, 0f };
+    private SkillState[] _stateCycle = { SkillState.Ready, SkillState.InExecution, SkillState.Active, SkillState.CoolingDown };
+    private SkillState _state = SkillState.Ready;
+    private SkillState _nextState = SkillState.Ready;
 
-    public SkillTrigger(Skill skill, List<TargetType> targetTypes, string targetTeam)
+    protected string skillName = "Skill";
+    protected bool debug;
+
+    public float getCooldownInPercent()
     {
-        this.skill = skill;
-        type = triggerType.onContact;
-        this.targetTypes = targetTypes;
+        if (State == SkillState.CoolingDown)
+            return _stateTime/_stateDuration[3];
+        return 1;
+    }
 
-        targetTeams = new List<Team.TeamIdentifier>();
-        switch (targetTeam)
+    public string SkillName
+    {
+        get { return skillName; }
+    }
+
+    public SkillState State
+    {
+        get { return _state; }
+        private set
         {
-            case "Ally":
-                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
-                break;
-            case "Enemy":
-                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
-                break;
-            case "All":
-                targetTeams.Add(skill.gameObject.GetComponent<Team>().ID);
-                targetTeams.Add(skill.gameObject.GetComponent<Team>().Other());
-                break;
+            if (_state == value)
+                return;
+            _state = value;
+            _stateTime = 0f;
+        }
+    }
+    public float StateTime { get { return _stateTime; } }
+
+    protected bool Executable
+    {
+        get
+        {
+            if (debug && !((State == SkillState.Ready) && (!ExecutingSkill())))
+                DebugStreamer.message = skillName + " is not executable!";
+            return (State == SkillState.Ready) && (!ExecutingSkill());
         }
     }
 
-    public SkillTrigger(Skill skill)
+    private void UpdateStateTime(float deltaTime)
     {
-        this.skill = skill;
-        type = triggerType.instant;
+        float duration = _stateDuration[(int)State];
+        if (duration == 0f)
+            return;
+        _stateTime += deltaTime;
+        if (_stateTime >= duration)
+            SwitchState();
+
     }
 
-    public bool check()
+    private bool ExecutingSkill()
     {
-        if (type == triggerType.onContact)
-            return (skill.gameObject.GetComponent<Combat>().trigger.GetContactByTypesAndTeam(targetTypes, targetTeams) != null);
-        return true;
-    }
-}
-
-public enum SkillState { Ready, InExecution, Active, OnCooldown, Channeling };
-
-public class Skill : MonoBehaviour
-{
-    public string skillName;
-
-    private List<Modifier> modifiers = new List<Modifier>();
-    private SkillTrigger _skillTrigger = null;
-    public float cooldown;
-    private float castingTime;
-
-    public float actualCooldown;
-    private float actualCastingTime;
-    private bool _enabled;
-    private SkillState _state;
-
-    private bool isAura;
-    private bool isSpot;
-    private bool isPassive;
-
-    private NetworkAnimator networkAnimator;
-
-    bool Enabled { get { return _enabled; } set { _enabled = value; } }
-    public SkillState State { get { return _state; } }
-
-    public void Start()
-    {
-        isAura = false;
-        isSpot = false;
-        isPassive = false;
-
-        ConvertXML();
-
-        networkAnimator = GetComponent<NetworkAnimator>();
-
-        actualCooldown = 0f;
-        actualCastingTime = 0f;
-        _enabled = true;
-        _state = SkillState.Ready;
-
-        if (isPassive)
+        Skill[] skills = GetComponents<Skill>();
+        foreach (Skill skill in skills)
         {
-            Execute();
+            if (skill.State == SkillState.InExecution || skill.State == SkillState.Active)
+                return true;
         }
+        return false;
     }
 
-    public bool Execute()
+    protected void SwitchState()
     {
-        if (gameObject == null) return false;
-        if (!GetComponent<Health>().IsAlive()) return false;
-        if (!_enabled) return false;
-        if (isAura && _state == SkillState.Channeling) { foreach (Modifier aura in modifiers) aura.deactivateAura(); _state = SkillState.OnCooldown; return true; }
-        if (isSpot && _state == SkillState.Channeling) { foreach (Modifier spot in modifiers) spot.deactivateSpot(); _state = SkillState.OnCooldown; return true; }
-        if (_state != SkillState.Ready) return false;
-        if (_skillTrigger != null && !_skillTrigger.check()) return false;
-        actualCooldown = cooldown;
-        actualCastingTime = castingTime;
-        _state = SkillState.InExecution;
+        _nextState = _stateCycle[(Array.IndexOf(_stateCycle, State) + 1) % _stateCycle.Length];
+    }
 
-        if (GetComponent<CharController>() != null)
-        {
-            networkAnimator.PlayAnimation(skillName);
-        }
-        return true;
+    protected void SetDuration(SkillState state, float duration)
+    {
+        _stateDuration[(int)state] = duration;
+    }
+    public float GetDuration(SkillState state)
+    {
+        return _stateDuration[(int)state];
+    }
+    protected void SetStateCycle(SkillState[] states)
+    {
+        _stateCycle = states;
+    }
+
+    public abstract bool Execute();
+
+    protected virtual void OnExecute()
+    {
+    }
+    protected virtual void OnActive()
+    {
+    }
+    protected virtual void OnCoolDown()
+    {
+    }
+    protected virtual void OnReady()
+    {
     }
 
     void Update()
     {
-        if (_state == SkillState.Ready || _state == SkillState.Channeling) return;
-
-        if (_state == SkillState.InExecution)
+        UpdateStateTime(Time.deltaTime);
+        switch (State)
         {
-            actualCastingTime -= Time.deltaTime;
-            if (actualCastingTime <= 0)
-                _state = SkillState.Active;
+            case SkillState.Ready:
+                OnReady();
+                break;
+            case SkillState.InExecution:
+                OnExecute();
+                break;
+            case SkillState.Active:
+                OnActive();
+                break;
+            case SkillState.CoolingDown:
+                OnCoolDown();
+                break;
         }
-
-        if (_state == SkillState.Active)
+        if (State != _nextState)
         {
-            foreach (Modifier modifier in modifiers)
-                modifier.Execute();
-            _state = (isAura || isSpot) ? SkillState.Channeling : SkillState.OnCooldown;
-        }
-
-        if (_state == SkillState.OnCooldown)
-        {
-            actualCooldown -= Time.deltaTime;
-            if (actualCooldown <= 0)
-            {
-                _state = SkillState.Ready;
-            }
+            State = _nextState;
+            if (debug)
+                DebugStreamer.message = skillName + ": " + State;
         }
     }
 
-    public void DeactivateAura(string auraName)
-    {
-        foreach (Modifier aura in modifiers)
-            aura.deactivateAuraSensitive(auraName);
-    }
-
-    private void ConvertXML()
-    {
-        XmlDocument document = new XMLReader("Skills.xml").GetXML();
-        XmlElement skillNode = null;
-        foreach (XmlElement node in document.GetElementsByTagName("skill"))
-            if (node.GetAttribute("name") == skillName)
-                skillNode = node;
-        if (skillNode != null)
-        {
-            XmlNodeList typeList = skillNode.GetElementsByTagName("type");
-            XmlNodeList triggerList = skillNode.GetElementsByTagName("trigger");
-            XmlNodeList castingTimeList = skillNode.GetElementsByTagName("castingTime");
-            XmlNodeList cooldownList = skillNode.GetElementsByTagName("cooldown");
-            cooldown = ((cooldownList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(cooldownList[0].InnerText) : float.Parse(cooldownList[0].InnerText);
-            castingTime = ((castingTimeList[0] as XmlElement).HasAttribute("type")) ? gameObject.GetComponent<Damage>().HitSpeed * float.Parse(castingTimeList[0].InnerText) : float.Parse(castingTimeList[0].InnerText);
-
-            List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
-            List<TargetType> targetTypes;
-            string[] fieldStrings;
-            string field, target, valueType, targetType, parsedValue;
-
-            string triggerType = triggerList[0].FirstChild.Value;
-            triggerType = triggerType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
-            switch (triggerType)
-            {
-                case "onContact":
-                    fieldStrings = triggerList[0].ChildNodes[1].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
-                    targetTypes = new List<TargetType>();
-                    foreach (string type in fieldStrings)
-                        foreach (TargetType compareType in compareTypes)
-                            if (compareType.ToString() == type)
-                                targetTypes.Add(compareType);
-                    targetType = triggerList[0].ChildNodes[2].InnerText;
-                    _skillTrigger = new SkillTrigger(this, targetTypes, targetType);
-                    break;
-
-                case "instant":
-                    _skillTrigger = new SkillTrigger(this);
-                    break;
-            }
-
-            string skillType;
-            foreach (XmlNode skill in typeList)
-            {
-                skillType = skill.FirstChild.Value;
-                skillType = skillType.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty);
-                switch (skillType)
-                {
-                    case "modify":
-                        field = skill.ChildNodes[1].InnerText;
-                        parsedValue = skill.ChildNodes[2].InnerText;
-                        valueType = (skill.ChildNodes[2] as XmlElement).GetAttribute("type");
-                        target = skill.ChildNodes[3].InnerText;
-                        targetType = skill.ChildNodes[4].InnerText;
-                        modifiers.Add(new Modifier(this, field, parsedValue, valueType, target, targetType));
-                        break;
-
-                    case "buff":
-                        field = skill.ChildNodes[1].InnerText;
-                        target = skill.ChildNodes[2].InnerText;
-                        targetType = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, target, targetType, false));
-                        break;
-
-                    case "debuff":
-                        field = skill.ChildNodes[1].InnerText;
-                        target = skill.ChildNodes[2].InnerText;
-                        targetType = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, target, targetType, true));
-                        break;
-
-                    case "aura":
-                        isAura = true;
-                        field = skill.ChildNodes[1].InnerText;
-                        fieldStrings = skill.ChildNodes[2].InnerText.Split(new string[] { ", " }, System.StringSplitOptions.None);
-                        targetTypes = new List<TargetType>();
-                        foreach (string type in fieldStrings)
-                            foreach (TargetType compareType in compareTypes)
-                                if (compareType.ToString() == type)
-                                    targetTypes.Add(compareType);
-                        targetType = skill.ChildNodes[3].InnerText;
-                        modifiers.Add(new Modifier(this, field, targetTypes, targetType, skill.ChildNodes[4].InnerText, skill.ChildNodes[5].InnerText, (skillNode.HasAttribute("auraOnce") && skillNode.GetAttribute("auraOnce") == "true")));
-                        break;
-
-                    case "spot":
-                        isSpot = true;
-                        modifiers.Add(new Modifier(this, skill.ChildNodes[1].InnerText));
-                        break;
-                }
-            }
-            if (typeList.Count > 1 && isAura) isAura = false;
-            if (skillNode.HasAttribute("passive") && skillNode.GetAttribute("passive") == "true")
-                isPassive = true;
-        }
-    }
 }

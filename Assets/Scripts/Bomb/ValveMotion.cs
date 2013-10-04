@@ -15,7 +15,11 @@ public class ValveMotion : MonoBehaviour
 
     void Awake()
     {
+<<<<<<< HEAD
         rotFactor = GetComponent<WorkAnimation>().getCompleteTime()*rotSpeed;
+=======
+        rotFactor = GetComponent<WorkAnimation>().GetCompleteTime()*9;
+>>>>>>> refs/heads/feature/GUI2.0
         currentRotation = lastRotation = display.transform.localEulerAngles.z;
     }
 

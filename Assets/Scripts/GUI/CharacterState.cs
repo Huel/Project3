@@ -10,18 +10,22 @@ public class CharacterState : MonoBehaviour
     private Speed _speedComp;
     private UISprite _staminaBar;
     private Trophy _trophyComp;
-    private GameObject _trophy01;
-    private GameObject _trophy02;
-    private GameObject _trophy03;
-    private GameObject _freshMeat;
-    private GameObject _shieldwall;
-    private GameObject _kamikazeMission;
-    private GameObject _battlecry;
-    private Vector3 skill01Position = new Vector3(-131, 52, 0);
-    private Vector3 skill02Position = new Vector3(-23, 52, 0);
-    private Vector3 skill03Position = new Vector3(85, 52, 0);
-    private Vector3 skill04Position = new Vector3(191, 52, 0);
+    public GameObject _trophy01;
+    public GameObject _trophy02;
+    public GameObject _trophy03;
+    #region bullshit
+    //private GameObject _freshMeat;
+    //private GameObject _shieldwall;
+    //private GameObject _kamikazeMission;
+    //private GameObject _battlecry;
+    //private Vector3 skill01Position = new Vector3(-131, 52, 0);
+    //private Vector3 skill02Position = new Vector3(-23, 52, 0);
+    //private Vector3 skill03Position = new Vector3(85, 52, 0);
+    //private Vector3 skill04Position = new Vector3(191, 52, 0);
+    #endregion
+    
     public List<GameObject> skills = new List<GameObject>();
+    private List<Vector3> skillPositions = new List<Vector3>(); 
 
     private bool init = false;
 
@@ -30,74 +34,87 @@ public class CharacterState : MonoBehaviour
     {
         _healthBar = transform.FindChild("health").GetComponent<UISprite>();
         _staminaBar = transform.FindChild("stamina").GetComponent<UISprite>();
-        _trophy01 = transform.FindChild("trophy01").gameObject;
-        _trophy02 = transform.FindChild("trophy02").gameObject;
-        _trophy03 = transform.FindChild("trophy03").gameObject;
-        _freshMeat = transform.FindChild("Fresh Meat").gameObject;
-        skills.Add(_freshMeat);
-        _shieldwall = transform.FindChild("Shieldwall").gameObject;
-        skills.Add(_shieldwall);
-        _kamikazeMission = transform.FindChild("Kamikaze Mission").gameObject;
-        skills.Add(_kamikazeMission);
-        _battlecry = transform.FindChild("Battlecry").gameObject;
-        skills.Add(_battlecry);
 
+        skillPositions.Add(new Vector3(-131, 52, 0));
+        skillPositions.Add(new Vector3(-23, 52, 0));
+        skillPositions.Add(new Vector3(85, 52, 0));
+        skillPositions.Add(new Vector3(191, 52, 0));
 
+        #region bullshit
+        //_trophy01 = transform.FindChild("trophy01").gameObject;
+        //_trophy02 = transform.FindChild("trophy02").gameObject;
+        //_trophy03 = transform.FindChild("trophy03").gameObject;
+        //_freshMeat = transform.FindChild("Fresh Meat").gameObject;
+        //skills.Add(_freshMeat);
+        //_shieldwall = transform.FindChild("Shieldwall").gameObject;
+        //skills.Add(_shieldwall);
+        //_kamikazeMission = transform.FindChild("Kamikaze Mission").gameObject;
+        //skills.Add(_kamikazeMission);
+        //_battlecry = transform.FindChild("Battlecry").gameObject;
+        //skills.Add(_battlecry);
+        #endregion
+        
     }
 
-    private void SetSkillPosiotion(int position, string skillName)
+    private void SetSkillPosiotion()
     {
-        switch (position)
-        {
-            case 1:
-                {
-                    foreach (GameObject skill in skills)
-                    {
-                        if (skill.name.Equals(skillName))
-                        {
-                            skill.transform.localPosition = skill01Position;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            case 2:
-                {
-                    foreach (GameObject skill in skills)
-                    {
-                        if (skill.name.Equals(skillName))
-                        {
-                            skill.transform.localPosition = skill02Position;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            case 3:
-                {
-                    foreach (GameObject skill in skills)
-                    {
-                        if (skill.name.Equals(skillName))
-                        {
-                            skill.transform.localPosition = skill03Position;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            case 4:
-                {
-                    foreach (GameObject skill in skills)
-                    {
-                        if (skill.name.Equals(skillName))
-                        {
-                            skill.transform.localPosition = skill04Position;
-                            break;
-                        }
-                    }
-                    break;
-                }
-        }
+        for (int i = 0; i < 4; i++)
+            skills[i].transform.localPosition = skillPositions[i];
+
+        #region bullshit
+        //switch (position)
+        //{
+        //    case 1:
+        //        {
+        //            foreach (GameObject skill in skills)
+        //            {
+        //                if (skill.name.Equals(skillName))
+        //                {
+        //                    skill.transform.localPosition = skill01Position;
+        //                    break;
+        //                }
+        //            }
+        //            break;
+        //        }
+        //    case 2:
+        //        {
+        //            foreach (GameObject skill in skills)
+        //            {
+        //                if (skill.name.Equals(skillName))
+        //                {
+        //                    skill.transform.localPosition = skill02Position;
+        //                    break;
+        //                }
+        //            }
+        //            break;
+        //        }
+        //    case 3:
+        //        {
+        //            foreach (GameObject skill in skills)
+        //            {
+        //                if (skill.name.Equals(skillName))
+        //                {
+        //                    skill.transform.localPosition = skill03Position;
+        //                    break;
+        //                }
+        //            }
+        //            break;
+        //        }
+        //    case 4:
+        //        {
+        //            foreach (GameObject skill in skills)
+        //            {
+        //                if (skill.name.Equals(skillName))
+        //                {
+        //                    skill.transform.localPosition = skill04Position;
+        //                    break;
+        //                }
+        //            }
+        //            break;
+        //        }
+        //}
+        #endregion
+        
     }
 
     // Update is called once per frame
@@ -113,10 +130,7 @@ public class CharacterState : MonoBehaviour
     {
         if (FindPlayer() && !init)
         {
-            SetSkillPosiotion(1, _player.GetComponent<CharController>().skill1.skillName);
-            SetSkillPosiotion(2, _player.GetComponent<CharController>().skill2.skillName);
-            SetSkillPosiotion(3, _player.GetComponent<CharController>().skill3.skillName);
-            SetSkillPosiotion(4, _player.GetComponent<CharController>().skill4.skillName);
+            SetSkillPosiotion(); /*1, _player.GetComponent<CharController>().skill1.skillName*/
             init = true;
         }
 
@@ -124,9 +138,17 @@ public class CharacterState : MonoBehaviour
         {
             foreach (GameObject skillSprite in skills)
             {
-                if (skill.actualCooldown > 0 && skillSprite.name.Equals(skill.skillName))
+                if (skill.SkillName == skillSprite.name)
                 {
-                    skillSprite.GetComponent<UISprite>().fillAmount = -(skill.actualCooldown / skill.cooldown - 1);
+                    skillSprite.GetComponent<UISprite>().fillAmount = skill.getCooldownInPercent();
+
+                    if (skill.State == Skill.SkillState.InExecution || skill.State == Skill.SkillState.Active)
+                        skillSprite.GetComponent<UISprite>().color = new Color(0.5f, 1f, 0.5f);
+
+                    else if (skill.State != Skill.SkillState.Ready)
+                        skillSprite.GetComponent<UISprite>().color = new Color(0.5f,0.5f,0.5f);
+                    else
+                        skillSprite.GetComponent<UISprite>().color = new Color(1f, 1f, 1f);
                 }
             }
         }
@@ -134,20 +156,20 @@ public class CharacterState : MonoBehaviour
 
     private bool FindPlayer()
     {
-        if (_player)
+        if (!_player)
         {
-            return true;
-        }
-        GameObject[] players = GameObject.FindGameObjectsWithTag(Tags.player);
-        foreach (GameObject player in players)
-        {
-            if (player.networkView.isMine)
+            GameObject[] players = GameObject.FindGameObjectsWithTag(Tags.player);
+            foreach (GameObject player in players)
             {
-                _player = player;
-                return true;
+                if (player.networkView.isMine)
+                {
+                    _player = player;
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     private void UpdateHealth()
@@ -187,9 +209,14 @@ public class CharacterState : MonoBehaviour
         }
         switch (_trophyComp.trophyLevel)
         {
-            case 3:
-                _trophy03.SetActive(true);
-                _trophy02.SetActive(true);
+            case 0:
+                _trophy03.SetActive(false);
+                _trophy02.SetActive(false);
+                _trophy01.SetActive(false);
+                break;
+            case 1:
+                _trophy03.SetActive(false);
+                _trophy02.SetActive(false);
                 _trophy01.SetActive(true);
                 break;
             case 2:
@@ -197,15 +224,15 @@ public class CharacterState : MonoBehaviour
                 _trophy02.SetActive(true);
                 _trophy01.SetActive(true);
                 break;
-            case 1:
-                _trophy03.SetActive(false);
-                _trophy02.SetActive(false);
+            case 3:
+                _trophy03.SetActive(true);
+                _trophy02.SetActive(true);
                 _trophy01.SetActive(true);
                 break;
             default:
-                _trophy03.SetActive(false);
-                _trophy02.SetActive(false);
-                _trophy01.SetActive(false);
+                _trophy03.SetActive(true);
+                _trophy02.SetActive(true);
+                _trophy01.SetActive(true);
                 break;
         }
     }
