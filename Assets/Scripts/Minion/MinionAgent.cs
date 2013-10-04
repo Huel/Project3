@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ManipulateStates { Target, ResetTarget, Movement }
-
 public class MinionAgent : MonoBehaviour
 {
     public enum LaneIdentifier { Lane1, Lane2, Lane3 };
@@ -26,25 +24,22 @@ public class MinionAgent : MonoBehaviour
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 1f;
+    public float productivity = 2f;
+
+    private float life;
+    private float oldLife;
 
     public bool _moving;
 
-    public Target GetTarget() { return _target; }
+    public Target getTarget() { return _target; }
 
-    public void SetDestination(Target destination) { _destination = destination; }
-
-    public void SetOrigin(Target origin) { _origin = origin; }
-
-    public Target GetDestination() { return _destination; }
-
-    public Target GetOrigin() { return _origin; }
-
-    public TargetType GetCurrentTargetType()
+    public TargetType getCurrentTargetType()
     {
         if (_target != null) return _target.type;
         return TargetType.None;
     }
+
+    //public Skill basicSkill;
 
     void Start()
     {
@@ -54,30 +49,39 @@ public class MinionAgent : MonoBehaviour
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
 
+        life = gameObject.GetComponent<Health>().HealthPoints;
+
+        // only works when Minion is creatd by network.instansiate !!!
+        // ***********************************************************
         _agent.enabled = networkView.isMine;
-        enabled = networkView.isMine;
+        this.enabled = networkView.isMine;
         if (!networkView.isMine)
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
         }
+        // ***********************************************************
     }
 
     void Update()
     {
+        // only works when Minion is creatd by network.instansiate !!!
+        // ***********************************************************
         if (!networkView.isMine)
             return;
-
+        // ***********************************************************
         if (!gameObject.GetComponent<Health>().IsAlive())
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
-            GetComponent<CapsuleCollider>().enabled = false;
             return;
         }
+
+        oldLife = life;
+        life = gameObject.GetComponent<Health>().HealthPoints;
 
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
@@ -86,6 +90,7 @@ public class MinionAgent : MonoBehaviour
         _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
 
         CheckRallyPoint();
+        CheckAttacked();
         TargetBehavior();
 
     }
@@ -160,26 +165,14 @@ public class MinionAgent : MonoBehaviour
     void ContactBehavior()
     {
         if (contact.Contact(_target) && _target != null)
-        { 
+        {
             if (_agent.enabled) _agent.Stop(true);
-<<<<<<< HEAD
            
             // Enemy
             if (_target.type == TargetType.Hero || _target.type == TargetType.Minion)
             {
                 basicAttack.Execute();
                 transform.LookAt(_target.transform);
-=======
-            
-            // Enemy
-            if (basicAttack && (_target.type == TargetType.Hero || _target.type == TargetType.Minion))
-            {
-                transform.LookAt(_target.transform);
-                basicAttack.Execute();
-
-                if (_target.type == TargetType.Minion)
-                    _target.networkView.RPC("GetAttacked", _target.networkView.owner, gameObject.networkView.viewID);
->>>>>>> refs/heads/feature/GUI2.0
             }
             // Valve
             else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
@@ -192,6 +185,15 @@ public class MinionAgent : MonoBehaviour
         {
             _moving = true;
             if (_agent.enabled) _agent.Resume();
+        }
+    }
+
+    void CheckAttacked()
+    {
+        if (oldLife > life && (_target == null || _target.type == TargetType.Spot || _target.type == TargetType.Valve) && !fixedTarget)
+        {
+            var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero }, gameObject.GetComponent<Team>(), true);
+            if (target != null) _target = target;
         }
     }
 
@@ -212,61 +214,151 @@ public class MinionAgent : MonoBehaviour
         }
     }
 
-    [RPC]
-    public void GetAttacked(NetworkViewID viewId)
+    public void SetDestination(Target destination)
     {
-        if(!fixedTarget)
-            _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
+        _destination = destination;
+    }
+
+    public void SetOrigin(Target origin)
+    {
+        _origin = origin;
+    }
+
+    public Target GetDestination()
+    {
+        return _destination;
+    }
+
+    public Target GetOrigin()
+    {
+        return _origin;
+    }
+
+
+    public void Manipulate(string effect, string value = "", Target target = null)
+    {
+        NetworkViewID aim;
+        if (target == null)
+            aim = NetworkViewID.unassigned;
+        else
+            aim = target.networkView.viewID;
+        if (networkView.isMine)
+            ExecuteManipulation(effect, value, aim);
+        else
+            networkView.RPC("ExecuteManipulation", networkView.owner, effect, value, aim);
+    }
+
+    [RPC]
+    private void ExecuteManipulation(string effect, string value, NetworkViewID aim)
+    {
+        Target target = null;
+        if (aim != NetworkViewID.unassigned)
+            target = NetworkView.Find(aim).GetComponent<Target>();
+
+        switch (effect)
+        {
+            case "Target":
+                _targetSaved = _target;
+                _target = target;
+                fixedTarget = true;
+                break;
+
+            case "ResetTarget":
+                _target = _targetSaved;
+                fixedTarget = false;
+                break;
+
+            case "CanMove":
+                _agent.enabled = bool.Parse(value);
+                break;
+
+            case "CanAttack":
+                basicAttack.enabled = bool.Parse(value);
+                break;
+
+            case "Productivity":
+                productivity = float.Parse(value);
+                break;
+
+            case "RelevantTargetTypes":
+                List<TargetType> compareTypes = new List<TargetType>
+                    {
+                        TargetType.Hero,
+                        TargetType.Minion,
+                        TargetType.Spot,
+                        TargetType.Valve,
+                        TargetType.Dead
+                    };
+                List<TargetType> types = new List<TargetType>();
+                string[] splitedString = value.Split(new string[] { ", " }, System.StringSplitOptions.None);
+                foreach (string type in splitedString)
+                    foreach (TargetType compareType in compareTypes)
+                        if (compareType.ToString() == type)
+                            types.Add(compareType);
+                attentionRange.SetRelevantTargetTypes(types);
+                break;
+
+            case "Revive":
+                gameObject.GetComponent<Health>().SetHealth(gameObject.GetComponent<Health>().MaxHealth * float.Parse(value));
+                break;
+
+            case "AddSquad":
+                if (atRallyPoint)
+                    atRallyPoint = false;
+                else
+                    _destinationSaved = _destination;
+                _destination = target;
+                partOfSquad = true;
+                break;
+
+            case "RemoveSquad":
+                _destination = CheckLine(_destinationSaved);
+                _destinationSaved = null;
+                partOfSquad = false;
+                break;
+        }
+    }
+
+    private Target CheckLine(Target oldLine)
+    {
+        List<GameObject> checkpoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Checkpoint"));
+
+        Target target;
+        float distance = float.MaxValue;
+        int position = -1;
+        for (int i = 0; i < checkpoints.Count; i++)
+            if ((checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude <= distance)
+            {
+                position = i;
+                distance = (checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude;
+            }
+
+        if (position != -1)
+        {
+            target = checkpoints[position].GetComponent<Target>();
+            Team.TeamIdentifier id = GetComponent<Team>().ID;
+            int number = int.Parse(target.name.Substring(target.name.Length - 1));
+            if ((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
+            {
+                foreach (GameObject baseObject in GameObject.FindGameObjectsWithTag("Base"))
+                    if (baseObject.GetComponent<Team>().ID == id)
+                        SetOrigin(baseObject.GetComponent<Target>());
+            }
+            number = (id == Team.TeamIdentifier.Team1) ? number - 1 : number + 1;
+
+            foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+                if (checkpoint.name == (target.name.Substring(0, target.name.Length - 1) + number))
+                    SetOrigin(checkpoint.GetComponent<Target>());
+        }
+        else
+            target = oldLine;
+
+        return target;
     }
 
     [RPC]
     public void SetNavMeshAgent(bool active)
     {
         GetComponent<NavMeshAgent>().enabled = active;
-    }
-
-    [RPC]
-    public void Manipulate(int state, NetworkViewID id, string value)
-    {
-        if (networkView.isMine)
-        {
-            switch ((ManipulateStates)state)
-            {
-                case (ManipulateStates.Target):
-                    fixedTarget = true;
-                    _targetSaved = _target;
-                    if(value=="Base" || value=="Flee")
-                    {
-                        GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
-                        foreach (GameObject gameObj in objects)
-                        {
-                            if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
-                                _target = gameObj.GetComponent<Target>();
-                            if (value=="Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
-                                _target = gameObj.GetComponent<Target>();
-                        }
-                    }
-                    else
-                        _target = NetworkView.Find(id).GetComponent<Target>();
-                    break;
-
-                case (ManipulateStates.ResetTarget):
-                    if (!fixedTarget) return;
-                    fixedTarget = false;
-                    _target = _targetSaved;
-                    _targetSaved = null;
-                    break;
-
-                case (ManipulateStates.Movement):
-                    
-                    _agent.enabled = bool.Parse(value);
-                    basicAttack.enabled = bool.Parse(value);
-                    break;
-            }
-        }
-        else
-        {
-            networkView.RPC("Manipulate", networkView.owner, (int)state, id, (value == "") ? "" : value);
-        }
     }
 }

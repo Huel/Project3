@@ -16,11 +16,11 @@ public class NetworkAnimator : MonoBehaviour
         _animator.SetLayerWeight(1, 1f);
     }
 
-    public void PlayAnimation(string anim, bool forward = true, int type = 0)
+    public void PlayAnimation(string anim, bool forward = true)
     {
         if (obj.transform.animation != null && obj.transform.animation[anim] != null && obj.transform.animation.IsPlaying(anim))
             return;
-        networkView.RPC("StartAnimation", RPCMode.All, anim, forward, type);
+        networkView.RPC("StartAnimation", RPCMode.All, anim, forward);
     }
 
     public void StopAnimation()
@@ -29,7 +29,7 @@ public class NetworkAnimator : MonoBehaviour
     }
 
     [RPC]
-    public void StartAnimation(string anim, bool forward = true, int type = 0)
+    public void StartAnimation(string anim, bool forward = true)
     {
         if (anim == null || anim.Length <= 0)
             return;
@@ -44,7 +44,7 @@ public class NetworkAnimator : MonoBehaviour
             obj.transform.animation.Play(anim);
             return;
         }
-        StartMecanimClip(anim, type);
+        StartMecanimClip(anim);
     }
 
     [RPC]
@@ -53,20 +53,17 @@ public class NetworkAnimator : MonoBehaviour
         obj.transform.animation.Stop();
     }
 
-    private void StartMecanimClip(string anim, int type = 0)
+    private void StartMecanimClip(string anim)
     {
-        StartCoroutine(MecanimClip(anim, type));
+        StartCoroutine(MecanimClip(anim));
 
     }
 
-    IEnumerator MecanimClip(string animBoolName, int type = 0)
+    IEnumerator MecanimClip(string animBoolName)
     {
+
         if (_animator)
-        {
             _animator.SetBool(animBoolName, true);
-            if (type != 0)
-                _animator.SetInteger("AttackType", type);
-        }
         yield return null;
         yield return null;
         if (_animator)

@@ -22,16 +22,16 @@ public class MinionLamp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (_team)
-        //    SetTeam();
-        //if (!_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() != null)
-        //{
-        //    networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
-        //}
-        //else if (_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() == null)
-        //{
-        //    networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
-        //}
+        if (_team)
+            SetTeam();
+        if (!_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() != null)
+        {
+            networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
+        }
+        else if (_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() == null)
+        {
+            networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
+        }
     }
 
     private void SetTeam()
@@ -43,7 +43,7 @@ public class MinionLamp : MonoBehaviour
         {
             l.renderer.material.SetColor("_Color", _color);
         }
-
+        
         _team = null;
     }
 
@@ -64,7 +64,7 @@ public class MinionLamp : MonoBehaviour
             l.renderer.material = (Material)Resources.Load("MinionLampGlow");
             l.renderer.material.SetColor("_Color", _color);
         }
-
+        
         _switchedOn = true;
     }
 
@@ -85,7 +85,7 @@ public class MinionLamp : MonoBehaviour
 
     private void RemoveFlare()
     {
-        if (_flareEffect)
+        if(_flareEffect)
             Destroy(_flareEffect);
     }
 
@@ -100,7 +100,7 @@ public class MinionLamp : MonoBehaviour
         if (!_flareEffect)
             return;
 
-        _flareEffect.GetComponent<LensFlare>().brightness = Mathf.Clamp(value, 0, maxFlare);
+        _flareEffect.GetComponent<LensFlare>().brightness = Mathf.Clamp(value,0,maxFlare);
         if (networkView.isMine)
             networkView.RPC("SetFlare", RPCMode.OthersBuffered, value);
 

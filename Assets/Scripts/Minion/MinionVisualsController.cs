@@ -4,12 +4,12 @@ public class MinionVisualsController : MonoBehaviour
 {
     private Animator animator;
 
-    public enum AnimStates { Run, Dead, Attack, Push, Buff };
+    public enum AnimStates{ Run, Dead, Attack, Push, Buff };
     private AnimStates state;
 
     private string run = "Run";
-    private string dying = "Dying";
-    //private string attack = "Attack";
+    private string dead = "Dead";
+    private string attack = "Attack";
     private string attackType = "AttackType";
     private string push = "Push";
     private string buff = "Buff";
@@ -31,23 +31,23 @@ public class MinionVisualsController : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
         if (!networkView.isMine || gameObject == null)
             return;
         // not sure if necessary
-        if (animator.GetBool(dying)) return;
+        if (animator.GetBool(dead)) return;
         // ---------------------
         if (!GetComponent<Health>().IsAlive())
             state = AnimStates.Dead;
 
-        //else if (GetComponent<Skill>().State == Skill.SkillState.InExecution)
-        //{
-        //    randomAttack = Random.Range(1, 4);
-        //    state = AnimStates.Attack;
-        //}
+        else if (GetComponent<Skill>().State == SkillState.InExecution)
+        {
+            randomAttack = Random.Range(1, 4);
+            state = AnimStates.Attack;
+        }
 
-        else if (GetComponent<MinionAgent>().GetCurrentTargetType() == TargetType.Valve
-            && GetComponent<MinionAgent>().GetTarget().GetComponent<WorkAnimation>().Move(gameObject))
+        else if (GetComponent<MinionAgent>().getCurrentTargetType() == TargetType.Valve
+            && GetComponent<MinionAgent>().getTarget().GetComponent<WorkAnimation>().Move(gameObject))
             state = AnimStates.Push;
 
         else if (GetComponent<MinionLamp>().getSwitchOn())
@@ -66,39 +66,39 @@ public class MinionVisualsController : MonoBehaviour
         {
             case AnimStates.Dead:
                 animator.SetBool(run, false);
-                animator.SetBool(dying, true);
-                //animator.SetBool(attack, false);
+                animator.SetBool(dead, true);
+                animator.SetBool(attack, false);
                 animator.SetBool(push, false);
                 animator.SetBool(buff, false);
                 break;
-            //case AnimStates.Attack:
+            case AnimStates.Attack:
 
-            //    animator.SetInteger(attackType, randomAttack);
+                animator.SetInteger(attackType, randomAttack);
 
-            //    animator.SetBool(run, false);
-            //    animator.SetBool(dead, false);
-            //    animator.SetBool(attack, true);
-            //    animator.SetBool(push, false);
-            //    animator.SetBool(buff, false);
-            //    break;
+                animator.SetBool(run, false);
+                animator.SetBool(dead, false);
+                animator.SetBool(attack, true);
+                animator.SetBool(push, false);
+                animator.SetBool(buff, false);
+                break;
             case AnimStates.Push:
                 animator.SetBool(run, false);
-                animator.SetBool(dying, false);
-                //animator.SetBool(attack, false);
+                animator.SetBool(dead, false);
+                animator.SetBool(attack, false);
                 animator.SetBool(push, true);
                 animator.SetBool(buff, false);
                 break;
             case AnimStates.Buff:
                 animator.SetBool(run, false);
-                animator.SetBool(dying, false);
-                //animator.SetBool(attack, false);
+                animator.SetBool(dead, false);
+                animator.SetBool(attack, false);
                 animator.SetBool(push, false);
                 animator.SetBool(buff, true);
                 break;
             case AnimStates.Run:
                 animator.SetBool(run, true);
-                animator.SetBool(dying, false);
-                //animator.SetBool(attack, false);
+                animator.SetBool(dead, false);
+                animator.SetBool(attack, false);
                 animator.SetBool(push, false);
                 animator.SetBool(buff, false);
                 break;
@@ -108,16 +108,16 @@ public class MinionVisualsController : MonoBehaviour
     private void checkChanges()
     {
         if (checkChange[0] != animator.GetBool(run)
-            //|| checkChange[1] != animator.GetBool(attack)
-            || checkChange[2] != animator.GetBool(dying)
+            || checkChange[1] != animator.GetBool(attack)
+            || checkChange[2] != animator.GetBool(dead)
             || checkChange[3] != animator.GetBool(push)
             || checkChange[4] != animator.GetBool(buff)
             || lastAttack != animator.GetInteger(attackType))
         {
-            networkView.RPC("TransferAnimStates", RPCMode.OthersBuffered, animator.GetBool(run), /*animator.GetBool(attack),*/ animator.GetBool(dying), animator.GetBool(push), animator.GetBool(buff), animator.GetInteger(attackType));
+            networkView.RPC("TransferAnimStates", RPCMode.OthersBuffered, animator.GetBool(run), animator.GetBool(attack), animator.GetBool(dead), animator.GetBool(push), animator.GetBool(buff), animator.GetInteger(attackType));
             checkChange[0] = animator.GetBool(run);
-            //checkChange[1] = animator.GetBool(attack);
-            checkChange[2] = animator.GetBool(dying);
+            checkChange[1] = animator.GetBool(attack);
+            checkChange[2] = animator.GetBool(dead);
             checkChange[3] = animator.GetBool(push);
             checkChange[4] = animator.GetBool(buff);
             lastAttack = animator.GetInteger(attackType);
@@ -125,17 +125,17 @@ public class MinionVisualsController : MonoBehaviour
     }
 
     [RPC]
-    public void TransferAnimStates(bool first, /*bool second,*/ bool third, bool fourth, bool fifth, int type)
+    public void TransferAnimStates(bool first, bool second, bool third, bool fourth, bool fifth, int type)
     {
         if (animator != null)
         {
             animator.SetBool(run, first);
-            //animator.SetBool(attack, second);
-            animator.SetBool(dying, third);
+            animator.SetBool(attack, second);
+            animator.SetBool(dead, third);
             animator.SetBool(push, fourth);
             animator.SetBool(buff, fifth);
             animator.SetInteger(attackType, type);
         }
-
+       
     }
 }

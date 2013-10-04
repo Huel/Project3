@@ -37,7 +37,7 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
-        name = "Hero(own)";
+
         _animator = GetComponent<Animator>();
         _healthComponent = GetComponent<Health>();
         _speedComponent = GetComponent<Speed>();
@@ -49,7 +49,6 @@ public class CharController : MonoBehaviour
         //If it's not my character the CharController should be disabled.
         if (!networkView.isMine)
         {
-            name = "Hero(enemy)";
             enabled = false;
             return;
         }
