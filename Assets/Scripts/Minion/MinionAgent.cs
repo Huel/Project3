@@ -75,7 +75,7 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
-            GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;  // RPC ???
             return;
         }
 

@@ -120,7 +120,7 @@ public class MinionInterpolationScript : MonoBehaviour
         if (networkView.isMine)// || )
             return;
 
-        if (!GetComponent<Animator>().GetBool("Run"))
+        if (GetComponent<Animator>().GetFloat("Speed") < 0.1)
         {
             transform.position = rightPos;
         }
