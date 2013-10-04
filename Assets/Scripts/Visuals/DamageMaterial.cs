@@ -5,10 +5,12 @@ using System.Collections;
 public class DamageMaterial : MonoBehaviour 
 {
     public List<GameObject> meshes = new List<GameObject>();
-    public List<SkinnedMeshRenderer> goRenderer = new List<SkinnedMeshRenderer>();
+    private List<SkinnedMeshRenderer> goRenderer = new List<SkinnedMeshRenderer>();
     
-    private Material _damageMaterial;
-    private Material _standardMaterial;
+    private Color Red = new Color(1, 0, 0);
+    private Color White = new Color(1, 1, 1);
+
+    private bool normal;
 
     private const float changingTime = 0.3f;
 
@@ -16,11 +18,6 @@ public class DamageMaterial : MonoBehaviour
 
     void Awake()
     {
-        _damageMaterial = new Material(Shader.Find("Diffuse"));
-        _damageMaterial.color = new Color(1, 0, 0);
-
-        _standardMaterial = meshes[0].GetComponent<SkinnedMeshRenderer>().material;
-
         foreach (GameObject mesh in meshes)
         {
             goRenderer.Add(mesh.GetComponent<SkinnedMeshRenderer>());
@@ -33,9 +30,10 @@ public class DamageMaterial : MonoBehaviour
         if (networkView.isMine)
         {
             foreach (SkinnedMeshRenderer meshRenderer in goRenderer)
-                meshRenderer.material = _damageMaterial;
+                meshRenderer.material.color = Red;
 
             _counter = 0;
+            normal = false;
         }
         else
             networkView.RPC("addDamageMaterial", RPCMode.OthersBuffered);
@@ -45,10 +43,13 @@ public class DamageMaterial : MonoBehaviour
     private void deleteDamageMaterial()
     {
         if (networkView.isMine)
+        {
             foreach (SkinnedMeshRenderer meshRenderer in goRenderer)
-                meshRenderer.material = _standardMaterial;
+                meshRenderer.material.color = White;
+            normal = true;
+        }    
         else
-            networkView.RPC("deleteDamageMaterial", RPCMode.Others);
+            networkView.RPC("deleteDamageMaterial", RPCMode.OthersBuffered);
     }
 	
 	//Update is called once per frame
@@ -56,7 +57,7 @@ public class DamageMaterial : MonoBehaviour
     {
         if (_counter < changingTime)
             _counter += Time.deltaTime;
-        else
+        else if (!normal)
             deleteDamageMaterial();
     }
 }
