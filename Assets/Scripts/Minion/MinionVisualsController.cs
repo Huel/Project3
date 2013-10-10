@@ -113,14 +113,14 @@ public class MinionVisualsController : MonoBehaviour
     }
 
     [RPC]
-    public void TransferAnimStates( bool die, bool pushing, bool buffing, bool scaredStr)
+    public void TransferAnimStates( bool die, bool pushing, bool buffing, bool isScared)
     {
         if (_animator != null)
         {
             _animator.SetBool(dying, die);
             _animator.SetBool(push, pushing);
             _animator.SetBool(buff, buffing);
-            _animator.SetBool(scared, scaredStr);
+            _animator.SetBool(scared, isScared);
         }
 
     }
