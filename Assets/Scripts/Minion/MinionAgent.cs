@@ -22,6 +22,8 @@ public class MinionAgent : MonoBehaviour
     public bool atRallyPoint = false;
     public bool partOfSquad = false;
 
+    private bool scared;
+
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
@@ -46,6 +48,8 @@ public class MinionAgent : MonoBehaviour
         return TargetType.None;
     }
 
+    public bool isScared() { return scared; }
+
     void Start()
     {
         _agent = gameObject.GetComponent<NavMeshAgent>();
@@ -53,6 +57,7 @@ public class MinionAgent : MonoBehaviour
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
+        scared = false;
 
         _agent.enabled = networkView.isMine;
         enabled = networkView.isMine;
@@ -91,7 +96,7 @@ public class MinionAgent : MonoBehaviour
     }
 
     void TargetBehavior()
-    {
+    {  
         // no target
         if (_target == null)
         {
@@ -233,8 +238,11 @@ public class MinionAgent : MonoBehaviour
                         {
                             if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
                                 _target = gameObj.GetComponent<Target>();
-                            if (value=="Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
+                            if (value == "Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
+                            {
                                 _target = gameObj.GetComponent<Target>();
+                                scared = true;
+                            }
                         }
                     }
                     else
@@ -244,6 +252,7 @@ public class MinionAgent : MonoBehaviour
                 case (ManipulateStates.ResetTarget):
                     if (!fixedTarget) return;
                     fixedTarget = false;
+                    scared = false;
                     _target = _targetSaved;
                     _targetSaved = null;
                     break;
@@ -252,6 +261,7 @@ public class MinionAgent : MonoBehaviour
                     
                     _agent.enabled = bool.Parse(value);
                     basicAttack.enabled = bool.Parse(value);
+                    scared = !bool.Parse(value);
                     break;
             }
         }
