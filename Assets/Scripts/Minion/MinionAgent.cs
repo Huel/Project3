@@ -227,7 +227,7 @@ public class MinionAgent : MonoBehaviour
     [RPC]
     public void GetAttacked(NetworkViewID viewId)
     {
-        if(!fixedTarget)
+        if (!fixedTarget && _target != null && _target.type != TargetType.Hero && _target.type != TargetType.Minion)
             _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }
 
