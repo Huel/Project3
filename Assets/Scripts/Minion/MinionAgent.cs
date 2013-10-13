@@ -11,24 +11,24 @@ public class MinionAgent : MonoBehaviour
     private NavMeshAgent _agent;
     public Skill basicAttack;
 
-    public Target _destination;    // default target
-    public Target _destinationSaved;    // default target (Saved for overwritting processces)
+    private Target _destination;    // default target
+    private Target _destinationSaved;    // default target (Saved for overwritting processces)
     private Target _origin;         // came from here
-    public Target _target;         // current target
+    private Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
+    
     private float _destinationOffset = 1f;
+    public float productivity = 1f;
 
     private bool fixedTarget = false;
     public bool atRallyPoint = false;
     public bool partOfSquad = false;
+    private bool _moving;
+    private bool buff;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
-
-    public float productivity = 1f;
-
-    public bool _moving;
 
     public Target GetTarget() { return _target; }
 
@@ -44,6 +44,28 @@ public class MinionAgent : MonoBehaviour
     {
         if (_target != null) return _target.type;
         return TargetType.None;
+    }
+
+    public bool Buff
+    {
+        get { return buff; }
+        set
+        {
+            if (value)
+            {
+                GetComponent<Health>().SetIncreasedMaxHealth(20);
+                GetComponent<Damage>().SetIncreasedDamage(2);
+                productivity = 1.2f;
+            }
+            else
+            {
+                GetComponent<Health>().SetIncreasedMaxHealth(0);
+                GetComponent<Damage>().SetIncreasedDamage(0);
+                productivity = 1.0f;
+            }
+            GetComponent<Speed>().IsSprinting = value;
+            buff = value;
+        }
     }
 
     void Start()
@@ -87,7 +109,6 @@ public class MinionAgent : MonoBehaviour
 
         CheckRallyPoint();
         TargetBehavior();
-
     }
 
     void TargetBehavior()
@@ -206,7 +227,7 @@ public class MinionAgent : MonoBehaviour
     [RPC]
     public void GetAttacked(NetworkViewID viewId)
     {
-        if(!fixedTarget)
+        if (!fixedTarget && _target != null && _target.type != TargetType.Hero && _target.type != TargetType.Minion)
             _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }
 
