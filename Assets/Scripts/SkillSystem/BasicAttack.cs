@@ -43,6 +43,7 @@ public class BasicAttack : Skill
         Target contact = contactTrigger.GetContactByTypesAndTeam(_targetTypes, _targetTeams);
         if (contact != null)
         {
+            GetComponent<LastHeroDamage>().SetSource(contact.networkView.viewID);
             Health enemyHealth = contact.GetComponent<Health>();
             enemyHealth.DecHealth(_damageComponent.DefaultDamage);
         }
