@@ -22,16 +22,16 @@ public class MinionLamp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (_team)
-        //    SetTeam();
-        //if (!_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() != null)
-        //{
-        //    networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
-        //}
-        //else if (_switchedOn && networkView.isMine && GetComponent<BuffBehaviour>() == null)
-        //{
-        //    networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
-        //}
+        if (_team)
+            SetTeam();
+        if (!_switchedOn && networkView.isMine && GetComponent<MinionAgent>().Buff)
+        {
+            networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
+        }
+        else if (_switchedOn && networkView.isMine && !GetComponent<MinionAgent>().Buff)
+        {
+            networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
+        }
     }
 
     private void SetTeam()

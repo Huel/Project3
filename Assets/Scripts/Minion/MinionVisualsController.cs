@@ -50,7 +50,7 @@ public class MinionVisualsController : MonoBehaviour
             && GetComponent<MinionAgent>().GetTarget().GetComponent<WorkAnimation>().Move(gameObject))
             state = AnimStates.Push;
 
-        else if (GetComponent<MinionLamp>().getSwitchOn())
+        else if (/*GetComponent<MinionLamp>().getSwitchOn()*/GetComponent<MinionAgent>().Buff)
             state = AnimStates.Buff;
 
         else

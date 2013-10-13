@@ -1558,6 +1558,7 @@ GameObject:
   - 4: {fileID: 400200}
   - 114: {fileID: 11400030}
   - 135: {fileID: 13500000}
+  - 114: {fileID: 11400040}
   m_Layer: 11
   m_Name: aurabuff
   m_TagString: Untagged
@@ -3059,7 +3060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInRange: []
-  relevantTargetTypes: 010000000000000006000000
+  relevantTargetTypes: 01000000
 --- !u!114 &11400032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3108,7 +3109,6 @@ MonoBehaviour:
   - {fileID: 100188}
   - {fileID: 100182}
   - {fileID: 100184}
-  goRenderer: []
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3128,6 +3128,20 @@ MonoBehaviour:
   addSquad: {fileID: 0}
   removeSquad: {fileID: 0}
   heroicAura: {fileID: 0}
+--- !u!114 &11400040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed9b54f96089d943886c67dca6baf4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aura: {fileID: 11400030}
+  types: 
+  IDs: 
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1
