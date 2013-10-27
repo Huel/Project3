@@ -48,7 +48,6 @@ public class MinionAgent : MonoBehaviour
         return TargetType.None;
     }
 
-<<<<<<< HEAD
     public bool Buff
     {
         get { return buff; }
@@ -70,9 +69,7 @@ public class MinionAgent : MonoBehaviour
             buff = value;
         }
     }
-=======
     public bool isScared() { return scared; }
->>>>>>> refs/heads/feature/newMinionController
 
     void Start()
     {

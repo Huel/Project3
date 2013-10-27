@@ -57,6 +57,8 @@ public class MinionVisualsController : MonoBehaviour
         if (GetComponent<ComponentBuilder>().state != ComponentBuilder.LoadingState.Loaded)
             return;
 
+        _animator.SetBool("Buff", !_animator.GetBool("Attack"));
+
         if (!GetComponent<Health>().IsAlive())
         {
             _animator.SetBool(dying, true);
@@ -65,15 +67,7 @@ public class MinionVisualsController : MonoBehaviour
             _animator.SetBool(scared, false);
         }
         else if (GetComponent<MinionAgent>().GetCurrentTargetType() == TargetType.Valve
-<<<<<<< HEAD
             && GetComponent<MinionAgent>().GetTarget().GetComponent<WorkAnimation>().Move(gameObject))
-            state = AnimStates.Push;
-
-        else if (/*GetComponent<MinionLamp>().getSwitchOn()*/GetComponent<MinionAgent>().Buff)
-            state = AnimStates.Buff;
-
-=======
-                 && GetComponent<MinionAgent>().GetTarget().GetComponent<WorkAnimation>().Move(gameObject))
         {
             _animator.SetBool(dying, false);
             _animator.SetBool(push, true);
@@ -94,7 +88,6 @@ public class MinionVisualsController : MonoBehaviour
             _animator.SetBool(buff, false);
             _animator.SetBool(scared, true);
         }
->>>>>>> refs/heads/feature/newMinionController
         else
         {
             _animator.SetBool(dying, false);
