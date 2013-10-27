@@ -41,7 +41,7 @@ public class OrbitCamera : MonoBehaviour
     private float freeThreshold = 0.1f;
     private Vector2 camMinDistFromChar = new Vector2(3f, 0f);
     private float rightStickThreshold = 0.3f;
-    private const float freeRotationDegreePerSecond = -5f;
+    private const float freeRotationDegreePerSecond = -180f;
 
 
     // Smoothing and damping
@@ -121,32 +121,36 @@ public class OrbitCamera : MonoBehaviour
     {
         if (player == null)
             return;
-        // Pull values from controller/keyboard
+
+        //Get Inputs for camera (right analogue stick)
         float cameraX = Input.GetAxis(InputTags.cameraX);
         float cameraY = Input.GetAxis(InputTags.cameraY);
-        float horizontal = Input.GetAxis(InputTags.horizontal);
-        float vertical = Input.GetAxis(InputTags.vertical);
 
+        //Camera shouldn't look at the feet
         Vector3 characterOffset = player.transform.position + new Vector3(0f, distanceUp, 0f);
         Vector3 lookAt = characterOffset;
         Vector3 targetPosition = Vector3.zero;
 
-        // Determine camera state
+        // Determine camera state:
         // * Targeting *
         if (CustomInput.GetTrigger(InputTags.target))
         {
+            //Cinematic effect for target mode
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, widescreen, targetingTime);
-
+            //Set camera state to target mode
             camState = CamStates.Target;
         }
         else
         {
+            //Remove the effect for target mode
             barEffect.coverage = Mathf.SmoothStep(barEffect.coverage, 0f, targetingTime);
 
+            //If you aren't in the camera state "Free" and you are using the right analogue stick switch to camera state "Free"
             if (camState != CamStates.Free && (Mathf.Abs(cameraX) >= freeThreshold || Mathf.Abs(cameraY) >= freeThreshold))
             {
                 camState = CamStates.Free;
                 savedRigToGoal = Vector3.zero;
+                //Reset the distance from the character to the camera with the default values
                 distanceAwayFree = distanceAway;
                 distanceUpFree = distanceUp;
             }
@@ -158,7 +162,7 @@ public class OrbitCamera : MonoBehaviour
             }
         }
 
-        // Execute camera state
+        // Execute camera state:
         switch (camState)
         {
             case CamStates.Behind:
@@ -227,7 +231,7 @@ public class OrbitCamera : MonoBehaviour
 
 
                 // Rotating around character
-                parentRig.RotateAround(characterOffset, player.transform.up, freeRotationDegreePerSecond * (Mathf.Abs(cameraX) > rightStickThreshold ? cameraX : 0f));
+                parentRig.RotateAround(characterOffset, player.transform.up, freeRotationDegreePerSecond * (Mathf.Abs(cameraX) > rightStickThreshold ? cameraX : 0f) * Time.deltaTime);
 
                 // Still need to track camera behind player even if they aren't using the right stick; achieve this by saving distanceAwayFree every frame
                 if (targetPosition == Vector3.zero)

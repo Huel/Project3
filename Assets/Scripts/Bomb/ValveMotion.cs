@@ -3,25 +3,38 @@ using System.Collections;
 
 public class ValveMotion : MonoBehaviour
 {
+    public GameObject display;
 
-    private int motionState = 0;
+    public float currentRotation;
+    public float lastRotation;
+
+    public float rotFactor;
+    private float rotPerMinion = 90;
+
+    void Awake()
+    {
+        rotFactor = GetComponent<WorkAnimation>().GetCompleteTime()*9;
+        currentRotation = lastRotation = display.transform.localEulerAngles.z;
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{
-        if (motionState != -1 && GetComponent<Valve>().GetRotationDirection() == -1)
-        {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation", false);
-            motionState = -1;
-        }
-        else if (motionState != 1 && GetComponent<Valve>().GetRotationDirection() == 1)
-        {
-            GetComponent<NetworkAnimator>().PlayAnimation("ValveRotation");
-            motionState = 1;
-        }
-        else if (motionState != 0 && GetComponent<Valve>().GetRotationDirection() == 0)
-        {
-            GetComponent<NetworkAnimator>().StopAnimation();
-            motionState = 0;
-        }
+        if (currentRotation <= lastRotation + rotPerMinion 
+            && GetComponent<WorkAnimation>().EnqueueTimer() <= GetComponent<WorkAnimation>().TimeDistance())
+	    {
+            currentRotation += -GetComponent<Valve>().GetRotationDirection()*rotFactor*Time.deltaTime;
+	    }
+
+	    display.transform.localEulerAngles = new Vector3(0, 0, currentRotation);
 	}
+
+    public void Motion()
+    {
+        if (currentRotation >= lastRotation + rotPerMinion)
+        {
+            lastRotation += -GetComponent<Valve>().GetRotationDirection()*rotPerMinion;
+            currentRotation = lastRotation;
+        }
+    }
 }

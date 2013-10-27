@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
+public enum ManipulateStates { Target, ResetTarget, Movement }
+
 public class MinionAgent : MonoBehaviour
 {
     public enum LaneIdentifier { Lane1, Lane2, Lane3 };
@@ -10,28 +12,69 @@ public class MinionAgent : MonoBehaviour
     private NavMeshAgent _agent;
     public Skill basicAttack;
 
-    public Target _destination;    // default target
-    public Target _destinationSaved;    // default target (Saved for overwritting processces)
+    private Target _destination;    // default target
+    private Target _destinationSaved;    // default target (Saved for overwritting processces)
     private Target _origin;         // came from here
-    public Target _target;         // current target
+    private Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
+    
     private float _destinationOffset = 1f;
+    public float productivity = 1f;
+
     private bool fixedTarget = false;
     public bool atRallyPoint = false;
     public bool partOfSquad = false;
+    private bool _moving;
+    private bool buff;
 
     public Range attentionRange;
     public Range looseAttentionRange;
     public ContactTrigger contact;
 
-    public float productivity = 2f;
+    public Target GetTarget() { return _target; }
 
+    public void SetDestination(Target destination) { _destination = destination; }
+
+    public void SetOrigin(Target origin) { _origin = origin; }
+
+<<<<<<< HEAD
     private float life;
     private float oldLife;
     private AudioLibrary soundLibrary;
     public XmlDocument document;
+=======
+    public Target GetDestination() { return _destination; }
 
-    //public Skill basicSkill;
+    public Target GetOrigin() { return _origin; }
+
+    public TargetType GetCurrentTargetType()
+    {
+        if (_target != null) return _target.type;
+        return TargetType.None;
+    }
+>>>>>>> refs/heads/develop
+
+    public bool Buff
+    {
+        get { return buff; }
+        set
+        {
+            if (value)
+            {
+                GetComponent<Health>().SetIncreasedMaxHealth(20);
+                GetComponent<Damage>().SetIncreasedDamage(2);
+                productivity = 1.2f;
+            }
+            else
+            {
+                GetComponent<Health>().SetIncreasedMaxHealth(0);
+                GetComponent<Damage>().SetIncreasedDamage(0);
+                productivity = 1.0f;
+            }
+            GetComponent<Speed>().IsSprinting = value;
+            buff = value;
+        }
+    }
 
     void Start()
     {
@@ -43,39 +86,35 @@ public class MinionAgent : MonoBehaviour
         looseAttentionRange.SetActive(_target != null);
         contact.SetActive(_target != null);
 
-        life = gameObject.GetComponent<Health>().HealthPoints;
-
-        // only works when Minion is creatd by network.instansiate !!!
-        // ***********************************************************
         _agent.enabled = networkView.isMine;
-        this.enabled = networkView.isMine;
+        enabled = networkView.isMine;
         if (!networkView.isMine)
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
         }
+<<<<<<< HEAD
         // ***********************************************************
         PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
+=======
+>>>>>>> refs/heads/develop
     }
 
     void Update()
     {
-        // only works when Minion is creatd by network.instansiate !!!
-        // ***********************************************************
         if (!networkView.isMine)
             return;
-        // ***********************************************************
+
         if (!gameObject.GetComponent<Health>().IsAlive())
         {
             attentionRange.SetActive(false);
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
             _agent.enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
             return;
         }
-        oldLife = life;
-        life = gameObject.GetComponent<Health>().HealthPoints;
 
         attentionRange.SetActive(_target == null);
         looseAttentionRange.SetActive(_target != null);
@@ -84,14 +123,19 @@ public class MinionAgent : MonoBehaviour
         _agent.speed = gameObject.GetComponent<Speed>().CurrentSpeed;
 
         CheckRallyPoint();
-        CheckAttacked();
+        TargetBehavior();
+    }
+
+    void TargetBehavior()
+    {
         // no target
         if (_target == null)
         {
-            _agent.enabled = true;
+            _moving = true;
+            if (_agent.enabled) _agent.Resume();
             if (_destination != null)
             {
-                _agent.destination = _destination.Position;
+                if (_moving && _agent.enabled) _agent.destination = _destination.Position;
                 if (_destination.GetDistance(transform.position) <= _destinationOffset && !partOfSquad)
                 {
                     CheckPoint checkPoint = _destination.gameObject.GetComponent<CheckPoint>();
@@ -105,7 +149,7 @@ public class MinionAgent : MonoBehaviour
                         SetDestination(null);
                 }
             }
-            else  //move to own position
+            else if (_moving && _agent.enabled) //move to own position
                 _agent.destination = transform.position;
             if (attentionRange != null && attentionRange.gameObject.activeSelf)
                 SelectTarget();
@@ -119,15 +163,19 @@ public class MinionAgent : MonoBehaviour
                 _target = null;
                 return;
             }
-            if (_agent.enabled)
+            //move to target
+            if (_moving && _agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
-
-            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().stateComplete(this))
+            //if valve is fully opened or closed
+            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().IsCompleted(this))
             {
-                _target.gameObject.GetComponent<Valve>().RemoveMinion(this);
+                _target.GetComponent<Valve>().RemoveMinion(this);
+                _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
                 _target = null;
             }
+            ContactBehavior();
         }
+<<<<<<< HEAD
         if (contact.gameObject.activeSelf && !_agent.enabled)
         {
             _agent.enabled = true;
@@ -156,6 +204,9 @@ public class MinionAgent : MonoBehaviour
             else if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().isAvailable(this))
                 _target.gameObject.GetComponent<Valve>().AddMinion(this);
         }
+=======
+
+>>>>>>> refs/heads/develop
         if (_target != null && _target.type == TargetType.Dead)
             _target = null;
         if ((_target == null || GetDistance(transform.position, _target.transform.position) < 0.5f) && GetComponent<Health>().IsAlive() && !transform.FindChild("sound_minion").GetComponent<AudioLibrary>().aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)
@@ -176,19 +227,41 @@ public class MinionAgent : MonoBehaviour
             _target = target;
             return;
         }
-
-        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().isAvailable(this))
+        if (target.type == TargetType.Valve && target.gameObject.GetComponent<Valve>().IsAvailable(this))
             _target = target;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> refs/heads/develop
     }
 
-    void CheckAttacked()
+    void ContactBehavior()
     {
-        if (oldLife > life && (_target == null || _target.type == TargetType.Spot || _target.type == TargetType.Valve) && !fixedTarget)
+        if (contact.Contact(_target) && _target != null)
+        { 
+            if (_agent.enabled) _agent.Stop(true);
+            
+            // Enemy
+            if (basicAttack && (_target.type == TargetType.Hero || _target.type == TargetType.Minion))
+            {
+                transform.LookAt(_target.transform);
+                basicAttack.Execute();
+
+                if (_target.type == TargetType.Minion)
+                    _target.networkView.RPC("GetAttacked", _target.networkView.owner, gameObject.networkView.viewID);
+            }
+            // Valve
+            else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
+                _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            else
+                return;
+            _moving = false;
+        }
+        else
         {
-            var target = attentionRange.GetNearestTargetByPriority(new List<TargetType> { TargetType.Minion, TargetType.Hero }, gameObject.GetComponent<Team>());
-            if (target != null) _target = target;
+            _moving = true;
+            if (_agent.enabled) _agent.Resume();
         }
     }
 
@@ -209,120 +282,81 @@ public class MinionAgent : MonoBehaviour
         }
     }
 
-    public void SetDestination(Target destination)
+    [RPC]
+    public void GetAttacked(NetworkViewID viewId)
     {
-        _destination = destination;
+        if (!fixedTarget && _target != null && _target.type != TargetType.Hero && _target.type != TargetType.Minion)
+            _target = NetworkView.Find(viewId).observed.gameObject.GetComponent<Target>();
     }
 
-    public void SetOrigin(Target origin)
-    {
-        _origin = origin;
-    }
-
-    public Target GetDestination()
-    {
-        return _destination;
-    }
-
-    public Target GetOrigin()
-    {
-        return _origin;
-    }
-
+<<<<<<< HEAD
     public void Manipulate(string effect, string value = "", Target aim = null)
+=======
+    [RPC]
+    public void SetNavMeshAgent(bool active)
+>>>>>>> refs/heads/develop
     {
-        switch (effect)
-        {
-            case "Target":
-                _targetSaved = _target;
-                _target = aim;
-                fixedTarget = true;
-                break;
-
-            case "ResetTarget":
-                _target = _targetSaved;
-                fixedTarget = false;
-                break;
-
-            case "CanMove":
-                _agent.enabled = bool.Parse(value);
-                break;
-
-            case "CanAttack":
-                basicAttack.enabled = bool.Parse(value);
-                break;
-
-            case "Productivity":
-                productivity = float.Parse(value);
-                break;
-
-            case "RelevantTargetTypes":
-                List<TargetType> compareTypes = new List<TargetType> { TargetType.Hero, TargetType.Minion, TargetType.Spot, TargetType.Valve, TargetType.Dead };
-                List<TargetType> types = new List<TargetType>();
-                string[] splitedString = value.Split(new string[] { ", " }, System.StringSplitOptions.None);
-                foreach (string type in splitedString)
-                    foreach (TargetType compareType in compareTypes)
-                        if (compareType.ToString() == type)
-                            types.Add(compareType);
-                attentionRange.SetRelevantTargetTypes(types);
-                break;
-
-            case "Revive":
-                gameObject.GetComponent<Health>().SetHealth(gameObject.GetComponent<Health>().MaxHealth * float.Parse(value));
-                break;
-
-            case "AddSquad":
-                if (atRallyPoint)
-                    atRallyPoint = false;
-                else
-                    _destinationSaved = _destination;
-                _destination = aim;
-                partOfSquad = true;
-                break;
-
-            case "RemoveSquad":
-                _destination = CheckLine(_destinationSaved);
-                _destinationSaved = null;
-                partOfSquad = false;
-                break;
-        }
+        GetComponent<NavMeshAgent>().enabled = active;
     }
 
-    private Target CheckLine(Target oldLine)
+    [RPC]
+    public void Manipulate(int state, NetworkViewID id, string value)
     {
-        List<GameObject> checkpoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Checkpoint"));
-
-        Target target;
-        float distance = float.MaxValue;
-        int position = -1;
-        for (int i = 0; i < checkpoints.Count; i++)
-            if ((checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude <= distance)
-            {
-                position = i;
-                distance = (checkpoints[i].gameObject.transform.position - gameObject.transform.position).magnitude;
-            }
-
-        if (position != -1)
+        if (networkView.isMine)
         {
+<<<<<<< HEAD
             target = checkpoints[position].GetComponent<Target>();
             Team.TeamIdentifier id = GetComponent<Team>().ID;
             int number = int.Parse(target.name.Substring(target.name.Length - 1));
             if ((number == 3 && id == Team.TeamIdentifier.Team2) || (number == 1 && id == Team.TeamIdentifier.Team1))
+=======
+            switch ((ManipulateStates)state)
+>>>>>>> refs/heads/develop
             {
-                foreach (GameObject baseObject in GameObject.FindGameObjectsWithTag("Base"))
-                    if (baseObject.GetComponent<Team>().ID == id)
-                        SetOrigin(baseObject.GetComponent<Target>());
+                case (ManipulateStates.Target):
+                    fixedTarget = true;
+                    _targetSaved = _target;
+                    if(value=="Base" || value=="Flee")
+                    {
+                        GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
+                        foreach (GameObject gameObj in objects)
+                        {
+                            if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                                _target = gameObj.GetComponent<Target>();
+                            if (value=="Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
+                                _target = gameObj.GetComponent<Target>();
+                        }
+                    }
+                    else
+                        _target = NetworkView.Find(id).GetComponent<Target>();
+                    break;
+
+                case (ManipulateStates.ResetTarget):
+                    if (!fixedTarget) return;
+                    fixedTarget = false;
+                    _target = _targetSaved;
+                    _targetSaved = null;
+                    break;
+
+                case (ManipulateStates.Movement):
+                    
+                    _agent.enabled = bool.Parse(value);
+                    basicAttack.enabled = bool.Parse(value);
+                    break;
             }
+<<<<<<< HEAD
             number = (id == Team.TeamIdentifier.Team1) ? number - 1 : number + 1;
 
             foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
                 if (checkpoint.name == (target.name.Substring(0, target.name.Length - 1) + number))
                     SetOrigin(checkpoint.GetComponent<Target>());
+=======
+>>>>>>> refs/heads/develop
         }
         else
-            target = oldLine;
-
-        return target;
+        {
+            networkView.RPC("Manipulate", networkView.owner, (int)state, id, (value == "") ? "" : value);
+        }
     }
 
     /// <summary>

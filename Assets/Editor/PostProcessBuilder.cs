@@ -5,60 +5,69 @@ using System.Xml;
 using UnityEditor;
 using UnityEngine;
 
-public class PostProcessBuilder : MonoBehaviour
+public class PojectBuilder : MonoBehaviour
 {
-
+    //Unity menu item with Shortcut Cntrl+Space
     [MenuItem("Trash Clash/Build % ")]
     public static void BuildGame()
     {
-        EditorApplication.SaveCurrentSceneIfUserWantsTo();
-        // Get filename.
+        //Only continue if the user could save the scene
+        if (!EditorApplication.SaveCurrentSceneIfUserWantsTo())
+            return;
+
+        //The build should be created in the right directory
         string path = Application.dataPath + "/../build/";
+        //Save the IP-address to the NetworkSettings.xml (for local testing)
+        SaveIPToXML("NetworkSettings.xml");
 
-        // save IP
-        saveIPXML("NetworkSettings.xml");
-
-        // Build player.
+        //Find all scene-files
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
-        BuildPipeline.BuildPlayer(scenes, path + "Project3.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
+        //Create Build
+        BuildPipeline.BuildPlayer(scenes, path + "Trash Clash.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
 
-        // Copy a file from the project folder to the build folder, alongside the built game.
-        FileUtil.CopyFileOrDirectory(Application.dataPath + "/XML", path + "Project3_Data/XML");
+        //Copy the XML-directory to the build directory
+        FileUtil.CopyFileOrDirectory(Application.dataPath + "/XML", path + "Trash Clash_Data/XML");
 
-        string[] filePaths = Directory.GetFiles(path + "Project3_Data/XML", "*.meta");
+        //Remove all meta data in the build directory
+        string[] filePaths = Directory.GetFiles(path + "Trash Clash_Data/XML", "*.meta");
         foreach (var filePath in filePaths)
-        {
             File.Delete(filePath);
-        }
 
 
-
-        // Run the game (Process class from System.Diagnostics).
+        //Run the build
         Process proc = new Process();
-        proc.StartInfo.FileName = path + "Project3.exe";
+        proc.StartInfo.FileName = path + "Trash Clash.exe";
         proc.Start();
 
+        //Open first scene and start the editor, that's why the current scene should be saved
         EditorApplication.OpenScene(scenes[0]);
         EditorApplication.isPlaying = true;
     }
 
+    //Unity menu item with Shortcut Cntrl+W
+    //Easily switch to our level
     [MenuItem("Trash Clash/Switch to Level %w")]
-    public static void SwitchScene()
+    public static void SwitchScene2()
     {
+        if (!EditorApplication.SaveCurrentSceneIfUserWantsTo())
+            return;
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
-        EditorApplication.SaveCurrentSceneIfUserWantsTo();
+
         EditorApplication.OpenScene(scenes[1]);
     }
 
+    //Unity menu item with Shortcut Cntrl+E
+    //Easily switch to our main menu scene
     [MenuItem("Trash Clash/Switch to Lobby %e")]
-    public static void SwitchScene2()
+    public static void SwitchScene1()
     {
+        if (!EditorApplication.SaveCurrentSceneIfUserWantsTo())
+            return;
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
-        EditorApplication.SaveCurrentSceneIfUserWantsTo();
         EditorApplication.OpenScene(scenes[0]);
     }
 
-    private static void saveIPXML(string dataPath)
+    private static void SaveIPToXML(string dataPath)
     {
         XmlDocument document = new XMLReader(dataPath).GetXML();
         XmlElement element = document.DocumentElement;
@@ -75,6 +84,7 @@ public class PostProcessBuilder : MonoBehaviour
         document.Save(Application.dataPath + "/XML/" + dataPath);
     }
 
+    //Jump to scene when stopping the play mode
     public void OnApplicationQuit()
     {
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");

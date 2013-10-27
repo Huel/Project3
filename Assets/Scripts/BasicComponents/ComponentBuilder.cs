@@ -77,23 +77,6 @@ public class ComponentBuilder : MonoBehaviour
         }
         if (xmlFile == "Minion")
             GetComponent<MinionAgent>().productivity = float.Parse(document.GetElementsByTagName("productivity")[0].InnerText);
-        if (xmlFile == "Hero01")
-        {
-            XmlElement skill = null;
-            foreach (XmlElement node in document.GetElementsByTagName("skills"))
-                skill = node;
-             if (characterComp != null && skill != null)
-             {
-                 characterComp.basicAttack.skillName = skill.GetElementsByTagName("skill0")[0].InnerText;
-                 characterComp.skill1.skillName = skill.GetElementsByTagName("skill1")[0].InnerText;
-                 characterComp.skill2.skillName = skill.GetElementsByTagName("skill2")[0].InnerText;
-                 characterComp.skill3.skillName = skill.GetElementsByTagName("skill3")[0].InnerText;
-                 characterComp.skill4.skillName = skill.GetElementsByTagName("skill4")[0].InnerText;
-                 characterComp.addSquad.skillName = skill.GetElementsByTagName("addSquad")[0].InnerText;
-                 characterComp.removeSquad.skillName = skill.GetElementsByTagName("removeSquad")[0].InnerText;
-                 characterComp.heroicAura.skillName = skill.GetElementsByTagName("skillAura")[0].InnerText;
-             }
-        }
         state = LoadingState.Loaded;
         enabled = false;
     }

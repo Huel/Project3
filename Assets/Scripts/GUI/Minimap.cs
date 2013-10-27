@@ -15,8 +15,9 @@ public class Minimap : MonoBehaviour
 	public GameObject mapArrowsLane02;
 	public GameObject mapArrowsLane03;
 
-	//private const float scale = 13.8f;
-	private const float mapHight = 116;
+	public bool minionManagerActive = false;
+
+	private const float _mapHeight = 116;
 
 	private GameObject heroTeamOneArrow;
 	private GameObject heroTeamOnePoint;
@@ -59,46 +60,57 @@ public class Minimap : MonoBehaviour
 			{
 				#region MiniMap scrolling
 
-				if (player.transform.position.x < 222 && player.transform.position.x > 70)
+				if (!minionManagerActive)
 				{
-					float xPosition = player.transform.position.x;
-					gameObject.transform.position = new Vector3(xPosition, 106, 16);
-					float ratio = 1 - (xPosition - 70) / (222 - 70);
-					mapArrowsLane01.transform.localPosition = new Vector3((ratio * 140) - 70, 0, -90);
-					mapArrowsLane02.transform.localPosition = new Vector3((ratio * 140) - 70, 0, 0);
-					mapArrowsLane03.transform.localPosition = new Vector3((ratio * 140) - 70, 0, 90);
+					if (player.transform.position.x < 222 && player.transform.position.x > 70)
+					{
+						float xPosition = player.transform.position.x;
+						gameObject.transform.position = new Vector3(xPosition, 106, 16);
+						float ratio = 1 - (xPosition - 70)/(222 - 70);
+						mapArrowsLane01.transform.localPosition = new Vector3((ratio*140) - 70, 0, -90);
+						mapArrowsLane02.transform.localPosition = new Vector3((ratio*140) - 70, 0, 0);
+						mapArrowsLane03.transform.localPosition = new Vector3((ratio*140) - 70, 0, 90);
+					}
+
+					if (player.transform.position.x > 222)
+					{
+						gameObject.transform.position = new Vector3(222, 106, 16);
+						mapArrowsLane01.transform.localPosition = new Vector3(-70, 0, -90);
+						mapArrowsLane02.transform.localPosition = new Vector3(-70, 0, 0);
+						mapArrowsLane03.transform.localPosition = new Vector3(-70, 0, 90);
+					}
+
+					if (player.transform.position.x < 70)
+					{
+						gameObject.transform.position = new Vector3(70, 106, 16);
+						mapArrowsLane01.transform.localPosition = new Vector3(70, 0, -90);
+						mapArrowsLane02.transform.localPosition = new Vector3(70, 0, 0);
+						mapArrowsLane03.transform.localPosition = new Vector3(70, 0, 90);
+					}
 				}
-				
-				if (player.transform.position.x > 222)
+				else
 				{
-					gameObject.transform.position = new Vector3(222, 106, 16);
-					mapArrowsLane01.transform.localPosition = new Vector3(-70, 0, -90);
-					mapArrowsLane02.transform.localPosition = new Vector3(-70, 0,	0);
-					mapArrowsLane03.transform.localPosition = new Vector3(-70, 0,  90);
+					//gameObject.transform.position = new Vector3(147, 106, 16);
+					mapArrowsLane01.transform.localPosition = new Vector3(0, 0, -90);
+					mapArrowsLane02.transform.localPosition = new Vector3(0, 0, 0);
+					mapArrowsLane03.transform.localPosition = new Vector3(0, 0, 90);
 				}
 
-				if (player.transform.position.x < 70)
-				{
-					gameObject.transform.position = new Vector3(70, 106, 16);
-					mapArrowsLane01.transform.localPosition = new Vector3(70, 0, -90);
-					mapArrowsLane02.transform.localPosition = new Vector3(70, 0,   0);
-					mapArrowsLane03.transform.localPosition = new Vector3(70, 0,  90);
-				}
 				#endregion
 
 				if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
 				{
 					heroTeamOneArrow.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
-						mapHight, player.transform.position.z);
+						_mapHeight, player.transform.position.z);
 					heroTeamOneArrow.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
-					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 90, 0);
+					if (!minionManagerActive) GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 90, 0);
 				}
 				else
 				{
 					heroTeamTwoArrow.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
-						mapHight, player.transform.position.z);
+						_mapHeight, player.transform.position.z);
 					heroTeamTwoArrow.transform.localEulerAngles = new Vector3(90, -player.transform.localEulerAngles.y, 0);
-					GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 270, 0);
+					if (!minionManagerActive) GameObject.FindGameObjectWithTag(Tags.cameraMinimap).transform.localEulerAngles = new Vector3(270, 270, 0);
 				}
 			}
 			else
@@ -106,13 +118,13 @@ public class Minimap : MonoBehaviour
 				if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
 				{
 					heroTeamOnePoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
-						mapHight, player.transform.position.z);
+						_mapHeight, player.transform.position.z);
 
 				}
 				else
 				{
 					heroTeamTwoPoint.transform.position = new Vector3(-(player.transform.position.x - gameObject.transform.position.x - 110),
-						mapHight, player.transform.position.z);
+						_mapHeight, player.transform.position.z);
 				}
 			}
 		}
@@ -149,6 +161,16 @@ public class Minimap : MonoBehaviour
 		minionTeamOne = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.blueDot));
 		minionTeamTwo = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.redDot));
 
+		foreach (GameObject dot in minionTeamOne)
+		{
+			dot.transform.localScale = new Vector3(9.2f, 9.2f, 0);
+		}
+		
+		foreach (GameObject dot in minionTeamTwo)
+		{
+			dot.transform.localScale = new Vector3(9.2f, 9.2f, 0);
+		}
+
 		foreach (GameObject minion in GameObject.FindGameObjectsWithTag(Tags.minion))
 		{
 			if (minion.GetComponent<Health>().IsAlive())
@@ -159,14 +181,14 @@ public class Minimap : MonoBehaviour
 					{
 						minionTeamOne[0].transform.position =
 							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
-							            mapHight, minion.transform.position.z);
+							            _mapHeight, minion.transform.position.z);
 						minionTeamOne.RemoveAt(0);
 					}
 					else
 					{
 						CreatMinionPoint(teamOnePointPrefab).transform.position =
 							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
-							            mapHight, minion.transform.position.z);
+							            _mapHeight, minion.transform.position.z);
 					}
 				}
 				else
@@ -175,14 +197,14 @@ public class Minimap : MonoBehaviour
 					{
 						minionTeamTwo[0].transform.position =
 							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
-							            mapHight, minion.transform.position.z);
+							            _mapHeight, minion.transform.position.z);
 						minionTeamTwo.RemoveAt(0);
 					}
 					else
 					{
 						CreatMinionPoint(teamTwoPointPrefab).transform.position =
 							new Vector3(-(minion.transform.position.x - gameObject.transform.position.x - 100),
-							            mapHight, minion.transform.position.z);
+							            _mapHeight, minion.transform.position.z);
 					}
 				}
 			}

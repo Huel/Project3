@@ -10,7 +10,7 @@ public class BombWaypoint : MonoBehaviour
     {
         if (BombStopper != null
             && BombStopper.GetComponent<Valve>() != null
-            && BombStopper.GetComponent<Valve>().GetValveState() != Valve.ValveState.Closed)
+            && BombStopper.GetComponent<Valve>().ValveState != ValveStates.Closed)
             return false;
         return true;
     }
