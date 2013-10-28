@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: GUIAtlas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f514313262e3d141ad017b60809752a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 221e380a6ecfe0548900449f1e620fbf, type: 2}
+  items:
+  - name: BLANK_TEXTURE
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .953125
+      width: .001953125
+      height: .00390625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 72f04303e833f04468e28cbbd0156cfb, type: 3}
+  - name: button
+    region:
+      serializedVersion: 2
+      x: .145507812
+      y: .7578125
+      width: .0625
+      height: .125
+    border:
+      m_Left: 10
+      m_Right: 10
+      m_Top: 10
+      m_Bottom: 10
+    rotated: 0
+    texture: {fileID: 2800000, guid: 6871407c4c8c76643ae3be587cd33aaf, type: 3}
+  - name: icon_beenden
+    region:
+      serializedVersion: 2
+      x: .251953125
+      y: .50390625
+      width: .122070312
+      height: .259765625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 0f19b081991f8504cbde8a2255dc75b4, type: 3}
+  - name: icon_join_server
+    region:
+      serializedVersion: 2
+      x: .375976562
+      y: .50390625
+      width: .123046875
+      height: .24609375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: ef75ed6df84827542b0def4c31e0611e, type: 3}
+  - name: icon_profil
+    region:
+      serializedVersion: 2
+      x: .251953125
+      y: .767578125
+      width: .122070312
+      height: .208984375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: a21c8205f94f8d249a2ca65573c266b2, type: 3}
+  - name: icon_steuerung
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .7578125
+      width: .143554688
+      height: .19140625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: ab831f03a1d3f0545919faad97651f41, type: 3}
+  - name: icons_start_server
+    region:
+      serializedVersion: 2
+      x: .501953125
+      y: .25390625
+      width: .091796875
+      height: .279296875
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: adba2492a76a6184c87b5275426095e1, type: 3}
+  - name: OpenSans-Semibold-14px
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .50390625
+      width: .25
+      height: .25
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 572d66d9264243e409b864aaf2a44886, type: 3}
+  - name: OpenSans-Semibold-18px
+    region:
+      serializedVersion: 2
+      x: .501953125
+      y: 0
+      width: .25
+      height: .25
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 65b6263f4e0c61148a7aa832c58f6eb3, type: 3}
+  - name: OpenSans-SemiBold-56px
+    region:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: .5
+      height: .5
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: eac15dff0a152db4382ab5b77a6f5a18, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
