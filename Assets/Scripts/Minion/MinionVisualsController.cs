@@ -41,7 +41,7 @@ public class MinionVisualsController : MonoBehaviour
     {
         if (_animator.GetBool(push))
         {
-            currentSpeed = 0.6f;
+            currentSpeed = 1f;
             return;
         }
         Vector3 curMove = transform.position - previousPosition;
