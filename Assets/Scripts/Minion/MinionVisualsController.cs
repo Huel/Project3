@@ -39,6 +39,11 @@ public class MinionVisualsController : MonoBehaviour
 
     void getCurrentSpeed()
     {
+        if (_animator.GetBool(push))
+        {
+            currentSpeed = 0.6f;
+            return;
+        }
         Vector3 curMove = transform.position - previousPosition;
         currentSpeed = (curMove.magnitude / Time.deltaTime) * speedMultiplier;
         previousPosition = transform.position;
@@ -57,7 +62,7 @@ public class MinionVisualsController : MonoBehaviour
         if (GetComponent<ComponentBuilder>().state != ComponentBuilder.LoadingState.Loaded)
             return;
 
-        _animator.SetBool("Buff", !_animator.GetBool("Attack"));
+        _animator.SetBool(buff, !_animator.GetBool("Attack"));
 
         if (!GetComponent<Health>().IsAlive())
         {
