@@ -6,6 +6,11 @@ public class SoundController : MonoBehaviour
     private AudioSource[] sounds = new AudioSource[3];
     private Bomb[] bombs = new Bomb[3];
 
+    public bool[] MySounds
+    {
+        get { return triggeredLanes; }
+    }
+
     private bool AnyBombExploded
     {
         get
@@ -43,7 +48,6 @@ public class SoundController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(triggeredLanes[0] + " " + triggeredLanes[1] + " " + triggeredLanes[2]);
         if (!AnyBombExploded)
         {
             sounds[1].mute = !AnyBombTriggered;
@@ -61,7 +65,6 @@ public class SoundController : MonoBehaviour
     /// <param name="lane">The lane of the bomb, which triggered the enter-proximity warning.</param>
     public void TryToPlaySound(SoundEvent.Lane lane)
     {
-        Debug.Log("tryto play sound");
         triggeredLanes[(int)lane] = true;
     }
 
@@ -71,7 +74,6 @@ public class SoundController : MonoBehaviour
     /// <param name="lane">The lane of the bomb, which triggered the leave-proximity warning.</param>
     public void TryToStopSound(SoundEvent.Lane lane)
     {
-        Debug.Log("tryto stop sound");
         triggeredLanes[(int)lane] = false;
     }
 }

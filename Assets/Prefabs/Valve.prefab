@@ -197,6 +197,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400024}
+  - 82: {fileID: 8200000}
+  - 114: {fileID: 11400008}
+  m_Layer: 0
+  m_Name: valve_Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -204,9 +221,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.3154182, y: 3.13201761, z: -1.63824773}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 230.4543, y: 3.68102789, z: -45.7528687}
+  m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children:
+  - {fileID: 400024}
   - {fileID: 400010}
   - {fileID: 400006}
   - {fileID: 400002}
@@ -247,7 +265,7 @@ Transform:
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 1.54543116e-08, y: -.707106829, z: 1.54543116e-08, w: .707106829}
   m_LocalPosition: {x: -.563476562, y: 3.80278826, z: -.870006144}
-  m_LocalScale: {x: 1, y: 1.62134683, z: 1.62134683}
+  m_LocalScale: {x: 1, y: 1.62134683, z: -1.62134695}
   m_Children:
   - {fileID: 400008}
   m_Father: {fileID: 400000}
@@ -259,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: -.0687185749, y: -.70375973, z: .0637183785, w: -.70423007}
   m_LocalPosition: {x: -.134252667, y: .19536671, z: .0864322931}
-  m_LocalScale: {x: .731867194, y: -.747679412, z: .986674428}
+  m_LocalScale: {x: .731867194, y: .747679412, z: .986674428}
   m_Children: []
   m_Father: {fileID: 400006}
 --- !u!4 &400010
@@ -338,6 +356,17 @@ Transform:
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -4.37113883e-08}
   m_LocalPosition: {x: -3.18241882, y: 0, z: .661035419}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400000}
+--- !u!4 &400024
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -230.4543, y: -3.68102789, z: -45.7528687}
+  m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!23 &2300000
@@ -467,6 +496,64 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.33999991, y: 4.76999998, z: 2.27999997}
   m_Center: {x: 0, y: 2.25, z: -.360000014}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: f78fd86e155ec144a981023ba29ea5b9, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -477,17 +564,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949a12a5652777b4dbc5ac709d1ed6ea, type: 3}
   m_Name: 
-  _valveTeam: {fileID: 0}
-  _state: 100
-  _occupant: 0
-  _productivity: 0
-  _minionCount: 0
-  currentState: 0
-  _localPlayerID: -1
-  _localTeam: 0
-  _localMinions: []
-  _localProductivity: 0
-  _localMinionCount: 0
+  m_EditorClassIdentifier: 
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,7 +575,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5076bf5c62dfc648b1005c997d9aed9, type: 3}
   m_Name: 
-  ID: 2
+  m_EditorClassIdentifier: 
+  ID: 1
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -509,6 +587,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24eb9ce17180dbf4b89b8ef348a1b45b, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   type: 2
 --- !u!114 &11400006
 MonoBehaviour:
@@ -520,8 +599,20 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836a30cf33f37d45a869fe7eb13db29, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 100008}
   currentRotation: 0
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d082ca0f96584439e16b3cdb0649e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -532,8 +623,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d07ec9f4430592c45a8e74f9e59bd313, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   display: {fileID: 100010}
   currentRotation: 0
+  lastRotation: 0
+  rotFactor: 0
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -544,6 +638,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de7252baeebada40a1746cb9fe94cd5, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   points:
   - {fileID: 400014}
   - {fileID: 400012}
@@ -552,9 +647,7 @@ MonoBehaviour:
   - {fileID: 400020}
   - {fileID: 400022}
   minions: []
-  _completeDistance: 0
   _timeDistanceToToMinion: 0
-  enqueueTimer: 0
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
