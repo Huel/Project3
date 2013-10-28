@@ -54,6 +54,7 @@ public class BombGUI : MonoBehaviour
 
     private void ShowArrows(GameObject bomb, GameObject mapArrowsLane)
     {
+        if (bomb == null) return;
         List<GameObject> valvesTeam01 = bomb.GetComponent<Bomb>().valvesA;
         List<GameObject> valvesTeam02 = bomb.GetComponent<Bomb>().valvesB;
         int closedValvesTeam01 = 0;
