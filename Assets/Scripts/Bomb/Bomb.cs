@@ -148,6 +148,7 @@ public class Bomb : MonoBehaviour
 
     private bool HaveReached(GameObject target)
     {
+        if (target == null) return false;
         Vector3 a = transform.position;
         Vector3 b = target.transform.position;
         a.y = 0;
