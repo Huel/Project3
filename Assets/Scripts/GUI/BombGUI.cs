@@ -54,6 +54,7 @@ public class BombGUI : MonoBehaviour
 
     private void ShowArrows(GameObject bomb, GameObject mapArrowsLane)
     {
+        if (bomb == null) return;
         List<GameObject> valvesTeam01 = bomb.GetComponent<Bomb>().valvesA;
         List<GameObject> valvesTeam02 = bomb.GetComponent<Bomb>().valvesB;
         int closedValvesTeam01 = 0;
@@ -163,6 +164,7 @@ public class BombGUI : MonoBehaviour
 
     private void SetPosition(GameObject bomb, UISprite guiProgressLanes, UISprite guiPointerBombs)
     {
+        if (bomb == null) return;
         if (bomb.transform.position.x <= team01X && bomb.transform.position.x >= team02X)
         {
             float ratio = 1 - (bomb.transform.position.x - team02X) / (team01X - team02X);

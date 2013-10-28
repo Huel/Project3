@@ -252,6 +252,11 @@ public class Valve : MonoBehaviour
                 ((int)_occupant != _localTeam && InUse())));
     }
 
+    public bool IsFull(MinionAgent minion)
+    {
+        return (ValveState == ValveStates.FullyOccupied && !IsUsingValve(minion));
+    }
+
     //Checks if the minion belongs to the same team of the valve
     private bool ValveBelongsTo(MinionAgent minion)
     {

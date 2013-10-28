@@ -16,6 +16,8 @@ public class Bomb : MonoBehaviour
     public List<GameObject> valvesB = new List<GameObject>();
     private GameObject target;
 
+    public GameObject explosionBase1;
+    public GameObject explosionBase2;
 
     private float ForceA
     {
@@ -90,6 +92,8 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team1);
+                Network.Instantiate(Resources.Load("detonator"), explosionBase2.transform.position, explosionBase2.transform.rotation, 1);
+                networkView.RPC("DestroyBomb", RPCMode.Others);
             }
         }
         else
@@ -99,8 +103,16 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team2);
+                Network.Instantiate(Resources.Load("detonator"), explosionBase1.transform.position, explosionBase1.transform.rotation, 1);
+                networkView.RPC("DestroyBomb", RPCMode.Others);
             }
         }
+    }
+
+    [RPC]
+    public void DestroyBomb()
+    {
+        Destroy(gameObject);
     }
 
     private bool CanIPassValve(GameObject target)
@@ -128,7 +140,7 @@ public class Bomb : MonoBehaviour
 
     private void CountPoints(int team)
     {
-        gameOver = true;
+        Network.Instantiate(Resources.Load("detonator"), transform.position, transform.rotation, 1);
         GameController gameController = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>();
         gameController.networkView.RPC("IncreaseTeamPoints", RPCMode.AllBuffered, team);
         Debug.Log("Punkte für" + ((Team.TeamIdentifier)team).ToString());
@@ -136,6 +148,7 @@ public class Bomb : MonoBehaviour
 
     private bool HaveReached(GameObject target)
     {
+        if (target == null) return false;
         Vector3 a = transform.position;
         Vector3 b = target.transform.position;
         a.y = 0;
