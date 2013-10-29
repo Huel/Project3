@@ -215,10 +215,11 @@ public class WorkAnimation : MonoBehaviour
     {
         foreach (GameObject minion in minions)
         {
-            if (minion != null && minionList.IndexOf(minion.GetComponent<MinionAgent>()) == -1)
+            if (minion != null)
             {
-                RemoveMinion(minion);
-            }
+                if (minionList.IndexOf(minion.GetComponent<MinionAgent>()) == -1)
+                    RemoveMinion(minion);
+            }      
         }
     }
 }
