@@ -287,19 +287,19 @@ public class Health : MonoBehaviour
         {
             if (GetComponent<CharController>() != null)
             {
-                transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("die")[0].InnerText, 0f);
+                transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("die")[0].InnerText);
                 foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
                 {
                     if (player.GetComponent<Team>().ID != GetComponent<Team>().ID)
                     {
-                        GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(settingsInfo.GetElementsByTagName("enemyHeroDead")[0].InnerText, 0f);
+                        GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(settingsInfo.GetElementsByTagName("enemyHeroDead")[0].InnerText);
                     }
                     break;
                 }
             }
             if (GetComponentInChildren<MinionAgent>() != null)
             {
-                transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(minionInfo.GetElementsByTagName("die")[0].InnerText, 0f);
+                transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(minionInfo.GetElementsByTagName("die")[0].InnerText);
             }
         }
         else
@@ -307,21 +307,23 @@ public class Health : MonoBehaviour
             int rnd = Random.Range(1, 2);
             if (GetComponent<CharController>() != null)
             {
+                //transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("beingHit")[0].InnerText);
                 transform.FindChild("sounds_hero01")
                          .GetComponent<AudioLibrary>()
                          .StartSound(
                              rnd == 1
                                  ? heroInfo.GetElementsByTagName("beingHitVariation1")[0].InnerText
-                                 : heroInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText, 0f);
+                                 : heroInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText);
             }
             if (GetComponent<MinionAgent>() != null)
             {
+                //transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(minionInfo.GetElementsByTagName("beingHit")[0].InnerText);
                 transform.FindChild("sound_minion")
                          .GetComponent<AudioLibrary>()
                          .StartSound(
                              rnd == 1
                                  ? minionInfo.GetElementsByTagName("beingHitVariation1")[0].InnerText
-                                 : minionInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText, 0f);
+                                 : minionInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText);
             }
         }
     }

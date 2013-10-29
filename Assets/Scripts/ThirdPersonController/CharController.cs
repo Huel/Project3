@@ -155,19 +155,7 @@ public class CharController : MonoBehaviour
                 {
                     if (basicAttack.Execute())
                     {
-                        int rnd = Random.Range(1, 3);
-                        switch (rnd)
-                        {
-                            case 1:
-                                PlaySound(document.GetElementsByTagName("basicAttackVariation1")[0].InnerText);
-                                break;
-                            case 2:
-                                PlaySound(document.GetElementsByTagName("basicAttackVariation2")[0].InnerText);
-                                break;
-                            case 3:
-                                PlaySound(document.GetElementsByTagName("basicAttackVariation3")[0].InnerText);
-                                break;
-                        }
+                        PlaySound(document.GetElementsByTagName("basicAttack")[0].InnerText);
                     }
                 }
             }

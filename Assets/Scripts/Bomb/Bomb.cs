@@ -99,7 +99,7 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team1);
-                PlayExplosionSound();
+                //PlayExplosionSound();
             }
         }
         else
@@ -109,7 +109,7 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team2);
-                PlayExplosionSound();
+                //PlayExplosionSound();
             }
         }
     }
