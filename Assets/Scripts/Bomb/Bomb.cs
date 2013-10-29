@@ -93,7 +93,7 @@ public class Bomb : MonoBehaviour
             {
                 CountPoints((int)Team.TeamIdentifier.Team1);
                 Network.Instantiate(Resources.Load("detonator"), explosionBase2.transform.position, explosionBase2.transform.rotation, 1);
-                networkView.RPC("DestroyBomb", RPCMode.Others);
+                networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
             }
         }
         else
@@ -104,7 +104,7 @@ public class Bomb : MonoBehaviour
             {
                 CountPoints((int)Team.TeamIdentifier.Team2);
                 Network.Instantiate(Resources.Load("detonator"), explosionBase1.transform.position, explosionBase1.transform.rotation, 1);
-                networkView.RPC("DestroyBomb", RPCMode.Others);
+                networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
             }
         }
     }

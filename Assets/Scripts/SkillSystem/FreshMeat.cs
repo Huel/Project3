@@ -49,6 +49,7 @@ public class FreshMeat : Skill
     protected override void OnActive()
     {
         _contact.GetComponent<Health>().SetToMinHealth();
+        _contact.networkView.RPC("KillObject", RPCMode.AllBuffered);
         _healthComponent.IncHealth(_healthComponent.MaxHealth / 2f);
         _contact = null;
         SwitchState();

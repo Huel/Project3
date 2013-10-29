@@ -266,8 +266,12 @@ public class MinionAgent : MonoBehaviour
                         GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
                         foreach (GameObject gameObj in objects)
                         {
-                            if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                            if (value == "Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                            {
                                 _target = gameObj.GetComponent<Target>();
+                                GetComponent<Speed>().SetSpeedMultiplier(1.2f);
+                                GetComponent<MinionLamp>().KamikazeStart();
+                            }
                             if (value == "Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
                             {
                                 _target = gameObj.GetComponent<Target>();
