@@ -19,7 +19,7 @@ public class AudioLibrary : MonoBehaviour
             aSources.Add(audioSource.clip.name, audioSource);
     }
 
-    public void StartSound(string name, float delay)
+    public void StartSound(string name, float delay = 0f)
     {
         if (aSources == null) Init();
         if (AbortMethod(name)) return;
@@ -33,6 +33,14 @@ public class AudioLibrary : MonoBehaviour
         if (AbortMethod(name)) return;
 
         aSources[name].Stop();
+    }
+
+    public void ManipulateVolumeOfTrack(string name, int value = 1)
+    {
+        if (aSources == null) Init();
+        if (AbortMethod(name)) return;
+
+        aSources[name].volume = value;
     }
 
     private bool AbortMethod(string name)
