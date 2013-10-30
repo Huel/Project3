@@ -36,7 +36,7 @@ public class dfInputManager : MonoBehaviour
     protected bool useJoystick = false;
 
     [SerializeField]
-    protected KeyCode joystickClickButton = KeyCode.Joystick1Button1;
+    protected KeyCode joystickClickButton = KeyCode.Joystick1Button0;
 
     [SerializeField]
     protected string horizontalAxis = "Horizontal";

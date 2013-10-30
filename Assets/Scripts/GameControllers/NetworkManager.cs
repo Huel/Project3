@@ -10,7 +10,6 @@ public class NetworkManager : MonoBehaviour
     private const string LevelName = "Scene2";
 
     public string PlayerName = "Underlord";
-    public string ServerName = "MyGame";
     public ServerInfo TargetServer;
     public event Action ServerListUpdated;
 
@@ -62,8 +61,19 @@ public class NetworkManager : MonoBehaviour
         Network.InitializeServer(1, NetworkConfiguration.LAN_TCP_PORT, !Network.HavePublicAddress());
     }
 
+    public void StartSearching()
+    {
+        _broadcastService.StartSearching();
+    }
+
+    public void StopBroadcastSession()
+    {
+        _broadcastService.StopSession();
+    }
+
     public void ConnectToServer()
     {
+        StopBroadcastSession();
         Network.Connect(TargetServer.IP, NetworkConfiguration.LAN_TCP_PORT);
     }
 
@@ -78,11 +88,12 @@ public class NetworkManager : MonoBehaviour
         _gameController.networkView.RPC("SetGameState", RPCMode.AllBuffered, (int)GameController.GameState.Starting);
         _gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player1,
             PlayerName, (int)Team.TeamIdentifier.Team1, Network.player);
-        _broadcastService.StartAnnounceBroadCasting(ServerName, 2);
+        _broadcastService.StartAnnounceBroadCasting(PlayerName, 2);
     }
 
     private void OnPlayerConnected(NetworkPlayer player)
     {
+        StopBroadcastSession();
         networkView.RPC("LoadLevel", RPCMode.AllBuffered);
     }
 
@@ -131,7 +142,6 @@ public class NetworkManager : MonoBehaviour
 
     void OnConnectedToServer()
     {
-        Debug.Log("Connected!");
         _gameController.networkView.RPC("AddNetworkPlayerController", RPCMode.AllBuffered, (int)PlayerIDs.PlayerId.Player2,
             PlayerName, (int)Team.TeamIdentifier.Team2, Network.player);
     }

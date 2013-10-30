@@ -13,9 +13,10 @@ public class ServerInfo
     public int ConnectedPlayers = 0;
     public int MaxConnectedPlayers = 2;
 
+
     public static implicit operator string(ServerInfo rhs)
     {
-        return string.Format("{0} {1} ({2})({3}/{4})", rhs.IP, rhs.Name, rhs.UniqueID, rhs.ConnectedPlayers, rhs.MaxConnectedPlayers);
+        return string.Format("IP:{0} Name:{1} (UID: {2})({3}/{4})", rhs.IP, rhs.Name, rhs.UniqueID, rhs.ConnectedPlayers, rhs.MaxConnectedPlayers);
     }
 }
 
@@ -31,11 +32,12 @@ public class LanBroadcastService : MonoBehaviour
 
     public Dictionary<int, ReceivedMessage> ReceivedMessages = new Dictionary<int, ReceivedMessage>();
     public event Action ServerListUpdated;
+    private bool _updateFlag;
 
-    protected virtual void OnServerListUpdated()
+    private void OnServerListUpdated()
     {
-        Action handler = ServerListUpdated;
-        if (handler != null) handler();
+        if (ServerListUpdated != null) ServerListUpdated();
+        _updateFlag = false;
     }
 
     private string _IP;
@@ -62,6 +64,8 @@ public class LanBroadcastService : MonoBehaviour
 
     void Update()
     {
+        if (_updateFlag)
+            OnServerListUpdated();
         // Check if we need to send messages and the waiting interval has espired
         if ((_currentState == ServiceState.Searching || _currentState == ServiceState.Announcing)
                 && Time.time > _timeLastMessageSent + IntervalMessageSending)
@@ -74,6 +78,7 @@ public class LanBroadcastService : MonoBehaviour
                 string stringMessage = NetworkConfiguration.ServerLobbyReadyNetworkMessage(_serverInfo);
                 byteMessageToSend = System.Text.Encoding.UTF8.GetBytes(stringMessage);
                 _udpClient.Send(byteMessageToSend, byteMessageToSend.Length, new IPEndPoint(IPAddress.Broadcast, NetworkConfiguration.LAN_UDP_PORT));
+                _udpClient.Send(byteMessageToSend, byteMessageToSend.Length, new IPEndPoint(IPAddress.Broadcast, NetworkConfiguration.LAN_UDP_PORT2));
             }
 
             // Refresh the list of received messages (remove old messages)
@@ -112,7 +117,7 @@ public class LanBroadcastService : MonoBehaviour
         _serverInfo.IP = _IP;
         _serverInfo.Name = serverName;
         _serverInfo.UniqueID = Random.Range(0, int.MaxValue);
-
+        _serverInfo.MaxConnectedPlayers = maxPlayerConnections;
 
         StartSession();
         StartAnnouncing();
@@ -126,7 +131,16 @@ public class LanBroadcastService : MonoBehaviour
         if (_currentState != ServiceState.NotActive)
             StopSession();
 
-        _udpClient = new UdpClient(NetworkConfiguration.LAN_UDP_PORT);
+        try
+        {
+            _udpClient = new UdpClient(NetworkConfiguration.LAN_UDP_PORT);
+        }
+        catch (SocketException)
+        {
+            _udpClient = new UdpClient(NetworkConfiguration.LAN_UDP_PORT2);
+
+            Debug.Log("Nimm halt Nummer 2");
+        }
         _udpClient.EnableBroadcast = true;
         _timeLastMessageSent = Time.time;
     }
@@ -162,7 +176,7 @@ public class LanBroadcastService : MonoBehaviour
         byte[] byteMessage = _udpClient.EndReceive(result, ref sendersIPEndPoint);
         string senderIP = sendersIPEndPoint.Address.ToString();
 
-        // If the received message has content and it was not sent by ourselves...
+        // If the received message has content and it was not sent by ourselves...  
         if (byteMessage.Length > 0 && !senderIP.Equals(_IP))
         {
             // Translate message to string
@@ -177,21 +191,25 @@ public class LanBroadcastService : MonoBehaviour
                 receivedMessage.ServerInfo = serverInfo;
                 //Save the received message with the unique ID as key
                 ReceivedMessages[serverInfo.UniqueID] = receivedMessage;
-                OnServerListUpdated();
+                _updateFlag = true;
+
             }
             else if (NetworkConfiguration.ValidateServerLobbyClosedNetworkMessage(stringMessage, out serverInfo))
             {
                 if (ReceivedMessages.ContainsKey(serverInfo.UniqueID))
                 {
                     ReceivedMessages.Remove(serverInfo.UniqueID);
-                    OnServerListUpdated();
+                    _updateFlag = true;
                 }
             }
         }
 
+        Debug.Log(_currentState);
         // Check if we're still searching and if so, restart the receive procedure
         if (_currentState == ServiceState.Searching)
+        {
             BeginAsyncReceive();
+        }
     }
 
     public void StartSearching()
@@ -203,7 +221,7 @@ public class LanBroadcastService : MonoBehaviour
         _strMessage = "Searching for servers.";
     }
 
-    public void StopSearching()
+    private void StopSearching()
     {
         _currentState = ServiceState.NotActive;
         _strMessage = "Ending the search for servers";
