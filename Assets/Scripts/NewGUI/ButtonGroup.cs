@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class ButtonGroup : MonoBehaviour {
 
     private List<dfButton> _items;
     public dfButton AutoFocus;
+    public event Action BackButton;
 
 	void Awake ()
 	{
@@ -69,4 +71,10 @@ public class ButtonGroup : MonoBehaviour {
         }
     }
 
+
+    void Update()
+    {
+        if (Input.GetButtonDown(InputTags.skill2) && BackButton != null)
+            BackButton();
+    }
 }
