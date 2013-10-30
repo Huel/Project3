@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
 
     public bool immortal;
     private bool _invulnerable;
-    private bool _alive = true; 
+    private bool _alive = true;
 
     public bool Invulnerable
     {
@@ -199,9 +199,10 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (networkView.isMine)
-            CheckHealthState();
+        if (!networkView.isMine) return;
+        CheckHealthState();
     }
+
     private void CheckHealthState()
     {
         if (IsAlive())

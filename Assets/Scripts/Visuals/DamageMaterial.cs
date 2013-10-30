@@ -16,13 +16,13 @@ public class DamageMaterial : MonoBehaviour
 
     private float _counter;
 
-    void Awake()
-    {
-        foreach (GameObject mesh in meshes)
-        {
-            goRenderer.Add(mesh.GetComponent<SkinnedMeshRenderer>());
-        }
-    }
+    //void Awake()
+    //{
+    //    foreach (GameObject mesh in meshes)
+    //    {
+    //        goRenderer.Add(mesh.GetComponent<SkinnedMeshRenderer>());
+    //    }
+    //}
 
     //[RPC]
     //public void addDamageMaterial()
@@ -47,13 +47,13 @@ public class DamageMaterial : MonoBehaviour
     //        foreach (SkinnedMeshRenderer meshRenderer in goRenderer)
     //            meshRenderer.material.color = White;
     //        normal = true;
-    //    }    
+    //    }
     //    else
     //        networkView.RPC("deleteDamageMaterial", RPCMode.OthersBuffered);
     //}
-	
-	////Update is called once per frame
-    //void Update ()
+
+    ////Update is called once per frame
+    //void Update()
     //{
     //    if (_counter < changingTime)
     //        _counter += Time.deltaTime;

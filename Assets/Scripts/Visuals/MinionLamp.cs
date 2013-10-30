@@ -10,7 +10,11 @@ public class MinionLamp : MonoBehaviour
     private GameObject _flareEffect;
     private Team _team;
     private bool _switchedOn = false;
+    private bool _mission;
     private Color _color;
+
+    private float frequencytimer;
+    private bool on = false;
 
     public bool getSwitchOn() { return _switchedOn; }
 
@@ -24,6 +28,13 @@ public class MinionLamp : MonoBehaviour
     {
         if (_team)
             SetTeam();
+
+        if (_mission)
+        {
+            Kamikaze(); 
+            return;
+        }
+
         if (!_switchedOn && networkView.isMine && GetComponent<MinionAgent>().Buff)
         {
             networkView.RPC("TurnLightOn", RPCMode.AllBuffered);
@@ -31,6 +42,20 @@ public class MinionLamp : MonoBehaviour
         else if (_switchedOn && networkView.isMine && !GetComponent<MinionAgent>().Buff)
         {
             networkView.RPC("TurnLightOff", RPCMode.AllBuffered);
+        }
+    }
+
+    private void Kamikaze()
+    {
+        frequencytimer += Time.deltaTime;
+        if (frequencytimer > 0.33f)
+        {
+            on = !on;
+            if (on)
+                SetFlare(0);
+            else
+                SetFlare(1);
+            frequencytimer = 0;
         }
     }
 
@@ -73,6 +98,9 @@ public class MinionLamp : MonoBehaviour
     {
         if (!_switchedOn)
             return;
+
+        if (_mission) return;
+
         RemoveFlare();
 
         foreach (GameObject l in lamp)
@@ -80,6 +108,7 @@ public class MinionLamp : MonoBehaviour
             l.renderer.material = (Material)Resources.Load("MinionLampOff");
             l.renderer.material.SetColor("_Color", _color);
         }
+ 
         _switchedOn = false;
     }
 
@@ -103,6 +132,17 @@ public class MinionLamp : MonoBehaviour
         _flareEffect.GetComponent<LensFlare>().brightness = Mathf.Clamp(value, 0, maxFlare);
         if (networkView.isMine)
             networkView.RPC("SetFlare", RPCMode.OthersBuffered, value);
+    }
 
+    [RPC]
+    public void KamikazeStart()
+    {
+        if (!_flareEffect)
+            return;
+        _mission = true;
+        _flareEffect.GetComponent<LensFlare>().brightness = Mathf.Clamp(2, 0, maxFlare*2);
+        
+        if (networkView.isMine)
+            networkView.RPC("KamikazeStart", RPCMode.OthersBuffered);
     }
 }

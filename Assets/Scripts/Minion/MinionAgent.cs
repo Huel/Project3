@@ -14,7 +14,7 @@ public class MinionAgent : MonoBehaviour
     private Target _destination;    // default target
     private Target _destinationSaved;    // default target (Saved for overwritting processces)
     private Target _origin;         // came from here
-    private Target _target;         // current target
+    public Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
     
     private float _destinationOffset = 1f;
@@ -156,11 +156,16 @@ public class MinionAgent : MonoBehaviour
             if (_moving && _agent.enabled)
                 _agent.destination = _target.gameObject.transform.position;
             //if valve is fully opened or closed
-            if (_target.type == TargetType.Valve && _target.gameObject.GetComponent<Valve>().IsCompleted(this))
+            if (_target.type == TargetType.Valve)
             {
-                _target.GetComponent<Valve>().RemoveMinion(this);
-                _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
-                _target = null;
+                if (_target.gameObject.GetComponent<Valve>().IsCompleted(this))
+                {
+                    _target.GetComponent<Valve>().RemoveMinion(this);
+                    _target.GetComponent<WorkAnimation>().RemoveMinion(gameObject);
+                    _target = null;
+                }
+                else if (_target.GetComponent<Valve>().IsFull(this))
+                    _target = null;
             }
             ContactBehavior();
         }
@@ -198,8 +203,13 @@ public class MinionAgent : MonoBehaviour
                     _target.networkView.RPC("GetAttacked", _target.networkView.owner, gameObject.networkView.viewID);
             }
             // Valve
-            else if (_target.type == TargetType.Valve && _target.GetComponent<Valve>().IsAvailable(this))
-                _target.gameObject.GetComponent<Valve>().AddMinion(this);
+            else if (_target.type == TargetType.Valve)
+            {
+                if (_target.GetComponent<Valve>().IsAvailable(this))
+                    _target.gameObject.GetComponent<Valve>().AddMinion(this);
+                else
+                    return;
+            }
             else
                 return;
             _moving = false;
@@ -256,8 +266,12 @@ public class MinionAgent : MonoBehaviour
                         GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
                         foreach (GameObject gameObj in objects)
                         {
-                            if (value=="Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                            if (value == "Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
+                            {
                                 _target = gameObj.GetComponent<Target>();
+                                GetComponent<Speed>().SetSpeedMultiplier(1.2f);
+                                GetComponent<MinionLamp>().KamikazeStart();
+                            }
                             if (value == "Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
                             {
                                 _target = gameObj.GetComponent<Target>();

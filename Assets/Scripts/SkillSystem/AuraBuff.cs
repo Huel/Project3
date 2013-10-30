@@ -36,6 +36,11 @@ public class AuraBuff : MonoBehaviour
 
     void Update()
     {
-
+        if (GetComponent<Health>())
+            if (!GetComponent<Health>().IsAlive())
+                foreach (Target target in aura.GetTargets())
+                {
+                    target.GetComponent<MinionAgent>().Buff = false;
+                }
     }
 }
