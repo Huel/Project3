@@ -52,9 +52,23 @@ public class MinionLamp : MonoBehaviour
         {
             on = !on;
             if (on)
+            {
                 SetFlare(0);
+                foreach (GameObject l in lamp)
+                {
+                    l.renderer.material = (Material)Resources.Load("MinionLampOff");
+                    l.renderer.material.SetColor("_Color", _color);
+                }
+            }
             else
+            {
                 SetFlare(1);
+                foreach (GameObject l in lamp)
+                {
+                    l.renderer.material = (Material)Resources.Load("MinionLampGlow");
+                    l.renderer.material.SetColor("_Color", _color);
+                }
+            }
             frequencytimer = 0;
         }
     }
