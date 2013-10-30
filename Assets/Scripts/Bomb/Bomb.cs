@@ -98,6 +98,7 @@ public class Bomb : MonoBehaviour
     {
         if (!CanIPassValve(waypoint)) return;
 
+       
         if (waypoint == WaypointB)
         {
             WaypointA = WaypointB;
@@ -116,6 +117,13 @@ public class Bomb : MonoBehaviour
                 explodeTeam = 1;
             }
         }
+    }
+
+    [RPC]
+    public void CameraShake()
+    {
+        GameObject cameraPlayer = GameObject.FindGameObjectWithTag(Tags.camera);
+        cameraPlayer.GetComponent<Animation>().Play("CameraShake");
     }
 
     private void Explode()
@@ -148,6 +156,7 @@ public class Bomb : MonoBehaviour
         }
         else if (explosiontimer >= 1.37f)
         {
+            networkView.RPC("CameraShake", RPCMode.AllBuffered);
             Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
             Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
         }

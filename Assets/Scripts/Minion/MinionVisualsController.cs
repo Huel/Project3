@@ -44,6 +44,7 @@ public class MinionVisualsController : MonoBehaviour
             currentSpeed = 1f;
             return;
         }
+
         Vector3 curMove = transform.position - previousPosition;
         currentSpeed = (curMove.magnitude / Time.deltaTime) * speedMultiplier;
         previousPosition = transform.position;
