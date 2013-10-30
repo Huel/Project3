@@ -10147,6 +10147,32 @@ Transform:
   - {fileID: 1692558041}
   - {fileID: 1882216282}
   m_Father: {fileID: 719614398}
+--- !u!1 &228952635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 228952636}
+  m_Layer: 0
+  m_Name: Base02_firework2
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 0c14ce16f9dfa8d49a206d3f4be13bcd, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228952636
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 228952635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -68.5196609, y: 7.82509995, z: 32.2923889}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1001 &230160838
 Prefab:
   m_ObjectHideFlags: 0
@@ -29318,6 +29344,22 @@ Prefab:
       propertyPath: explosionBase2
       value: 
       objectReference: {fileID: 1640253757}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_1
+      value: 
+      objectReference: {fileID: 2005322386}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_2
+      value: 
+      objectReference: {fileID: 830750983}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_1
+      value: 
+      objectReference: {fileID: 1322286939}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_2
+      value: 
+      objectReference: {fileID: 228952635}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
   m_RootGameObject: {fileID: 1116216135}
@@ -29407,6 +29449,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1516981245}
   m_GameObject: {fileID: 825738891}
   m_Mesh: {fileID: 4300000, guid: 35a44d0bb2d4d524ba33d0f4d9f911b7, type: 3}
+--- !u!1 &830750983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 830750984}
+  m_Layer: 0
+  m_Name: Base01_firework2
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 0c14ce16f9dfa8d49a206d3f4be13bcd, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830750984
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 830750983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 319.789246, y: 7.82509995, z: 32.2923889}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &830886087
 GameObject:
   m_ObjectHideFlags: 0
@@ -37950,8 +38018,13 @@ MonoBehaviour:
   - {fileID: 1796192423}
   - {fileID: 367835012}
   - {fileID: 482879270}
+  explodeTeam: 0
   explosionBase1: {fileID: 1596264225}
+  firework_base1_1: {fileID: 2005322386}
+  firework_base1_2: {fileID: 830750983}
   explosionBase2: {fileID: 1640253757}
+  firework_base2_1: {fileID: 1322286939}
+  firework_base2_2: {fileID: 228952635}
 --- !u!148 &1116216138
 NetworkView:
   m_ObjectHideFlags: 0
@@ -42391,8 +42464,13 @@ MonoBehaviour:
   - {fileID: 830886087}
   - {fileID: 1289127807}
   - {fileID: 357635919}
+  explodeTeam: 0
   explosionBase1: {fileID: 1596264225}
+  firework_base1_1: {fileID: 2005322386}
+  firework_base1_2: {fileID: 830750983}
   explosionBase2: {fileID: 1640253757}
+  firework_base2_1: {fileID: 1322286939}
+  firework_base2_2: {fileID: 228952635}
 --- !u!148 &1277759844
 NetworkView:
   m_ObjectHideFlags: 0
@@ -44336,6 +44414,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.40142918, y: 10.8423147, z: 4.0833354}
   m_Center: {x: -1.98016357, y: -.388234913, z: -1.03460264}
+--- !u!1 &1322286939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1322286940}
+  m_Layer: 0
+  m_Name: Base02_firework1
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 0c14ce16f9dfa8d49a206d3f4be13bcd, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1322286940
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1322286939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -70.4024353, y: 7.82509995, z: -4.53896713}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1327052200
 GameObject:
   m_ObjectHideFlags: 0
@@ -46653,8 +46757,13 @@ MonoBehaviour:
   - {fileID: 864411728}
   - {fileID: 1982799427}
   - {fileID: 1926857121}
+  explodeTeam: 0
   explosionBase1: {fileID: 1596264225}
+  firework_base1_1: {fileID: 2005322386}
+  firework_base1_2: {fileID: 830750983}
   explosionBase2: {fileID: 1640253757}
+  firework_base2_1: {fileID: 1322286939}
+  firework_base2_2: {fileID: 228952635}
 --- !u!148 &1386567978
 NetworkView:
   m_ObjectHideFlags: 0
@@ -58293,7 +58402,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1596264226}
   m_Layer: 0
-  m_Name: base1_SpawnExplosion
+  m_Name: base01_SpawnExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 0c14ce16f9dfa8d49a206d3f4be13bcd, type: 3}
   m_NavMeshLayer: 0
@@ -58305,8 +58414,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1596264225}
-  m_LocalRotation: {x: 0, y: 0, z: -.384977311, w: .922926068}
-  m_LocalPosition: {x: -93.3627777, y: 11.9727926, z: 16.1166992}
+  m_LocalRotation: {x: .294549584, y: -.955629647, z: -.00339352456, w: -.00104592519}
+  m_LocalPosition: {x: 345.344086, y: 11.9727926, z: 16.1166992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60681,6 +60790,22 @@ Prefab:
       propertyPath: m_ViewID.m_Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_1
+      value: 
+      objectReference: {fileID: 2005322386}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_2
+      value: 
+      objectReference: {fileID: 830750983}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_1
+      value: 
+      objectReference: {fileID: 1322286939}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_2
+      value: 
+      objectReference: {fileID: 228952635}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
   m_RootGameObject: {fileID: 1277759841}
@@ -75406,6 +75531,32 @@ Transform:
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 2125992009}
+--- !u!1 &2005322386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2005322387}
+  m_Layer: 0
+  m_Name: Base01_firework1
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 0c14ce16f9dfa8d49a206d3f4be13bcd, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2005322387
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2005322386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 317.906464, y: 7.82509995, z: -4.53896713}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &2006830051
 GameObject:
   m_ObjectHideFlags: 0
@@ -77920,6 +78071,22 @@ Prefab:
       propertyPath: explosionBase2
       value: 
       objectReference: {fileID: 1640253757}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_1
+      value: 
+      objectReference: {fileID: 2005322386}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base1_2
+      value: 
+      objectReference: {fileID: 830750983}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_1
+      value: 
+      objectReference: {fileID: 1322286939}
+    - target: {fileID: 11400000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
+      propertyPath: firework_base2_2
+      value: 
+      objectReference: {fileID: 228952635}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8e77f1df34fbc74faff46ff9bba9bab, type: 2}
   m_RootGameObject: {fileID: 1386567976}

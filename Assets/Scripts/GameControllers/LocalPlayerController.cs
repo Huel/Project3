@@ -43,14 +43,14 @@ public class LocalPlayerController : MonoBehaviour
     {
         if (gameController.pointsTeam1 > 0)
         {
-            base02.SetActive(false);
-            base02_destroyed.SetActive(true);
+            base01.SetActive(false);
+            base01_destroyed.SetActive(true);
         }
 
         if (gameController.pointsTeam2 > 0)
         {
-            base01.SetActive(false);
-            base01_destroyed.SetActive(true);
+            base02.SetActive(false);
+            base02_destroyed.SetActive(true);
         }
         
         if (GameObject.FindGameObjectsWithTag(Tags.player).Any(Player => Player.GetComponent<NetworkView>().isMine))
@@ -58,8 +58,6 @@ public class LocalPlayerController : MonoBehaviour
             return;
         }
         Object hero = Resources.Load("hero01");
-        Network.Instantiate(hero, MyBase.transform.position, MyBase.transform.rotation, 1);
-
-        
+        Network.Instantiate(hero, MyBase.transform.position, MyBase.transform.rotation, 1);  
     }
 }

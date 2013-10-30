@@ -48,7 +48,7 @@ public class MinionLamp : MonoBehaviour
     private void Kamikaze()
     {
         frequencytimer += Time.deltaTime;
-        if (frequencytimer > 0.5f)
+        if (frequencytimer > 0.33f)
         {
             on = !on;
             if (on)

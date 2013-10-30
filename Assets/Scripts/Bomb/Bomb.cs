@@ -16,8 +16,18 @@ public class Bomb : MonoBehaviour
     public List<GameObject> valvesB = new List<GameObject>();
     private GameObject target;
 
+    public int explodeTeam = 0;
+    private float explosiontimer = 0;
+    private GameObject currentBase;
+    private GameObject current_fw1;
+    private GameObject current_fw2;
+
     public GameObject explosionBase1;
+    public GameObject firework_base1_1;
+    public GameObject firework_base1_2;
     public GameObject explosionBase2;
+    public GameObject firework_base2_1;
+    public GameObject firework_base2_2;
 
     private float ForceA
     {
@@ -38,7 +48,6 @@ public class Bomb : MonoBehaviour
     {
         get { return ForceA - ForceB == 0f; }
     }
-
 
     internal struct State
     {
@@ -69,6 +78,10 @@ public class Bomb : MonoBehaviour
             SmoothNetworkMovement();
             return;
         }
+
+        if (explodeTeam != 0)
+            Explode();
+
         if (BombDoesntMove || gameOver) return;
 
         target = WaypointA;
@@ -91,9 +104,7 @@ public class Bomb : MonoBehaviour
             WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
             if (WaypointB == null)
             {
-                CountPoints((int)Team.TeamIdentifier.Team1);
-                Network.Instantiate(Resources.Load("detonator"), explosionBase2.transform.position, explosionBase2.transform.rotation, 1);
-                networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
+                explodeTeam = 2;
             }
         }
         else
@@ -102,11 +113,50 @@ public class Bomb : MonoBehaviour
             WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
             if (WaypointA == null)
             {
-                CountPoints((int)Team.TeamIdentifier.Team2);
-                Network.Instantiate(Resources.Load("detonator"), explosionBase1.transform.position, explosionBase1.transform.rotation, 1);
-                networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
+                explodeTeam = 1;
             }
         }
+    }
+
+    private void Explode()
+    {
+        if (explodeTeam == 1 && explosiontimer == 0)
+        {
+            currentBase = explosionBase1;
+            current_fw1 = firework_base1_1;
+            current_fw2 = firework_base1_2;
+        }
+        else if (explodeTeam == 2 && explosiontimer == 0)
+        {
+            currentBase = explosionBase2;
+            current_fw1 = firework_base2_1;
+            current_fw2 = firework_base2_2;
+        }
+        explosiontimer += Time.deltaTime;
+        if (explosiontimer >= 2.25f)
+        {
+            CountPoints(explodeTeam);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), currentBase.transform.position, currentBase.transform.rotation, 1);
+            networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
+        }
+        else if (explosiontimer >= 1.87f)
+        {
+            Network.Instantiate(Resources.Load("detonator"), currentBase.transform.position, currentBase.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("detonator"), gameObject.transform.position, gameObject.transform.rotation, 1);
+        }
+        else if (explosiontimer >= 1.37f)
+        {
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+        }
+        else if (explosiontimer >= 0.87f)
+        {
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), currentBase.transform.position, currentBase.transform.rotation, 1);
+        }   
     }
 
     [RPC]
@@ -140,7 +190,6 @@ public class Bomb : MonoBehaviour
 
     private void CountPoints(int team)
     {
-        Network.Instantiate(Resources.Load("detonator"), transform.position, transform.rotation, 1);
         GameController gameController = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>();
         gameController.networkView.RPC("IncreaseTeamPoints", RPCMode.AllBuffered, team);
         Debug.Log("Punkte für" + ((Team.TeamIdentifier)team).ToString());
