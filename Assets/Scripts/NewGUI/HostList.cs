@@ -13,6 +13,7 @@ public class HostList : MonoBehaviour
     private dfControl _root;
     private dfPanel _noHosts;
     private NetworkManager _networkManager;
+    private dfControl _selected;
 
     public ServerInfo SelectedItem { get; private set; }
 
@@ -65,32 +66,83 @@ public class HostList : MonoBehaviour
             if (listItem != null)
             {
                 listItem.Bind(info);
+
+            }
+
+            if (item)
+            {
+                item.KeyDown += (dfControl sender, dfKeyEventArgs args) =>
+                    {
+                        if (args.Used)
+                            return;
+
+                        if (args.KeyCode == KeyCode.DownArrow)
+                        {
+                            SelectNext(true);
+                            args.Use();
+                        }
+                        else if (args.KeyCode == KeyCode.UpArrow)
+                        {
+                            SelectNext(false);
+                            args.Use();
+                        }
+                        else if (args.KeyCode == KeyCode.Space || args.KeyCode == KeyCode.Return)
+                        {
+                            sender.GetComponent<HostListItem>().OnClick();
+                            args.Use();
+                        }
+                    };
             }
            
             item.ZOrder = _items.Count;
             item.Show();
 
             _items.Add(item);
-
-            InitializeItemEvents(info, item);
-
-            if (i == 0)
-            {
-                item.Focus();
-            }
+            FocusOnItem();
         }
 
     }
 
-    private void InitializeItemEvents(ServerInfo info, dfControl item)
+    private void SelectNext(bool next)
     {
-        item.EnterFocus += (sender, args) =>
+        int count = _items.Count;
+        int id = _items.IndexOf(_selected);
+        if(id == -1)
+            return;
+        if (next)
+        {
+            id++;
+            if (id < count)
             {
-                SelectedItem = info;
-                if (SelectionChanged != null) SelectionChanged(info);
-                _networkManager.TargetServer = info;
-            };
+                _selected = _items[id];
+            }
+        }
+        else
+        {
+            id--;
+            if (id >= 0)
+            {
+                _selected = _items[id];
+            }
+        }
+
+        FocusOnItem();
     }
+    private void FocusOnItem()
+    {
+        if(_selected!= null)
+        {    
+            if(!_selected.HasFocus)
+            _selected.Focus();
+        }
+        else if(_items.Count > 0)
+        {
+            _selected = _items[0];
+            _selected.Focus();
+        }
+
+    }
+
 
     private void RemoveItems()
     {

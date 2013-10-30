@@ -47,7 +47,7 @@ public class LanBroadcastService : MonoBehaviour
     private string _strMessage = "";
 
     private const float IntervalMessageSending = 1f;
-    private const float TimeMessagesLive = 3f;
+    private const float TimeMessagesLive = 6f;
     private float _time;
     private float _timeLastMessageSent;
 
@@ -189,9 +189,11 @@ public class LanBroadcastService : MonoBehaviour
                 receivedMessage.Time = _time;
                 serverInfo.IP = senderIP;
                 receivedMessage.ServerInfo = serverInfo;
+                if (!ReceivedMessages.ContainsKey(serverInfo.UniqueID))
+                    _updateFlag = true;
                 //Save the received message with the unique ID as key
                 ReceivedMessages[serverInfo.UniqueID] = receivedMessage;
-                _updateFlag = true;
+
 
             }
             else if (NetworkConfiguration.ValidateServerLobbyClosedNetworkMessage(stringMessage, out serverInfo))
