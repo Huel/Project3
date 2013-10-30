@@ -625,7 +625,7 @@ GameObject:
   - 4: {fileID: 400082}
   - 137: {fileID: 13700000}
   - 114: {fileID: 11400044}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400084}
   - 137: {fileID: 13700002}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Teeth_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +657,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400086}
   - 137: {fileID: 13700004}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Teeth_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +688,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400090}
   - 137: {fileID: 13700006}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: HeadLow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400092}
   - 137: {fileID: 13700008}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EyesLow001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400094}
   - 137: {fileID: 13700010}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BommelLow001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400096}
   - 137: {fileID: 13700012}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BodyLow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,6 +772,7 @@ GameObject:
   - 195: {fileID: 19500000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400046}
   m_Layer: 9
   m_Name: minion
   m_TagString: Minion
@@ -789,7 +790,7 @@ GameObject:
   - 4: {fileID: 400100}
   - 135: {fileID: 13500000}
   - 114: {fileID: 11400030}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: 'contacttrigger_minion '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +807,7 @@ GameObject:
   - 4: {fileID: 400102}
   - 135: {fileID: 13500002}
   - 114: {fileID: 11400032}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: looserange_minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +823,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400104}
   - 114: {fileID: 11400034}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: sprite_healthbar_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +839,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400106}
   - 114: {fileID: 11400036}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: sprite_healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -855,7 +856,7 @@ GameObject:
   - 4: {fileID: 400108}
   - 135: {fileID: 13500004}
   - 114: {fileID: 11400038}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: attentionrange_minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +872,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400110}
   - 114: {fileID: 11400040}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +888,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400112}
   - 114: {fileID: 11400042}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: sprite_healthbar_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1482,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 280.960236, y: 2.97414398, z: -30.2928295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400108}
@@ -1591,7 +1592,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!95 &9500000
 Animator:
   m_ObjectHideFlags: 1
@@ -1602,7 +1603,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: ac17f6deb052f8a4ba194d21c5ec03d1, type: 3}
   m_Controller: {fileID: 9100000, guid: 60d31b7874097414db19a260cd667f2e, type: 2}
   m_CullingMode: 1
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_AnimatePhysics: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -1658,7 +1659,7 @@ MonoBehaviour:
   laneID: 0
   basicAttack: {fileID: 11400018}
   _target: {fileID: 0}
-  productivity: 1
+  productivity: 2
   atRallyPoint: 0
   partOfSquad: 0
   attentionRange: {fileID: 11400038}
@@ -1910,15 +1911,15 @@ MonoBehaviour:
     e00: 1
     e01: 0
     e02: 0
-    e03: 0
+    e03: -280.960236
     e10: 0
     e11: 1
     e12: 0
-    e13: -1.03928721
+    e13: -4.01343107
     e20: 0
     e21: 0
     e22: 1
-    e23: 0
+    e23: 30.2928295
     e30: 0
     e31: 0
     e32: 0
@@ -1962,6 +1963,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0991606aee4e7224c8654c691a294022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaea71a71f5194341908396eb3df86f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showInPanelTool: 1
+  generateNormals: 0
+  depthPass: 0
+  widgetsAreStatic: 0
+  cullWhileDragging: 0
+  worldToLocal:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: -280.960236
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: -2.97414398
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 30.2928295
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  mAlpha: 1
+  mDebugInfo: 1
+  mClipping: 0
+  mClipRange: {x: 0, y: 0, z: 0, w: 0}
+  mClipSoftness: {x: 40, y: 40}
 --- !u!132 &13200000
 GUIText:
   m_ObjectHideFlags: 1
@@ -2202,7 +2241,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 8a92f90ab703700499454150b0a8ce31, type: 2}
+  - {fileID: 2100000, guid: 2e3baa8fed0aada41bff51c0d81a80c2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
