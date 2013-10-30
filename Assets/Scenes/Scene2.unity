@@ -3216,6 +3216,10 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
   m_RootGameObject: {fileID: 1013314031}
@@ -12773,6 +12777,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
   m_RootGameObject: {fileID: 2060801402}
@@ -19918,6 +19926,10 @@ Prefab:
     - target: {fileID: 400000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
@@ -30586,7 +30598,8 @@ GameObject:
   - 4: {fileID: 852594023}
   - 33: {fileID: 852594022}
   - 23: {fileID: 852594021}
-  m_Layer: 0
+  - 64: {fileID: 852594024}
+  m_Layer: 15
   m_Name: ShortcutShortFinal02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30632,6 +30645,19 @@ Transform:
   m_LocalScale: {x: -1, y: .920000017, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!64 &852594024
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 852594020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
 --- !u!1 &857950213
 GameObject:
   m_ObjectHideFlags: 0
@@ -36149,7 +36175,8 @@ GameObject:
   - 4: {fileID: 1013314034}
   - 33: {fileID: 1013314033}
   - 23: {fileID: 1013314032}
-  m_Layer: 0
+  - 64: {fileID: 1013314035}
+  m_Layer: 15
   m_Name: ShortcutShortFinal02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36195,6 +36222,19 @@ Transform:
   m_LocalScale: {x: -1, y: .920000017, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!64 &1013314035
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1013314031}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
 --- !u!1 &1016253737
 GameObject:
   m_ObjectHideFlags: 0
@@ -36700,6 +36740,10 @@ Prefab:
     - target: {fileID: 400000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
@@ -54704,7 +54748,8 @@ GameObject:
   - 4: {fileID: 1469860624}
   - 33: {fileID: 1469860623}
   - 23: {fileID: 1469860622}
-  m_Layer: 0
+  - 64: {fileID: 1469860625}
+  m_Layer: 15
   m_Name: ShortcutShortFinal02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54750,6 +54795,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!64 &1469860625
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1469860621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
 --- !u!1 &1477551500
 GameObject:
   m_ObjectHideFlags: 0
@@ -77524,7 +77582,8 @@ GameObject:
   - 4: {fileID: 2060801405}
   - 33: {fileID: 2060801404}
   - 23: {fileID: 2060801403}
-  m_Layer: 0
+  - 64: {fileID: 2060801406}
+  m_Layer: 15
   m_Name: ShortcutShortFinal02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77570,6 +77629,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!64 &2060801406
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060801402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: 12145f678a7b4774a98676aba62775a0, type: 3}
 --- !u!1 &2063597517
 GameObject:
   m_ObjectHideFlags: 0
