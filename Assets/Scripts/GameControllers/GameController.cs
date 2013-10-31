@@ -26,6 +26,13 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public Color[] teamColors = new Color[3];
 
+    private string message;
+
+    public string Message
+    {
+        get { return message; }
+    }
+
     void Awake()
     {
         Team.teamColors = teamColors;
@@ -55,10 +62,12 @@ public class GameController : MonoBehaviour
 
     void OnPlayerDisconnected()
     {
-        SetGameState(GameState.Disconnected);
+        if (state == GameState.Running)
+            SetGameState(GameState.Disconnected);
     }
 
     void OnDisconnectedFromServer()
+<<<<<<< Updated upstream
     {
         SetGameState(GameState.Disconnected);
     }
@@ -105,12 +114,19 @@ public class GameController : MonoBehaviour
             }
             break;
         }
+=======
+    {  
+        if (state == GameState.Running)
+            state = GameState.Disconnected;
+>>>>>>> Stashed changes
     }
 
     void Update()
     {
         if (state == GameState.Disconnected)
         {
+            message = "Your opponent disconneced.";
+            
             passedTime += Time.deltaTime;
 
             if (passedTime >= 3)
@@ -120,6 +136,17 @@ public class GameController : MonoBehaviour
         }
         else if (gameOver)
         {
+            if (pointsTeam1 > pointsTeam2)
+                if(Network.isServer)
+                    message = "You won!";
+                else
+                    message = "Sorry man! Your opponent was better. Maybe you are too weak.";
+            else
+                if (!Network.isServer)
+                    message = "You won!";
+                else
+                    message = "Sorry man! Your opponent was better. Maybe you are too weak.";
+            
             passedTime += Time.deltaTime;
 
             if (passedTime >= 15)

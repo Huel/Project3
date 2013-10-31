@@ -291,7 +291,8 @@ public class dfLabel : dfControl
 		get { return this.text; }
 		set
 		{
-			value = value.Replace( "\\t", "\t" );
+			if (value == null) return;
+            value = value.Replace( "\\t", "\t" );
 			if( !string.Equals( value, this.text ) )
 			{
 				this.text = value;

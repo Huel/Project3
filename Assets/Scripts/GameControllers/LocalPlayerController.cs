@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -15,8 +16,17 @@ public class LocalPlayerController : MonoBehaviour
 
     private GameController gameController;
 
-    // Use this for initialization 
+    public event Action ShowMenu;
+    public event Action HideMenu;
 
+    private bool menuVisible = false;
+
+    public bool MenuVisible
+    {
+        get { return menuVisible; }
+    }
+    
+    // Use this for initialization 
     void Awake()
     {
         if (Network.isServer)
@@ -52,6 +62,7 @@ public class LocalPlayerController : MonoBehaviour
             base02.SetActive(false);
             base02_destroyed.SetActive(true);
         }
+        HandleInput();
         
         if (GameObject.FindGameObjectsWithTag(Tags.player).Any(Player => Player.GetComponent<NetworkView>().isMine))
         {
@@ -59,5 +70,26 @@ public class LocalPlayerController : MonoBehaviour
         }
         Object hero = Resources.Load("hero01");
         Network.Instantiate(hero, MyBase.transform.position, MyBase.transform.rotation, 1);  
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetButtonDown(InputTags.menu) && ShowMenu != null)
+        {
+            if (!menuVisible)
+            {
+                ShowMenu();
+                GameObject.Find("button_01_continue").GetComponent<dfButton>().Focus();
+            }
+            if (menuVisible)
+                HideMenu();
+            menuVisible = !menuVisible;
+        }
+    }
+    public void OnHideMenu()
+    {
+        if (HideMenu != null)
+            HideMenu();
+        menuVisible=!menuVisible;
     }
 }

@@ -5,6 +5,7 @@ public class CharController : MonoBehaviour
 
     private Animator _animator;
     private CharacterController _controller;
+    private LocalPlayerController _localPlayerController;
     private OrbitCamera _gamecam;
     private Health _healthComponent;
     private Speed _speedComponent;
@@ -46,7 +47,12 @@ public class CharController : MonoBehaviour
         _healthComponent = GetComponent<Health>();
         _speedComponent = GetComponent<Speed>();
         _controller = GetComponent<CharacterController>();
+<<<<<<< Updated upstream
         PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
+=======
+
+        _localPlayerController = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>();
+>>>>>>> Stashed changes
     }
 
     void Update()
@@ -138,7 +144,9 @@ public class CharController : MonoBehaviour
 
     private void HandleInput(ref float horizontal, ref float vertical)
     {
-
+        if (_localPlayerController.MenuVisible)
+            return;
+        
         if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().GetMinionManagerState() == MinionManager.MinionManagerState.Invisible)
         {
             horizontal = Input.GetAxis(InputTags.horizontal);
