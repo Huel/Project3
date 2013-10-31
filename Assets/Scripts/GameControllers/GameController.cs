@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     public int pointsTeam1 = 0;
     public int pointsTeam2 = 0;
 
+    public bool musicPlayed = false;
+
     [SerializeField]
     public Color[] teamColors = new Color[3];
 
@@ -31,14 +33,7 @@ public class GameController : MonoBehaviour
 
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
-        foreach (NetworkPlayerController controller in _networkPlayerControllers)
-        {
-            if (controller.networkPlayer == player)
-            {
-                return controller;
-            }
-        }
-        return null;
+        return _networkPlayerControllers.FirstOrDefault(controller => controller.networkPlayer == player);
     }
 
     public float GameTime
@@ -77,9 +72,13 @@ public class GameController : MonoBehaviour
         }
         else if (gameOver)
         {
+            if (!musicPlayed)
+            {
+                musicPlayed = true;
+                networkView.RPC("GameOverSound", RPCMode.AllBuffered);
+            }
             GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
                          pointsTeam1 <= pointsTeam2 ? "Team 2 won the Round" : "Team 1 won the Round");
-            networkView.RPC("GameOverSound", RPCMode.All);
         }
     }
 
@@ -135,6 +134,8 @@ public class GameController : MonoBehaviour
         {
             _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager) == null) return;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>() == null) return;
             GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().SpawnMinions();
         }
     }

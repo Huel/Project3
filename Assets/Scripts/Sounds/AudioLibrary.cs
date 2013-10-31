@@ -35,7 +35,7 @@ public class AudioLibrary : MonoBehaviour
         aSources[name].Stop();
     }
 
-    public void ManipulateVolumeOfTrack(string name, int value = 1)
+    public void ManipulateVolumeOfTrack(string name, float value = 1f)
     {
         if (aSources == null) Init();
         if (AbortMethod(name)) return;

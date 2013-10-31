@@ -121,14 +121,14 @@ public class CharController : MonoBehaviour
             _animator.SetFloat(AnimatorTags.angle, 0f);
         }
 
-        if (_speed > 0.1f //Are you moving
-            && soundLibrary != null
-            && soundLibrary.aSources != null
-            && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null
-            && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying) //Are you not yet playing the moving sound
-        {
-            PlaySound(document.GetElementsByTagName("run")[0].InnerText);
-        }
+        //if (_speed > 0.1f //Are you moving
+        //    && soundLibrary != null
+        //    && soundLibrary.aSources != null
+        //    && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null
+        //    && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying) //Are you not yet playing the moving sound
+        //{
+        //    PlaySound(document.GetElementsByTagName("run")[0].InnerText);
+        //}
 
         //Use gravity.
         _controller.Move(Physics.gravity);

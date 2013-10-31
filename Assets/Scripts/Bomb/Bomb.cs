@@ -99,7 +99,7 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team1);
-                //PlayExplosionSound();
+                PlayExplosionSound();
             }
         }
         else
@@ -109,7 +109,7 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 CountPoints((int)Team.TeamIdentifier.Team2);
-                //PlayExplosionSound();
+                PlayExplosionSound();
             }
         }
     }
@@ -294,7 +294,7 @@ public class Bomb : MonoBehaviour
     [RPC]
     public void ExplosionSound()
     {
-        soundLibrary.StartSound(document.GetElementsByTagName("explosion")[0].InnerText, 0f);
+        //soundLibrary.StartSound(document.GetElementsByTagName("explosion")[0].InnerText, 0f);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
         {
             if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)

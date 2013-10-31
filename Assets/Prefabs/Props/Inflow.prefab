@@ -9,12 +9,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400002}
+  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Inflow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100002
 GameObject:
@@ -32,7 +33,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100004
 GameObject:
@@ -47,7 +48,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100006
 GameObject:
@@ -65,7 +66,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100008
 GameObject:
@@ -84,7 +85,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100010
 GameObject:
@@ -102,7 +103,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &100012
 GameObject:
@@ -117,7 +118,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &400000
 Transform:
@@ -126,8 +127,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -52.4588814, y: 40.908783, z: 135.335693}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 102.30555, y: 41.1145706, z: 135.087296}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
   m_Father: {fileID: 0}
@@ -138,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .478546143, y: -9.5724659, z: 19.3977604}
+  m_LocalPosition: {x: .0186244603, y: -8.22364998, z: 24.53372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -175,7 +176,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: .5, y: .5, z: .5, w: .5}
+  m_LocalRotation: {x: .806707263, y: .564862549, z: -.142244279, w: -.0996005163}
   m_LocalPosition: {x: .190245748, y: .657009244, z: 8.40777493}
   m_LocalScale: {x: -.704092801, y: 1, z: 3.78905606}
   m_Children: []
@@ -258,7 +259,7 @@ ParticleAnimator:
   localRotationAxis: {x: 0, y: 0, z: 0}
   sizeGrow: 1.10999978
   rndForce: {x: .432426393, y: 0, z: .494113624}
-  force: {x: 2.4468627, y: 0, z: -1.73576009}
+  force: {x: 6.55502558, y: 0, z: 3.84598994}
   damping: 1
   stopSimulation: 0
   autodestruct: 0
@@ -301,8 +302,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 3
-  maxSize: 3
+  minSize: 10
+  maxSize: 10
   minEnergy: 2
   maxEnergy: 2
   minEmission: 2
@@ -355,14 +356,14 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 3
+  minSize: 6
   maxSize: 3
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 10
-  maxEmission: 10
+  minEmission: 100
+  maxEmission: 100
   worldVelocity: {x: 0, y: 0, z: 0}
-  localVelocity: {x: 0, y: 11, z: 0}
+  localVelocity: {x: 0, y: 20, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
   emitterVelocityScale: .0500000007
   tangentVelocity: {x: .179999992, y: .904263914, z: -.0697162449}
@@ -482,6 +483,69 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_Mesh: {fileID: 4300000, guid: 82f9a58a8615ae341ab0c1e0438e6fe6, type: 3}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 0effdfa669d20c54c8202a6ea8538b13, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 40.4842834
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .864197493
+      inSlope: -1.90668654
+      outSlope: -1.90668654
+      tangentMode: 0
+    - time: .309627593
+      value: .293101847
+      inSlope: -.619590282
+      outSlope: -.619590282
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: -.028303111
+      outSlope: -.028303111
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9500000
 Animator:
   m_ObjectHideFlags: 1
@@ -504,6 +568,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b154bf81cf98fcb449b4777c4c6c85b7, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   mirrored: 0
   _originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &11400002
@@ -516,13 +581,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8a4c2a3e6ba1ea47a5583e00d0870bb, type: 3}
   m_Name: 
-  value: 0
-  mirrored: 0
+  m_EditorClassIdentifier: 
+  mirrored: 1
   valve: {fileID: 0}
   fountain: {fileID: 1500004}
   waterStream: {fileID: 1500002}
   waterStreamParticle: {fileID: 1200002}
   steam: {fileID: 1500000}
+  _currentState: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

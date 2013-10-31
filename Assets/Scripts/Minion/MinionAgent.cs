@@ -293,12 +293,15 @@ public class MinionAgent : MonoBehaviour
                         foreach (GameObject gameObj in objects)
                         {
                             if (value == "Base" && gameObj.GetComponent<Team>().IsEnemy(GetComponent<Team>()))
-                                _target = gameObj.GetComponent<Target>();
-                            if (value == "Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
                             {
                                 _target = gameObj.GetComponent<Target>();
-                                scared = true;
+                                PlaySound(document.GetElementsByTagName("kamikaze")[0].InnerText);
                             }
+                            if (value != "Flee" || !gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
+                                continue;
+                            PlaySound(document.GetElementsByTagName("terrified")[0].InnerText);
+                            _target = gameObj.GetComponent<Target>();
+                            scared = true;
                         }
                     }
                     else

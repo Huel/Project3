@@ -1643,8 +1643,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1500.53625, y: -150.795731, z: 107.665901}
+  m_LocalRotation: {x: 0, y: -.919272006, z: 0, w: .393623054}
+  m_LocalPosition: {x: -2963.32373, y: -15.394289, z: -2721.44727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400200}
@@ -2812,7 +2812,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25700569, z: .513386726}
+  m_LocalPosition: {x: 2.51562892e-06, y: 1.25700569, z: .513386905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
@@ -2860,7 +2860,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2918,7 +2918,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2976,7 +2976,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3034,7 +3034,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3092,7 +3092,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3150,7 +3150,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3208,7 +3208,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3266,7 +3266,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3320,11 +3320,11 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 11
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3375,31 +3375,41 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 76da89d945f1d4946b726dbf72fb5202, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .206
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 22.1000004
-  MaxDistance: 500
+  MinDistance: 11
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - time: .101670541
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -4.54727364
+      outSlope: -4.54727364
+      tangentMode: 0
+    - time: .419118315
+      value: .376543224
+      inSlope: -1.13681841
+      outSlope: -1.13681841
+      tangentMode: 0
+    - time: .7639907
+      value: .0833333284
+      inSlope: -.284204602
+      outSlope: -.284204602
       tangentMode: 0
     - time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -.220087826
+      outSlope: -.220087826
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -3440,7 +3450,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3977,18 +3987,18 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 1
+    e00: -.690122008
     e01: 0
-    e02: 0
-    e03: -1500.53625
-    e10: 0
+    e02: .723693311
+    e03: -75.5617447
+    e10: -0
     e11: 1
     e12: 0
-    e13: 148.649536
-    e20: 0
+    e13: 13.2480907
+    e20: -.723693311
     e21: 0
-    e22: 1
-    e23: -108.105942
+    e22: -.690122008
+    e23: -4023.10815
     e30: 0
     e31: 0
     e32: 0
