@@ -81,6 +81,7 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
+
         if (!networkView.isMine)
         {
             SmoothNetworkMovement();
@@ -116,7 +117,6 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 explodeTeam = 2;
-                PlayExplosionSound();
             }
         }
         else
@@ -126,7 +126,6 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 explodeTeam = 1;
-                PlayExplosionSound();
             }
         }
     }
@@ -194,6 +193,7 @@ public class Bomb : MonoBehaviour
 
     private void MoveTowards(GameObject target)
     {
+        if (WaypointB == null || WaypointA == null) return;
 
         target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         transform.position += Vector3.ClampMagnitude(target.transform.position - transform.position, Speed);
@@ -395,15 +395,13 @@ public class Bomb : MonoBehaviour
 
     private bool CheckTriggeredPlaySound()
     {
-        if (gameObject.name != "bomb_lane01") return false;
-
         for (int i = 0; i < 3; i++)
         {
             if (checkTriggeredSound[i] ==
                 GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i]) continue;
             checkTriggeredSound[i] =
                 GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i];
-            return !(soundLibrary.aSources[document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText].isPlaying || soundLibrary.aSources[document.GetElementsByTagName("explosionInOwnBase")[0].InnerText].isPlaying);
+            return !(soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText].isPlaying || soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInOwnBase")[0].InnerText].isPlaying);
         }
         return false;
     }
