@@ -41,7 +41,7 @@ public class OrbitCamera : MonoBehaviour
     private float freeThreshold = 0.1f;
     private Vector2 camMinDistFromChar = new Vector2(3f, 0f);
     private float rightStickThreshold = 0.3f;
-    private const float freeRotationDegreePerSecond = -5f;
+    private const float freeRotationDegreePerSecond = -180f;
 
 
     // Smoothing and damping
@@ -231,7 +231,7 @@ public class OrbitCamera : MonoBehaviour
 
 
                 // Rotating around character
-                parentRig.RotateAround(characterOffset, player.transform.up, freeRotationDegreePerSecond * (Mathf.Abs(cameraX) > rightStickThreshold ? cameraX : 0f));
+                parentRig.RotateAround(characterOffset, player.transform.up, freeRotationDegreePerSecond * (Mathf.Abs(cameraX) > rightStickThreshold ? cameraX : 0f) * Time.deltaTime);
 
                 // Still need to track camera behind player even if they aren't using the right stick; achieve this by saving distanceAwayFree every frame
                 if (targetPosition == Vector3.zero)

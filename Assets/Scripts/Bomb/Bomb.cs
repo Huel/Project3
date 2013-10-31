@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkView))]
@@ -15,7 +16,20 @@ public class Bomb : MonoBehaviour
     public List<GameObject> valvesA = new List<GameObject>();
     public List<GameObject> valvesB = new List<GameObject>();
     private GameObject target;
+    private bool[] checkTriggeredSound = new bool[3];
 
+    public int explodeTeam = 0;
+    private float explosiontimer = 0;
+    private GameObject currentBase;
+    private GameObject current_fw1;
+    private GameObject current_fw2;
+
+    public GameObject explosionBase1;
+    public GameObject firework_base1_1;
+    public GameObject firework_base1_2;
+    public GameObject explosionBase2;
+    public GameObject firework_base2_1;
+    public GameObject firework_base2_2;
 
     private float ForceA
     {
@@ -37,7 +51,6 @@ public class Bomb : MonoBehaviour
         get { return ForceA - ForceB == 0f; }
     }
 
-
     internal struct State
     {
         internal double timestamp;
@@ -48,6 +61,9 @@ public class Bomb : MonoBehaviour
     State[] m_BufferedState = new State[20];
     int m_TimestampCount;
     private bool gameOver = false;
+    private XmlDocument document;
+    private AudioLibrary soundLibrary;
+    private AudioLibrary soundLibraryCamera;
 
     public bool GameOver
     {
@@ -56,17 +72,27 @@ public class Bomb : MonoBehaviour
 
     void Start()
     {
+        soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
+        document = new XMLReader("GameSettings.xml").GetXML();
+        soundLibraryCamera = GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>();
         movementSpeed = float.Parse(new XMLReader("Bomb.xml").GetXML().GetElementsByTagName("speed")[0].InnerText);
         towardsDestination = new GameObject();
     }
 
     void Update()
     {
+
         if (!networkView.isMine)
         {
             SmoothNetworkMovement();
             return;
         }
+
+        if (CheckTriggeredPlaySound()) PlayTriggeredSound();
+
+        if (explodeTeam != 0)
+            Explode();
+
         if (BombDoesntMove || gameOver) return;
 
         target = WaypointA;
@@ -83,13 +109,15 @@ public class Bomb : MonoBehaviour
     {
         if (!CanIPassValve(waypoint)) return;
 
+
         if (waypoint == WaypointB)
         {
             WaypointA = WaypointB;
             WaypointB = WaypointB.GetComponent<BombWaypoint>().WaypointB;
             if (WaypointB == null)
             {
-                CountPoints((int)Team.TeamIdentifier.Team1);
+                explodeTeam = 2;
+                PlayExplosionSound(); //This is the vocal. Not the actual explosion.
             }
         }
         else
@@ -98,9 +126,67 @@ public class Bomb : MonoBehaviour
             WaypointA = WaypointA.GetComponent<BombWaypoint>().WaypointA;
             if (WaypointA == null)
             {
-                CountPoints((int)Team.TeamIdentifier.Team2);
+                explodeTeam = 1;
+                PlayExplosionSound();
             }
         }
+    }
+
+    [RPC]
+    public void CameraShake()
+    {
+        GameObject cameraPlayer = GameObject.FindGameObjectWithTag(Tags.camera);
+        cameraPlayer.GetComponent<Animation>().Play("CameraShake");
+    }
+
+    private void Explode()
+    {
+        if (explodeTeam == 1 && explosiontimer == 0)
+        {
+            PlaySound("BombExplosion");
+            currentBase = explosionBase1;
+            current_fw1 = firework_base1_1;
+            current_fw2 = firework_base1_2;
+        }
+        else if (explodeTeam == 2 && explosiontimer == 0)
+        {
+            PlaySound("BombExplosion");
+            currentBase = explosionBase2;
+            current_fw1 = firework_base2_1;
+            current_fw2 = firework_base2_2;
+        }
+        explosiontimer += Time.deltaTime;
+        if (explosiontimer >= 2.25f)
+        {
+            CountPoints(explodeTeam);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), currentBase.transform.position, currentBase.transform.rotation, 1);
+            networkView.RPC("DestroyBomb", RPCMode.AllBuffered);
+        }
+        else if (explosiontimer >= 1.87f)
+        {
+            Network.Instantiate(Resources.Load("detonator"), currentBase.transform.position, currentBase.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("detonator"), gameObject.transform.position, gameObject.transform.rotation, 1);
+        }
+        else if (explosiontimer >= 1.37f)
+        {
+            networkView.RPC("CameraShake", RPCMode.AllBuffered);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+        }
+        else if (explosiontimer >= 0.87f)
+        {
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
+            Network.Instantiate(Resources.Load("Fireworks"), currentBase.transform.position, currentBase.transform.rotation, 1);
+        }
+    }
+
+    [RPC]
+    public void DestroyBomb()
+    {
+        Destroy(gameObject);
     }
 
     private bool CanIPassValve(GameObject target)
@@ -111,6 +197,7 @@ public class Bomb : MonoBehaviour
 
     private void MoveTowards(GameObject target)
     {
+        if (WaypointB == null || WaypointA == null) return;
 
         target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         transform.position += Vector3.ClampMagnitude(target.transform.position - transform.position, Speed);
@@ -128,7 +215,6 @@ public class Bomb : MonoBehaviour
 
     private void CountPoints(int team)
     {
-        gameOver = true;
         GameController gameController = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>();
         gameController.networkView.RPC("IncreaseTeamPoints", RPCMode.AllBuffered, team);
         Debug.Log("Punkte für" + ((Team.TeamIdentifier)team).ToString());
@@ -136,6 +222,7 @@ public class Bomb : MonoBehaviour
 
     private bool HaveReached(GameObject target)
     {
+        if (target == null) return false;
         Vector3 a = transform.position;
         Vector3 b = target.transform.position;
         a.y = 0;
@@ -241,5 +328,98 @@ public class Bomb : MonoBehaviour
         }
 
         return -1;
+    }
+
+    public void PlayTriggeredSound()
+    {
+        networkView.RPC("TriggerSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void TriggerSound()
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+        {
+            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+            {
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
+                                 ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
+                                 : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
+                return;
+            }
+            soundLibraryCamera
+                     .StartSound(
+                         GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
+                             ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
+                             : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlayExplosionSound()
+    {
+        networkView.RPC("ExplosionSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void ExplosionSound()
+    {
+        //soundLibrary.StartSound(document.GetElementsByTagName("explosion")[0].InnerText, 0f);
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+        {
+            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
+            {
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
+                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+            }
+            else
+            {
+                soundLibraryCamera
+                         .StartSound(
+                             GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
+                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
+                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
+            }
+        }
+    }
+
+    private float GetDistance(Vector3 from, Vector3 to)
+    {
+        return Mathf.Abs((from - to).magnitude);
+    }
+
+    private bool CheckTriggeredPlaySound()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (checkTriggeredSound[i] ==
+                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i]) continue;
+            checkTriggeredSound[i] =
+                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i];
+            return !(soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText].isPlaying || soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInOwnBase")[0].InnerText].isPlaying);
+        }
+        return false;
+    }
+
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
+        soundLibrary.StartSound(name, delay);
     }
 }

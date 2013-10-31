@@ -26,7 +26,7 @@ public class Healthbar : MonoBehaviour
         if (_team && _team.ID != Team.TeamIdentifier.NoTeam)
         {
             if (enemyOnly &&
-                _team.isOwnTeam((Team.TeamIdentifier)
+                _team.IsOwnTeam((Team.TeamIdentifier)
                     GameObject.FindGameObjectWithTag(Tags.localPlayerController)
                               .GetComponent<LocalPlayerController>()
                               .networkPlayerController.team))

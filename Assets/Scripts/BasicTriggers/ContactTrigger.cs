@@ -1,8 +1,7 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ContactTrigger : MonoBehaviour 
+public class ContactTrigger : MonoBehaviour
 {
     public delegate void OnContact(Target contact);
 
@@ -29,7 +28,7 @@ public class ContactTrigger : MonoBehaviour
     public Target GetContactByType(TargetType targetType, Team.TeamIdentifier team)
     {
         ClearDead();
-        return GetContactByTypes(new List<TargetType> {targetType}, team);
+        return GetContactByTypes(new List<TargetType> { targetType }, team);
     }
 
     public Target GetContactByTypes(List<TargetType> targetTypes, Team.TeamIdentifier team)
@@ -37,12 +36,12 @@ public class ContactTrigger : MonoBehaviour
         ClearDead();
         for (int i = 0; i < contacts.Count; i++)
             if (targetTypes.Contains(contacts[i].type))
-            {  
+            {
                 Team contactTeam = contacts[i].GetComponent<Team>();
-                if(contactTeam != null && contactTeam.isOwnTeam(team))
+                if (contactTeam != null && contactTeam.IsOwnTeam(team))
                     return contacts[i];
             }
-                
+
         return null;
     }
 
@@ -62,10 +61,10 @@ public class ContactTrigger : MonoBehaviour
 
     public void AddListener(TargetType targetType, OnContact listenerFunction)
     {
-        if(typeListener.ContainsKey(targetType))
+        if (typeListener.ContainsKey(targetType))
             typeListener[targetType].Add(listenerFunction);
         else
-            typeListener.Add(targetType, new List<OnContact>{listenerFunction});
+            typeListener.Add(targetType, new List<OnContact> { listenerFunction });
     }
 
     public void AddListener(Target target, OnContact listenerFunction)
@@ -125,9 +124,9 @@ public class ContactTrigger : MonoBehaviour
         Target target = other.gameObject.GetComponent<Target>();
 
         foreach (OnContact listener in defaultListener)
-            if(listener != null) listener(target);
+            if (listener != null) listener(target);
 
-        if(typeListener.ContainsKey(target.type))
+        if (typeListener.ContainsKey(target.type))
             foreach (OnContact listener in typeListener[target.type])
                 if (listener != null) listener(target);
 

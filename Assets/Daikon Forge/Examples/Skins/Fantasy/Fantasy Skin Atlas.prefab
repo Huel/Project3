@@ -1,0 +1,782 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 8
+  m_Name: Fantasy Skin Atlas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f514313262e3d141ad017b60809752a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 8aef305aa24d2d44ab52fc3351c4f647, type: 2}
+  items:
+  - name: BLANK_TEXTURE
+    region:
+      serializedVersion: 2
+      x: .3359375
+      y: .729492188
+      width: .009765625
+      height: .009765625
+    border:
+      m_Left: 1
+      m_Right: 1
+      m_Top: 1
+      m_Bottom: 1
+    rotated: 0
+    texture: {fileID: 2800000, guid: e429c1812dd89884bb925ab0ad3da220, type: 3}
+  - name: button-disabled
+    region:
+      serializedVersion: 2
+      x: .629882812
+      y: .565429688
+      width: .124023438
+      height: .01953125
+    border:
+      m_Left: 10
+      m_Right: 10
+      m_Top: 8
+      m_Bottom: 8
+    rotated: 0
+    texture: {fileID: 2800000, guid: 6a2fdd93ebc118a48805f71802690c29, type: 3}
+  - name: button-hover
+    region:
+      serializedVersion: 2
+      x: .755859375
+      y: .565429688
+      width: .124023438
+      height: .01953125
+    border:
+      m_Left: 10
+      m_Right: 10
+      m_Top: 8
+      m_Bottom: 8
+    rotated: 0
+    texture: {fileID: 2800000, guid: b6d55e9d28c3e5043b6bd2dc2d9cd169, type: 3}
+  - name: button-normal
+    region:
+      serializedVersion: 2
+      x: .629882812
+      y: .586914062
+      width: .124023438
+      height: .01953125
+    border:
+      m_Left: 10
+      m_Right: 10
+      m_Top: 8
+      m_Bottom: 8
+    rotated: 0
+    texture: {fileID: 2800000, guid: f85935d5adc0b6643b29b7b192be3af0, type: 3}
+  - name: dropdown-btn-hover
+    region:
+      serializedVersion: 2
+      x: .125976562
+      y: .95703125
+      width: .0244140625
+      height: .0244140625
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: 7b0a83f65b47d4b43856ac14819b3dbc, type: 3}
+  - name: dropdown-btn-normal
+    region:
+      serializedVersion: 2
+      x: .099609375
+      y: .95703125
+      width: .0244140625
+      height: .0244140625
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: 87b5dd01dbee61a49a0290d36292feff, type: 3}
+  - name: frame-small
+    region:
+      serializedVersion: 2
+      x: .37890625
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 4
+      m_Right: 4
+      m_Top: 4
+      m_Bottom: 4
+    rotated: 0
+    texture: {fileID: 2800000, guid: 01e5c8de3130d1f48bf186eaaa004432, type: 3}
+  - name: Heiro-OpenSans-Regular-12px
+    region:
+      serializedVersion: 2
+      x: .741210938
+      y: .251953125
+      width: .25
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: c24ccf3604b872f4a9ac4b9327b84bea, type: 3}
+  - name: Heiro-OpenSans-Regular-16px
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .39453125
+      width: .25
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 1b577c60168b61f4da98daf7ae9662c5, type: 3}
+  - name: Heiro-OpenSans-Regular-20px
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .494140625
+      width: .25
+      height: .25
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 9eb85889eb4ec084993f0675c202159b, type: 3}
+  - name: Heiro-OpenSans-Regular-24px
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: 0
+      width: .5
+      height: .25
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: dde4836da68eec645b33bd7853e902fe, type: 3}
+  - name: horz-scroll-left
+    region:
+      serializedVersion: 2
+      x: .431640625
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: b3bc9a2ba3dfaaa45a10ef0a4acd622e, type: 3}
+  - name: horz-scroll-right
+    region:
+      serializedVersion: 2
+      x: .181640625
+      y: .892578125
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 0af24474e8bd97747bed3fd66b8fdc04, type: 3}
+  - name: horz-scroll-thumb
+    region:
+      serializedVersion: 2
+      x: .46875
+      y: .638671875
+      width: .0146484375
+      height: .015625
+    border:
+      m_Left: 6
+      m_Right: 6
+      m_Top: 5
+      m_Bottom: 5
+    rotated: 0
+    texture: {fileID: 2800000, guid: 1fedc40b204348e489ee24e973365b76, type: 3}
+  - name: horz-scroll-track
+    region:
+      serializedVersion: 2
+      x: .629882812
+      y: .547851562
+      width: .223632812
+      height: .015625
+    border:
+      m_Left: 4
+      m_Right: 4
+      m_Top: 3
+      m_Bottom: 4
+    rotated: 1
+    texture: {fileID: 2800000, guid: 0aa7ac2c51f994d4d85a471224cf69c7, type: 3}
+  - name: horz-slider-thumb-normal
+    region:
+      serializedVersion: 2
+      x: .26953125
+      y: .729492188
+      width: .0146484375
+      height: .0146484375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: b21c748a024ce274da86fe12f09a1f9d, type: 3}
+  - name: horz-slider-track-normal
+    region:
+      serializedVersion: 2
+      x: .741210938
+      y: .37890625
+      width: .169921875
+      height: .0068359375
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: 7bf097c2a2de2b64b9b56c8827eb44cb, type: 3}
+  - name: hscroll-left-hover
+    region:
+      serializedVersion: 2
+      x: .4140625
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: b6a54fe5b7e780b489289fb91745a397, type: 3}
+  - name: hscroll-right-hover
+    region:
+      serializedVersion: 2
+      x: .396484375
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 861ee064bbeb19543a02dad2f27283fc, type: 3}
+  - name: hscroll-thumb-hover
+    region:
+      serializedVersion: 2
+      x: .46875
+      y: .62109375
+      width: .0146484375
+      height: .015625
+    border:
+      m_Left: 5
+      m_Right: 5
+      m_Top: 5
+      m_Bottom: 5
+    rotated: 0
+    texture: {fileID: 2800000, guid: bf74060a64c39c048a4faa78d0858eb7, type: 3}
+  - name: hslider-thumb-hover
+    region:
+      serializedVersion: 2
+      x: .286132812
+      y: .729492188
+      width: .0146484375
+      height: .0146484375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 3c3a42a066afe5341ba49301b9b3351e, type: 3}
+  - name: listitem-hover
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .892578125
+      width: .09765625
+      height: .102539062
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 5
+      m_Bottom: 5
+    rotated: 0
+    texture: {fileID: 2800000, guid: 65871555f87a8914288c94905c0729a1, type: 3}
+  - name: listitem-selected
+    region:
+      serializedVersion: 2
+      x: .37890625
+      y: .494140625
+      width: .09765625
+      height: .102539062
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 5
+      m_Bottom: 5
+    rotated: 0
+    texture: {fileID: 2800000, guid: b5fe64d0da7e7fa499170bb4cf715216, type: 3}
+  - name: panel
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .251953125
+      width: .25390625
+      height: .140625
+    border:
+      m_Left: 15
+      m_Right: 15
+      m_Top: 15
+      m_Bottom: 15
+    rotated: 0
+    texture: {fileID: 2800000, guid: 4ae67d611cd0af9468d2a9835bab3841, type: 3}
+  - name: panel2
+    region:
+      serializedVersion: 2
+      x: 0
+      y: .74609375
+      width: .266601562
+      height: .14453125
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: 577e209cb1ea4394ab61aa38e3137094, type: 3}
+  - name: spell-1
+    region:
+      serializedVersion: 2
+      x: .251953125
+      y: .62109375
+      width: .106445312
+      height: .106445312
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: fca5d32deac02ee45a06bee6b327a9c9, type: 3}
+  - name: spell-10
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .6484375
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 8a397756774e1864486b1fa8c197c68d, type: 3}
+  - name: spell-11
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .521484375
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 95b6723d7556d2d42aa1ff00e18e39f6, type: 3}
+  - name: spell-2
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .775390625
+      width: .106445312
+      height: .106445312
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: ce19f3fe141e7374591e1b5bbe564333, type: 3}
+  - name: spell-3
+    region:
+      serializedVersion: 2
+      x: .485351562
+      y: .883789062
+      width: .10546875
+      height: .106445312
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: f0ea2ffdbf126be41896c71e10173d5c, type: 3}
+  - name: spell-4
+    region:
+      serializedVersion: 2
+      x: .360351562
+      y: .62109375
+      width: .106445312
+      height: .106445312
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 8ee62bb112019354482fdf7b04dc8c42, type: 3}
+  - name: spell-5
+    region:
+      serializedVersion: 2
+      x: .864257812
+      y: .39453125
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 51e66efa091dfef4a8130d1e313974f8, type: 3}
+  - name: spell-6
+    region:
+      serializedVersion: 2
+      x: .251953125
+      y: .494140625
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 6472343b66e63104a92b261cda3153d9, type: 3}
+  - name: spell-7
+    region:
+      serializedVersion: 2
+      x: .737304688
+      y: .39453125
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 960e635337355384dbbe6911cf07fa3a, type: 3}
+  - name: spell-8
+    region:
+      serializedVersion: 2
+      x: .268554688
+      y: .873046875
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: a532ca502a4bc2d44867ed412a01cb8c, type: 3}
+  - name: spell-9
+    region:
+      serializedVersion: 2
+      x: .268554688
+      y: .74609375
+      width: .125
+      height: .125
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 3d30a41044e502b4fb45cd4ddcd700ba, type: 3}
+  - name: tab-hover
+    region:
+      serializedVersion: 2
+      x: .8828125
+      y: .521484375
+      width: .109375
+      height: .021484375
+    border:
+      m_Left: 9
+      m_Right: 9
+      m_Top: 8
+      m_Bottom: 8
+    rotated: 0
+    texture: {fileID: 2800000, guid: 07ed68bd8cbadb44eb18dcec795967c0, type: 3}
+  - name: tab-normal
+    region:
+      serializedVersion: 2
+      x: .629882812
+      y: .608398438
+      width: .109375
+      height: .021484375
+    border:
+      m_Left: 9
+      m_Right: 9
+      m_Top: 8
+      m_Bottom: 8
+    rotated: 0
+    texture: {fileID: 2800000, guid: f176c1bbbc7a5044bae7b5a967c51763, type: 3}
+  - name: textbox
+    region:
+      serializedVersion: 2
+      x: .612304688
+      y: .521484375
+      width: .268554688
+      height: .0244140625
+    border:
+      m_Left: 4
+      m_Right: 4
+      m_Top: 4
+      m_Bottom: 4
+    rotated: 0
+    texture: {fileID: 2800000, guid: 41f4f50801fd8ff44adc9ff29b0355a6, type: 3}
+  - name: toggle-checked
+    region:
+      serializedVersion: 2
+      x: .234375
+      y: .892578125
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 25d55ec0146518d4188c784e6426d0f8, type: 3}
+  - name: toggle-unchecked
+    region:
+      serializedVersion: 2
+      x: .44921875
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: c451fdb18ac3b8a40b6b9d0922c360bb, type: 3}
+  - name: tome
+    region:
+      serializedVersion: 2
+      x: .099609375
+      y: .892578125
+      width: .0625
+      height: .0625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 66f313ae1e1b28f438eab62b54c72087, type: 3}
+  - name: vscroll-down-hover
+    region:
+      serializedVersion: 2
+      x: .466796875
+      y: .598632812
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 04532f9a895534449984fc5a11a82e65, type: 3}
+  - name: vscroll-down-normal
+    region:
+      serializedVersion: 2
+      x: .1640625
+      y: .892578125
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 5e41a79c978d9314a9b4b71885bb1e57, type: 3}
+  - name: vscroll-thumb-normal
+    region:
+      serializedVersion: 2
+      x: .251953125
+      y: .729492188
+      width: .015625
+      height: .0146484375
+    border:
+      m_Left: 3
+      m_Right: 3
+      m_Top: 3
+      m_Bottom: 3
+    rotated: 0
+    texture: {fileID: 2800000, guid: 84a2ac9b7a8de2b459c81a1260a6b595, type: 3}
+  - name: vscroll-track-normal
+    region:
+      serializedVersion: 2
+      x: .612304688
+      y: .547851562
+      width: .015625
+      height: .223632812
+    border:
+      m_Left: 5
+      m_Right: 5
+      m_Top: 5
+      m_Bottom: 5
+    rotated: 0
+    texture: {fileID: 2800000, guid: 486cbef236b00094ca4e63d31f5a13c1, type: 3}
+  - name: vscroll-up-hover
+    region:
+      serializedVersion: 2
+      x: .19921875
+      y: .892578125
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: e34d1d0b64fc862449cf1fc4441fee2b, type: 3}
+  - name: vscroll-up-normal
+    region:
+      serializedVersion: 2
+      x: .216796875
+      y: .892578125
+      width: .015625
+      height: .015625
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 21c604cf45517f24ca0d9c59aa94c08c, type: 3}
+  - name: vslider-thumb-hover
+    region:
+      serializedVersion: 2
+      x: .302734375
+      y: .729492188
+      width: .0146484375
+      height: .0146484375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: ab18f5f5c2bda2743b18255ae8e7ec08, type: 3}
+  - name: vslider-thumb-normal
+    region:
+      serializedVersion: 2
+      x: .319335938
+      y: .729492188
+      width: .0146484375
+      height: .0146484375
+    border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    rotated: 0
+    texture: {fileID: 2800000, guid: 1ef5e30fe6e688e4a8fb7f36053a3d27, type: 3}
+  - name: vslider-track-normal
+    region:
+      serializedVersion: 2
+      x: .612304688
+      y: .7734375
+      width: .0146484375
+      height: .169921875
+    border:
+      m_Left: 6
+      m_Right: 6
+      m_Top: 4
+      m_Bottom: 4
+    rotated: 0
+    texture: {fileID: 2800000, guid: 66f5e68c19c06cf46bfe698e90bd5174, type: 3}
+  - name: window-test
+    region:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: .483398438
+      height: .4921875
+    border:
+      m_Left: 53
+      m_Right: 53
+      m_Top: 35
+      m_Bottom: 35
+    rotated: 0
+    texture: {fileID: 2800000, guid: 6cd8375e75202ea4cbf7a4245be19dec, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

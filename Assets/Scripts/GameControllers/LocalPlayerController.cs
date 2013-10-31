@@ -1,15 +1,32 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 public class LocalPlayerController : MonoBehaviour
 {
+    public GameObject base01;
+    public GameObject base01_destroyed;
+    public GameObject base02;
+    public GameObject base02_destroyed;
+    
     public NetworkPlayerController networkPlayerController;
 
     public GameObject MyBase { get; private set; }
 
-    // Use this for initialization 
+    private GameController gameController;
 
+    public event Action ShowMenu;
+    public event Action HideMenu;
+
+    private bool menuVisible = false;
+
+    public bool MenuVisible
+    {
+        get { return menuVisible; }
+    }
+    
+    // Use this for initialization 
     void Awake()
     {
         if (Network.isServer)
@@ -23,20 +40,56 @@ public class LocalPlayerController : MonoBehaviour
 
         GetComponent<Team>().ID = (Team.TeamIdentifier)networkPlayerController.team;
 
-        foreach (GameObject spawnPoint in GameObject.FindGameObjectsWithTag(Tags.baseArea).Where(spawnPoint => spawnPoint.GetComponent<Team>().isOwnTeam(GetComponent<Team>())))
+        foreach (GameObject spawnPoint in GameObject.FindGameObjectsWithTag(Tags.baseArea).Where(spawnPoint => spawnPoint.GetComponent<Team>().IsOwnTeam(GetComponent<Team>())))
         {
             MyBase = spawnPoint;
         }
+
+        gameController = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameController.pointsTeam1 > 0)
+        {
+            base01.SetActive(false);
+            base01_destroyed.SetActive(true);
+        }
+
+        if (gameController.pointsTeam2 > 0)
+        {
+            base02.SetActive(false);
+            base02_destroyed.SetActive(true);
+        }
+        HandleInput();
+        
         if (GameObject.FindGameObjectsWithTag(Tags.player).Any(Player => Player.GetComponent<NetworkView>().isMine))
         {
             return;
         }
         Object hero = Resources.Load("hero01");
-        Network.Instantiate(hero, MyBase.transform.position, MyBase.transform.rotation, 1);
+        Network.Instantiate(hero, MyBase.transform.position, MyBase.transform.rotation, 1);  
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetButtonDown(InputTags.menu) && ShowMenu != null)
+        {
+            if (!menuVisible)
+            {
+                ShowMenu();
+                GameObject.Find("button_01_continue").GetComponent<dfButton>().Focus();
+            }
+            if (menuVisible)
+                HideMenu();
+            menuVisible = !menuVisible;
+        }
+    }
+    public void OnHideMenu()
+    {
+        if (HideMenu != null)
+            HideMenu();
+        menuVisible=!menuVisible;
     }
 }

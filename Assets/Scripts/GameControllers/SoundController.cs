@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class SoundController : MonoBehaviour
 {
@@ -7,13 +6,18 @@ public class SoundController : MonoBehaviour
     private AudioSource[] sounds = new AudioSource[3];
     private Bomb[] bombs = new Bomb[3];
 
+    public bool[] MySounds
+    {
+        get { return triggeredLanes; }
+    }
+
     private bool AnyBombExploded
     {
         get
         {
             for (int i = 0; i < 3; i++)
             {
-                if (!bombs[i].GameOver) continue;
+                if (bombs[i] != null) continue;
                 triggeredLanes[i] = false;
                 return true;
             }
@@ -23,23 +27,23 @@ public class SoundController : MonoBehaviour
 
     private bool AnyBombTriggered
     {
-        get 
-        { 
-            return (triggeredLanes[0]||triggeredLanes[1]||triggeredLanes[2]);
+        get
+        {
+            return (triggeredLanes[0] || triggeredLanes[1] || triggeredLanes[2]);
         }
     }
 
-	void Start () 
+    void Start()
     {
-	    for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            sounds[i] = GameObject.Find("soundplayer_"+(i+1)).GetComponent<AudioSource>();
-	    }
+            sounds[i] = GameObject.Find("soundplayer_" + (i + 1)).GetComponent<AudioSource>();
+        }
 
-	    for (int i = 0; i < 3; i++)
-	    {
-	        bombs[i] = GameObject.Find("bomb_lane0" + (i + 1)).GetComponent<Bomb>();
-	    }
+        for (int i = 0; i < 3; i++)
+        {
+            bombs[i] = GameObject.Find("bomb_lane0" + (i + 1)).GetComponent<Bomb>();
+        }
     }
 
     void Update()
@@ -61,7 +65,7 @@ public class SoundController : MonoBehaviour
     /// <param name="lane">The lane of the bomb, which triggered the enter-proximity warning.</param>
     public void TryToPlaySound(SoundEvent.Lane lane)
     {
-        triggeredLanes[(int) lane] = true;
+        triggeredLanes[(int)lane] = true;
     }
 
     /// <summary>

@@ -9,12 +9,12 @@ public class Team : MonoBehaviour
 
 
     [RPC]
-    public void setID(int ID)
+    public void SetID(int ID)
     {
         this.ID = (TeamIdentifier)ID;
     }
 
-    public void setID(TeamIdentifier ID)
+    public void SetID(TeamIdentifier ID)
     {
         this.ID = ID;
     }
@@ -25,28 +25,38 @@ public class Team : MonoBehaviour
     /// </summary>
     /// <param name="ownTeam"></param>
     /// <returns></returns>
-    public bool isEnemy(Team ownTeam)
+    public bool IsEnemy(Team ownTeam)
     {
         return (this.ID != ownTeam.ID);
     }
 
-    public bool isEnemy(TeamIdentifier ownTeam)
+    public bool IsEnemy(TeamIdentifier ownTeam)
     {
         return (this.ID != ownTeam);
+    }
+
+    public bool IsEnemy(int ownTeam)
+    {
+        return ((int)this.ID != ownTeam);
     }
     /// <summary>
     ///     checks if the other is in the same team
     /// </summary>
     /// <param name="ownTeam"></param>
     /// <returns></returns>
-    public bool isOwnTeam(TeamIdentifier ownTeam)
+    public bool IsOwnTeam(TeamIdentifier ownTeam)
     {
         return (this.ID == ownTeam);
     }
 
-    public bool isOwnTeam(Team ownTeam)
+    public bool IsOwnTeam(Team ownTeam)
     {
         return (this.ID == ownTeam.ID);
+    }
+
+    public bool IsOwnTeam(int ownTeam)
+    {
+        return ((int)this.ID == ownTeam);
     }
 
     public TeamIdentifier Other()
@@ -59,7 +69,7 @@ public class Team : MonoBehaviour
             case TeamIdentifier.Team2:
                 return TeamIdentifier.Team1;
         }
-        return TeamIdentifier.Team1;
+        return TeamIdentifier.NoTeam;
 
     }
 
@@ -67,8 +77,8 @@ public class Team : MonoBehaviour
     {
         if (NetworkManager.isNetwork && networkView != null && networkView.isMine && ID == TeamIdentifier.NoTeam)
         {
-            setID(GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<Team>().ID);
-            networkView.RPC("setID", RPCMode.OthersBuffered, (int)ID);
+            SetID(GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<Team>().ID);
+            networkView.RPC("SetID", RPCMode.OthersBuffered, (int)ID);
         }
     }
 }

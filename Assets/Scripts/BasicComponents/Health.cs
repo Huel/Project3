@@ -1,8 +1,14 @@
+using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkView))]
 public class Health : MonoBehaviour
 {
+    private XmlDocument heroInfo = new XMLReader("Hero01.xml").GetXML();
+    private XmlDocument minionInfo = new XMLReader("Minion.xml").GetXML();
+    private XmlDocument settingsInfo = new XMLReader("GameSettings.xml").GetXML();
+
     public float _healthPoints = 10f;
     private float _maxHealth = 10f;
     private float _incMaxHealth;
@@ -20,10 +26,7 @@ public class Health : MonoBehaviour
 
     public bool Invulnerable
     {
-        get
-        {
-            return _invulnerable;
-        }
+        get { return _invulnerable; }
         set
         {
             networkView.RPC("SetInvulnerability", RPCMode.AllBuffered, value);
@@ -59,6 +62,9 @@ public class Health : MonoBehaviour
     public void SetInvulnerability(bool value)
     {
         _invulnerable = value;
+
+        if (!networkView.isMine) return;
+        networkView.RPC("SetInvulnerability", RPCMode.OthersBuffered, value);
     }
 
     /// <summary>
@@ -180,6 +186,9 @@ public class Health : MonoBehaviour
             SetHealth(HealthPoints + healthValue);
         else
             networkView.RPC("SetHealth", networkView.owner, HealthPoints + healthValue);
+
+        if (IsAlive() && healthValue < 0f) networkView.RPC("PlayHealthSound", RPCMode.All, false);
+
         return HealthPoints;
     }
     /// <summary>
@@ -192,14 +201,17 @@ public class Health : MonoBehaviour
         if (HealthPoints == MinHealth || Invulnerable || immortal)
             return 0;
 
+        //GetComponent<DamageMaterial>().addDamageMaterial();
+
         return IncHealth(-healthValue);
     }
 
     void Update()
     {
-        if (networkView.isMine)
-            CheckHealthState();
+        if (!networkView.isMine) return;
+        CheckHealthState();
     }
+
     private void CheckHealthState()
     {
         if (IsAlive())
@@ -226,6 +238,11 @@ public class Health : MonoBehaviour
                 _deadCounter = 0;
                 SetAlive(true);
                 return;
+            }
+
+            if (_deadCounter <= 0f)
+            {
+                networkView.RPC("PlayHealthSound", RPCMode.All, true);
             }
 
             _deadCounter += Time.deltaTime;
@@ -256,13 +273,59 @@ public class Health : MonoBehaviour
         }
 
         _alive = alive;
-
-
     }
 
     [RPC]
     public void KillObject()
     {
         Destroy(gameObject);
+    }
+
+    [RPC]
+    public void PlayHealthSound(bool status)
+    {
+        if (status)
+        {
+            if (GetComponent<CharController>() != null)
+            {
+                transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("die")[0].InnerText);
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+                {
+                    if (player.GetComponent<Team>().ID != GetComponent<Team>().ID)
+                    {
+                        GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(settingsInfo.GetElementsByTagName("enemyHeroDead")[0].InnerText);
+                    }
+                    break;
+                }
+            }
+            if (GetComponentInChildren<MinionAgent>() != null)
+            {
+                transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(minionInfo.GetElementsByTagName("die")[0].InnerText);
+            }
+        }
+        else
+        {
+            int rnd = Random.Range(1, 2);
+            if (GetComponent<CharController>() != null)
+            {
+                //transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>().StartSound(heroInfo.GetElementsByTagName("beingHit")[0].InnerText);
+                transform.FindChild("sounds_hero01")
+                         .GetComponent<AudioLibrary>()
+                         .StartSound(
+                             rnd == 1
+                                 ? heroInfo.GetElementsByTagName("beingHitVariation1")[0].InnerText
+                                 : heroInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText);
+            }
+            if (GetComponent<MinionAgent>() != null)
+            {
+                //transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(minionInfo.GetElementsByTagName("beingHit")[0].InnerText);
+                transform.FindChild("sound_minion")
+                         .GetComponent<AudioLibrary>()
+                         .StartSound(
+                             rnd == 1
+                                 ? minionInfo.GetElementsByTagName("beingHitVariation1")[0].InnerText
+                                 : minionInfo.GetElementsByTagName("beingHitVariation2")[0].InnerText);
+            }
+        }
     }
 }

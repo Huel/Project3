@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -10,6 +12,7 @@ public class GameController : MonoBehaviour
     private bool gameOver;
     private float passedTime = 0f;
     private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
+    private XmlDocument settingsInfo = new XMLReader("GameSettings.xml").GetXML();
 
     private float _currentMinionSpawn = 10f;
     private float _spawnTime = 30f;
@@ -18,8 +21,17 @@ public class GameController : MonoBehaviour
     public int pointsTeam1 = 0;
     public int pointsTeam2 = 0;
 
+    public bool musicPlayed = false;
+
     [SerializeField]
     public Color[] teamColors = new Color[3];
+
+    private string message;
+
+    public string Message
+    {
+        get { return message; }
+    }
 
     void Awake()
     {
@@ -28,14 +40,7 @@ public class GameController : MonoBehaviour
 
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
-        foreach (NetworkPlayerController controller in _networkPlayerControllers)
-        {
-            if (controller.networkPlayer == player)
-            {
-                return controller;
-            }
-        }
-        return null;
+        return _networkPlayerControllers.FirstOrDefault(controller => controller.networkPlayer == player);
     }
 
     public float GameTime
@@ -57,36 +62,39 @@ public class GameController : MonoBehaviour
 
     void OnPlayerDisconnected()
     {
-        SetGameState(GameState.Disconnected);
+        if (state == GameState.Running)
+            SetGameState(GameState.Disconnected);
     }
 
     void OnDisconnectedFromServer()
     {
-        SetGameState(GameState.Disconnected);
+        if (state == GameState.Running)
+            SetGameState(GameState.Disconnected);
     }
 
-    void OnGUI()
+
+    private void YouWon()
     {
-        if (state == GameState.Disconnected)
-        {
-            GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                         "A player has been disconnected from the Game");
-        }
-        else if (gameOver)
-        {
-            if (pointsTeam1 > pointsTeam2)
-                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                        "Team 1 won the Round");
-            else
-                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                        "Team 2 won the Round");
-        }
+        message = "You won!";
+        GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
+                         .GetComponent<AudioLibrary>()
+                         .StartSound("HuelYouWin-alt");
+    }
+
+    private void YouLost()
+    {
+        message = "Sorry man! Your opponent was better. Maybe you are too weak.";
+        GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
+                 .GetComponent<AudioLibrary>()
+                 .StartSound("HuelYouLose");
     }
 
     void Update()
     {
         if (state == GameState.Disconnected)
         {
+            message = "Your opponent disconneced.";
+
             passedTime += Time.deltaTime;
 
             if (passedTime >= 3)
@@ -96,6 +104,17 @@ public class GameController : MonoBehaviour
         }
         else if (gameOver)
         {
+            if (pointsTeam1 > pointsTeam2)
+                if (!Network.isServer)
+                    YouWon();
+                else
+                    YouLost();
+            else
+                if (Network.isServer)
+                    YouWon();
+                else
+                    YouLost();
+
             passedTime += Time.deltaTime;
 
             if (passedTime >= 15)
@@ -110,6 +129,8 @@ public class GameController : MonoBehaviour
         {
             _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager) == null) return;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>() == null) return;
             GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().SpawnMinions();
         }
     }
