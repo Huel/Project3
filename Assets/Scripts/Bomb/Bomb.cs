@@ -143,12 +143,14 @@ public class Bomb : MonoBehaviour
     {
         if (explodeTeam == 1 && explosiontimer == 0)
         {
+            PlaySound("BombExplosion");
             currentBase = explosionBase1;
             current_fw1 = firework_base1_1;
             current_fw2 = firework_base1_2;
         }
         else if (explodeTeam == 2 && explosiontimer == 0)
         {
+            PlaySound("BombExplosion");
             currentBase = explosionBase2;
             current_fw1 = firework_base2_1;
             current_fw2 = firework_base2_2;
@@ -406,5 +408,20 @@ public class Bomb : MonoBehaviour
             return !(soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText].isPlaying || soundLibraryCamera.aSources[document.GetElementsByTagName("explosionInOwnBase")[0].InnerText].isPlaying);
         }
         return false;
+    }
+
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+        Debug.Log("Play");
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
+        soundLibrary.StartSound(name, delay);
+        DebugStreamer.message = name;
     }
 }

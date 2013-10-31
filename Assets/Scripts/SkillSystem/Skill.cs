@@ -41,7 +41,7 @@ public abstract class Skill : MonoBehaviour
     }
     public float StateTime { get { return _stateTime; } }
 
-    protected bool Executable
+    public bool Executable
     {
         get
         {

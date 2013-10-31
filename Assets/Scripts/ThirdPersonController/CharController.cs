@@ -168,7 +168,7 @@ public class CharController : MonoBehaviour
             {
                 if (skill1)
                 {
-                    if (skill1.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("shieldwall")[0].InnerText);
+                    if (skill1.State == Skill.SkillState.Ready && skill1.Executable) PlaySound(document.GetElementsByTagName("shieldwall")[0].InnerText);
                     skill1.Execute();
                 }
             }
@@ -176,7 +176,7 @@ public class CharController : MonoBehaviour
             {
                 if (skill2)
                 {
-                    if (skill2.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("kamikazeMission")[0].InnerText);
+                    if (skill2.State == Skill.SkillState.Ready && skill1.Executable) PlaySound(document.GetElementsByTagName("kamikazeMission")[0].InnerText);
                     skill2.Execute();
                 }
             }
@@ -184,7 +184,7 @@ public class CharController : MonoBehaviour
             {
                 if (skill3)
                 {
-                    if (skill3.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("freshMeat")[0].InnerText);
+                    if (skill3.State == Skill.SkillState.Ready && skill1.Executable) PlaySound(document.GetElementsByTagName("freshMeat")[0].InnerText);
                     skill3.Execute();
                 }
             }
@@ -192,7 +192,7 @@ public class CharController : MonoBehaviour
             {
                 if (skill4)
                 {
-                    if (skill4.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("battlecry")[0].InnerText);
+                    if (skill4.State == Skill.SkillState.Ready && skill1.Executable) PlaySound(document.GetElementsByTagName("battlecry")[0].InnerText);
                     skill4.Execute();
                 }
             }

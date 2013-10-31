@@ -18,9 +18,14 @@ public class MinionLamp : MonoBehaviour
 
     public bool getSwitchOn() { return _switchedOn; }
 
+    private AudioLibrary library;
+    private string sound;
+
     void Awake()
     {
         _team = GetComponent<Team>();
+        library = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
+        sound = new XMLReader("Minion.xml").GetXML().GetElementsByTagName("auraBuff")[0].InnerText
     }
 
     // Update is called once per frame
@@ -106,7 +111,7 @@ public class MinionLamp : MonoBehaviour
 
         _switchedOn = true;
 
-        transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(new XMLReader("Minion.xml").GetXML().GetElementsByTagName("auraBuff")[0].InnerText);
+        library.StartSound(sound);
     }
 
     [RPC]

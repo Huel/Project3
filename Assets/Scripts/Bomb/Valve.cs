@@ -60,7 +60,13 @@ public class Valve : MonoBehaviour
     private float _localProductivity = 0.0f;
     private int _localMinionCount;
     private AudioLibrary soundLibrary;
-    private XmlDocument document;
+
+    private XmlDocument documentMinion;
+    private XmlDocument documentGamesettings;
+
+    private string valveOpen;
+    private string valveClosed;
+
     private int checkRotationStatus = 0;
 
 
@@ -124,7 +130,12 @@ public class Valve : MonoBehaviour
     void Awake()
     {
         soundLibrary = transform.FindChild("valve_Sound").GetComponent<AudioLibrary>();
-        document = new XMLReader("Minion.xml").GetXML();
+        documentMinion = new XMLReader("Minion.xml").GetXML();
+        documentGamesettings = new XMLReader("GameSettings.xml").GetXML();
+
+        valveOpen = Extract("valveOpen");
+        valveClosed = Extract("valveClose");
+
         //Valve should be opened when the game starts
         _state = _openValve;
         _teamComponent = GetComponent<Team>();
@@ -149,25 +160,25 @@ public class Valve : MonoBehaviour
 
     private void HandleSounds()
     {
-        if (GetRotationDirection() == 1 && !soundLibrary.aSources[Extract("valveOpen")].isPlaying)
+        if (GetRotationDirection() == 1 && !soundLibrary.aSources[valveOpen].isPlaying)
         {
             //Debug.Log("Valve " + gameObject.name + " is opening now.");
-            PlaySound(Extract("valveOpen"));
+            PlaySound(valveOpen);
         }
-        if (GetRotationDirection() != 1 && soundLibrary.aSources[Extract("valveOpen")].isPlaying)
+        if (GetRotationDirection() != 1 && soundLibrary.aSources[valveOpen].isPlaying)
         {
             //Debug.Log("Valve " + gameObject.name + " stopped opening now.");
-            StopSound(Extract("valveOpen"));
+            StopSound(valveOpen);
         }
-        if (GetRotationDirection() == -1 && !soundLibrary.aSources[Extract("valveClose")].isPlaying)
+        if (GetRotationDirection() == -1 && !soundLibrary.aSources[valveClosed].isPlaying)
         {
             //Debug.Log("Valve " + gameObject.name + " is closing now.");
-            PlaySound(Extract("valveClose"));
+            PlaySound(valveClosed);
         }
-        if (GetRotationDirection() != -1 && soundLibrary.aSources[Extract("valveClose")].isPlaying)
+        if (GetRotationDirection() != -1 && soundLibrary.aSources[valveClosed].isPlaying)
         {
             //Debug.Log("Valve " + gameObject.name + " stopped closing now.");
-            StopSound(Extract("valveClose"));
+            StopSound(valveClosed);
         }
         if (GetRotationDirection() != -1)
         {
@@ -186,7 +197,7 @@ public class Valve : MonoBehaviour
                                             .Where(player => player.networkView.isMine)
                                             .Where(player => GetComponent<Team>().IsOwnTeam(player.GetComponent<Team>())))
         {
-            GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("underAttack")[0].InnerText);
+            GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(documentGamesettings.GetElementsByTagName("underAttack")[0].InnerText);
         }
     }
 
@@ -484,6 +495,6 @@ public class Valve : MonoBehaviour
 
     private string Extract(string tag)
     {
-        return new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName(tag)[0].InnerText;
+        return documentGamesettings.GetElementsByTagName(tag)[0].InnerText;
     }
 }
