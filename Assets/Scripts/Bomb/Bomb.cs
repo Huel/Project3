@@ -413,7 +413,6 @@ public class Bomb : MonoBehaviour
     public void PlaySound(string name, float delay = 0f)
     {
         networkView.RPC("StartSound", RPCMode.All, name, delay);
-        Debug.Log("Play");
     }
 
     [RPC]
@@ -422,6 +421,5 @@ public class Bomb : MonoBehaviour
         if (soundLibrary == null)
             soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
         soundLibrary.StartSound(name, delay);
-        DebugStreamer.message = name;
     }
 }
