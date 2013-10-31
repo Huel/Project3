@@ -6,7 +6,7 @@ public class HostList : MonoBehaviour
     public delegate void SelectionChangedHandler(ServerInfo item);
 
     public event SelectionChangedHandler SelectionChanged;
-    
+
     private List<dfControl> _items = new List<dfControl>();
 
     private dfControl _container;
@@ -22,6 +22,7 @@ public class HostList : MonoBehaviour
         _container = GetComponent<dfControl>();
         if (_container == null) return;
         _root = _container.GetRootContainer();
+        _container.EnterFocus += (control, args) => FocusOnItem();
         _networkManager = GameObject.FindGameObjectWithTag(Tags.networkManager).GetComponent<NetworkManager>();
         _noHosts = _container.Find<dfPanel>("panel_nohosts");
         DisableList();
@@ -40,10 +41,10 @@ public class HostList : MonoBehaviour
     }
 
     private void CreateHostList()
-    {  
+    {
         List<ServerInfo> hosts = _networkManager.ServerList;
         RemoveItems();
-        if(_items.Count >0) return;
+        if (_items.Count > 0) return;
         if (hosts.Count == 0)
         {
             DisableList();
@@ -93,7 +94,7 @@ public class HostList : MonoBehaviour
                         }
                     };
             }
-           
+
             item.ZOrder = _items.Count;
             item.Show();
 
@@ -107,7 +108,7 @@ public class HostList : MonoBehaviour
     {
         int count = _items.Count;
         int id = _items.IndexOf(_selected);
-        if(id == -1)
+        if (id == -1)
             return;
         if (next)
         {
@@ -130,12 +131,12 @@ public class HostList : MonoBehaviour
     }
     private void FocusOnItem()
     {
-        if(_selected!= null)
-        {    
-            if(!_selected.HasFocus)
-            _selected.Focus();
+        if (_selected != null)
+        {
+            if (!_selected.HasFocus)
+                _selected.Focus();
         }
-        else if(_items.Count > 0)
+        else if (_items.Count > 0)
         {
             _selected = _items[0];
             _selected.Focus();
@@ -146,20 +147,20 @@ public class HostList : MonoBehaviour
 
     private void RemoveItems()
     {
-            for ( int i = _items.Count-1; i>=0;i--)
-            {
-                dfControl item = _items[i];
-                if(item != null)
-                    dfPoolManager.Pool["Server"].Despawn(item.gameObject);
-            }
+        for (int i = _items.Count - 1; i >= 0; i--)
+        {
+            dfControl item = _items[i];
+            if (item != null)
+                dfPoolManager.Pool["Server"].Despawn(item.gameObject);
+        }
 
-    _items.Clear();
+        _items.Clear();
     }
 
     private void DisableList()
     {
         _noHosts.Show();
-
+        _noHosts.Focus();
 
     }
     private void EnableList()

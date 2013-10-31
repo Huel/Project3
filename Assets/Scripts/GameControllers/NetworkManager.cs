@@ -138,7 +138,11 @@ public class NetworkManager : MonoBehaviour
     //    }
     //}
 
-
+    public void CloseConnection()
+    {
+        Network.Disconnect();
+        StopBroadcastSession();
+    }
 
     void OnConnectedToServer()
     {
