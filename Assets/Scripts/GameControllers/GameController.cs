@@ -105,12 +105,12 @@ public class GameController : MonoBehaviour
         else if (gameOver)
         {
             if (pointsTeam1 > pointsTeam2)
-                if (Network.isServer)
+                if (!Network.isServer)
                     YouWon();
                 else
                     YouLost();
             else
-                if (!Network.isServer)
+                if (Network.isServer)
                     YouWon();
                 else
                     YouLost();
