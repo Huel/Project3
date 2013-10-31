@@ -72,50 +72,21 @@ public class GameController : MonoBehaviour
             SetGameState(GameState.Disconnected);
     }
 
-    void OnGUI()
+
+    private void YouWon()
     {
-        if (state == GameState.Disconnected)
-        {
-            GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                         "A player has been disconnected from the Game");
-        }
-        else if (gameOver)
-        {
-            if (!musicPlayed)
-            {
-                musicPlayed = true;
-                networkView.RPC("GameOverSound", RPCMode.AllBuffered);
-            }
-            GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                         pointsTeam1 > pointsTeam2 ? "Team 1 won the Round" : "Team 2 won the Round");
-        }
+        message = "You won!";
+        GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
+                         .GetComponent<AudioLibrary>()
+                         .StartSound("HuelYouWin-alt");
     }
 
-    [RPC]
-    public void GameOverSound()
+    private void YouLost()
     {
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
-        {
-            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-            {
-                GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
-                          .GetComponent<AudioLibrary>()
-                          .StartSound(pointsTeam1 > pointsTeam2
-                                          ? "HuelYouWin-alt"
-                                          : "HuelYouLose");
-            }
-            else
-            {
-                GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
-                          .GetComponent<AudioLibrary>()
-                          .StartSound(pointsTeam1 > pointsTeam2
-                                          ? "HuelYouLose"
-                                          : "HuelYouWin-alt");
-            }
-            break;
-        }
-        if (state == GameState.Running)
-            state = GameState.Disconnected;
+        message = "Sorry man! Your opponent was better. Maybe you are too weak.";
+        GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
+                 .GetComponent<AudioLibrary>()
+                 .StartSound("HuelYouLose");
     }
 
     void Update()
@@ -123,7 +94,7 @@ public class GameController : MonoBehaviour
         if (state == GameState.Disconnected)
         {
             message = "Your opponent disconneced.";
-            
+
             passedTime += Time.deltaTime;
 
             if (passedTime >= 3)
@@ -134,16 +105,16 @@ public class GameController : MonoBehaviour
         else if (gameOver)
         {
             if (pointsTeam1 > pointsTeam2)
-                if(Network.isServer)
-                    message = "You won!";
+                if (Network.isServer)
+                    YouWon();
                 else
-                    message = "Sorry man! Your opponent was better. Maybe you are too weak.";
+                    YouLost();
             else
                 if (!Network.isServer)
-                    message = "You won!";
+                    YouWon();
                 else
-                    message = "Sorry man! Your opponent was better. Maybe you are too weak.";
-            
+                    YouLost();
+
             passedTime += Time.deltaTime;
 
             if (passedTime >= 15)
