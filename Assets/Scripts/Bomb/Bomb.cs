@@ -117,6 +117,7 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 explodeTeam = 2;
+                PlayExplosionSound(); //This is the vocal. Not the actual explosion.
             }
         }
         else
@@ -126,6 +127,7 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 explodeTeam = 1;
+                PlayExplosionSound();
             }
         }
     }

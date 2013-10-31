@@ -33,14 +33,7 @@ public class GameController : MonoBehaviour
 
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
-        foreach (NetworkPlayerController controller in _networkPlayerControllers)
-        {
-            if (controller.networkPlayer == player)
-            {
-                return controller;
-            }
-        }
-        return null;
+        return _networkPlayerControllers.FirstOrDefault(controller => controller.networkPlayer == player);
     }
 
     public float GameTime
@@ -96,19 +89,19 @@ public class GameController : MonoBehaviour
         {
             if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
             {
-                GameObject.Find("sounds_Vocal")
+                GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
                           .GetComponent<AudioLibrary>()
                           .StartSound(pointsTeam1 > pointsTeam2
-                                          ? settingsInfo.GetElementsByTagName("victory")[0].InnerText
-                                          : settingsInfo.GetElementsByTagName("defeat")[0].InnerText);
+                                          ? "HuelYouWin-alt"
+                                          : "HuelYouLose");
             }
             else
             {
-                GameObject.Find("sounds_Vocal")
+                GameObject.FindGameObjectWithTag(Tags.camera).transform.FindChild("sounds_camera").FindChild("sounds_Vocal")
                           .GetComponent<AudioLibrary>()
                           .StartSound(pointsTeam1 > pointsTeam2
-                                          ? settingsInfo.GetElementsByTagName("defeat")[0].InnerText
-                                          : settingsInfo.GetElementsByTagName("victory")[0].InnerText);
+                                          ? "HuelYouLose"
+                                          : "HuelYouWin-alt");
             }
             break;
         }

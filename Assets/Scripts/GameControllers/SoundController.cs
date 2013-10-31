@@ -17,7 +17,7 @@ public class SoundController : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                if (!bombs[i].GameOver) continue;
+                if (bombs[i] != null) continue;
                 triggeredLanes[i] = false;
                 return true;
             }
