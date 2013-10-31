@@ -34,7 +34,7 @@ public class BackButton : MonoBehaviour
 
     public void Use()
     {
-        if (Back != null)
+        if (Enabled && (!NeedFocus || _control.HasFocus) && Back != null)
             Back();
     }
 }
