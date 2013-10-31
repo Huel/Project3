@@ -67,9 +67,9 @@ public class GameController : MonoBehaviour
     }
 
     void OnDisconnectedFromServer()
-<<<<<<< Updated upstream
     {
-        SetGameState(GameState.Disconnected);
+        if (state == GameState.Running)
+            SetGameState(GameState.Disconnected);
     }
 
     void OnGUI()
@@ -114,11 +114,8 @@ public class GameController : MonoBehaviour
             }
             break;
         }
-=======
-    {  
         if (state == GameState.Running)
             state = GameState.Disconnected;
->>>>>>> Stashed changes
     }
 
     void Update()

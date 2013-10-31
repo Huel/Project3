@@ -47,12 +47,9 @@ public class CharController : MonoBehaviour
         _healthComponent = GetComponent<Health>();
         _speedComponent = GetComponent<Speed>();
         _controller = GetComponent<CharacterController>();
-<<<<<<< Updated upstream
         PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
-=======
 
         _localPlayerController = GameObject.FindGameObjectWithTag(Tags.localPlayerController).GetComponent<LocalPlayerController>();
->>>>>>> Stashed changes
     }
 
     void Update()
