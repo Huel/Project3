@@ -25,7 +25,7 @@ public class MinionLamp : MonoBehaviour
     {
         _team = GetComponent<Team>();
         library = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
-        sound = new XMLReader("Minion.xml").GetXML().GetElementsByTagName("auraBuff")[0].InnerText
+        sound = new XMLReader("Minion.xml").GetXML().GetElementsByTagName("auraBuff")[0].InnerText;
     }
 
     // Update is called once per frame
