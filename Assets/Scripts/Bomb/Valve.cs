@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 
 public enum ValveStates { Closed, Opened, FullyOccupied, NotFullyOccupied, NotOccupied }
@@ -58,6 +59,9 @@ public class Valve : MonoBehaviour
     //complete productivity of the local minions
     private float _localProductivity = 0.0f;
     private int _localMinionCount;
+    private AudioLibrary soundLibrary;
+    private XmlDocument document;
+    private int checkRotationStatus = 0;
 
 
     //Properties, read only:
@@ -111,11 +115,7 @@ public class Valve : MonoBehaviour
             //If not completely closed or opened it's good to know if there are minions on it and if other minions can join
             if (_minionCount > 0)
             {
-                if (_minionCount < _maxMinionCount)
-                {
-                    return ValveStates.NotFullyOccupied;
-                }
-                return ValveStates.FullyOccupied;
+                return _minionCount < _maxMinionCount ? ValveStates.NotFullyOccupied : ValveStates.FullyOccupied;
             }
             return ValveStates.NotOccupied;
         }
@@ -123,6 +123,8 @@ public class Valve : MonoBehaviour
 
     void Awake()
     {
+        soundLibrary = transform.FindChild("valve_Sound").GetComponent<AudioLibrary>();
+        document = new XMLReader("Minion.xml").GetXML();
         //Valve should be opened when the game starts
         _state = _openValve;
         _teamComponent = GetComponent<Team>();
@@ -135,6 +137,7 @@ public class Valve : MonoBehaviour
 
     void Update()
     {
+        HandleSounds();
         //Set localPlayer ID if not already done
         if (_localPlayerID == -1)
             FindLocalPlayerID();
@@ -142,6 +145,49 @@ public class Valve : MonoBehaviour
         CheckLocalMinionCount();
         CheckLocalProductivity();
         UseValve();
+    }
+
+    private void HandleSounds()
+    {
+        if (GetRotationDirection() == 1 && !soundLibrary.aSources[Extract("valveOpen")].isPlaying)
+        {
+            //Debug.Log("Valve " + gameObject.name + " is opening now.");
+            PlaySound(Extract("valveOpen"));
+        }
+        if (GetRotationDirection() != 1 && soundLibrary.aSources[Extract("valveOpen")].isPlaying)
+        {
+            //Debug.Log("Valve " + gameObject.name + " stopped opening now.");
+            StopSound(Extract("valveOpen"));
+        }
+        if (GetRotationDirection() == -1 && !soundLibrary.aSources[Extract("valveClose")].isPlaying)
+        {
+            //Debug.Log("Valve " + gameObject.name + " is closing now.");
+            PlaySound(Extract("valveClose"));
+        }
+        if (GetRotationDirection() != -1 && soundLibrary.aSources[Extract("valveClose")].isPlaying)
+        {
+            //Debug.Log("Valve " + gameObject.name + " stopped closing now.");
+            StopSound(Extract("valveClose"));
+        }
+        if (GetRotationDirection() != -1)
+        {
+            checkRotationStatus = 0;
+            return;
+        }
+        if (checkRotationStatus != 0) return;
+        checkRotationStatus = -1;
+        networkView.RPC("SoundValveUnderAttack", RPCMode.All);
+    }
+
+    [RPC]
+    public void SoundValveUnderAttack()
+    {
+        foreach (var player in GameObject.FindGameObjectsWithTag(Tags.player)
+                                            .Where(player => player.networkView.isMine)
+                                            .Where(player => GetComponent<Team>().IsOwnTeam(player.GetComponent<Team>())))
+        {
+            GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>().StartSound(new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName("underAttack")[0].InnerText);
+        }
     }
 
     //Synchronize the float state of the valve through the network view
@@ -365,5 +411,79 @@ public class Valve : MonoBehaviour
     public void UpdateOccupant(int team)
     {
         _occupant = (Team.TeamIdentifier)team;
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlayValveSound()
+    {
+        networkView.RPC("StartValveSound", RPCMode.All);
+    }
+
+    [RPC]
+    public void StartValveSound()
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
+        {
+            if (player.GetComponent<Team>().ID != GetComponent<Team>().ID)
+            {
+                GameObject.Find("sounds_Vocal")
+                          .GetComponent<AudioLibrary>()
+                          .StartSound(
+                              ValveState == ValveStates.Opened
+                                  ? Extract("valveLost")
+                                  : Extract("valveConquered"));
+            }
+            else
+            {
+                GameObject.Find("sounds_Vocal")
+                          .GetComponent<AudioLibrary>()
+                          .StartSound(
+                              ValveState == ValveStates.Opened
+                                  ? Extract("valveConquered")
+                                  : Extract("valveLost"));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("valve_Sound").GetComponent<AudioLibrary>();
+        soundLibrary.StartSound(name, delay);
+    }
+
+    /// <summary>
+    /// Tries to stop sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void StopSound(string name)
+    {
+        networkView.RPC("EndSound", RPCMode.All, name);
+    }
+
+    [RPC]
+    public void EndSound(string name)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("valve_Sound").GetComponent<AudioLibrary>();
+        soundLibrary.StopSound(name);
+    }
+
+    private string Extract(string tag)
+    {
+        return new XMLReader("GameSettings.xml").GetXML().GetElementsByTagName(tag)[0].InnerText;
     }
 }

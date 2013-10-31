@@ -8,6 +8,8 @@ public class CharController : MonoBehaviour
     private OrbitCamera _gamecam;
     private Health _healthComponent;
     private Speed _speedComponent;
+    private System.Xml.XmlDocument document;
+    private AudioLibrary soundLibrary;
 
     private float _speed = 0f;
     private const float _maxSideSpeed = 0.75f;
@@ -37,11 +39,14 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
+        soundLibrary = transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>();
+        document = new XMLReader("Hero01.xml").GetXML();
         name = "Hero(own)";
         _animator = GetComponent<Animator>();
         _healthComponent = GetComponent<Health>();
         _speedComponent = GetComponent<Speed>();
         _controller = GetComponent<CharacterController>();
+        PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
     }
 
     void Update()
@@ -115,6 +120,16 @@ public class CharController : MonoBehaviour
             //No moving sideways and backwards, that's why send the angle 0 to the animator    
             _animator.SetFloat(AnimatorTags.angle, 0f);
         }
+
+        //if (_speed > 0.1f //Are you moving
+        //    && soundLibrary != null
+        //    && soundLibrary.aSources != null
+        //    && soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText] != null
+        //    && !soundLibrary.aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying) //Are you not yet playing the moving sound
+        //{
+        //    PlaySound(document.GetElementsByTagName("run")[0].InnerText);
+        //}
+
         //Use gravity.
         _controller.Move(Physics.gravity);
         //Send the character speed (related to his default speed) to the animator to blend the animation
@@ -137,27 +152,44 @@ public class CharController : MonoBehaviour
             if (CustomInput.GetTriggerDown(InputTags.basicAttack))
             {
                 if (basicAttack)
-                    basicAttack.Execute();
+                {
+                    if (basicAttack.Execute())
+                    {
+                        PlaySound(document.GetElementsByTagName("basicAttack")[0].InnerText);
+                    }
+                }
             }
             if (Input.GetButtonDown(InputTags.skill1) || Input.GetKeyDown(KeyCode.A))
             {
                 if (skill1)
+                {
+                    if (skill1.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("shieldwall")[0].InnerText);
                     skill1.Execute();
+                }
             }
-            if (Input.GetButtonDown(InputTags.skill2))
+            if (Input.GetButtonDown(InputTags.skill2) || Input.GetKeyDown(KeyCode.S))
             {
                 if (skill2)
+                {
+                    if (skill2.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("kamikazeMission")[0].InnerText);
                     skill2.Execute();
+                }
             }
-            if (Input.GetButtonDown(InputTags.skill3))
+            if (Input.GetButtonDown(InputTags.skill3) || Input.GetKeyDown(KeyCode.D))
             {
                 if (skill3)
+                {
+                    if (skill3.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("freshMeat")[0].InnerText);
                     skill3.Execute();
+                }
             }
-            if (Input.GetButtonDown(InputTags.skill4))
+            if (Input.GetButtonDown(InputTags.skill4) || Input.GetKeyDown(KeyCode.F))
             {
                 if (skill4)
+                {
+                    if (skill4.State == Skill.SkillState.Ready) PlaySound(document.GetElementsByTagName("battlecry")[0].InnerText);
                     skill4.Execute();
+                }
             }
 
             HandleSquadInput();
@@ -234,5 +266,22 @@ public class CharController : MonoBehaviour
     {
         if (_gamecam == null)
             _gamecam = GameObject.FindGameObjectWithTag(Tags.camera).GetComponent<OrbitCamera>();
+    }
+
+    /// <summary>
+    /// Tries to play sound.
+    /// </summary>
+    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
+    public void PlaySound(string name, float delay = 0f)
+    {
+        networkView.RPC("StartSound", RPCMode.All, name, delay);
+    }
+
+    [RPC]
+    public void StartSound(string name, float delay)
+    {
+        if (soundLibrary == null)
+            soundLibrary = transform.FindChild("sounds_hero01").GetComponent<AudioLibrary>();
+        soundLibrary.StartSound(name, delay);
     }
 }
