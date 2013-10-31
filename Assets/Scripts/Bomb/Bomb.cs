@@ -116,6 +116,7 @@ public class Bomb : MonoBehaviour
             if (WaypointB == null)
             {
                 explodeTeam = 2;
+                PlayExplosionSound();
             }
         }
         else
@@ -125,6 +126,7 @@ public class Bomb : MonoBehaviour
             if (WaypointA == null)
             {
                 explodeTeam = 1;
+                PlayExplosionSound();
             }
         }
     }
@@ -401,7 +403,7 @@ public class Bomb : MonoBehaviour
                 GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i]) continue;
             checkTriggeredSound[i] =
                 GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i];
-            return !soundLibrary.aSources[document.GetElementsByTagName("explosion")[0].InnerText].isPlaying;
+            return !(soundLibrary.aSources[document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText].isPlaying || soundLibrary.aSources[document.GetElementsByTagName("explosionInOwnBase")[0].InnerText].isPlaying);
         }
         return false;
     }

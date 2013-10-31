@@ -141,6 +141,8 @@ public class GameController : MonoBehaviour
         {
             _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager) == null) return;
+            if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>() == null) return;
             GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().SpawnMinions();
         }
     }
