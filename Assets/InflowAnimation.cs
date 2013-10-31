@@ -27,12 +27,6 @@ public class InflowAnimation : MonoBehaviour
     private float _minSteam = 3f;
     private float _maxSteam = 10f;
     private float _steamOffset = 5.33f;
-
-    private AudioSource _waterSound
-    {
-        get { return GetComponent<AudioSource>(); }
-    }
-
     // Use this for initialization
     [ExecuteInEditMode]
     void Awake()
@@ -55,7 +49,6 @@ public class InflowAnimation : MonoBehaviour
             SetAnimation(_currentState / 100f);
         }
 
-        _waterSound.volume = valve.State / 100f;
     }
 
     private void Mirror(bool m)

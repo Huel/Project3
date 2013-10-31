@@ -105,8 +105,6 @@ public class MinionLamp : MonoBehaviour
         }
 
         _switchedOn = true;
-
-        transform.FindChild("sound_minion").GetComponent<AudioLibrary>().StartSound(new XMLReader("Minion.xml").GetXML().GetElementsByTagName("auraBuff")[0].InnerText);
     }
 
     [RPC]

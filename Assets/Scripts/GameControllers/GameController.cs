@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -12,7 +10,6 @@ public class GameController : MonoBehaviour
     private bool gameOver;
     private float passedTime = 0f;
     private List<NetworkPlayerController> _networkPlayerControllers = new List<NetworkPlayerController>();
-    private XmlDocument settingsInfo = new XMLReader("GameSettings.xml").GetXML();
 
     private float _currentMinionSpawn = 10f;
     private float _spawnTime = 30f;
@@ -20,8 +17,6 @@ public class GameController : MonoBehaviour
 
     public int pointsTeam1 = 0;
     public int pointsTeam2 = 0;
-
-    public bool musicPlayed = false;
 
     [SerializeField]
     public Color[] teamColors = new Color[3];
@@ -33,7 +28,14 @@ public class GameController : MonoBehaviour
 
     public NetworkPlayerController GetNetworkPlayerController(NetworkPlayer player)
     {
-        return _networkPlayerControllers.FirstOrDefault(controller => controller.networkPlayer == player);
+        foreach (NetworkPlayerController controller in _networkPlayerControllers)
+        {
+            if (controller.networkPlayer == player)
+            {
+                return controller;
+            }
+        }
+        return null;
     }
 
     public float GameTime
@@ -72,38 +74,12 @@ public class GameController : MonoBehaviour
         }
         else if (gameOver)
         {
-            if (!musicPlayed)
-            {
-                musicPlayed = true;
-                networkView.RPC("GameOverSound", RPCMode.AllBuffered);
-            }
-            GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
-                         pointsTeam1 <= pointsTeam2 ? "Team 2 won the Round" : "Team 1 won the Round");
-        }
-    }
-
-    [RPC]
-    public void GameOverSound()
-    {
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
-        {
-            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-            {
-                GameObject.Find("sounds_Vocal")
-                          .GetComponent<AudioLibrary>()
-                          .StartSound(pointsTeam1 > pointsTeam2
-                                          ? settingsInfo.GetElementsByTagName("victory")[0].InnerText
-                                          : settingsInfo.GetElementsByTagName("defeat")[0].InnerText);
-            }
+            if (pointsTeam1 > pointsTeam2)
+                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
+                        "Team 1 won the Round");
             else
-            {
-                GameObject.Find("sounds_Vocal")
-                          .GetComponent<AudioLibrary>()
-                          .StartSound(pointsTeam1 > pointsTeam2
-                                          ? settingsInfo.GetElementsByTagName("defeat")[0].InnerText
-                                          : settingsInfo.GetElementsByTagName("victory")[0].InnerText);
-            }
-            break;
+                GUI.TextArea(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.1f),
+                        "Team 2 won the Round");
         }
     }
 
@@ -134,8 +110,6 @@ public class GameController : MonoBehaviour
         {
             _currentMinionSpawn = _spawnTime;
             _spawnTimer = 0;
-            if (GameObject.FindGameObjectWithTag(Tags.minionManager) == null) return;
-            if (GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>() == null) return;
             GameObject.FindGameObjectWithTag(Tags.minionManager).GetComponent<MinionManager>().SpawnMinions();
         }
     }

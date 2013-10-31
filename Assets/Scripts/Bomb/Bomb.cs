@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkView))]
@@ -16,7 +15,6 @@ public class Bomb : MonoBehaviour
     public List<GameObject> valvesA = new List<GameObject>();
     public List<GameObject> valvesB = new List<GameObject>();
     private GameObject target;
-    private bool[] checkTriggeredSound = new bool[3];
 
     public int explodeTeam = 0;
     private float explosiontimer = 0;
@@ -61,9 +59,6 @@ public class Bomb : MonoBehaviour
     State[] m_BufferedState = new State[20];
     int m_TimestampCount;
     private bool gameOver = false;
-    private XmlDocument document;
-    private AudioLibrary soundLibrary;
-    private AudioLibrary soundLibraryCamera;
 
     public bool GameOver
     {
@@ -72,9 +67,6 @@ public class Bomb : MonoBehaviour
 
     void Start()
     {
-        soundLibrary = transform.FindChild("sound_bomb").FindChild("sounds_SFX").GetComponent<AudioLibrary>();
-        document = new XMLReader("GameSettings.xml").GetXML();
-        soundLibraryCamera = GameObject.Find("sounds_Vocal").GetComponent<AudioLibrary>();
         movementSpeed = float.Parse(new XMLReader("Bomb.xml").GetXML().GetElementsByTagName("speed")[0].InnerText);
         towardsDestination = new GameObject();
     }
@@ -86,8 +78,6 @@ public class Bomb : MonoBehaviour
             SmoothNetworkMovement();
             return;
         }
-
-        if (CheckTriggeredPlaySound()) PlayTriggeredSound();
 
         if (explodeTeam != 0)
             Explode();
@@ -108,7 +98,7 @@ public class Bomb : MonoBehaviour
     {
         if (!CanIPassValve(waypoint)) return;
 
-
+       
         if (waypoint == WaypointB)
         {
             WaypointA = WaypointB;
@@ -175,7 +165,7 @@ public class Bomb : MonoBehaviour
             Network.Instantiate(Resources.Load("Fireworks"), current_fw1.transform.position, current_fw1.transform.rotation, 1);
             Network.Instantiate(Resources.Load("Fireworks"), current_fw2.transform.position, current_fw2.transform.rotation, 1);
             Network.Instantiate(Resources.Load("Fireworks"), currentBase.transform.position, currentBase.transform.rotation, 1);
-        }
+        }   
     }
 
     [RPC]
@@ -322,87 +312,5 @@ public class Bomb : MonoBehaviour
         }
 
         return -1;
-    }
-
-    public void PlayTriggeredSound()
-    {
-        networkView.RPC("TriggerSound", RPCMode.All);
-    }
-
-    [RPC]
-    public void TriggerSound()
-    {
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
-        {
-            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-            {
-                soundLibraryCamera
-                         .StartSound(
-                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
-                                 ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
-                                 : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
-                return;
-            }
-            soundLibraryCamera
-                     .StartSound(
-                         GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
-                             ? document.GetElementsByTagName("bombCloseToEnemy")[0].InnerText
-                             : document.GetElementsByTagName("bombCloseToOwn")[0].InnerText, 0f);
-            return;
-        }
-    }
-
-    /// <summary>
-    /// Tries to play sound.
-    /// </summary>
-    /// <param name="name">Name of the Sound file, should be extracted from an XML!</param>
-    public void PlayExplosionSound()
-    {
-        networkView.RPC("ExplosionSound", RPCMode.All);
-    }
-
-    [RPC]
-    public void ExplosionSound()
-    {
-        //soundLibrary.StartSound(document.GetElementsByTagName("explosion")[0].InnerText, 0f);
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag(Tags.player).Where(player => player.networkView.isMine))
-        {
-            if (player.GetComponent<Team>().ID == Team.TeamIdentifier.Team1)
-            {
-                soundLibraryCamera
-                         .StartSound(
-                             GetDistance(transform.position, GameObject.Find("base02").transform.position) < GetDistance(transform.position, GameObject.Find("base01").transform.position)
-                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
-                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
-            }
-            else
-            {
-                soundLibraryCamera
-                         .StartSound(
-                             GetDistance(transform.position, GameObject.Find("base01").transform.position) < GetDistance(transform.position, GameObject.Find("base02").transform.position)
-                                 ? document.GetElementsByTagName("explosionInEnemyBase")[0].InnerText
-                                 : document.GetElementsByTagName("explosionInOwnBase")[0].InnerText, 0f);
-            }
-        }
-    }
-
-    private float GetDistance(Vector3 from, Vector3 to)
-    {
-        return Mathf.Abs((from - to).magnitude);
-    }
-
-    private bool CheckTriggeredPlaySound()
-    {
-        if (gameObject.name != "bomb_lane01") return false;
-
-        for (int i = 0; i < 3; i++)
-        {
-            if (checkTriggeredSound[i] ==
-                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i]) continue;
-            checkTriggeredSound[i] =
-                GameObject.FindGameObjectWithTag(Tags.soundManager).GetComponent<SoundController>().MySounds[i];
-            return !soundLibrary.aSources[document.GetElementsByTagName("explosion")[0].InnerText].isPlaying;
-        }
-        return false;
     }
 }

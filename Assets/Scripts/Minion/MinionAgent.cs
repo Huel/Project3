@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 public enum ManipulateStates { Target, ResetTarget, Movement }
@@ -17,7 +16,7 @@ public class MinionAgent : MonoBehaviour
     private Target _origin;         // came from here
     public Target _target;         // current target
     private Target _targetSaved;         // current target (Saved for overwritting processces)
-
+    
     private float _destinationOffset = 1f;
     public float productivity = 1f;
 
@@ -28,10 +27,6 @@ public class MinionAgent : MonoBehaviour
     private bool buff;
 
     private bool scared;
-
-
-    private AudioLibrary soundLibrary;
-    public XmlDocument document;
 
     public Range attentionRange;
     public Range looseAttentionRange;
@@ -78,8 +73,6 @@ public class MinionAgent : MonoBehaviour
 
     void Start()
     {
-        soundLibrary = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
-        document = new XMLReader("Minion.xml").GetXML();
         _agent = gameObject.GetComponent<NavMeshAgent>();
 
         attentionRange.SetActive(_target == null);
@@ -95,7 +88,6 @@ public class MinionAgent : MonoBehaviour
             looseAttentionRange.SetActive(false);
             contact.SetActive(false);
         }
-        PlaySound(document.GetElementsByTagName("spawn")[0].InnerText);
     }
 
     void Update()
@@ -124,7 +116,7 @@ public class MinionAgent : MonoBehaviour
     }
 
     void TargetBehavior()
-    {
+    {  
         // no target
         if (_target == null)
         {
@@ -180,18 +172,6 @@ public class MinionAgent : MonoBehaviour
 
         if (_target != null && _target.type == TargetType.Dead)
             _target = null;
-
-        if ((_target == null
-            || GetDistance(transform.position, _target.transform.position) < 0.5f) //Are you running
-            && GetComponent<Health>().IsAlive()                                    //Are you alive
-            && !transform.FindChild("sound_minion").GetComponent<AudioLibrary>()
-            .aSources[document.GetElementsByTagName("run")[0].InnerText].isPlaying)//Is the running sound not playing yet
-            PlaySound(document.GetElementsByTagName("run")[0].InnerText);
-    }
-
-    private float GetDistance(Vector3 from, Vector3 to)
-    {
-        return Mathf.Abs((to - from).magnitude);
     }
 
     void SelectTarget()
@@ -210,29 +190,14 @@ public class MinionAgent : MonoBehaviour
     void ContactBehavior()
     {
         if (contact.Contact(_target) && _target != null)
-        {
+        { 
             if (_agent.enabled) _agent.Stop(true);
-
+            
             // Enemy
             if (basicAttack && (_target.type == TargetType.Hero || _target.type == TargetType.Minion))
             {
                 transform.LookAt(_target.transform);
-                if (basicAttack.Execute())
-                {
-                    int rnd = Random.Range(1, 3);
-                    switch (rnd)
-                    {
-                        case 1:
-                            PlaySound(document.GetElementsByTagName("basicAttackVariation1")[0].InnerText);
-                            break;
-                        case 2:
-                            PlaySound(document.GetElementsByTagName("basicAttackVariation2")[0].InnerText);
-                            break;
-                        case 3:
-                            PlaySound(document.GetElementsByTagName("basicAttackVariation3")[0].InnerText);
-                            break;
-                    }
-                }
+                basicAttack.Execute();
 
                 if (_target.type == TargetType.Minion)
                     _target.networkView.RPC("GetAttacked", _target.networkView.owner, gameObject.networkView.viewID);
@@ -296,7 +261,7 @@ public class MinionAgent : MonoBehaviour
                 case (ManipulateStates.Target):
                     fixedTarget = true;
                     _targetSaved = _target;
-                    if (value == "Base" || value == "Flee")
+                    if(value=="Base" || value=="Flee")
                     {
                         GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.baseArea);
                         foreach (GameObject gameObj in objects)
@@ -306,11 +271,9 @@ public class MinionAgent : MonoBehaviour
                                 _target = gameObj.GetComponent<Target>();
                                 GetComponent<Speed>().SetSpeedMultiplier(1.2f);
                                 GetComponent<MinionLamp>().KamikazeStart();
-                                PlaySound(document.GetElementsByTagName("kamikaze")[0].InnerText);
                             }
                             if (value == "Flee" && gameObj.GetComponent<Team>().IsOwnTeam(GetComponent<Team>()))
                             {
-                                PlaySound(document.GetElementsByTagName("terrified")[0].InnerText);
                                 _target = gameObj.GetComponent<Target>();
                                 scared = true;
                             }
@@ -329,7 +292,7 @@ public class MinionAgent : MonoBehaviour
                     break;
 
                 case (ManipulateStates.Movement):
-
+                    
                     _agent.enabled = bool.Parse(value);
                     basicAttack.enabled = bool.Parse(value);
                     scared = !bool.Parse(value);
@@ -340,18 +303,5 @@ public class MinionAgent : MonoBehaviour
         {
             networkView.RPC("Manipulate", networkView.owner, (int)state, id, (value == "") ? "" : value);
         }
-    }
-
-    public void PlaySound(string name, float delay = 0f)
-    {
-        networkView.RPC("StartSound", RPCMode.All, name, delay);
-    }
-
-    [RPC]
-    public void StartSound(string name, float delay)
-    {
-        if (soundLibrary == null)
-            soundLibrary = transform.FindChild("sound_minion").GetComponent<AudioLibrary>();
-        soundLibrary.StartSound(name, delay);
     }
 }
