@@ -18,7 +18,7 @@ public class PojectBuilder : MonoBehaviour
         //The build should be created in the right directory
         string path = Application.dataPath + "/../build/";
         //Save the IP-address to the NetworkSettings.xml (for local testing)
-        SaveIPToXML("NetworkSettings.xml");
+        //SaveIPToXML("NetworkSettings.xml");
 
         //Find all scene-files
         string[] scenes = Directory.GetFiles(Application.dataPath + "/Scenes", "*.unity");
